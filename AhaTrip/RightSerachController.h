@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface RightSerachController : UIViewController
-
+#import "EGRefreshTableView.h"
+#import "CusSearchDisplayController.h"
+@interface RightSerachController : UIViewController<EGRefreshTableViewDelegate,UITableViewDataSource,UISearchDisplayDelegate>
+{
+    EGRefreshTableView * _tableView;
+    UISearchBar * _searchBar;
+    CusSearchDisplayController * _searchDisPlay;
+}
 @end

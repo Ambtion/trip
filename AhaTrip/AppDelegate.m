@@ -38,6 +38,7 @@
     LeftMenuController *leftVC = [[LeftMenuController alloc] init];
     
     UINavigationController * rightNav = [[UINavigationController alloc] initWithRootViewController:[[RightSerachController alloc] init]];
+    rightNav.navigationBar.barStyle = UIBarStyleBlack;
     [rightNav.navigationBar setHidden:YES];
     
     IIViewDeckController * deckViewController = [[IIViewDeckController alloc] initWithCenterViewController:lp leftViewController:leftVC rightViewController:rightNav];
@@ -45,11 +46,11 @@
     nav_center.navigationBar.barStyle = UIBarStyleBlack;
     [nav_center.navigationBar setHidden:YES];
     self.window.rootViewController = nav_center;
-    
     [self.window makeKeyAndVisible];
     //
     return YES;
 }
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSString * token = [NSString stringWithFormat:@"%@",deviceToken];
