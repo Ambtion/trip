@@ -12,7 +12,7 @@
 #import "PlarzeViewController.h"
 
 static  NSString *   menuText[4] =   {@"主页",@"个人昵称",@"消息",@"设置"};
-static  NSString *   image[4]    =   {@"localPhoto.png",@"cloundPhoto.png",@"shareHistory.png",@"hotUser.png"};
+static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
 
 @implementation LeftMenuController
 
@@ -25,12 +25,11 @@ static  NSString *   image[4]    =   {@"localPhoto.png",@"cloundPhoto.png",@"sha
     UIImageView * bgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     bgView.image = [UIImage imageNamed:@"LeftMenuGround.png"];
     [self.view addSubview:bgView];
-    
+    _selectPath = [NSIndexPath indexPathForRow:0 inSection:0];
 //    UIImageView * logoText = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 69, 320, 59)];
 //    logoText.image = [UIImage imageNamed:@"logoText.png"];
 //    [self.view addSubview:logoText];
     
-    //控制statuBar
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds                                                  style:UITableViewStylePlain];
     _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     _tableView.backgroundColor = [UIColor clearColor];
@@ -39,6 +38,11 @@ static  NSString *   image[4]    =   {@"localPhoto.png",@"cloundPhoto.png",@"sha
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
     [_tableView reloadData];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_tableView selectRowAtIndexPath:_selectPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 #pragma mark - dataSource
@@ -58,18 +62,41 @@ static  NSString *   image[4]    =   {@"localPhoto.png",@"cloundPhoto.png",@"sha
         if (!cell) {
             cell = [[LeftMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
         }
-        cell.iconImage.image = [UIImage imageNamed:image[indexPath.row]];
+        cell.iconImage.imageView.image = [UIImage imageNamed:image[indexPath.row]];
         cell.titleLabel.text = menuText[indexPath.row];
+        [cell.countLabel setHidden:indexPath.row != 2];
+        
         return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.view.userInteractionEnabled = NO;
+    [self.viewDeckController closeLeftViewBouncing:^(IIViewDeckController *controller) {
+        [self changeCenterControllerWith:indexPath];
+        self.view.userInteractionEnabled = YES;
+    }];
 }
 
 - (void)changeCenterControllerWith:(NSIndexPath*)indexPath
 {
-    
+    _selectPath = indexPath;
+    if (indexPath.row == 0) {
+        self.viewDeckController.centerController = [[PlarzeViewController alloc] init];
+    }
+    if (indexPath.row == 1) {
+        self.viewDeckController.centerController = [[PlarzeViewController alloc] init];
+    }
+    if (indexPath.row == 2) {
+        self.viewDeckController.centerController = [[PlarzeViewController alloc] init];
+    }
+    if (indexPath.row == 3) {
+        self.viewDeckController.centerController = [[PlarzeViewController alloc] init];
+    }
+
 }
 @end

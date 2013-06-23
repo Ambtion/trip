@@ -1,13 +1,20 @@
 //
 //  CountLabel.h
-//  AhaTrip
+//  SohuCloudPics
 //
-//  Created by Qu on 13-6-22.
-//  Copyright (c) 2013年 ke. All rights reserved.
+//  Created by sohu on 13-1-23.
+//
 //
 
 #import <UIKit/UIKit.h>
 
-@interface CountLabel : UIView
-
+@interface CountLabel : UILabel
+{
+    UIImageView * _bgImageView;
+    UILabel * _baseLabel;
+    UIImageView * _iconImageView;
+    BOOL isIconModel;
+}
+@property(strong,nonatomic)UIImage * iconImage;
+- (id)initIconLabeWithFrame:(CGRect)frame;
 @end

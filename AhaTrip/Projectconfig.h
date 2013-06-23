@@ -6,6 +6,7 @@
 //  Copyright (c) 2013年 Qu. All rights reserved.
 //
 
+#import "IIViewDeckController.h"
 
 #define ___DEBUG 1
 

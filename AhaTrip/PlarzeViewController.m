@@ -17,8 +17,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    DLog(@"%@",NSStringFromCGRect(self.view.frame));
+    self.view.backgroundColor = [UIColor redColor];
 	// Do any additional setup after loading the view.
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    DLog(@"%@",NSStringFromCGRect(self.view.frame));
 }
 - (void)viewWillAppear:(BOOL)animated
 {

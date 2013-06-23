@@ -67,7 +67,6 @@ enum {
 };
 typedef UInt32 IIViewDeckNavigationControllerBehavior;
 
-
 enum {
     IIViewDeckLedgeSizeMode, // when rotating, the ledge sizes are kept (side views are more/less visible)
     IIViewDeckViewSizeMode  // when rotating, the size view sizes are kept (ledges change)

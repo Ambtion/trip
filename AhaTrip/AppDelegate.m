@@ -11,6 +11,7 @@
 #import "IIViewDeckController.h"
 #import "PlarzeViewController.h"
 #import "LeftMenuController.h"
+#import "RightSerachController.h"
 
 @implementation AppDelegate
 - (void)configProject
@@ -35,13 +36,16 @@
     PlarzeViewController * lp = [[PlarzeViewController alloc] init];
     //左菜单
     LeftMenuController *leftVC = [[LeftMenuController alloc] init];
-    IIViewDeckController * deckViewController = [[IIViewDeckController alloc] initWithCenterViewController:lp leftViewController:leftVC];
     
-    deckViewController.navigationControllerBehavior = IIViewDeckNavigationControllerIntegrated;
-    deckViewController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
-    UINavigationController * nav =[[UINavigationController alloc] initWithRootViewController:deckViewController];
-    nav.navigationBar.barStyle = UIBarStyleBlack;
-    self.window.rootViewController = nav;
+    UINavigationController * rightNav = [[UINavigationController alloc] initWithRootViewController:[[RightSerachController alloc] init]];
+    [rightNav.navigationBar setHidden:YES];
+    
+    IIViewDeckController * deckViewController = [[IIViewDeckController alloc] initWithCenterViewController:lp leftViewController:leftVC rightViewController:rightNav];
+    UINavigationController * nav_center =[[UINavigationController alloc] initWithRootViewController:deckViewController];
+    nav_center.navigationBar.barStyle = UIBarStyleBlack;
+    [nav_center.navigationBar setHidden:YES];
+    self.window.rootViewController = nav_center;
+    
     [self.window makeKeyAndVisible];
     //
     return YES;

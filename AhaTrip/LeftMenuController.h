@@ -11,5 +11,6 @@
 @interface LeftMenuController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView * _tableView;
+    NSIndexPath * _selectPath;
 }
 @end
