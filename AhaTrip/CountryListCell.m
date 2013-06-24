@@ -26,7 +26,7 @@
         self.selectedBackgroundView = image;
         
         UIImageView * line = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menuLine.png"]];
-        line.frame = CGRectMake(0, self.frame.size.height - 1, 320, 1);
+        line.frame = CGRectMake(0, self.frame.size.height - 2, 320, 2);
         line.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         [self.contentView addSubview:line];
         [self addCNameLabel];
