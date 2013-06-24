@@ -9,7 +9,7 @@
 #import "LeftMenuController.h"
 #import "LeftMenuCell.h"
 
-#import "PlarzeViewController.h"
+#import "PlazeViewController.h"
 
 static  NSString *   menuText[4] =   {@"主页",@"个人昵称",@"消息",@"设置"};
 static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
@@ -21,17 +21,15 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
     [super viewDidLoad];
     
     //bgView
-    self.view.backgroundColor = [UIColor whiteColor];
-    UIImageView * bgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    bgView.image = [UIImage imageNamed:@"LeftMenuGround.png"];
-    [self.view addSubview:bgView];
+    self.view.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
     _selectPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
 //    UIImageView * logoText = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 69, 320, 59)];
 //    logoText.image = [UIImage imageNamed:@"logoText.png"];
 //    [self.view addSubview:logoText];
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds                                                  style:UITableViewStylePlain];
-    _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    _tableView.separatorColor = [UIColor clearColor];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.scrollEnabled = NO;
     _tableView.dataSource = self;
@@ -65,7 +63,6 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
         cell.iconImage.imageView.image = [UIImage imageNamed:image[indexPath.row]];
         cell.titleLabel.text = menuText[indexPath.row];
         [cell.countLabel setHidden:indexPath.row != 2];
-        
         return cell;
 }
 
@@ -73,6 +70,7 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
 {
     cell.backgroundColor = [UIColor clearColor];
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.view.userInteractionEnabled = NO;
@@ -86,17 +84,16 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
 {
     _selectPath = indexPath;
     if (indexPath.row == 0) {
-        self.viewDeckController.centerController = [[PlarzeViewController alloc] init];
+        self.viewDeckController.centerController = [[PlazeViewController alloc] init];
     }
     if (indexPath.row == 1) {
-        self.viewDeckController.centerController = [[PlarzeViewController alloc] init];
+        self.viewDeckController.centerController = [[PlazeViewController alloc] init];
     }
     if (indexPath.row == 2) {
-        self.viewDeckController.centerController = [[PlarzeViewController alloc] init];
+        self.viewDeckController.centerController = [[PlazeViewController alloc] init];
     }
     if (indexPath.row == 3) {
-        self.viewDeckController.centerController = [[PlarzeViewController alloc] init];
+        self.viewDeckController.centerController = [[PlazeViewController alloc] init];
     }
-
 }
 @end

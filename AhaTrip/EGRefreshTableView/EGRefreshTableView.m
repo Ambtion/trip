@@ -336,18 +336,19 @@
 
 - (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
-    if (self = [super initWithFrame:frame style:style]) {
+    if (self = [super initWithFrame:frame style:style]){
+        
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        self.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.separatorColor = [UIColor clearColor];
         self.backgroundColor = [UIColor clearColor];
         _egoManager = [[EGOManager alloc] init];
         
         self.delegate = _egoManager;
-        _refresHeadView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, - 60, 320, 60) arrowImageName:nil textColor:[UIColor grayColor] backGroundColor:[UIColor clearColor]];
+        _refresHeadView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, - 60, self.frame.size.width, 60) arrowImageName:nil textColor:[UIColor grayColor] backGroundColor:[UIColor clearColor]];
         _refresHeadView.delegate = _egoManager;
         [self addSubview:_refresHeadView];
         
-        _moreFootView = [[SCPMoreTableFootView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) WithLodingImage:[UIImage imageNamed:@"load_more_pics.png"] endImage:[UIImage imageNamed:@"end_bg.png"] WithBackGroud:[UIColor clearColor]];
+        _moreFootView = [[SCPMoreTableFootView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 60) WithLodingImage:[UIImage imageNamed:@"load_more_pics.png"] endImage:[UIImage imageNamed:@"end_bg.png"] WithBackGroud:[UIColor clearColor]];
         _moreFootView.delegate = _egoManager;
         _egoManager->_tableView = self;
         _egoManager->_headerView = _refresHeadView;

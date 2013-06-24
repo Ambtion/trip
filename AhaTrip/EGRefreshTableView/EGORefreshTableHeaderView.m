@@ -77,7 +77,8 @@
 		
         //图片层
 		CALayer *layer = [CALayer layer];
-		layer.frame = CGRectMake(25.0 + 50, frame.size.height - 65.0 + 10 + OFFSET_Y, 30.0, 55.0);
+        CGFloat offsetX = 25.f + 50 - (320 - self.frame.size.width)/2.f;
+		layer.frame = CGRectMake(offsetX, frame.size.height - 65.0 + 10 + OFFSET_Y, 30.0, 55.0);
 		layer.contentsGravity = kCAGravityResizeAspect;
 		layer.contents = (id)[UIImage imageNamed:arrow].CGImage;
 		
@@ -91,7 +92,7 @@
 		_arrowImage = layer;
 		
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		view.frame = CGRectMake(25.0 + 50, frame.size.height - 38.0 + 10 - 2 + OFFSET_Y - 5, 20.0, 20.0);
+		view.frame = CGRectMake(offsetX, frame.size.height - 38.0 + 10 - 2 + OFFSET_Y - 5, 20.0, 20.0);
 		[self addSubview:view];
 		_activityView = view;
 //		[view release];

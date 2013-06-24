@@ -16,13 +16,14 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leftMenuLine.png"]];
-        imageView.frame = self.bounds;
+
         UIImageView * image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leftMenuHigthed.png"]];
         image.frame = self.bounds;
         self.selectedBackgroundView = image;
-        self.backgroundView = imageView;
-        self.clipsToBounds = YES;
+        UIImageView * line = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menuLine.png"]];
+        line.frame = CGRectMake(0, self.frame.size.height - 1, 320, 1);
+        line.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        [self.contentView addSubview:line];
         [self addIconView];
         [self addTitleLabel];
         [self addCountLabel];

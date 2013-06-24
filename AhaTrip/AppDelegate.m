@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "Umeng/UMAppKey.h"
 #import "IIViewDeckController.h"
-#import "PlarzeViewController.h"
+#import "PlazeViewController.h"
 #import "LeftMenuController.h"
 #import "RightSerachController.h"
 
@@ -33,7 +33,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     //主视图
-    PlarzeViewController * lp = [[PlarzeViewController alloc] init];
+    PlazeViewController * lp = [[PlazeViewController alloc] init];
     //左菜单
     LeftMenuController *leftVC = [[LeftMenuController alloc] init];
     

@@ -10,6 +10,7 @@
 #import "PortraitView.h"
 #import "CountLabel.h" 
 
+
 @interface LeftMenuCell : UITableViewCell
 
 @property(nonatomic,strong)PortraitView *iconImage;
