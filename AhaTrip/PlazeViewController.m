@@ -9,21 +9,24 @@
 #import "PlazeViewController.h"
 
 @interface PlazeViewController ()
-
+@property(nonatomic,strong)NSMutableArray * assetsArray;
 @end
 
 @implementation PlazeViewController
+@synthesize assetsArray = _assetsArray;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self addCusNavBar];
     [self addTableView];
     [self addPathButton];
+    [self addCusNavBar];
 }
 - (void)addCusNavBar
 {
-    
+    _menuView = [[AHMenuNavBarView alloc] initWithView:self.view];
+    _menuView.delegate = self;
+    [_menuView setStringTitleArray:[NSArray arrayWithObjects:@"最新",@"最热", nil] curString:@"最新"];
 }
 - (void)addTableView
 {
@@ -32,6 +35,8 @@
     _tableView.pDelegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    _assetsArray = [[NSMutableArray alloc] initWithCapacity:0];
+    [self refresFromeNetWork];
 }
 
 - (void)addPathButton
@@ -75,45 +80,77 @@
 #pragma mark TableViewData
 - (void)pullingreloadTableViewDataSource:(id)sender
 {
-    
+    [self refresFromeNetWork];
 }
 - (void)pullingreloadMoreTableViewData:(id)sender
 {
-    
+    [self getMoreFromeNetWork];
 }
 - (void)refresFromeNetWork
 {
+    [_assetsArray removeAllObjects];
+    for (int i = 0; i < 20; i++) {
+        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
+        source.leftInfo = [NSMutableDictionary dictionaryWithCapacity:0];
+        source.rightInfo = [NSMutableDictionary dictionaryWithCapacity:0];
+        [_assetsArray addObject:source];
+    }
+    [_tableView reloadData];
+    [_tableView didFinishedLoadingTableViewData];
     
 }
 - (void)getMoreFromeNetWork
 {
-    
+    for (int i = 0; i < 10; i++) {
+        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
+        source.leftInfo = [NSMutableDictionary dictionaryWithCapacity:0];
+        source.rightInfo = [NSMutableDictionary dictionaryWithCapacity:0];
+        [_assetsArray addObject:source];
+    }
+    [_tableView reloadData];
+    [_tableView didFinishedLoadingTableViewData];
 }
+
 #pragma mark - tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return _assetsArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return [PlazeCellDataSource cellHight];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[UITableViewCell alloc] init];
+    static NSString * string = @"CELL";
+    PlazeCell * cell = [tableView dequeueReusableCellWithIdentifier:string];
+    if (!cell) {
+        cell = [[PlazeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:string];
+        cell.delegate = self;
+    }
+    cell.dataSource = [_assetsArray objectAtIndex:indexPath.row];
+    return cell;
 }
 #pragma mark - AweSomeMenuDelegate
 - (void)awesomeMenu:(AwesomeMenu *)menu didSelectIndex:(NSInteger)idx
 {
     NSLog(@"Select the index : %d",idx);
 }
-//- (void)awesomeMenuDidFinishAnimationClose:(AwesomeMenu *)menu
-//{
-//    NSLog(@"Menu was closed!");
-//}
-//- (void)awesomeMenuDidFinishAnimationOpen:(AwesomeMenu *)menu
-//{
-//    NSLog(@"Menu is open!");
-//}
-
+- (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
+{
+    DLog();
+}
+#pragma mark - NavBarDelegate
+- (void)menuButtonClick:(UIButton *)button
+{
+    [self.viewDeckController toggleLeftViewAnimated:YES];
+}
+- (void)searchButtonClick:(UIButton *)button
+{
+    [self.viewDeckController toggleRightViewAnimated:YES];
+}
+- (void)titleMenuClickWithInfo:(id)info
+{
+    
+}
 @end

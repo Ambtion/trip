@@ -8,6 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlazeCell : UITableViewCell
+@class PlazeCell;
+@interface  PlazeCellDataSource:NSObject
+@property(nonatomic,strong)NSDictionary *  leftInfo;
+@property(nonatomic,strong)NSDictionary *  rightInfo;
++ (CGFloat)cellHight;
+@end
 
+@protocol PlazeCellDelegate <NSObject>
+- (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info;
+@end
+
+@interface PlazeCell : UITableViewCell
+{
+    UIImageView * _leftImageView;
+    UIImageView * _rightImageView;
+    PlazeCellDataSource * _dataSource;
+}
+@property(nonatomic,strong)PlazeCellDataSource * dataSource;
+@property(nonatomic,weak)id<PlazeCellDelegate> delegate;
 @end

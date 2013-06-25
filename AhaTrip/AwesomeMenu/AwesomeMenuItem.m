@@ -7,6 +7,8 @@
 //
 
 #import "AwesomeMenuItem.h"
+#import <QuartzCore/QuartzCore.h>
+
 static inline CGRect ScaleRect(CGRect rect, float n) {return CGRectMake((rect.size.width - rect.size.width * n)/ 2, (rect.size.height - rect.size.height * n) / 2, rect.size.width * n, rect.size.height * n);}
 @implementation AwesomeMenuItem
 
@@ -26,6 +28,8 @@ highlightedContentImage:(UIImage *)hcimg;
 {
     if (self = [super init]) 
     {
+        self.layer.shouldRasterize = YES;
+        self.layer.masksToBounds = YES;
         self.image = img;
         self.highlightedImage = himg;
         self.userInteractionEnabled = YES;

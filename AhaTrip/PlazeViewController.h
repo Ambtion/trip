@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "EGRefreshTableView.h"
 #import "AwesomeMenu.h"
+#import "PlazeCell.h"
+#import "AHMenuNavBarView.h"
 
-@interface PlazeViewController : UIViewController<AwesomeMenuDelegate,EGRefreshTableViewDelegate,UITableViewDataSource>
+@interface PlazeViewController : UIViewController<AwesomeMenuDelegate,EGRefreshTableViewDelegate,UITableViewDataSource,PlazeCellDelegate,AHMenuNavBarViewDelegate>
 {
     EGRefreshTableView * _tableView;
+    AHMenuNavBarView * _menuView;
 }
 @end
