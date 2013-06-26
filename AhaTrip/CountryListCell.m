@@ -86,7 +86,6 @@
 }
 - (void)layoutLabel
 {
-    DLog();
     _cNameLabel.text = _dataSource.cName;
     [_cNameLabel sizeToFit];
     _eNameLabel.text = _dataSource.eName;

@@ -7,6 +7,7 @@
 //
 
 #import "PlazeViewController.h"
+#import "CQSegmentControl.h"
 
 @interface PlazeViewController ()
 @property(nonatomic,strong)NSMutableArray * assetsArray;
@@ -18,9 +19,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self addTableView];
     [self addPathButton];
     [self addCusNavBar];
+    
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
+    self.viewDeckController.delegate = self;
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
+    self.viewDeckController.delegate = nil;
 }
 - (void)addCusNavBar
 {
@@ -42,16 +57,16 @@
 - (void)addPathButton
 {
     UIImage *storyMenuItemImage = [UIImage imageNamed:@"bg-menuitem.png"];
-    UIImage *storyMenuItemImagePressed = [UIImage imageNamed:@"bg-menuitem-highlighted.png"];    
+    UIImage *storyMenuItemImagePressed = [UIImage imageNamed:@"bg-menuitem-highlighted.png"];
     AwesomeMenuItem *starMenuItem1 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
                                                                ContentImage:[UIImage imageNamed:@"icon_sight.png"]
                                                     highlightedContentImage:nil];
     AwesomeMenuItem *starMenuItem2 = [[AwesomeMenuItem alloc]
                                       initWithImage:storyMenuItemImage
-                                                           highlightedImage:storyMenuItemImagePressed
-                                                               ContentImage:[UIImage imageNamed:@"icon_shopping.png"]
-                                                    highlightedContentImage:nil];
+                                      highlightedImage:storyMenuItemImagePressed
+                                      ContentImage:[UIImage imageNamed:@"icon_shopping.png"]
+                                      highlightedContentImage:nil];
     AwesomeMenuItem *starMenuItem3 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
                                                                ContentImage:[UIImage imageNamed:@"icon_food.png"]
@@ -77,6 +92,24 @@
     menu.delegate = self;
     [self.view addSubview:menu];
 }
+
+#pragma BarAction
+- (void)showBar
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        [_menuView showMenuBar];
+        _tableView.frame = CGRectMake(0, 44, 320, self.view.frame.size.height - 44);
+    } completion:^(BOOL finished) {
+    }];
+}
+- (void)hideBar
+{
+    _tableView.frame = self.view.bounds;
+    [UIView animateWithDuration:0.3 animations:^{
+        [_menuView hideMenuBar];
+    } completion:^(BOOL finished) {
+    }];
+}
 #pragma mark TableViewData
 - (void)pullingreloadTableViewDataSource:(id)sender
 {
@@ -101,17 +134,18 @@
 }
 - (void)getMoreFromeNetWork
 {
-    for (int i = 0; i < 10; i++) {
-        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
-        source.leftInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-        source.rightInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-        [_assetsArray addObject:source];
-    }
-    [_tableView reloadData];
+    //    for (int i = 0; i < 10; i++) {
+    //        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
+    //        source.leftInfo = [NSMutableDictionary dictionaryWithCapacity:0];
+    //        source.rightInfo = [NSMutableDictionary dictionaryWithCapacity:0];
+    //        [_assetsArray addObject:source];
+    //    }
+    //    [_tableView reloadData];
     [_tableView didFinishedLoadingTableViewData];
 }
 
 #pragma mark - tableViewDelegate
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _assetsArray.count;
@@ -119,6 +153,26 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [PlazeCellDataSource cellHight];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 41.f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    NSArray * items = [NSArray arrayWithObjects:@"手",@"网",@"网", @"网",@"网",@"网",nil];
+    CQSegmentControl *  segControll = [[CQSegmentControl alloc] initWithItemsAndStype:items stype:TitleAndImageSegmented];
+    [segControll addTarget:self action:@selector(segMentChnageValue:) forControlEvents:UIControlEventValueChanged];
+    segControll.frame = CGRectMake(-2, 0, 324, 49);
+    segControll.selectedSegmentIndex = 0;
+    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 41.f)];
+    [view addSubview:segControll];
+    return view;
+}
+- (void)segMentChnageValue:(CQSegmentControl*)seg
+{
+    DLog(@"%d",seg.selectedSegmentIndex);
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -152,5 +206,19 @@
 - (void)titleMenuClickWithInfo:(id)info
 {
     
+}
+- (BOOL)viewDeckController:(IIViewDeckController *)viewDeckController shouldPan:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+    
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+    if (ABS(velocity.x) >= ABS(velocity.y))
+        return YES;
+    else{
+        if (velocity.y > 0)
+            [self showBar];
+        else
+            [self hideBar];
+    }
+    return NO;
 }
 @end

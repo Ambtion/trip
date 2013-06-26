@@ -2139,7 +2139,6 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
         if (!ok)
             [self closeSideView:maxSide animated:NO completion:nil];
     }
-    
     return ok;
 }
 

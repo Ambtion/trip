@@ -30,5 +30,8 @@
 - (id)initWithView:(UIView *)view;
 - (void)setStringTitleArray:(NSArray *)titleArray curString:(NSString *)title;
 - (void)setInfoTitleArray:(NSArray *)infoArray curInfo:(NSString *)info;
-- (void)hideMenu;
+
+- (void)hideMenuBar;
+- (void)showMenuBar;
+- (void)hideTitleMenu;
 @end

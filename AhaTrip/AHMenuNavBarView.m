@@ -29,8 +29,8 @@
 {
     UIView *touched = [[touches anyObject] view];
     if (touched == self) {
-        if ([self.menuObject respondsToSelector:@selector(hideMenu)]) {
-            [self.menuObject hideMenu];
+        if ([self.menuObject respondsToSelector:@selector(hideTitleMenu)]) {
+            [self.menuObject hideTitleMenu];
         }
     }
 }
@@ -121,9 +121,9 @@
             break;
         case 300:
             if (_isShowMenu)
-                [self hideMenu];
+                [self hideTitleMenu];
             else
-                [self showMenu];
+                [self showTitleMenu];
             
             break;
         default:
@@ -131,7 +131,7 @@
     }
 }
 
-- (void)showMenu
+- (void)showTitleMenu
 {
     [_overView setUserInteractionEnabled:NO];
     CGFloat heigth = MIN([[self getCurArray] count] * 20 , 200.f);
@@ -154,7 +154,7 @@
         }];
     }];
 }
-- (void)hideMenu
+- (void)hideTitleMenu
 {
     [_overView setUserInteractionEnabled:NO];
     [UIView animateWithDuration:0.3 animations:^{
@@ -166,7 +166,34 @@
         [_menuView setUserInteractionEnabled:YES];
     }];
 }
-
+- (void)hideMenuBar
+{
+    if (![self isShowMenuBar]) return;
+    [_overView setUserInteractionEnabled:NO];
+    [UIView animateWithDuration:0.3 animations:^{
+        _overView.frame =  CGRectMake(0, -48, 320, 48);
+    } completion:^(BOOL finished) {
+        _isShowMenu = NO;
+        [_overView setUserInteractionEnabled:YES];
+        [_menuView setUserInteractionEnabled:YES];
+    }];
+}
+- (void)showMenuBar
+{
+    if ([self isShowMenuBar]) return;
+    [_overView setUserInteractionEnabled:NO];
+    [UIView animateWithDuration:0.3 animations:^{
+        _overView.frame =  CGRectMake(0, 0, 320, 48);
+    } completion:^(BOOL finished) {
+        _isShowMenu = NO;
+        [_overView setUserInteractionEnabled:YES];
+        [_menuView setUserInteractionEnabled:YES];
+    }];
+}
+- (BOOL)isShowMenuBar
+{
+    return _overView.frame.origin.y == 0;
+}
 - (void)setStringTitleArray:(NSArray *)titleArray curString:(NSString *)title
 {
     [_titleButton setTitle:title forState:UIControlStateNormal];
@@ -211,9 +238,10 @@
     }
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self hideMenu];
+    [self hideTitleMenu];
     id source = [[self getCurArray] objectAtIndex:indexPath.row];
     if ([source isKindOfClass:[NSString class]]) {
         [_titleButton setTitle:source forState:UIControlStateNormal];

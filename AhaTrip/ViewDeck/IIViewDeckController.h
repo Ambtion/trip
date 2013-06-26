@@ -144,6 +144,7 @@ typedef void (^IIViewDeckControllerBounceBlock) (IIViewDeckController *controlle
 @property (nonatomic, assign) CGFloat openSlideAnimationDuration;
 @property (nonatomic, assign) CGFloat closeSlideAnimationDuration;
 
+
 - (id)initWithCenterViewController:(UIViewController*)centerController;
 - (id)initWithCenterViewController:(UIViewController*)centerController leftViewController:(UIViewController*)leftController;
 - (id)initWithCenterViewController:(UIViewController*)centerController rightViewController:(UIViewController*)rightController;
