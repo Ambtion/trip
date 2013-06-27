@@ -8,6 +8,7 @@
 
 #import "PlazeViewController.h"
 #import "CQSegmentControl.h"
+#import "PhotoDetailController.h"
 
 @interface PlazeViewController ()
 @property(nonatomic,strong)NSMutableArray * assetsArray;
@@ -170,6 +171,7 @@
     [view addSubview:segControll];
     return view;
 }
+
 - (void)segMentChnageValue:(CQSegmentControl*)seg
 {
     DLog(@"%d",seg.selectedSegmentIndex);
@@ -193,6 +195,7 @@
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
 {
     DLog();
+    [self.navigationController pushViewController:[[PhotoDetailController alloc] init] animated:YES];
 }
 #pragma mark - NavBarDelegate
 - (void)menuButtonClick:(UIButton *)button

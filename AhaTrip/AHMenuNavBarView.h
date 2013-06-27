@@ -15,6 +15,7 @@
 - (void)menuButtonClick:(UIButton *)button;
 - (void)titleMenuClickWithInfo:(id)info;
 @end
+
 @interface AHMenuNavBarView : NSObject <UITableViewDataSource,UITableViewDelegate>
 {
     __weak UIView * _superView;
