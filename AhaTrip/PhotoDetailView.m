@@ -8,6 +8,7 @@
 
 #import "PhotoDetailView.h"
 #import <Accelerate/Accelerate.h>
+#import <QuartzCore/QuartzCore.h>
 
 @implementation PhotoDetailView
 
@@ -45,11 +46,24 @@
 }
 - (void)detailTextIconHiddenAnimationDidFinished:(DetailTextIcon *)icon
 {
-    _bgImageView.image = [UIImage imageNamed:@"test2.jpg"];
+//    _bgImageView.image = [UIImage imageNamed:@"test2.jpg"];
+    UIImage * toImage = [UIImage imageNamed:@"test2.jpg"];
+    [self changeToImageWithAnimation:toImage];
 }
 - (void)detailTextIconShowAnimationDidFinished:(DetailTextIcon *)icon
 {
-    _bgImageView.image = [self blurryImage:_bgImageView.image withBlurLevel:0.2];
+//    _bgImageView.image =
+    UIImage* toImage = [self blurryImage:_bgImageView.image withBlurLevel:0.1];
+    [self changeToImageWithAnimation:toImage];
+}
+- (void)changeToImageWithAnimation:(UIImage *)toImage
+{
+    [UIView transitionWithView:_bgImageView.superview
+                      duration:0.5f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        _bgImageView.image = toImage;
+                    } completion:nil];
 }
 - (UIImage *)blurryImage:(UIImage *)image withBlurLevel:(CGFloat)blur {
     if ((blur < 0.0f) || (blur > 1.0f)) {

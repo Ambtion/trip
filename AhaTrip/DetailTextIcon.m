@@ -322,8 +322,9 @@
             detailRect.origin.x = 5;
             detailRect.origin.y = _moreInfoView.frame.origin.y - detailRect.size.height - 5.f;
             _desInfoView.frame  = CGRectMake(detailRect.origin.x, detailRect.origin.y + detailRect.size.height, 0, 0);
-            [UIView animateWithDuration:0.3 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 _desInfoView.frame = detailRect;
+            } completion:^(BOOL finished) {
                 if ([_delegate respondsToSelector:@selector(detailTextIconShowAnimationDidFinished:)]) {
                     [_delegate detailTextIconShowAnimationDidFinished:self];
                 }
