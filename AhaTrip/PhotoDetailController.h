@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PhotoDetailView.h"
+#import "SMPageControl.h"
 
-@interface PhotoDetailController : UIViewController
+@interface PhotoDetailController : UIViewController<UIScrollViewDelegate>
+{
+    UIScrollView * _scrollView;
+    SMPageControl * _pageControll;
+    
+}
 
 @end

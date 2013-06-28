@@ -14,6 +14,16 @@
     UIImageView * _bgImageView;
     NSDictionary * _infoDic;
     DetailTextIcon * _detailIcon;
+    UILabel * _likeLabel;
+    UILabel * _commentLabel;
+    UIButton * _likeButton;
+    UIImage * _originalImage;
+    UIImage * _blurImage;
+    __weak UIViewController * _controller;
+    NSTimer * timer;
+    BOOL isAnimation;
 }
-- (id)initWithFrame:(CGRect)frame imageInfo:(NSDictionary *)info;
+- (id)initWithFrame:(CGRect)frame  controller:(UIViewController *)controller imageInfo:(NSDictionary *)info;
+- (void)startBgAnimation;
+- (void)stopAnimation;
 @end
