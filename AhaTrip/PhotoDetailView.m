@@ -11,7 +11,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CommentController.h"
 
-#define TIMEOFFSET 10.f
+#define TIMEOFFSET 0.01f
+#define MOVEOFFSET 0.2f
 
 @implementation PhotoDetailView
 
@@ -194,45 +195,51 @@
 #pragma mark - AddTimer
 - (void)startBgAnimation
 {
-    [self moveToLeft];
+    [self movePicAnimation];
     timer = [NSTimer timerWithTimeInterval:TIMEOFFSET target:self selector:@selector(movePicAnimation) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 - (void)stopAnimation
 {
     [timer invalidate];
+    _isMoveToRight = YES;
     CGRect rect = _bgImageView.frame;
     rect.origin.x = 0;
     _bgImageView.frame = rect;
 }
 - (void)movePicAnimation
 {
-    CGRect rect = _bgImageView.frame;
-    if (rect.origin.x == 0) {
-        [self moveToLeft];
-    }else{
+    if(_isMoveToRight)
         [self moveToRigth];
-    }
+    else
+        [self moveToLeft];
 }
 - (void)moveToRigth
 {
-    if (isAnimation) return;
-    isAnimation = YES;
     CGRect rect = _bgImageView.frame;
-    rect.origin.x = 0.f;
-    [UIView animateWithDuration:TIMEOFFSET delay:0.f options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut animations:^{
-        _bgImageView.frame = rect;
-    } completion:^(BOOL finished) {
-        isAnimation = NO;
-    }];
+    rect.origin.x += MOVEOFFSET;
+    if (rect.origin.x >= 0){
+        rect.origin.x = 0;
+        _isMoveToRight = NO;
+    }
+    [self moveWithRect:rect];
 }
 - (void)moveToLeft
 {
+    CGRect rect = _bgImageView.frame;
+    rect.origin.x -=MOVEOFFSET;
+    if (rect.origin.x <= self.frame.size.width - rect.size.width){
+        rect.origin.x = self.frame.size.width - rect.size.width;
+        _isMoveToRight = YES;
+    }
+    [self moveWithRect:rect];
+}
+
+- (void)moveWithRect:(CGRect)rect
+{
     if (isAnimation) return;
     isAnimation = YES;
-    CGRect rect = _bgImageView.frame;
-    rect.origin.x = self.frame.size.width -  _bgImageView.frame.size.width ;
-    [UIView animateWithDuration:TIMEOFFSET delay:0.f options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:TIMEOFFSET delay:0.f options: UIViewAnimationOptionCurveEaseInOut animations:^{
         _bgImageView.frame = rect;
     } completion:^(BOOL finished) {
         isAnimation = NO;

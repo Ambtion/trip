@@ -23,6 +23,7 @@
     AHMenuView * _menuView;
     UITableView * _tableView;
     UIButton * _titleButton;
+    UILabel * _titleLabel;
     NSArray * _stringDataSource;
     NSArray * _infoDataSource;
     BOOL _isShowMenu;

@@ -21,6 +21,7 @@
     UIImage * _blurImage;
     __weak UIViewController * _controller;
     NSTimer * timer;
+    BOOL _isMoveToRight;
     BOOL isAnimation;
 }
 - (id)initWithFrame:(CGRect)frame  controller:(UIViewController *)controller imageInfo:(NSDictionary *)info;

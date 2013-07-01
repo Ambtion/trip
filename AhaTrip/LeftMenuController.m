@@ -8,7 +8,7 @@
 
 #import "LeftMenuController.h"
 #import "LeftMenuCell.h"
-
+#import "HomePageController.h"
 #import "PlazeViewController.h"
 
 static  NSString *   menuText[4] =   {@"主页",@"个人昵称",@"消息",@"设置"};
@@ -87,7 +87,7 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
         self.viewDeckController.centerController = [[PlazeViewController alloc] init];
     }
     if (indexPath.row == 1) {
-        self.viewDeckController.centerController = [[PlazeViewController alloc] init];
+        self.viewDeckController.centerController = [[HomePageController alloc] initAsRootViewController:YES];
     }
     if (indexPath.row == 2) {
         self.viewDeckController.centerController = [[PlazeViewController alloc] init];

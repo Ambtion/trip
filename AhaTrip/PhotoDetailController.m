@@ -14,8 +14,10 @@
     [super viewDidLoad];
     [self addScrollView];
     [self addPageController];
-//    [self.view addSubview:[[PhotoDetailView alloc] initWithFrame:self.view.bounds controller:self imageInfo:nil]];
+    [self addBackButton];
 }
+
+
 - (void)addScrollView
 {
     _scrollView  = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -53,6 +55,23 @@
     _scrollView.contentSize = CGSizeMake(rect.size.width * 4, rect.size.height);
 }
 
+#pragma mark BackButton
+- (void)addBackButton
+{
+    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(7, 7, 33, 33);
+    [backButton setImage:[UIImage imageNamed:@"back_Button.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backButton];
+    
+    _portraitImage = [[PortraitView alloc] initWithFrame:CGRectMake(320 - 47, 7, 40, 40)];
+    _portraitImage.imageView.image = [UIImage imageNamed:@"testImage.png"];
+    [self.view addSubview:_portraitImage];
+}
+- (void)backButtonClick:(UIButton *)button
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark - ScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {

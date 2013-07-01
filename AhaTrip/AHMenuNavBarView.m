@@ -76,17 +76,24 @@
 }
 - (void)overViewAddTitleMenuView
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(60, 37, 200, 0)];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.separatorColor = [UIColor clearColor];
-    _tableView.backgroundColor = [UIColor whiteColor];
-    [_overView addSubview:_tableView];
-    _titleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _titleButton.frame = CGRectMake(60, 7, 200, 30);
-    _titleButton.tag = 300;
-    [_titleButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_overView addSubview:_titleButton];
+//    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(60, 37, 200, 0)];
+//    _tableView.delegate = self;
+//    _tableView.dataSource = self;
+//    _tableView.separatorColor = [UIColor clearColor];
+//    _tableView.backgroundColor = [UIColor whiteColor];
+//    [_overView addSubview:_tableView];
+//    _titleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    _titleButton.frame = CGRectMake(60, 7, 200, 30);
+//    _titleButton.tag = 300;
+//    [_titleButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [_overView addSubview:_titleButton];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 7, 200, 30)];
+    _titleLabel.backgroundColor = [UIColor clearColor];
+    _titleLabel.textColor = [UIColor blackColor];
+    _titleLabel.font = [UIFont boldSystemFontOfSize:15.f];
+    _titleLabel.shadowColor = [UIColor clearColor];
+    _titleLabel.textAlignment = UITextAlignmentCenter;
+    [_overView addSubview:_titleLabel];
 }
 - (void)setMenuViewActionButton
 {
@@ -196,9 +203,10 @@
 }
 - (void)setStringTitleArray:(NSArray *)titleArray curString:(NSString *)title
 {
-    [_titleButton setTitle:title forState:UIControlStateNormal];
-    _stringDataSource = titleArray;
-    [_tableView  reloadData];
+    _titleLabel.text = title;
+//    [_titleButton setTitle:title forState:UIControlStateNormal];
+//    _stringDataSource = titleArray;
+//    [_tableView  reloadData];
 }
 
 - (void)setInfoTitleArray:(NSArray *)infoArray curInfo:(NSString *)info
