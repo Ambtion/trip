@@ -100,7 +100,10 @@
     _passwordTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];        _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_passwordTextField addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventEditingDidEndOnExit];
     
-        
+    _registerButton = [UIButton  buttonWithType:UIButtonTypeRoundedRect];
+    _registerButton.frame = CGRectMake(33, 285, 260, 45);
+    [_registerButton addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventTouchUpInside];
+    [_funcionView addSubview:_registerButton];
     [_funcionView addSubview:_usernameTextField];
     [_funcionView addSubview:_mailBindTextField];
     [_funcionView addSubview:_passwordTextField];
