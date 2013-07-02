@@ -24,6 +24,7 @@
     [self addTableView];
     [self addPathButton];
     [self addCusNavBar];
+    [self showLoginViewWithMethodNav:YES withAnimation:YES];
     
 }
 - (void)viewWillAppear:(BOOL)animated
@@ -174,7 +175,9 @@
 
 - (void)segMentChnageValue:(CQSegmentControl*)seg
 {
-    DLog(@"%d",seg.selectedSegmentIndex);
+//    if (!seg.selectedSegmentIndex)
+//            return;
+//    [_tableView refrehOnce];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -187,14 +190,15 @@
     cell.dataSource = [_assetsArray objectAtIndex:indexPath.row];
     return cell;
 }
+
 #pragma mark - AweSomeMenuDelegate
 - (void)awesomeMenu:(AwesomeMenu *)menu didSelectIndex:(NSInteger)idx
 {
     NSLog(@"Select the index : %d",idx);
+    
 }
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
 {
-    DLog();
     [self.navigationController pushViewController:[[PhotoDetailController alloc] init] animated:YES];
 }
 #pragma mark - NavBarDelegate

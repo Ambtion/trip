@@ -28,5 +28,6 @@
 }
 
 @property (assign, nonatomic) NSObject<EGRefreshTableViewDelegate> *pDelegate;
+- (void)refrehOnce;
 - (void)didFinishedLoadingTableViewData;
 @end

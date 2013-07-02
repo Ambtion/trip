@@ -98,6 +98,7 @@
             break;
     }
 }
+
 - (void)setSeletedIndexPath:(NSInteger)seletedIndexPath
 {
     if (_seletedIndexPath == seletedIndexPath) return;

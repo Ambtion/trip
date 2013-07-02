@@ -17,9 +17,15 @@
     SCPMoreTableFootView *_footMoreView;
     BOOL _isLoading;
 }
+- (void)refrehOnce;
 @end
 
 @implementation EGOManager
+- (void)refrehOnce
+{
+    DLog();
+    [_headerView refreshImmediately];
+}
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView *)view
 {
     return [NSDate date];
@@ -30,6 +36,7 @@
         [_tableView.pDelegate pullingreloadTableViewDataSource:_tableView];
         _isLoading = YES;
     }
+    DLog();
 }
 
 - (void)doneRefrshLoadingTableViewData
@@ -356,6 +363,10 @@
         
     }
     return self;
+}
+- (void)refrehOnce
+{
+    [_egoManager refrehOnce];
 }
 - (void)didFinishedLoadingTableViewData
 {

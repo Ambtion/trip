@@ -73,7 +73,6 @@
 		label.textAlignment = UITextAlignmentCenter;
 		[self addSubview:label];
 		_statusLabel = label;
-//		[label release];
 		
         //图片层
 		CALayer *layer = [CALayer layer];
@@ -95,7 +94,6 @@
 		view.frame = CGRectMake(offsetX, frame.size.height - 38.0 + 10 - 2 + OFFSET_Y - 5, 20.0, 20.0);
 		[self addSubview:view];
 		_activityView = view;
-//		[view release];
 		[self setState:EGOOPullRefreshNormal];
     }	
     return self;
@@ -257,10 +255,6 @@
 	
     [self setState:EGOOPullRefreshNormal];
     isAnimation = YES;
-//	[UIView beginAnimations:nil context:NULL];
-//	[UIView setAnimationDuration:.3];
-//	[scrollView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-//	[UIView commitAnimations];
     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         [scrollView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
     } completion:^(BOOL finished) {
@@ -270,23 +264,23 @@
 #pragma mark - refreshImmediately
 - (void)refreshImmediately
 {
-    if (isAnimation) return;
-    BOOL _loading = NO;
-	if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceIsLoading:)]) {
-		_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
-	}
-    if (_loading) return;
-    UITableView * tableView = [self getTableViewFromView:self];
-    [tableView setContentOffset:CGPointZero];
-    [tableView setContentOffset:CGPointMake(0, - 60) animated:YES];
-    [UIView animateWithDuration:0.2 animations:^{
-        [tableView setContentOffset:CGPointMake(0, - 100)];
-    } completion:^(BOOL finished) {
-        [tableView setContentOffset:CGPointMake(0, - 60) animated:YES];
-    }];
-    
-    self.shouldreFreshOnce = YES;
-    [self setState:EGOOPullRefreshLoading];
+//    if (isAnimation) return;
+//    BOOL _loading = NO;
+//	if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceIsLoading:)]) {
+//		_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
+//	}
+//    if (_loading) return;
+//    UITableView * tableView = [self getTableViewFromView:self];
+//    [tableView setContentOffset:CGPointZero];
+//    [tableView setContentOffset:CGPointMake(0, - 60) animated:YES];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        [tableView setContentOffset:CGPointMake(0, - 100)];
+//    } completion:^(BOOL finished) {
+//        [tableView setContentOffset:CGPointMake(0, - 60) animated:NO];
+//    }];
+//    self.shouldreFreshOnce = YES;
+//    isWillRefresh = YES;
+//    [self setState:EGOOPullRefreshLoading];
 }
 - (UITableView * )getTableViewFromView:(UIView *)view
 {

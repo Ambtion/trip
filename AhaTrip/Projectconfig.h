@@ -7,6 +7,7 @@
 //
 
 #import "IIViewDeckController.h"
+#import "UIViewController+Method.h"
 
 #define ___DEBUG 1
 

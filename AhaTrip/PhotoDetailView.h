@@ -20,7 +20,7 @@
     UIImage * _originalImage;
     UIImage * _blurImage;
     __weak UIViewController * _controller;
-    NSTimer * timer;
+    NSTimer * _timer;
     BOOL _isMoveToRight;
     BOOL isAnimation;
 }

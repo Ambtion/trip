@@ -7,6 +7,7 @@
 //
 
 #import "PhotoDetailController.h"
+#import "HomePageController.h"
 
 @implementation PhotoDetailController
 - (void)viewDidLoad
@@ -66,7 +67,14 @@
     
     _portraitImage = [[PortraitView alloc] initWithFrame:CGRectMake(320 - 47, 7, 40, 40)];
     _portraitImage.imageView.image = [UIImage imageNamed:@"testImage.png"];
+    UITapGestureRecognizer * ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesutre:)];
+    [_portraitImage addGestureRecognizer:ges];
+    [_portraitImage setUserInteractionEnabled:YES];
     [self.view addSubview:_portraitImage];
+}
+- (void)tapGesutre:(id)gesture
+{
+    [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO] animated:YES];
 }
 - (void)backButtonClick:(UIButton *)button
 {
