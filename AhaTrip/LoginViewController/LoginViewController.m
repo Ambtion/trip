@@ -60,10 +60,12 @@
 - (void)addFunctionView
 {
     _funtionView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 285, 320, 285)];
-    
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(allTextFieldsResignFirstResponder)];
+    gesture.delegate = self;
+    [_funtionView addGestureRecognizer:gesture];
     _usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(18, 0, 215, 35)];
     _usernameTextField.font = [UIFont systemFontOfSize:15];
-    _usernameTextField.textColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1];
+    _usernameTextField.textColor = TEXTLOLOR;
     _usernameTextField.returnKeyType = UIReturnKeyNext;
     _usernameTextField.placeholder = @" 使用电子邮箱地址";
     _usernameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -75,7 +77,7 @@
     //输入密码
     _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(18, 39, 215, 35)];
     _passwordTextField.font = [UIFont systemFontOfSize:15];
-    _passwordTextField.textColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1];
+    _passwordTextField.textColor = TEXTLOLOR;
     _passwordTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _passwordTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _passwordTextField.returnKeyType = UIReturnKeyDone;
@@ -97,9 +99,9 @@
     [registerButton setImage:[UIImage imageNamed:@"login_button_register.png"] forState:UIControlStateNormal];
     [registerButton addTarget:self action:@selector(registerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton * forgetPassWord = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton * forgetPassWord = [UIButton buttonWithType:UIButtonTypeCustom];
     forgetPassWord.frame = CGRectMake(240, 82 , 60, 13);
-    [forgetPassWord setImage:[UIImage imageNamed:@"forgetPassWord.png"] forState:UIControlStateNormal];
+    [forgetPassWord setImage:[UIImage imageNamed:@"forget.png"] forState:UIControlStateNormal];
     forgetPassWord.backgroundColor = [UIColor clearColor];
     [forgetPassWord addTarget:self action:@selector(forgetPassWord:) forControlEvents:UIControlEventTouchUpInside];
     [_funtionView addSubview:_usernameTextField];
@@ -129,6 +131,10 @@
     [_funtionView addSubview:sinabutton];
     
     [self.view addSubview:_funtionView];
+}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return ![touch.view isKindOfClass:[UIButton class]];
 }
 #pragma mark -
 - (void)allTextFieldsResignFirstResponder
@@ -181,8 +187,9 @@
 {
     [_passwordTextField resignFirstResponder];
     [_usernameTextField resignFirstResponder];
-    RegisterViewController *reg = [[RegisterViewController alloc] init];
+    RegisterViewController * reg = [[RegisterViewController alloc] init];
     reg.loginController = self;
+    DLog(@"%@",self.navigationController);
     [self.navigationController pushViewController:reg animated:YES];
 }
 #pragma mark Handle Login Result

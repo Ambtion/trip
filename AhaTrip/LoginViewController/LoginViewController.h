@@ -21,7 +21,7 @@
 - (void)loginViewController:(LoginViewController *)loginController loginFailtureWithinfo:(id)failtureinfo;
 @end
 
-@interface LoginViewController : UIViewController<MBProgressHUDDelegate>
+@interface LoginViewController : UIViewController<MBProgressHUDDelegate,UIGestureRecognizerDelegate>
 {
     UIView * _funtionView;
 }

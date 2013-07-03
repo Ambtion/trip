@@ -68,6 +68,20 @@
 		B8C2B8481777229B00B559AA /* SCPMoreTableFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C2B8441777229B00B559AA /* SCPMoreTableFootView.m */; };
 		B8C2B850177730EB00B559AA /* search_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C2B84F177730EB00B559AA /* search_bg@2x.png */; };
 		B8C2B8531777342400B559AA /* search_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C2B8521777342400B559AA /* search_Icon@2x.png */; };
+		C50A2B351783B70400D7231C /* forget@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C50A2B341783B70400D7231C /* forget@2x.png */; };
+		C50A2B461783FBE100D7231C /* register_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C50A2B451783FBE100D7231C /* register_button@2x.png */; };
+		C50A2B62178400B200D7231C /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A2B56178400B200D7231C /* AbstractActionSheetPicker.m */; };
+		C50A2B63178400B200D7231C /* ActionSheetCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A2B58178400B200D7231C /* ActionSheetCustomPicker.m */; };
+		C50A2B64178400B200D7231C /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A2B5B178400B200D7231C /* ActionSheetDatePicker.m */; };
+		C50A2B65178400B200D7231C /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A2B5D178400B200D7231C /* ActionSheetDistancePicker.m */; };
+		C50A2B66178400B200D7231C /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A2B5F178400B200D7231C /* ActionSheetStringPicker.m */; };
+		C50A2B67178400B200D7231C /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A2B61178400B200D7231C /* DistancePickerView.m */; };
+		C50A2B6D17840F1D00D7231C /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A2B6C17840F1D00D7231C /* NotificationController.m */; };
+		C50A2B70178410EE00D7231C /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A2B6F178410EE00D7231C /* NotificationCell.m */; };
+		C50A2B731784120C00D7231C /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A2B721784120C00D7231C /* SettingController.m */; };
+		C50A2B761784191200D7231C /* setting_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C50A2B751784191200D7231C /* setting_bar@2x.png */; };
+		C50A2B7817841A2E00D7231C /* setting_bar_done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C50A2B7717841A2E00D7231C /* setting_bar_done@2x.png */; };
+		C50A2B7A178427BB00D7231C /* button_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C50A2B79178427BB00D7231C /* button_cancel@2x.png */; };
 		C52F2666177C4FD800980761 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C52F2665177C4FD800980761 /* Accelerate.framework */; };
 		C540B33B177C48EE00B5CADC /* DetailDes_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C540B335177C48EE00B5CADC /* DetailDes_bg@2x.png */; };
 		C540B33C177C48EE00B5CADC /* DetailIcon_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C540B336177C48EE00B5CADC /* DetailIcon_Bg@2x.png */; };
@@ -259,6 +273,31 @@
 		B8C2B8441777229B00B559AA /* SCPMoreTableFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPMoreTableFootView.m; sourceTree = "<group>"; };
 		B8C2B84F177730EB00B559AA /* search_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_bg@2x.png"; sourceTree = "<group>"; };
 		B8C2B8521777342400B559AA /* search_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_Icon@2x.png"; sourceTree = "<group>"; };
+		C50A2B341783B70400D7231C /* forget@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forget@2x.png"; sourceTree = "<group>"; };
+		C50A2B451783FBE100D7231C /* register_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "register_button@2x.png"; sourceTree = "<group>"; };
+		C50A2B55178400B200D7231C /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
+		C50A2B56178400B200D7231C /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
+		C50A2B57178400B200D7231C /* ActionSheetCustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPicker.h; sourceTree = "<group>"; };
+		C50A2B58178400B200D7231C /* ActionSheetCustomPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetCustomPicker.m; sourceTree = "<group>"; };
+		C50A2B59178400B200D7231C /* ActionSheetCustomPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPickerDelegate.h; sourceTree = "<group>"; };
+		C50A2B5A178400B200D7231C /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDatePicker.h; sourceTree = "<group>"; };
+		C50A2B5B178400B200D7231C /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDatePicker.m; sourceTree = "<group>"; };
+		C50A2B5C178400B200D7231C /* ActionSheetDistancePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDistancePicker.h; sourceTree = "<group>"; };
+		C50A2B5D178400B200D7231C /* ActionSheetDistancePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDistancePicker.m; sourceTree = "<group>"; };
+		C50A2B5E178400B200D7231C /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
+		C50A2B5F178400B200D7231C /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetStringPicker.m; sourceTree = "<group>"; };
+		C50A2B60178400B200D7231C /* DistancePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistancePickerView.h; sourceTree = "<group>"; };
+		C50A2B61178400B200D7231C /* DistancePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistancePickerView.m; sourceTree = "<group>"; };
+		C50A2B68178400D900D7231C /* ActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetPicker.h; sourceTree = "<group>"; };
+		C50A2B6B17840F1D00D7231C /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		C50A2B6C17840F1D00D7231C /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		C50A2B6E178410EE00D7231C /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
+		C50A2B6F178410EE00D7231C /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
+		C50A2B711784120C00D7231C /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingController.h; sourceTree = "<group>"; };
+		C50A2B721784120C00D7231C /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingController.m; sourceTree = "<group>"; };
+		C50A2B751784191200D7231C /* setting_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_bar@2x.png"; sourceTree = "<group>"; };
+		C50A2B7717841A2E00D7231C /* setting_bar_done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_bar_done@2x.png"; sourceTree = "<group>"; };
+		C50A2B79178427BB00D7231C /* button_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_cancel@2x.png"; sourceTree = "<group>"; };
 		C52F2665177C4FD800980761 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C540B335177C48EE00B5CADC /* DetailDes_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DetailDes_bg@2x.png"; sourceTree = "<group>"; };
 		C540B336177C48EE00B5CADC /* DetailIcon_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DetailIcon_Bg@2x.png"; sourceTree = "<group>"; };
@@ -432,6 +471,8 @@
 				B859F85D1775E30B00313DE0 /* PlazeViewController */,
 				C5918ED817811EF30001F4EF /* HomePage */,
 				C5A48DB5177BE7E300C98C5F /* PhotoDetailController */,
+				C50A2B6A17840D7C00D7231C /* NotificationViewController */,
+				C50A2B6917840D5E00D7231C /* SettingViewController */,
 				C592278E178274E400ECF679 /* LoginViewController */,
 				C592278D17826CE900ECF679 /* NetWork */,
 				B859F84A1775CA7100313DE0 /* LeftMenu */,
@@ -464,6 +505,7 @@
 		B859F7EE1775C5F700313DE0 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				C50A2B54178400B200D7231C /* Pickers */,
 				C5553CC7177D842C00E36CF1 /* SMPageControl */,
 				C5553CA4177D578B00E36CF1 /* HPGrowingTextView */,
 				C5821827177A9805001B0817 /* CQSegmentControl */,
@@ -595,6 +637,7 @@
 		B859F8561775D6A000313DE0 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				C50A2B741784190A00D7231C /* Setting */,
 				C59227A51782B4BD00ECF679 /* LoginView */,
 				C5918EE017815AB40001F4EF /* HomePage */,
 				C540B340177C48F700B5CADC /* Detail */,
@@ -666,6 +709,56 @@
 				B8C2B84F177730EB00B559AA /* search_bg@2x.png */,
 			);
 			name = RightSearch;
+			sourceTree = "<group>";
+		};
+		C50A2B54178400B200D7231C /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				C50A2B68178400D900D7231C /* ActionSheetPicker.h */,
+				C50A2B55178400B200D7231C /* AbstractActionSheetPicker.h */,
+				C50A2B56178400B200D7231C /* AbstractActionSheetPicker.m */,
+				C50A2B57178400B200D7231C /* ActionSheetCustomPicker.h */,
+				C50A2B58178400B200D7231C /* ActionSheetCustomPicker.m */,
+				C50A2B59178400B200D7231C /* ActionSheetCustomPickerDelegate.h */,
+				C50A2B5A178400B200D7231C /* ActionSheetDatePicker.h */,
+				C50A2B5B178400B200D7231C /* ActionSheetDatePicker.m */,
+				C50A2B5C178400B200D7231C /* ActionSheetDistancePicker.h */,
+				C50A2B5D178400B200D7231C /* ActionSheetDistancePicker.m */,
+				C50A2B5E178400B200D7231C /* ActionSheetStringPicker.h */,
+				C50A2B5F178400B200D7231C /* ActionSheetStringPicker.m */,
+				C50A2B60178400B200D7231C /* DistancePickerView.h */,
+				C50A2B61178400B200D7231C /* DistancePickerView.m */,
+			);
+			path = Pickers;
+			sourceTree = "<group>";
+		};
+		C50A2B6917840D5E00D7231C /* SettingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C50A2B711784120C00D7231C /* SettingController.h */,
+				C50A2B721784120C00D7231C /* SettingController.m */,
+			);
+			name = SettingViewController;
+			sourceTree = "<group>";
+		};
+		C50A2B6A17840D7C00D7231C /* NotificationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C50A2B6B17840F1D00D7231C /* NotificationController.h */,
+				C50A2B6C17840F1D00D7231C /* NotificationController.m */,
+				C50A2B6E178410EE00D7231C /* NotificationCell.h */,
+				C50A2B6F178410EE00D7231C /* NotificationCell.m */,
+			);
+			name = NotificationViewController;
+			sourceTree = "<group>";
+		};
+		C50A2B741784190A00D7231C /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				C50A2B7717841A2E00D7231C /* setting_bar_done@2x.png */,
+				C50A2B751784191200D7231C /* setting_bar@2x.png */,
+			);
+			name = Setting;
 			sourceTree = "<group>";
 		};
 		C540B340177C48F700B5CADC /* Detail */ = {
@@ -823,6 +916,9 @@
 		C59227A51782B4BD00ECF679 /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
+				C50A2B79178427BB00D7231C /* button_cancel@2x.png */,
+				C50A2B451783FBE100D7231C /* register_button@2x.png */,
+				C50A2B341783B70400D7231C /* forget@2x.png */,
 				C5ECB2111782DB5C00840A1E /* login_button@2x.png */,
 				C5ECB2131782DB9200840A1E /* login_button_register@2x.png */,
 				C5ECB20F1782DA9F00840A1E /* oauthor_Title@2x.png */,
@@ -1026,6 +1122,11 @@
 				C5ECB2101782DA9F00840A1E /* oauthor_Title@2x.png in Resources */,
 				C5ECB2121782DB5C00840A1E /* login_button@2x.png in Resources */,
 				C5ECB2141782DB9200840A1E /* login_button_register@2x.png in Resources */,
+				C50A2B351783B70400D7231C /* forget@2x.png in Resources */,
+				C50A2B461783FBE100D7231C /* register_button@2x.png in Resources */,
+				C50A2B761784191200D7231C /* setting_bar@2x.png in Resources */,
+				C50A2B7817841A2E00D7231C /* setting_bar_done@2x.png in Resources */,
+				C50A2B7A178427BB00D7231C /* button_cancel@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1092,6 +1193,15 @@
 				C592279D178274E400ECF679 /* LoginViewController.m in Sources */,
 				C59227A0178274E400ECF679 /* RegisterViewController.m in Sources */,
 				C59227A41782A4F000ECF679 /* UIViewController+Method.m in Sources */,
+				C50A2B62178400B200D7231C /* AbstractActionSheetPicker.m in Sources */,
+				C50A2B63178400B200D7231C /* ActionSheetCustomPicker.m in Sources */,
+				C50A2B64178400B200D7231C /* ActionSheetDatePicker.m in Sources */,
+				C50A2B65178400B200D7231C /* ActionSheetDistancePicker.m in Sources */,
+				C50A2B66178400B200D7231C /* ActionSheetStringPicker.m in Sources */,
+				C50A2B67178400B200D7231C /* DistancePickerView.m in Sources */,
+				C50A2B6D17840F1D00D7231C /* NotificationController.m in Sources */,
+				C50A2B70178410EE00D7231C /* NotificationCell.m in Sources */,
+				C50A2B731784120C00D7231C /* SettingController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

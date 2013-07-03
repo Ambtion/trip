@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "EmailTextField.h"
 #import "MBProgressHUD.h"
+#import "ActionSheetPicker.h"
 
-@interface RegisterViewController : UIViewController<UITextFieldDelegate>
+#define TEXTLOLOR  [UIColor whiteColor]
+
+@interface RegisterViewController : UIViewController<UITextFieldDelegate,UIGestureRecognizerDelegate>
 {
     MBProgressHUD * _alterView;
     UIButton * _portraitImageButton;

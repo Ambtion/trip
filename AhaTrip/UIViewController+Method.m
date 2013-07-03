@@ -22,7 +22,10 @@
     if (isNav) {
         [self.navigationController pushViewController:loginView animated:animaiton];
     }else{
-        [self presentModalViewController:loginView animated:animaiton];
+        
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginView];
+        [nav.navigationBar setHidden:YES];
+        [self presentModalViewController:nav animated:animaiton];
     }
 }
 #pragma alertView
@@ -160,4 +163,14 @@
     return returnImage;
 }
 
+@end
+
+@implementation UIViewController(timeFormat)
+- (NSString *)stringFromdate:(NSDate *)date
+{
+    //转化日期格式
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyy-MM-dd"];
+    return [dateFormatter stringFromDate:date];
+}
 @end

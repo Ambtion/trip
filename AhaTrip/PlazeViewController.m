@@ -24,8 +24,7 @@
     [self addTableView];
     [self addPathButton];
     [self addCusNavBar];
-    [self showLoginViewWithMethodNav:YES withAnimation:YES];
-    
+//    [self showLoginViewWithMethodNav:YES withAnimation:YES];
 }
 - (void)viewWillAppear:(BOOL)animated
 {

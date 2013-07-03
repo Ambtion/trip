@@ -10,6 +10,8 @@
 #import "LeftMenuCell.h"
 #import "HomePageController.h"
 #import "PlazeViewController.h"
+#import "NotificationController.h"
+#import "SettingController.h"
 
 static  NSString *   menuText[4] =   {@"主页",@"个人昵称",@"消息",@"设置"};
 static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
@@ -24,9 +26,9 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
     self.view.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
     _selectPath = [NSIndexPath indexPathForRow:0 inSection:0];
     
-//    UIImageView * logoText = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 69, 320, 59)];
-//    logoText.image = [UIImage imageNamed:@"logoText.png"];
-//    [self.view addSubview:logoText];
+    //    UIImageView * logoText = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 69, 320, 59)];
+    //    logoText.image = [UIImage imageNamed:@"logoText.png"];
+    //    [self.view addSubview:logoText];
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds                                                  style:UITableViewStylePlain];
     _tableView.separatorColor = [UIColor clearColor];
@@ -54,16 +56,16 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-    {
-        static NSString * str = @"CELL";
-        LeftMenuCell * cell = [tableView dequeueReusableCellWithIdentifier:str];
-        if (!cell) {
-            cell = [[LeftMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
-        }
-        cell.iconImage.imageView.image = [UIImage imageNamed:image[indexPath.row]];
-        cell.titleLabel.text = menuText[indexPath.row];
-        [cell.countLabel setHidden:indexPath.row != 2];
-        return cell;
+{
+    static NSString * str = @"CELL";
+    LeftMenuCell * cell = [tableView dequeueReusableCellWithIdentifier:str];
+    if (!cell) {
+        cell = [[LeftMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
+    }
+    cell.iconImage.imageView.image = [UIImage imageNamed:image[indexPath.row]];
+    cell.titleLabel.text = menuText[indexPath.row];
+    [cell.countLabel setHidden:indexPath.row != 2];
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,10 +92,10 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
         self.viewDeckController.centerController = [[HomePageController alloc] initAsRootViewController:YES];
     }
     if (indexPath.row == 2) {
-        self.viewDeckController.centerController = [[PlazeViewController alloc] init];
+        self.viewDeckController.centerController = [[NotificationController alloc] init];
     }
     if (indexPath.row == 3) {
-        self.viewDeckController.centerController = [[PlazeViewController alloc] init];
+        self.viewDeckController.centerController = [[SettingController alloc] init];
     }
 }
 @end

@@ -33,3 +33,7 @@
 @interface UIImageView(Blur)
 - (UIImage *)blurryImage:(UIImage *)image withBlurLevel:(CGFloat)blur;
 @end
+
+@interface UIViewController(timeFormat)
+- (NSString *)stringFromdate:(NSDate *)date;
+@end
