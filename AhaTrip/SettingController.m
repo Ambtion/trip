@@ -7,8 +7,12 @@
 //
 
 #import "SettingController.h"
+#import "FeedBackController.h"
 
 static NSString * secTitle[3] = {@"账户",@"分享到",@"其他"};
+static NSString * titleSection1[2] = {@"新浪微博",@"腾讯微博"};
+static NSString * iconSection1[2] = {@"setting_Icon_sina.png",@"setting_Icon_qq.png"};
+static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意见反馈",@"清楚缓冲"};
 
 @implementation SettingController
 
@@ -16,14 +20,26 @@ static NSString * secTitle[3] = {@"账户",@"分享到",@"其他"};
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:235.f/255 green:235.f/255 blue:235.f/255 alpha:1.f];
-    [self addNavBar];
+    [self getUserInfo];
     [self addTableView];
+    [self addNavBar];
+
+}
+- (void)getUserInfo
+{
+    acountSource = [[AcountSettingCellDataSource alloc] init];
+    acountSource.poraitImage = [UIImage imageNamed:@"test_portrait.png"];
+    acountSource.userName = @"曹小盖er";
+    acountSource.userDes = @"没什么描述的";
+    acountSource.birthday = @"2012-2-23";
+    acountSource.isBoy = YES;
 }
 - (void)addNavBar
 {
     UIImageView * bar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"setting_bar.png"]];
     [bar setUserInteractionEnabled:YES];
-    bar.frame = CGRectMake(0, 0, 320, 44);
+    bar.frame = CGRectMake(0, 0, 320, 48);
+    bar.backgroundColor = [UIColor clearColor];
     [self.view addSubview:bar];
     UIButton * done = [UIButton buttonWithType:UIButtonTypeCustom];
     done.frame = CGRectMake(320 - 77, 7, 70, 30);
@@ -38,6 +54,13 @@ static NSString * secTitle[3] = {@"账户",@"分享到",@"其他"};
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 45)];
+    view.backgroundColor = [UIColor clearColor];
+    UIButton * logoutButton = [[UIButton  alloc] initWithFrame:CGRectMake(10, 0, 300, 40)];
+    [logoutButton setImage:[UIImage imageNamed:@"setting_logout.png"] forState:UIControlStateNormal];
+    [logoutButton addTarget:self action:@selector(logoutButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:logoutButton];
+    _tableView.tableFooterView = view;
     [self.view addSubview:_tableView];
 }
 
@@ -50,23 +73,120 @@ static NSString * secTitle[3] = {@"账户",@"分享到",@"其他"};
 {
     return secTitle[section];
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 0:
+            return 426.f;
+            break;
+        case 1:
+            return 42.f;
+            break;
+        case 2:
+            return 42.f;
+            break;
+        default:
+            break;
+    }
+    return 0.f;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    switch (section) {
+        case 0:
+            return 1;
+            break;
+        case 1:
+            return 2;
+            break;
+        case 2:
+            return 4;
+            break;
+    }
+    return 0;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellId = @"CELL";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    if (indexPath.section == 0) {
+        static NSString * cellId = @"CELL_0";
+        AcountSettingCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[AcountSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell.delegate = self;
+        }
+        cell.dataSouce = acountSource;
+        return cell;
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",indexPath];
-    return cell;
+    if (indexPath.section == 1) {
+        static NSString * cellId = @"CELL_1";
+        BindCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[BindCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell.delegate = self;
+        }
+        cell.iconImageView.image = [UIImage imageNamed:iconSection1[indexPath.row]];
+        [cell.bindSwitch setOn:indexPath.row % 2];
+        cell.nameLabel.text = titleSection1[indexPath.row];
+        return cell;
+    }
+    if (indexPath.section == 2) {
+        static NSString * cellId = @"CELL_2";
+        TitleCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[TitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        }
+        cell.textLabel.text = titleSection2[indexPath.row];
+        return cell;
+    }
+    return nil;
 }
 
 #pragma mark Action
 - (void)doneButtonClick:(UIButton *)button
+{
+    DLog();
+}
+- (void)acountSettingCell:(AcountSettingCell *)cell changeImage:(UIButton *)button
+{
+    DLog();
+    
+}
+- (void)acountSettingCellDidBeginEdit:(AcountSettingCell *)cell
+{
+    CGFloat offsetY = 300;
+    if (_tableView.contentOffset.y < offsetY)
+        [_tableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+}
+- (void)acountSettingCellDidFinishedEdit:(AcountSettingCell *)cell
+{
+    DLog();
+}
+- (void)BindCell:(BindCell *)cell SwithChanged:(UISwitch *)bindSwitch
+{
+    DLog();
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2) {
+        switch (indexPath.row) {
+            case 0: //关于
+                
+                break;
+            case 1: //评分
+                break;
+            case 2: //反馈
+                [self.navigationController pushViewController:[[FeedBackController alloc] init] animated:YES];
+                break;
+            case 3: //缓冲
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+#pragma mark 
+- (void)logoutButtonClick:(UIButton *)button
 {
     
 }

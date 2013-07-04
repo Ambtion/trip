@@ -7,20 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EmailTextField.h"
 #import "MBProgressHUD.h"
-#import "ActionSheetPicker.h"
+#import "BirthDayField.h"
 
 #define TEXTLOLOR  [UIColor whiteColor]
 
-@interface RegisterViewController : UIViewController<UITextFieldDelegate,UIGestureRecognizerDelegate>
+@interface RegisterViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>
 {
     MBProgressHUD * _alterView;
     UIButton * _portraitImageButton;
     UIView * _funcionView;
     UIButton * _manButton;
     UIButton * _womenButton;
-    UITextField  * _birthday;
+    BirthDayField  * _birthday;
+    NSNotification * _notification;
 }
 @property (weak, nonatomic) id loginController;
 @property (strong, nonatomic) UIImageView *backgroundImageView;

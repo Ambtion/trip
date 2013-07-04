@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "RegisterViewController.h"
 #import "LoginStateManager.h"
-#import "EmailTextField.h"
 
 @class LoginViewController;
 

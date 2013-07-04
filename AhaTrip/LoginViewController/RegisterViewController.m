@@ -31,6 +31,7 @@
     UIScrollView * view = [[UIScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     view.bounces = NO;
     view.contentSize = view.frame.size;
+    view.delegate = self;
     self.view = view;
     self.view.backgroundColor = [UIColor colorWithRed:244.f/255 green:244.f/255 blue:244.f/255 alpha:1.f];
 }
@@ -60,12 +61,14 @@
 {
     _funcionView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height -  373.f, 320, 373.f)];
     _funcionView.backgroundColor = [UIColor clearColor];
+    
     [self.view addSubview:_funcionView];
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(allTextFieldsResignFirstResponder:)];
     gesture.delegate = self;
     [_funcionView addGestureRecognizer:gesture];
     _portraitImageButton = [[UIButton alloc] initWithFrame:CGRectMake(33, 0, 100, 100)];
-    _portraitImageButton.backgroundColor = [UIColor redColor];
+    _portraitImageButton.backgroundColor = [UIColor clearColor];
+    [_portraitImageButton setImage:[UIImage imageNamed:@"register_image.png"] forState:UIControlStateNormal];
     [_portraitImageButton addTarget:self action:@selector(portraitImageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_funcionView addSubview:_portraitImageButton];
     
@@ -103,19 +106,12 @@
     _passwordTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];        _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_passwordTextField addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventEditingDidEndOnExit];
     
-    _birthday  = [[UITextField alloc] initWithFrame:CGRectMake(33, 205, 147, 35)];
-    _birthday.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-    _birthday.font = [UIFont systemFontOfSize:15];
-    _birthday.textColor = TEXTLOLOR;
-    _birthday.placeholder = @" 生日(可选)";
-    _birthday.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    _birthday.delegate = self;
-    
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self action:@selector(buttonDateClick:) forControlEvents:UIControlEventTouchUpInside];
-    button.frame = _birthday.frame;
-    
-    
+    _birthday  = [[BirthDayField alloc] initWithFrame:CGRectMake(33, 205, 260, 35)];
+    _birthday.textFiled.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _birthday.textFiled.font = [UIFont systemFontOfSize:15];
+    _birthday.textFiled.textColor = TEXTLOLOR;
+    _birthday.textFiled.placeholder = @" 生日(可选)";
+     
     _registerButton = [UIButton  buttonWithType:UIButtonTypeRoundedRect];
     [_registerButton setImage:[UIImage imageNamed:@"register_button.png"] forState:UIControlStateNormal];
     _registerButton.frame = CGRectMake(33, 285, 260, 45);
@@ -125,13 +121,10 @@
     [_funcionView addSubview:_mailBindTextField];
     [_funcionView addSubview:_passwordTextField];
     [_funcionView addSubview:_birthday];
-    [_funcionView addSubview:button];
     [_funcionView addSubview:_registerButton];
 
 }
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    return _birthday != textField;
-}
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     return ![touch.view isKindOfClass:[UIButton class]];
@@ -224,17 +217,17 @@
 {
     [_mailBindTextField becomeFirstResponder];
 }
-- (void)buttonDateClick:(UIButton *)button
+//- (void)buttonDateClick:(UIButton *)button
+//{
+//    ActionSheetDatePicker * actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"" datePickerMode:UIDatePickerModeDate selectedDate:[NSDate date] target:self action:@selector(dateWasSelected:element:) origin:button];
+//    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Today" value:[NSDate date]];
+//    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Yesterday" value:[[NSDate date] TC_dateByAddingCalendarUnits:NSDayCalendarUnit amount:-1]];
+//    [actionSheetPicker showActionSheetPicker];
+//}
+- (void)dateWasSelected:(NSDate *)selectedDate element:(id)element
 {
-    ActionSheetDatePicker * actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"" datePickerMode:UIDatePickerModeDate selectedDate:[NSDate date] target:self action:@selector(dateWasSelected:element:) origin:button];
-    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Today" value:[NSDate date]];
-    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Yesterday" value:[[NSDate date] TC_dateByAddingCalendarUnits:NSDayCalendarUnit amount:-1]];
-    [actionSheetPicker showActionSheetPicker];
-}
-- (void)dateWasSelected:(NSDate *)selectedDate element:(id)element {
     
-    //may have originated from textField or barButtonItem, use an IBOutlet instead of element
-    _birthday.text = [NSString stringWithFormat:@" 生日: %@",[self stringFromdate:selectedDate]];
+    _birthday.textFiled.text = [NSString stringWithFormat:@" 生日: %@",[self stringFromdate:selectedDate]];
 }
 #pragma mark
 - (void)backHomeWithRespose:(NSDictionary *)response
@@ -266,32 +259,37 @@
 #pragma mark KeyBoardnotification
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    _notification = notification;
     UIScrollView * view = (UIScrollView *) self.view;
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    CGSize size = view.bounds.size;
-    DLog(@"%@",NSStringFromCGSize(keyboardSize));
-    size.height += keyboardSize.height;
-    view.contentSize = size;
     CGPoint point = view.contentOffset;
     point.y =  120;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
-    view.contentOffset = point;
-    [UIView commitAnimations];
-
+    if (CGPointEqualToPoint(point, view.contentOffset)) {
+        [self scrollViewDidEndScrollingAnimation:view];
+    }else{
+        [view setContentOffset:point animated:YES];
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    _notification = nil;
+    DLog();
     UIScrollView *view = (UIScrollView *) self.view;
-    view.contentSize = view.bounds.size;
     CGPoint point = view.contentOffset;
     point.y  =  0;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
-    view.contentOffset = point;
-    [UIView commitAnimations];
+    if (CGPointEqualToPoint(point, view.contentOffset)) {
+        [self scrollViewDidEndScrollingAnimation:view];
+    }else{
+        [view setContentOffset:point animated:YES];
+    }
+}
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    CGSize size = scrollView.bounds.size;
+    DLog(@"%@",_notification);
+    if (_notification) {
+        size.height = size.height + [[[_notification  userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    }
+    scrollView.contentSize = size;
 }
 @end
