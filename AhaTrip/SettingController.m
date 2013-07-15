@@ -8,6 +8,7 @@
 
 #import "SettingController.h"
 #import "FeedBackController.h"
+#import "PlazeViewController.h"
 
 static NSString * secTitle[3] = {@"账户",@"分享到",@"其他"};
 static NSString * titleSection1[2] = {@"新浪微博",@"腾讯微博"};
@@ -179,6 +180,7 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
                 [self.navigationController pushViewController:[[FeedBackController alloc] init] animated:YES];
                 break;
             case 3: //缓冲
+                [self showPopAlerViewWithMes:@"确认删除缓存" withDelegate:self cancelButton:@"取消" otherButtonTitles:@"确认",nil];
                 break;
             default:
                 break;
@@ -186,9 +188,24 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([alertView.message isEqualToString:@"确认删除缓存"]) {
+        if (buttonIndex == 1) {
+            [CacheManager removeAllCache];
+        }
+    }
+    if ([[alertView message] isEqualToString:@"确认登出"]) {
+        if (buttonIndex == 1) {
+            [LoginStateManager logout];
+            [self showLoginViewWithMethodNav:NO withAnimation:YES];
+            self.viewDeckController.centerController = [[PlazeViewController alloc] init];
+        }
+    }
+}
 #pragma mark
 - (void)logoutButtonClick:(UIButton *)button
 {
-    
+    [self showPopAlerViewWithMes:@"确认登出" withDelegate:self cancelButton:@"取消" otherButtonTitles:@"确认",nil];
 }
 @end

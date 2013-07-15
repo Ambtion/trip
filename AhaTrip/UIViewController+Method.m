@@ -49,15 +49,15 @@
             }
         }
 }
-- (void)showPopAlerViewRatherThentasView:(BOOL)isPopView WithMes:(NSString *)message
+- (void)showPopAlerViewWithMes:(NSString *)message withDelegate:(id<UIAlertViewDelegate>)delegate cancelButton:(NSString *)cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...
 {
-    if (isPopView) {
-        UIAlertView * popA = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [popA show];
-    }else{
-        ToastAlertView * alertView = [[ToastAlertView alloc] initWithTitle:message];
-        [alertView show];
-    }
+    UIAlertView * popA = [[UIAlertView alloc] initWithTitle:nil message:message delegate:delegate cancelButtonTitle:cancelTitle otherButtonTitles:otherButtonTitles, nil];
+    [popA show];
+}
+- (void)showTotasViewWithMes:(NSString *)message
+{
+    ToastAlertView * alertView = [[ToastAlertView alloc] initWithTitle:message];
+    [alertView show];
 }
 @end
 
@@ -73,17 +73,17 @@
         });
     } failure:^(NSError *error) {
         [self stopWaitProgressView:nil];
-        [self showPopAlerViewRatherThentasView:NO WithMes:@"保存失败"];
+        [self showTotasViewWithMes:@"保存失败"];
     }];
 }
 - (void)image: (UIImage *) image didFinishSavingWithError:(NSError *)error contextInfo: (void *) contextInfo
 {
     [self stopWaitProgressView:nil];
     if (error) {
-        [self showPopAlerViewRatherThentasView:NO WithMes:@"保存失败"];
+        [self showTotasViewWithMes:@"保存失败"];
     }else{
         [[NSNotificationCenter defaultCenter] postNotificationName:WRITEIMAGE object:nil];
-        [self showPopAlerViewRatherThentasView:NO WithMes:@"图片已保存到本地"];
+        [self showTotasViewWithMes:@"图片已保存到本地"];
     }
 }
 

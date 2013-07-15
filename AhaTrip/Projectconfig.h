@@ -6,6 +6,7 @@
 //  Copyright (c) 2013年 Qu. All rights reserved.
 //
 
+#import "LoginStateManager.h"
 #import "IIViewDeckController.h"
 #import "UIViewController+Method.h"
 

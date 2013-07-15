@@ -11,7 +11,7 @@
 #import "BindCell.h"
 #import "TitleCell.h"
 
-@interface SettingController : UIViewController<UITableViewDataSource,UITableViewDelegate,BindCellDelegate,AcountSettingCellDelegate>
+@interface SettingController : UIViewController<UITableViewDataSource,UITableViewDelegate,BindCellDelegate,AcountSettingCellDelegate,UIAlertViewDelegate>
 {
     UITableView * _tableView;
     AcountSettingCellDataSource * acountSource;

@@ -50,11 +50,11 @@
     [_backgroundControl addTarget:self action:@selector(allTextFieldsResignFirstResponder) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backgroundControl];
     [self addFunctionView];
-    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(7, 7, 33, 33);
-    [backButton setImage:[UIImage imageNamed:@"back_Button.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(cancelLogin:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backButton];
+//    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    backButton.frame = CGRectMake(7, 7, 33, 33);
+//    [backButton setImage:[UIImage imageNamed:@"back_Button.png"] forState:UIControlStateNormal];
+//    [backButton addTarget:self action:@selector(cancelLogin:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:backButton];
 }
 
 - (void)addFunctionView
@@ -153,9 +153,11 @@
 {
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
+        return;
     }
     if (self.presentingViewController) {
         [self.presentingViewController dismissModalViewControllerAnimated:YES];
+        return;
     }
     if ([_delegate respondsToSelector:@selector(loginViewController:cancleClick:)])
         [_delegate loginViewController:self cancleClick:button];
@@ -196,6 +198,7 @@
 
 - (void)handleLoginInfo:(NSDictionary *)response
 {
+    [LoginStateManager loginUserId:@"1" withToken:@"sdf" RefreshToken:@"sdf"];
     //    [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"user_id"]] withToken:[response objectForKey:@"access_token"] RefreshToken:[response objectForKey:@"refresh_token"]];
     //    [AccountLoginResquest resigiterDevice];
     //    //    [AccountLoginResquest setBindingInfo];
@@ -208,6 +211,7 @@
     //    if (self.presentingViewController) {
     //        [self.presentingViewController dismissModalViewControllerAnimated:YES];
     //    }
+    [self cancelLogin:nil];
 }
 - (void)showError:(NSString *)error
 {
@@ -224,14 +228,15 @@
 - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
 {
     DLog(@"%@",[[self AppDelegate] sinaweibo].accessToken);
+    [self handleLoginInfo:nil];
 }
 - (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
 {
-    
+    [self showTotasViewWithMes:@"授权失败"];
 }
 - (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
 {
-    
+    [self showTotasViewWithMes:@"授权失败"];
 }
 
 #pragma mark QQ
@@ -242,21 +247,21 @@
 - (void)tencentDidLogin
 {
     DLog(@"%@",[[self AppDelegate] tencentOAuth].accessToken);
+    [self handleLoginInfo:nil];
 }
 - (void)tencentDidNotLogin:(BOOL)cancelled
 {
-    
+    [self showTotasViewWithMes:@"授权失败"];
 }
 - (void)tencentDidNotNetWork
 {
-    
+    [self showTotasViewWithMes:@"授权失败"];
 }
 #pragma forgetPassWord
 - (void)forgetPassWord:(id)sender
 {
     //忘记密码
 }
-
 #pragma mark Keyboard lifeCircle
 - (void)keyboardWillShow:(NSNotification *)notification
 {

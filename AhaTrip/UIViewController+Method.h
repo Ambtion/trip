@@ -17,8 +17,8 @@
 - (void)showLoginViewWithMethodNav:(BOOL)isNav withAnimation:(BOOL)animaiton;
 - (MBProgressHUD *)waitForMomentsWithTitle:(NSString*)str withView:(UIView *)view;
 - (void)stopWaitProgressView:(MBProgressHUD *)view;
-- (void)showPopAlerViewRatherThentasView:(BOOL)isPopView WithMes:(NSString *)message;
-
+- (void)showPopAlerViewWithMes:(NSString *)message withDelegate:(id<UIAlertViewDelegate>)delegate cancelButton:(NSString *)cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...;
+- (void)showTotasViewWithMes:(NSString *)message;
 @end
 
 @interface UIViewController(WriteImage)

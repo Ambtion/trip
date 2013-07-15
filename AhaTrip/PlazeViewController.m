@@ -20,11 +20,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self addTableView];
     [self addPathButton];
     [self addCusNavBar];
-//    [self showLoginViewWithMethodNav:YES withAnimation:YES];
+    if (![LoginStateManager isLogin])
+        [self showLoginViewWithMethodNav:NO withAnimation:YES];
 }
 - (void)viewWillAppear:(BOOL)animated
 {

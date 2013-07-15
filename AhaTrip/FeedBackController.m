@@ -54,7 +54,7 @@
         [umFeedBack post:dic];
     }
     @catch (NSException *exception) {
-        [self showPopAlerViewRatherThentasView:NO WithMes:@"当前网络不给力,请稍后重试"];
+        [self showTotasViewWithMes:@"当前网络不给力,请稍后重试"];
     }
     @finally {
         
@@ -64,9 +64,9 @@
 - (void)postFinishedWithError:(NSError *)error
 {
     if (error) {
-        [self showPopAlerViewRatherThentasView:NO WithMes:@"反馈失败"];
+        [self showTotasViewWithMes:@"反馈失败"];
     }else{
-        [self showPopAlerViewRatherThentasView:NO WithMes:@"成功提交,感谢您的反馈"];
+        [self showTotasViewWithMes:@"成功提交,感谢您的反馈"];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -74,16 +74,11 @@
 #pragma mark -
 - (void)addSubviews
 {
-    
     self.view.backgroundColor = [UIColor colorWithRed:244.f/255 green:244.f/255 blue:244.f/255 alpha:1.f];
     UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
     imageView.image = [UIImage imageNamed:@"title_feedback.png"];
     imageView.image = nil;
     [self.view addSubview:imageView];
-//    _bavBar = [[CustomizationNavBar alloc] initwithDelegate:self];
-//    [_bavBar.nRightButton1 setHidden:YES];
-//    _bavBar.nLabelText.text = @"意见反馈";
-//    [self.view addSubview:_bavBar];
     UILabel * titleLabel = [[UILabel alloc] init];
     titleLabel.frame = CGRectMake(5, 50, 160, 18);
     titleLabel.font = [UIFont systemFontOfSize:12];
