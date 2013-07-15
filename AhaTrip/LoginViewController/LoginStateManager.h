@@ -36,15 +36,5 @@
 
 + (BOOL)isQQBing;
 + (void)storeQQTokenInfo:(NSDictionary *)info;
-//+ (NSDictionary *)qqTokenInfo;
 
-+ (BOOL)isRenrenBind;
-+ (void)storeRenRenTokenInfo:(NSDictionary *)info;
-//+ (NSDictionary *)renrenTokenInfo;
-
-+ (void)storeDeviceID:(NSNumber *)deviceId;
-+ (long long)deviceId;
-
-+ (void)storeDeviceToken:(NSString *)deviceToken;
-+ (NSString *)deviceToken;
 @end

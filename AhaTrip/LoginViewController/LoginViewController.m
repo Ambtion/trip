@@ -162,26 +162,26 @@
 }
 - (void)loginButtonClicked:(UIButton*)button
 {
-//    if (!_usernameTextField.text|| [_usernameTextField.text isEqualToString:@""]) {
-//        [self showPopAlerViewRatherThentasView:YES WithMes:@"您还没有填写用户名"];
-//        return;
-//    }
-//    if (!_passwordTextField.text || [_passwordTextField.text isEqualToString:@""]) {
-//        [self showPopAlerViewRatherThentasView:YES WithMes:@"您还没有填写密码"];
-//        return;
-//    }
-//    NSString * useName = [NSString stringWithFormat:@"%@",[_usernameTextField.text lowercaseString]];
-//    NSString * passWord = [NSString stringWithFormat:@"%@",_passwordTextField.text];
-//    MBProgressHUD * hud = [[MBProgressHUD alloc] initWithView:self.view];
-//    [self.view addSubview:hud];
-//    [hud show:YES];
-//    [AccountLoginResquest sohuLoginWithuseName:useName password:passWord sucessBlock:^(NSDictionary *response) {
-//        [hud hide:YES];
-//        [self handleLoginInfo:response];
-//    } failtureSucess:^(NSString *error) {
-//        [hud hide:YES];
-//        [self showError:error];
-//    }];
+    //    if (!_usernameTextField.text|| [_usernameTextField.text isEqualToString:@""]) {
+    //        [self showPopAlerViewRatherThentasView:YES WithMes:@"您还没有填写用户名"];
+    //        return;
+    //    }
+    //    if (!_passwordTextField.text || [_passwordTextField.text isEqualToString:@""]) {
+    //        [self showPopAlerViewRatherThentasView:YES WithMes:@"您还没有填写密码"];
+    //        return;
+    //    }
+    //    NSString * useName = [NSString stringWithFormat:@"%@",[_usernameTextField.text lowercaseString]];
+    //    NSString * passWord = [NSString stringWithFormat:@"%@",_passwordTextField.text];
+    //    MBProgressHUD * hud = [[MBProgressHUD alloc] initWithView:self.view];
+    //    [self.view addSubview:hud];
+    //    [hud show:YES];
+    //    [AccountLoginResquest sohuLoginWithuseName:useName password:passWord sucessBlock:^(NSDictionary *response) {
+    //        [hud hide:YES];
+    //        [self handleLoginInfo:response];
+    //    } failtureSucess:^(NSString *error) {
+    //        [hud hide:YES];
+    //        [self showError:error];
+    //    }];
 }
 - (void)registerButtonClicked:(UIButton *)button
 {
@@ -196,62 +196,66 @@
 
 - (void)handleLoginInfo:(NSDictionary *)response
 {
-//    [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"user_id"]] withToken:[response objectForKey:@"access_token"] RefreshToken:[response objectForKey:@"refresh_token"]];
-//    [AccountLoginResquest resigiterDevice];
-//    //    [AccountLoginResquest setBindingInfo];
-//    //    [AccountLoginResquest upDateDeviceToken];
-//    if ([_delegate respondsToSelector:@selector(loginViewController:loginSucessWithinfo:)])
-//        [_delegate loginViewController:self loginSucessWithinfo:response];
-//    if (self.navigationController) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
-//    if (self.presentingViewController) {
-//        [self.presentingViewController dismissModalViewControllerAnimated:YES];
-//    }
+    //    [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"user_id"]] withToken:[response objectForKey:@"access_token"] RefreshToken:[response objectForKey:@"refresh_token"]];
+    //    [AccountLoginResquest resigiterDevice];
+    //    //    [AccountLoginResquest setBindingInfo];
+    //    //    [AccountLoginResquest upDateDeviceToken];
+    //    if ([_delegate respondsToSelector:@selector(loginViewController:loginSucessWithinfo:)])
+    //        [_delegate loginViewController:self loginSucessWithinfo:response];
+    //    if (self.navigationController) {
+    //        [self.navigationController popViewControllerAnimated:YES];
+    //    }
+    //    if (self.presentingViewController) {
+    //        [self.presentingViewController dismissModalViewControllerAnimated:YES];
+    //    }
 }
 - (void)showError:(NSString *)error
 {
-//    [self showPopAlerViewRatherThentasView:YES WithMes:error];
+    //    [self showPopAlerViewRatherThentasView:YES WithMes:error];
     if ([_delegate respondsToSelector:@selector(loginViewController:loginFailtureWithinfo:)])
         [_delegate loginViewController:self loginFailtureWithinfo:error];
 }
 
-#pragma mark OAuthor
+#pragma mark OAuth
 - (void)sinaLogin:(UIButton*)button
 {
-//    [self presentWithControlleByLoginMode:SinaWeiboShare];
+    [[self AppDelegate] sinaLoginWithDelegate:self];
+}
+- (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
+{
+    DLog(@"%@",[[self AppDelegate] sinaweibo].accessToken);
+}
+- (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
+{
+    
+}
+- (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
+{
+    
 }
 
+#pragma mark QQ
 - (void)qqLogin:(UIButton *)button
 {
-//    [self presentWithControlleByLoginMode:QQShare];
+    [[self AppDelegate] qqLoginWithDelegate:self];
 }
-
-
-//- (void)presentWithControlleByLoginMode:(KShareModel)model
-//{
-//    OAuthorController * atcq = [[OAuthorController alloc] initWithMode:model ViewModel:LoginModelView];
-//    atcq.delegate = self;
-//    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:atcq];
-//    [self presentModalViewController:nav animated:YES];
-//}
+- (void)tencentDidLogin
+{
+    DLog(@"%@",[[self AppDelegate] tencentOAuth].accessToken);
+}
+- (void)tencentDidNotLogin:(BOOL)cancelled
+{
+    
+}
+- (void)tencentDidNotNetWork
+{
+    
+}
+#pragma forgetPassWord
 - (void)forgetPassWord:(id)sender
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://passport.sohu.com/web/recover.jsp"]];
+    //忘记密码
 }
-
-//#pragma mark Delgeate Oauthorize
-//- (void)oauthorController:(OAuthorController *)controller loginSucessInfo:(NSDictionary *)dic
-//{
-//    [self dismissModalViewControllerAnimated:NO];
-//    [self handleLoginInfo:dic];
-//    [self handleInfoWithshareModel:controller.shareModel infoDic:dic];
-//}
-//- (void)oauthorController:(OAuthorController *)controlle loginFailture:(NSString *)error
-//{
-//    [self showError:error];
-//}
-//#pragma mark resiteruseinfo
 
 #pragma mark Keyboard lifeCircle
 - (void)keyboardWillShow:(NSNotification *)notification
@@ -273,7 +277,6 @@
 }
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    
     //视图消失时自动失去第一响应者,为了保持动画一致性
     if ([LoginStateManager isLogin]) return;
     DLog(@"%s",__FUNCTION__);
@@ -289,5 +292,4 @@
     CGSize size = view.bounds.size;
     view.contentSize = size;
 }
-
 @end

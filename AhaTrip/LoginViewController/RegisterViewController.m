@@ -226,7 +226,6 @@
 //}
 - (void)dateWasSelected:(NSDate *)selectedDate element:(id)element
 {
-    
     _birthday.textFiled.text = [NSString stringWithFormat:@" 生日: %@",[self stringFromdate:selectedDate]];
 }
 #pragma mark

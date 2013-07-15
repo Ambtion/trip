@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RegisterViewController.h"
 #import "LoginStateManager.h"
+#import "OAuthShareRef.h"
 
 @class LoginViewController;
 
@@ -20,7 +21,7 @@
 - (void)loginViewController:(LoginViewController *)loginController loginFailtureWithinfo:(id)failtureinfo;
 @end
 
-@interface LoginViewController : UIViewController<MBProgressHUDDelegate,UIGestureRecognizerDelegate>
+@interface LoginViewController : UIViewController<MBProgressHUDDelegate,TencentSessionDelegate,SinaWeiboDelegate,UIGestureRecognizerDelegate>
 {
     UIView * _funtionView;
 }

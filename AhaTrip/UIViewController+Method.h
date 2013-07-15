@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 #define WRITEIMAGE @"WriteImage"
 
@@ -36,4 +37,8 @@
 
 @interface UIViewController(timeFormat)
 - (NSString *)stringFromdate:(NSDate *)date;
+@end
+
+@interface UIViewController(AppDelegate)
+- (AppDelegate*)AppDelegate;
 @end

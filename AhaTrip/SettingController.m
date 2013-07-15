@@ -23,7 +23,7 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     [self getUserInfo];
     [self addTableView];
     [self addNavBar];
-
+    
 }
 - (void)getUserInfo
 {
@@ -34,6 +34,7 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     acountSource.birthday = @"2012-2-23";
     acountSource.isBoy = YES;
 }
+
 - (void)addNavBar
 {
     UIImageView * bar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"setting_bar.png"]];
@@ -185,7 +186,7 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     }
 }
 
-#pragma mark 
+#pragma mark
 - (void)logoutButtonClick:(UIButton *)button
 {
     

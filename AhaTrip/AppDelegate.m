@@ -14,6 +14,8 @@
 #import "RightSerachController.h"
 
 @implementation AppDelegate
+@synthesize window = _window;
+
 - (void)configProject
 {
     //this register umeng
@@ -28,10 +30,10 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    
     //主视图
     PlazeViewController * lp = [[PlazeViewController alloc] init];
     //左菜单

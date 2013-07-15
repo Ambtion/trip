@@ -174,3 +174,10 @@
     return [dateFormatter stringFromDate:date];
 }
 @end
+
+@implementation UIViewController(AppDelegate)
+- (AppDelegate*)AppDelegate
+{
+    return [[UIApplication sharedApplication] delegate];
+}
+@end
