@@ -20,6 +20,18 @@
     [self addCusNavBar];
     [self addTableView];
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
+    self.viewDeckController.delegate = self;
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
+    self.viewDeckController.delegate = nil;
+}
 - (void)addCusNavBar
 {
     UIImageView * bar_bg_View = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 45)];
@@ -42,8 +54,8 @@
     [self.view addSubview:_tableView];
     _dataSource = [[NSMutableArray alloc] initWithCapacity:0];
     [self refresFromeNetWork];
-    
 }
+
 #pragma mark TableViewData
 - (void)pullingreloadTableViewDataSource:(id)sender
 {
@@ -130,10 +142,14 @@
     return nil;
 }
 
-
 #pragma mark Action
 - (void)menuLeftClick:(UIButton *)button
 {
     [self.viewDeckController toggleLeftViewAnimated:YES];
+}
+- (BOOL)viewDeckController:(IIViewDeckController *)viewDeckController shouldPan:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+    return (ABS(velocity.x) >= ABS(velocity.y) && velocity.x > 0);
 }
 @end

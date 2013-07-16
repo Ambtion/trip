@@ -12,7 +12,7 @@
 #import "SysNotificationCell.h"
 #import "NotificationCell.h"
 
-@interface NotificationController : UIViewController<EGRefreshTableViewDelegate,UITableViewDataSource>
+@interface NotificationController : UIViewController<EGRefreshTableViewDelegate,IIViewDeckControllerDelegate,UITableViewDataSource>
 {
     EGRefreshTableView * _tableView;
 }

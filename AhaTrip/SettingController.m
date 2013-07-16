@@ -24,7 +24,18 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     [self getUserInfo];
     [self addTableView];
     [self addNavBar];
-    
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
+    self.viewDeckController.delegate = self;
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
+    self.viewDeckController.delegate = nil;
 }
 - (void)getUserInfo
 {
@@ -35,7 +46,6 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     acountSource.birthday = @"2012-2-23";
     acountSource.isBoy = YES;
 }
-
 - (void)addNavBar
 {
     UIImageView * bar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"setting_bar.png"]];
@@ -48,6 +58,13 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     [done setImage:[UIImage imageNamed:@"setting_bar_done.png"] forState:UIControlStateNormal];
     [done addTarget:self action:@selector(doneButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [bar addSubview:done];
+    
+    UIButton * leftbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftbutton.frame = CGRectMake(7, 7, 30, 30);
+    leftbutton.tag = 100;
+    [leftbutton setImage:[UIImage imageNamed:@"ItemMenuBarBg.png"] forState:UIControlStateNormal];
+    [leftbutton addTarget:self action:@selector(leftbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [bar addSubview:leftbutton];
 }
 
 - (void)addTableView
@@ -144,6 +161,10 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
 }
 
 #pragma mark Action
+- (void)leftbuttonClick:(UIButton *)button
+{
+    [self.viewDeckController toggleLeftViewAnimated:YES];
+}
 - (void)doneButtonClick:(UIButton *)button
 {
     DLog();
@@ -151,7 +172,6 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
 - (void)acountSettingCell:(AcountSettingCell *)cell changeImage:(UIButton *)button
 {
     DLog();
-    
 }
 - (void)acountSettingCellDidBeginEdit:(AcountSettingCell *)cell
 {
@@ -159,6 +179,7 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     if (_tableView.contentOffset.y < offsetY)
         [_tableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
 }
+
 - (void)acountSettingCellDidFinishedEdit:(AcountSettingCell *)cell
 {
     DLog();
@@ -167,6 +188,7 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
 {
     DLog();
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 2) {
@@ -204,9 +226,16 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
         }
     }
 }
-#pragma mark
+#pragma mark logout
 - (void)logoutButtonClick:(UIButton *)button
 {
     [self showPopAlerViewWithMes:@"确认登出" withDelegate:self cancelButton:@"取消" otherButtonTitles:@"确认",nil];
+}
+
+#pragma mark - ViewDeckControllerDelegate
+- (BOOL)viewDeckController:(IIViewDeckController *)viewDeckController shouldPan:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+    return (ABS(velocity.x) >= ABS(velocity.y) && velocity.x > 0);
 }
 @end

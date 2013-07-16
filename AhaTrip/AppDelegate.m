@@ -40,12 +40,11 @@
     LeftMenuController * leftVC = [[LeftMenuController alloc] init];
     
     UINavigationController * rightNav = [[UINavigationController alloc] initWithRootViewController:[[RightSerachController alloc] init]];
-    rightNav.navigationBar.barStyle = UIBarStyleBlack;
+    rightNav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     [rightNav.navigationBar setHidden:YES];
     
     IIViewDeckController * deckViewController = [[IIViewDeckController alloc] initWithCenterViewController:lp leftViewController:leftVC rightViewController:rightNav];
-    UINavigationController * nav_center =[[UINavigationController alloc] initWithRootViewController:deckViewController];
-    nav_center.navigationBar.barStyle = UIBarStyleBlack;
+    UINavigationController * nav_center = [[UINavigationController alloc] initWithRootViewController:deckViewController];
     [nav_center.navigationBar setHidden:YES];
     self.window.rootViewController = nav_center;
     DLog(@"%@",nav_center);
