@@ -23,14 +23,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
-    self.viewDeckController.delegate = self;
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
     self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
     self.viewDeckController.delegate = nil;
+    self.viewDeckController.rightController = nil;
 }
 - (void)addCusNavBar
 {
@@ -147,9 +142,12 @@
 {
     [self.viewDeckController toggleLeftViewAnimated:YES];
 }
-- (BOOL)viewDeckController:(IIViewDeckController *)viewDeckController shouldPan:(UIPanGestureRecognizer *)panGestureRecognizer
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
-    return (ABS(velocity.x) >= ABS(velocity.y) && velocity.x > 0);
+    if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[NotificationCell class]]) {
+        [self presentModalViewController:[[CommentController alloc] initWithBgImage:[UIImage imageNamed:@"test2.jpg"]] animated:YES];
+    }
 }
+
 @end

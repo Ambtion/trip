@@ -11,11 +11,13 @@
 #import "AwesomeMenu.h"
 #import "PlazeCell.h"
 #import "AHMenuNavBarView.h"
+#import "RightSerachController.h"
 
 @interface PlazeViewController : UIViewController<AwesomeMenuDelegate,EGRefreshTableViewDelegate,UITableViewDataSource,PlazeCellDelegate,AHMenuNavBarViewDelegate,IIViewDeckControllerDelegate,LoginViewControllerDelegate>
 {
     EGRefreshTableView * _tableView;
     AHMenuNavBarView * _menuView;
     CGFloat _startFolat;
+    UINavigationController* _rightSearch;
 }
 @end

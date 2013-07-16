@@ -28,14 +28,9 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
-    self.viewDeckController.delegate = self;
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
     self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
     self.viewDeckController.delegate = nil;
+    self.viewDeckController.rightController = nil;
 }
 - (void)getUserInfo
 {
@@ -232,10 +227,4 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     [self showPopAlerViewWithMes:@"确认登出" withDelegate:self cancelButton:@"取消" otherButtonTitles:@"确认",nil];
 }
 
-#pragma mark - ViewDeckControllerDelegate
-- (BOOL)viewDeckController:(IIViewDeckController *)viewDeckController shouldPan:(UIPanGestureRecognizer *)panGestureRecognizer
-{
-    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
-    return (ABS(velocity.x) >= ABS(velocity.y) && velocity.x > 0);
-}
 @end

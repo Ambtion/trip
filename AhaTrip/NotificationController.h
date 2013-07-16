@@ -11,6 +11,7 @@
 #import "PlazeCell.h"
 #import "SysNotificationCell.h"
 #import "NotificationCell.h"
+#import "CommentController.h"
 
 @interface NotificationController : UIViewController<EGRefreshTableViewDelegate,IIViewDeckControllerDelegate,UITableViewDataSource>
 {

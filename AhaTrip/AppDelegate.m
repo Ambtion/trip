@@ -30,7 +30,6 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -39,11 +38,7 @@
     //左菜单
     LeftMenuController * leftVC = [[LeftMenuController alloc] init];
     
-    UINavigationController * rightNav = [[UINavigationController alloc] initWithRootViewController:[[RightSerachController alloc] init]];
-    rightNav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    [rightNav.navigationBar setHidden:YES];
-    
-    IIViewDeckController * deckViewController = [[IIViewDeckController alloc] initWithCenterViewController:lp leftViewController:leftVC rightViewController:rightNav];
+    IIViewDeckController * deckViewController = [[IIViewDeckController alloc] initWithCenterViewController:lp leftViewController:leftVC];
     UINavigationController * nav_center = [[UINavigationController alloc] initWithRootViewController:deckViewController];
     [nav_center.navigationBar setHidden:YES];
     self.window.rootViewController = nav_center;

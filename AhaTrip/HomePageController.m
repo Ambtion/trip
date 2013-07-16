@@ -25,18 +25,12 @@
     [self addTableView];
     [self addBackButton];
 }
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
-    self.viewDeckController.delegate = self;
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
     self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
     self.viewDeckController.delegate = nil;
+    self.viewDeckController.rightController = nil;
 }
 
 - (void)addBackButton
@@ -50,11 +44,11 @@
     [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightButton.frame = CGRectMake(320 - 44, 7, 30, 30);
-    [rightButton setImage:[UIImage imageNamed:@"ItemSearchBarBg-white.png"] forState:UIControlStateNormal];
-    [rightButton addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:rightButton];
+//    UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    rightButton.frame = CGRectMake(320 - 44, 7, 30, 30);
+//    [rightButton setImage:[UIImage imageNamed:@"ItemSearchBarBg-white.png"] forState:UIControlStateNormal];
+//    [rightButton addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:rightButton];
 }
 
 - (void)backButtonClick:(UIButton *)button
@@ -64,10 +58,10 @@
     else
         [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)searchButtonClick:(UIButton*)button
-{
-    [self.viewDeckController toggleRightViewAnimated:YES];
-}
+//- (void)searchButtonClick:(UIButton*)button
+//{
+//    [self.viewDeckController toggleRightViewAnimated:YES];
+//}
 #pragma mark TableView
 - (void)addTableView
 {

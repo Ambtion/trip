@@ -826,10 +826,10 @@
 		C50A2B6917840D5E00D7231C /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C587366017858C6E00950F05 /* FeedBackController.h */,
-				C587365F17858C6E00950F05 /* FeedBackController.m */,
 				C50A2B711784120C00D7231C /* SettingController.h */,
 				C50A2B721784120C00D7231C /* SettingController.m */,
+				C587366017858C6E00950F05 /* FeedBackController.h */,
+				C587365F17858C6E00950F05 /* FeedBackController.m */,
 				C587365117855B2F00950F05 /* BindCell.h */,
 				C587365217855B2F00950F05 /* BindCell.m */,
 				C5873658178581E100950F05 /* TitleCell.h */,

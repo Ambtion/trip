@@ -36,8 +36,20 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
+    self.viewDeckController.panningMode = IIViewDeckPanningViewPanning;
     self.viewDeckController.delegate = nil;
+}
+- (void)setRightSearchBarTonil:(BOOL)isNil
+{
+    if (!_rightSearch) {
+        _rightSearch = [[UINavigationController alloc] initWithRootViewController:[[RightSerachController alloc] init]];
+        _rightSearch.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+        [_rightSearch.navigationBar setHidden:YES];
+    }
+    if (isNil)
+        self.viewDeckController.rightController = nil;
+    else
+        self.viewDeckController.rightController = _rightSearch;
 }
 - (void)addCusNavBar
 {
@@ -58,6 +70,7 @@
 
 - (void)addPathButton
 {
+    
     UIImage *storyMenuItemImage = [UIImage imageNamed:@"bg-menuitem.png"];
     UIImage *storyMenuItemImagePressed = [UIImage imageNamed:@"bg-menuitem-highlighted.png"];
     AwesomeMenuItem *starMenuItem1 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
@@ -175,9 +188,9 @@
 
 - (void)segMentChnageValue:(CQSegmentControl*)seg
 {
-//    if (!seg.selectedSegmentIndex)
-//            return;
-//    [_tableView refrehOnce];
+    //    if (!seg.selectedSegmentIndex)
+    //            return;
+    //    [_tableView refrehOnce];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -214,12 +227,15 @@
 {
     
 }
+
 - (BOOL)viewDeckController:(IIViewDeckController *)viewDeckController shouldPan:(UIPanGestureRecognizer *)panGestureRecognizer
 {
     
     CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
-    if (ABS(velocity.x) >= ABS(velocity.y))
+    if (ABS(velocity.x) >= ABS(velocity.y)){
+        [self setRightSearchBarTonil:NO];
         return YES;
+    }
     else{
         if (velocity.y > 0)
             [self showBar];
@@ -227,5 +243,10 @@
             [self hideBar];
     }
     return NO;
+}
+- (void)viewDeckController:(IIViewDeckController *)viewDeckController didCloseViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated
+{
+    DLog(@"");
+    [self setRightSearchBarTonil:YES];
 }
 @end

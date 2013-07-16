@@ -25,12 +25,7 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
     //bgView
     self.view.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
     _selectPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    //    UIImageView * logoText = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 69, 320, 59)];
-    //    logoText.image = [UIImage imageNamed:@"logoText.png"];
-    //    [self.view addSubview:logoText];
-    
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds                                                  style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     _tableView.separatorColor = [UIColor clearColor];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.scrollEnabled = NO;

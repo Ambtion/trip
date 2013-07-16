@@ -279,8 +279,7 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
         _panningMode = IIViewDeckFullViewPanning;
 //        _navigationControllerBehavior = IIViewDeckNavigationControllerIntegrated;
         _navigationControllerBehavior = IIViewDeckNavigationControllerContained;
-
-        _centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
+        _centerhiddenInteractivity = IIViewDeckCenterHiddenUserInteractive;
         _sizeMode = IIViewDeckLedgeSizeMode;
         _viewAppeared = 0;
         _viewFirstAppeared = NO;
@@ -2151,7 +2150,6 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
 
     if ([[touch view] isKindOfClass:[UISlider class]])
         return NO;
-
     _panOrigin = self.slidingControllerView.frame.origin;
     return YES;
 }
@@ -2215,7 +2213,8 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
     }
 }
 
-- (void)panned:(UIPanGestureRecognizer*)panner orientation:(IIViewDeckOffsetOrientation)orientation {
+- (void)panned:(UIPanGestureRecognizer*)panner orientation:(IIViewDeckOffsetOrientation)orientation
+{
     CGFloat pv, m;
     IIViewDeckSide minSide, maxSide;
     if (orientation == IIViewDeckHorizontalOrientation) {
@@ -2244,7 +2243,6 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
             [self notifyWillCloseSide:maxSide animated:NO];
             closeSide = maxSide;
         }
-
         if (v > 0) {
             if (![self checkCanOpenSide:minSide]) {
                 [self closeSideView:maxSide animated:NO completion:nil];

@@ -232,7 +232,11 @@
 #pragma mark Action
 - (void)backButtonClick:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self.presentingViewController dismissModalViewControllerAnimated:YES];
+    }
 }
 
 - (void)commentCell:(CommentCell *)cell clickPortrait:(id)sender
