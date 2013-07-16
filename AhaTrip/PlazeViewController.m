@@ -26,6 +26,7 @@
     if (![LoginStateManager isLogin])
         [self showLoginViewWithMethodNav:NO withAnimation:YES];
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

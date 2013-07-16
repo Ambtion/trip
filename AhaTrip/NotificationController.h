@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "EGRefreshTableView.h"
 #import "PlazeCell.h"
-#import "SysNitificationCell.h"
+#import "SysNotificationCell.h"
+#import "NotificationCell.h"
 
 @interface NotificationController : UIViewController<EGRefreshTableViewDelegate,UITableViewDataSource>
 {

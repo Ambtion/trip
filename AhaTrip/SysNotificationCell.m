@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 ke. All rights reserved.
 //
 
-#import "SysNitificationCell.h"
+#import "SysNotificationCell.h"
 
-@implementation SysNitificationCellDataSource
+@implementation SysNotificationCellDataSource
 @synthesize portrait = _portrait,name = _name,content = _content,time = _time;
 
 - (CGFloat)heigth
@@ -30,7 +30,7 @@
     return _contentSouce;
 }
 @end
-@implementation SysNitificationCell
+@implementation SysNotificationCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -49,12 +49,12 @@
 - (void)addContentView
 {
     _sysContentView = [[SysNotificationContentView alloc] initWithFrame:CGRectMake(60,10,250,0)];
-    _sysContentView.image = [[UIImage imageNamed:@"contentBgView.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 120, 5, 120)];
+    _sysContentView.image = [[UIImage imageNamed:@"contentBgView.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(30, 120, 85, 120)];
     [self.contentView addSubview:_sysContentView];
 }
 
 #pragma mark  - 
-- (void)setDataSource:(SysNitificationCellDataSource *)dataSource
+- (void)setDataSource:(SysNotificationCellDataSource *)dataSource
 {
     if (_dataSource != dataSource){
         _dataSource = dataSource;

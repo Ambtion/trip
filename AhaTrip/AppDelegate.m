@@ -37,7 +37,7 @@
     //主视图
     PlazeViewController * lp = [[PlazeViewController alloc] init];
     //左菜单
-    LeftMenuController *leftVC = [[LeftMenuController alloc] init];
+    LeftMenuController * leftVC = [[LeftMenuController alloc] init];
     
     UINavigationController * rightNav = [[UINavigationController alloc] initWithRootViewController:[[RightSerachController alloc] init]];
     rightNav.navigationBar.barStyle = UIBarStyleBlack;
@@ -48,6 +48,7 @@
     nav_center.navigationBar.barStyle = UIBarStyleBlack;
     [nav_center.navigationBar setHidden:YES];
     self.window.rootViewController = nav_center;
+    DLog(@"%@",nav_center);
     [self.window makeKeyAndVisible];
     //
     return YES;

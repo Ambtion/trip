@@ -8,15 +8,28 @@
 
 #import <UIKit/UIKit.h>
 #import "PortraitView.h"
+#import "DetailTextView.h"
+#import "UserNotificationContentView.h"
 
 @class NotificationCell;
 @interface NotificationCellDataSource : NSObject
-@property(nonatomic,strong)UIImage * portraitImage;
-@property(nonatomic,strong)NSString * name;
+{
+    UserNotificationContentViewDataSource * _contentSouce;
+}
+@property(strong,nonatomic)UIImage * portrait;
+@property(strong,nonatomic)NSString * name;
+@property(strong,nonatomic)NSString * content;
+@property(strong,nonatomic)NSString * target;
+@property(strong,nonatomic)NSString * targetName;
+@property(strong,nonatomic)NSString * time;
+- (CGFloat)heigth;
+- (UserNotificationContentViewDataSource *)contentSouce;
 @end
 @interface NotificationCell : UITableViewCell
 {
-    PortraitView * portraitImageView;
-    
+    PortraitView * _portraitImageView;
+    UserNotificationContentView * _userContentView;
+    NotificationCellDataSource * _dataSource;
 }
+@property(nonatomic,strong)NotificationCellDataSource * dataSource;
 @end

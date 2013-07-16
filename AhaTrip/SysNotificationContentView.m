@@ -18,7 +18,7 @@
     heigth += 5.f; //间隔
     heigth += [self.content sizeWithFont:[UIFont systemFontOfSize:15.f] constrainedToSize:CGSizeMake(250.f - 30, 100000)].height;
     heigth += 15.f;
-    heigth += 12.f;
+    heigth += 12.f; //time 高度
     return heigth;
 }
 

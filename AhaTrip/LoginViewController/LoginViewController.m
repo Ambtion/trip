@@ -19,6 +19,7 @@
 @synthesize usernameTextField = _usernameTextField;
 @synthesize passwordTextField = _passwordTextField;
 @synthesize delegate = _delegate;
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -151,16 +152,22 @@
 #pragma mark  - ButtonClick
 - (void)cancelLogin:(UIButton *)button
 {
+    DLog(@"self.nav.nav%@",self.navigationController.navigationController);
+    if (self.navigationController.presentingViewController) {
+        //等待qq控件恢复到远状态
+        [self performSelector:@selector(cancelPresentingController) withObject:nil afterDelay:0.3];
+        return;
+    }
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
-    if (self.presentingViewController) {
-        [self.presentingViewController dismissModalViewControllerAnimated:YES];
-        return;
-    }
     if ([_delegate respondsToSelector:@selector(loginViewController:cancleClick:)])
         [_delegate loginViewController:self cancleClick:button];
+}
+- (void)cancelPresentingController
+{
+    [self.navigationController.presentingViewController dismissModalViewControllerAnimated:YES];
 }
 - (void)loginButtonClicked:(UIButton*)button
 {
@@ -199,18 +206,6 @@
 - (void)handleLoginInfo:(NSDictionary *)response
 {
     [LoginStateManager loginUserId:@"1" withToken:@"sdf" RefreshToken:@"sdf"];
-    //    [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"user_id"]] withToken:[response objectForKey:@"access_token"] RefreshToken:[response objectForKey:@"refresh_token"]];
-    //    [AccountLoginResquest resigiterDevice];
-    //    //    [AccountLoginResquest setBindingInfo];
-    //    //    [AccountLoginResquest upDateDeviceToken];
-    //    if ([_delegate respondsToSelector:@selector(loginViewController:loginSucessWithinfo:)])
-    //        [_delegate loginViewController:self loginSucessWithinfo:response];
-    //    if (self.navigationController) {
-    //        [self.navigationController popViewControllerAnimated:YES];
-    //    }
-    //    if (self.presentingViewController) {
-    //        [self.presentingViewController dismissModalViewControllerAnimated:YES];
-    //    }
     [self cancelLogin:nil];
 }
 - (void)showError:(NSString *)error

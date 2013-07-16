@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PortraitView.h"
 #import "SysNotificationContentView.h"
-
-@class SysNitificationCell;
-@interface SysNitificationCellDataSource : NSObject
+@class SysNotificationCell;
+@interface SysNotificationCellDataSource : NSObject
 {
     SysNotificationContentViewDataSource * _contentSouce;
 }
@@ -22,11 +21,11 @@
 - (CGFloat)heigth;
 - (SysNotificationContentViewDataSource *)contentSouce;
 @end
-@interface SysNitificationCell : UITableViewCell
+@interface SysNotificationCell : UITableViewCell
 {
     PortraitView * _portraitView;
-    SysNitificationCellDataSource * _dataSource;
+    SysNotificationCellDataSource * _dataSource;
     SysNotificationContentView* _sysContentView;
 }
-@property(strong,nonatomic)SysNitificationCellDataSource * dataSource;
+@property(strong,nonatomic)SysNotificationCellDataSource * dataSource;
 @end

@@ -57,12 +57,21 @@
 {
     [_dataSource removeAllObjects];
     for (int i = 0; i < 20; i++) {
-        SysNitificationCellDataSource * source = [[SysNitificationCellDataSource alloc] init];
+        NotificationCellDataSource * source = [[NotificationCellDataSource alloc] init];
         source.portrait = [UIImage imageNamed:@"testPor.png"];
-        source.name = @"AHaTrip";
-        source.content = @"敢问这位朋友，AhaTrip的客户端使用 得如何？求点评求拍砖求鞭策！......在 设置-意见反馈中告诉我们,求点评求拍砖求鞭,求点评求拍砖求鞭,求点评求拍砖求鞭";
+        source.name = @"Erfei_Chao";
+        source.content = @"嗷嗷！包装好喜欢！多少钱啊？?";
+        source.target = @"评论我的发现";
+        source.targetName = @"奈良のIceCream";
         source.time = @"05-19 22:50";
         [_dataSource addObject:source];
+
+        SysNotificationCellDataSource * sysSource = [[SysNotificationCellDataSource alloc] init];
+        sysSource.portrait = [UIImage imageNamed:@"testPor.png"];
+        sysSource.name = @"AHaTrip";
+        sysSource.content = @"敢问这位朋友，AhaTrip的客户端使用 得如何？求点评求拍砖求鞭策！......在 设置-意见反馈中告诉我们,求点评求拍砖求鞭,求点评求拍砖求鞭,求点评求拍砖求鞭";
+        sysSource.time = @"05-19 22:50";
+        [_dataSource addObject:sysSource];
     }
     [_tableView reloadData];
     [_tableView didFinishedLoadingTableViewData];
@@ -87,7 +96,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SysNitificationCellDataSource * souce = [_dataSource objectAtIndex:indexPath.row];
+    SysNotificationCellDataSource * souce = [_dataSource objectAtIndex:indexPath.row];
     return [souce heigth];
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,14 +105,29 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * string = @"CELL";
-    SysNitificationCell * cell = [tableView dequeueReusableCellWithIdentifier:string];
-    if (!cell) {
-        cell = [[SysNitificationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:string];
-//        cell.delegate = self;
+    static NSString * sys_string = @"CELL_SYS";
+    static NSString * user_string = @"CELL_USER";
+    id dataSouce = nil;
+    if (indexPath.row <_dataSource.count)
+        dataSouce = [_dataSource objectAtIndex:indexPath.row];
+    if (dataSouce) {
+        if ([dataSouce isKindOfClass:[NotificationCellDataSource class]]) {
+            NotificationCell * cell = [tableView dequeueReusableCellWithIdentifier:user_string];
+            if (!cell) {
+                cell = [[NotificationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:user_string];
+            }
+            cell.dataSource = dataSouce;
+            return cell;
+        }else{
+            SysNotificationCell * cell = [tableView dequeueReusableCellWithIdentifier:sys_string];
+            if (!cell) {
+                cell = [[SysNotificationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:sys_string];
+            }
+            cell.dataSource = dataSouce;
+            return cell;
+        }
     }
-    cell.dataSource = [_dataSource objectAtIndex:indexPath.row];
-    return cell;
+    return nil;
 }
 
 

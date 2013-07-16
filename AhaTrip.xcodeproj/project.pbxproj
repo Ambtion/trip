@@ -132,6 +132,9 @@
 		C587365E1785831900950F05 /* setting_Icon_qq@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C587365C1785831900950F05 /* setting_Icon_qq@2x.png */; };
 		C587366117858C6E00950F05 /* FeedBackController.m in Sources */ = {isa = PBXBuildFile; fileRef = C587365F17858C6E00950F05 /* FeedBackController.m */; };
 		C587366317858DA000950F05 /* setting_logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C587366217858DA000950F05 /* setting_logout@2x.png */; };
+		C58AECCC1794E02100C75BD2 /* UserNotificationContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AECCB1794E02100C75BD2 /* UserNotificationContentView.m */; };
+		C58AECCE1794E8C500C75BD2 /* content_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58AECCD1794E8C500C75BD2 /* content_line@2x.png */; };
+		C58AECD01794F30800C75BD2 /* contentBgView.png in Resources */ = {isa = PBXBuildFile; fileRef = C58AECCF1794F30800C75BD2 /* contentBgView.png */; };
 		C5918ED7178117260001F4EF /* back_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5918ED6178117260001F4EF /* back_Button@2x.png */; };
 		C5918EDB178123580001F4EF /* HomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5918EDA178123580001F4EF /* HomePageController.m */; };
 		C5918EDE17815AAE0001F4EF /* ItemMenuBarBg-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5918EDC17815AAE0001F4EF /* ItemMenuBarBg-white@2x.png */; };
@@ -163,7 +166,7 @@
 		C592308C1793A38100ACA120 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C592308B1793A38100ACA120 /* CoreTelephony.framework */; };
 		C59230911793EA6100ACA120 /* notification_bar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C59230901793EA6100ACA120 /* notification_bar_bg@2x.png */; };
 		C59230951793F47F00ACA120 /* DetailTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59230931793F47F00ACA120 /* DetailTextView.m */; };
-		C59230981793F4C400ACA120 /* SysNitificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59230971793F4C400ACA120 /* SysNitificationCell.m */; };
+		C59230981793F4C400ACA120 /* SysNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59230971793F4C400ACA120 /* SysNotificationCell.m */; };
 		C592309B1793F75D00ACA120 /* SysNotificationContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C592309A1793F75D00ACA120 /* SysNotificationContentView.m */; };
 		C592309D179405E900ACA120 /* contentBgView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C592309C179405E900ACA120 /* contentBgView@2x.png */; };
 		C592309F17940A5D00ACA120 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C592309E17940A5D00ACA120 /* CoreText.framework */; };
@@ -391,6 +394,10 @@
 		C587365F17858C6E00950F05 /* FeedBackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackController.m; sourceTree = "<group>"; };
 		C587366017858C6E00950F05 /* FeedBackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackController.h; sourceTree = "<group>"; };
 		C587366217858DA000950F05 /* setting_logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_logout@2x.png"; sourceTree = "<group>"; };
+		C58AECCA1794E02100C75BD2 /* UserNotificationContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotificationContentView.h; sourceTree = "<group>"; };
+		C58AECCB1794E02100C75BD2 /* UserNotificationContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationContentView.m; sourceTree = "<group>"; };
+		C58AECCD1794E8C500C75BD2 /* content_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "content_line@2x.png"; sourceTree = "<group>"; };
+		C58AECCF1794F30800C75BD2 /* contentBgView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contentBgView.png; sourceTree = "<group>"; };
 		C5918ED6178117260001F4EF /* back_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_Button@2x.png"; sourceTree = "<group>"; };
 		C5918ED9178123580001F4EF /* HomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageController.h; sourceTree = "<group>"; };
 		C5918EDA178123580001F4EF /* HomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageController.m; sourceTree = "<group>"; };
@@ -437,8 +444,8 @@
 		C59230901793EA6100ACA120 /* notification_bar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_bar_bg@2x.png"; sourceTree = "<group>"; };
 		C59230931793F47F00ACA120 /* DetailTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTextView.m; sourceTree = "<group>"; };
 		C59230941793F47F00ACA120 /* DetailTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTextView.h; sourceTree = "<group>"; };
-		C59230961793F4C400ACA120 /* SysNitificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SysNitificationCell.h; sourceTree = "<group>"; };
-		C59230971793F4C400ACA120 /* SysNitificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SysNitificationCell.m; sourceTree = "<group>"; };
+		C59230961793F4C400ACA120 /* SysNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SysNotificationCell.h; sourceTree = "<group>"; };
+		C59230971793F4C400ACA120 /* SysNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SysNotificationCell.m; sourceTree = "<group>"; };
 		C59230991793F75D00ACA120 /* SysNotificationContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SysNotificationContentView.h; sourceTree = "<group>"; };
 		C592309A1793F75D00ACA120 /* SysNotificationContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SysNotificationContentView.m; sourceTree = "<group>"; };
 		C592309C179405E900ACA120 /* contentBgView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contentBgView@2x.png"; sourceTree = "<group>"; };
@@ -840,8 +847,10 @@
 				C50A2B6C17840F1D00D7231C /* NotificationController.m */,
 				C50A2B6E178410EE00D7231C /* NotificationCell.h */,
 				C50A2B6F178410EE00D7231C /* NotificationCell.m */,
-				C59230961793F4C400ACA120 /* SysNitificationCell.h */,
-				C59230971793F4C400ACA120 /* SysNitificationCell.m */,
+				C59230961793F4C400ACA120 /* SysNotificationCell.h */,
+				C59230971793F4C400ACA120 /* SysNotificationCell.m */,
+				C58AECCA1794E02100C75BD2 /* UserNotificationContentView.h */,
+				C58AECCB1794E02100C75BD2 /* UserNotificationContentView.m */,
 				C59230991793F75D00ACA120 /* SysNotificationContentView.h */,
 				C592309A1793F75D00ACA120 /* SysNotificationContentView.m */,
 			);
@@ -1089,7 +1098,9 @@
 		C592308D1793E8D700ACA120 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				C58AECCD1794E8C500C75BD2 /* content_line@2x.png */,
 				C59230901793EA6100ACA120 /* notification_bar_bg@2x.png */,
+				C58AECCF1794F30800C75BD2 /* contentBgView.png */,
 				C592309C179405E900ACA120 /* contentBgView@2x.png */,
 			);
 			name = Notification;
@@ -1311,6 +1322,8 @@
 				C59230811793A15800ACA120 /* SinaWeibo.bundle in Resources */,
 				C59230911793EA6100ACA120 /* notification_bar_bg@2x.png in Resources */,
 				C592309D179405E900ACA120 /* contentBgView@2x.png in Resources */,
+				C58AECCE1794E8C500C75BD2 /* content_line@2x.png in Resources */,
+				C58AECD01794F30800C75BD2 /* contentBgView.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1396,8 +1409,9 @@
 				C59230841793A15800ACA120 /* SinaWeiboRequest.m in Sources */,
 				C59230871793A16800ACA120 /* AppDelegateOauthor.mm in Sources */,
 				C59230951793F47F00ACA120 /* DetailTextView.m in Sources */,
-				C59230981793F4C400ACA120 /* SysNitificationCell.m in Sources */,
+				C59230981793F4C400ACA120 /* SysNotificationCell.m in Sources */,
 				C592309B1793F75D00ACA120 /* SysNotificationContentView.m in Sources */,
+				C58AECCC1794E02100C75BD2 /* UserNotificationContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

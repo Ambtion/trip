@@ -22,7 +22,6 @@
     if (isNav) {
         [self.navigationController pushViewController:loginView animated:animaiton];
     }else{
-        
         UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginView];
         [nav.navigationBar setHidden:YES];
         [self presentModalViewController:nav animated:animaiton];

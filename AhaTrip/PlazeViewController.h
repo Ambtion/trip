@@ -12,7 +12,7 @@
 #import "PlazeCell.h"
 #import "AHMenuNavBarView.h"
 
-@interface PlazeViewController : UIViewController<AwesomeMenuDelegate,EGRefreshTableViewDelegate,UITableViewDataSource,PlazeCellDelegate,AHMenuNavBarViewDelegate,IIViewDeckControllerDelegate>
+@interface PlazeViewController : UIViewController<AwesomeMenuDelegate,EGRefreshTableViewDelegate,UITableViewDataSource,PlazeCellDelegate,AHMenuNavBarViewDelegate,IIViewDeckControllerDelegate,LoginViewControllerDelegate>
 {
     EGRefreshTableView * _tableView;
     AHMenuNavBarView * _menuView;
