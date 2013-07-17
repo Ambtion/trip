@@ -215,9 +215,7 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
     if ([[alertView message] isEqualToString:@"确认登出"]) {
         if (buttonIndex == 1) {
             [LoginStateManager logout];
-//             self.viewDeckController.centerController = [[PlazeViewController alloc] init];
-            DLog(@"%@",self);
-            self.viewDeckController.centerController = [[PlazeViewController alloc] init];
+            self.viewDeckController.centerController = [[self leftMenuController] plazeController];
         }
     }
 }

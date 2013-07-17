@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "LeftMenuController.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
 
@@ -41,4 +42,5 @@
 
 @interface UIViewController(AppDelegate)
 - (AppDelegate*)AppDelegate;
+- (LeftMenuController *)leftMenuController;
 @end

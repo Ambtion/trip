@@ -16,14 +16,15 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-
-        UIImageView * image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leftMenuHigthed.png"]];
+                
+        UIImageView * image = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"leftMenuHigthed.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 160, 22, 160)]];
+        image.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         image.frame = self.bounds;
         self.selectedBackgroundView = image;
         UIImageView * line = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menuLine.png"]];
-        line.frame = CGRectMake(0, self.frame.size.height - 2, 320, 2);
+        line.frame = CGRectMake(0, self.frame.size.height - 1, 320, 1);
         line.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        [self.contentView addSubview:line];
+        [self addSubview:line];
         [self addIconView];
         [self addTitleLabel];
         [self addCountLabel];
@@ -56,5 +57,12 @@
     UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leftArrow.png"]];
     imageView.frame = CGRectMake(240, (self.frame.size.height - 9)/2.f , 8, 9);
     [self.contentView addSubview:imageView];
+}
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    if (selected) {
+        DLog(@"%@",self.subviews);
+    }
 }
 @end

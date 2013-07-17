@@ -37,12 +37,12 @@
     PlazeViewController * lp = [[PlazeViewController alloc] init];
     //左菜单
     LeftMenuController * leftVC = [[LeftMenuController alloc] init];
+    leftVC.plazeController = lp;
     
     IIViewDeckController * deckViewController = [[IIViewDeckController alloc] initWithCenterViewController:lp leftViewController:leftVC];
     UINavigationController * nav_center = [[UINavigationController alloc] initWithRootViewController:deckViewController];
     [nav_center.navigationBar setHidden:YES];
     self.window.rootViewController = nav_center;
-    DLog(@"%@",nav_center);
     [self.window makeKeyAndVisible];
     //
     return YES;

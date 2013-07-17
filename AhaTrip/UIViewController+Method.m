@@ -179,4 +179,8 @@
 {
     return [[UIApplication sharedApplication] delegate];
 }
+- (LeftMenuController *)leftMenuController
+{
+    return (LeftMenuController *)[[self viewDeckController] leftController];
+}
 @end

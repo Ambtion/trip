@@ -8,9 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+#import "PlazeViewController.h"
+#import "HomePageController.h"
+#import "NotificationController.h"
+#import "SettingController.h"
 @interface LeftMenuController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView * _tableView;
     NSIndexPath * _selectPath;
+    
+    PlazeViewController * _plazeController;
+    HomePageController * _homeController;
+    NotificationController * _ntfController;
+    SettingController * _setController;
 }
+@property(nonatomic,strong)PlazeViewController * plazeController;
+@property(nonatomic,strong)HomePageController * homeController;
+@property(nonatomic,strong)NotificationController * ntfController;
+@property(nonatomic,strong)SettingController * setController;
 @end

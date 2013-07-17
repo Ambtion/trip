@@ -8,25 +8,24 @@
 
 #import "LeftMenuController.h"
 #import "LeftMenuCell.h"
-#import "HomePageController.h"
-#import "PlazeViewController.h"
-#import "NotificationController.h"
-#import "SettingController.h"
+
 
 static  NSString *   menuText[4] =   {@"主页",@"个人昵称",@"消息",@"设置"};
 static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
 
 @implementation LeftMenuController
 
+@synthesize plazeController = _plazeController,homeController = _homeController,
+ntfController = _ntfController,setController = _setController;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     //bgView
     self.view.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
     _selectPath = [NSIndexPath indexPathForRow:0 inSection:0];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    _tableView.separatorColor = [UIColor clearColor];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.scrollEnabled = NO;
     _tableView.dataSource = self;
@@ -65,32 +64,62 @@ static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = [UIColor clearColor];
+    cell.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.view.userInteractionEnabled = NO;
     [self.viewDeckController closeLeftViewBouncing:^(IIViewDeckController *controller) {
         [self changeCenterControllerWith:indexPath];
-        self.view.userInteractionEnabled = YES;
     }];
 }
 
 - (void)changeCenterControllerWith:(NSIndexPath*)indexPath
 {
     _selectPath = indexPath;
-    if (indexPath.row == 0) {
-        self.viewDeckController.centerController = [[PlazeViewController alloc] init];
+    UIViewController * controller = nil;
+    switch (indexPath.row) {
+    case 0:
+        controller = self.plazeController;
+        break;
+    case 1:
+        controller = self.homeController;
+        break;
+    case 2:
+        controller = self.ntfController;
+        break;
+    case 3:
+        controller = self.setController;
+        break;
+    default:
+        break;
     }
-    if (indexPath.row == 1) {
-        self.viewDeckController.centerController = [[HomePageController alloc] initAsRootViewController:YES];
-    }
-    if (indexPath.row == 2) {
-        self.viewDeckController.centerController = [[NotificationController alloc] init];
-    }
-    if (indexPath.row == 3) {
-        self.viewDeckController.centerController = [[SettingController alloc] init];
-    }
+    self.viewDeckController.centerController = controller;
+}
+
+#pragma mark
+- (PlazeViewController *)plazeController
+{
+    if (!_plazeController)
+        _plazeController = [[PlazeViewController alloc] init];
+    return _plazeController;
+}
+- (HomePageController *)homeController
+{
+    if (!_homeController)
+        _homeController = [[HomePageController alloc] initAsRootViewController:YES];
+    return _homeController;
+}
+- (NotificationController *)ntfController
+{
+    if (!_ntfController)
+        _ntfController = [[NotificationController alloc] init];
+    return _ntfController;
+}
+- (SettingController*)setController
+{
+    if (!_setController)
+        _setController = [[SettingController alloc] init];
+    return _setController;
 }
 @end
