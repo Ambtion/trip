@@ -88,20 +88,23 @@
                                                     highlightedContentImage:nil];
     AwesomeMenuItem *starMenuItem4 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
-                                                               ContentImage:[UIImage imageNamed:@"icon-drink.png"]
+                                                               ContentImage:[UIImage imageNamed:@"icon_food.png"]
                                                     highlightedContentImage:nil];
     AwesomeMenuItem *starMenuItem5 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                           highlightedImage:storyMenuItemImagePressed
+                                                               ContentImage:[UIImage imageNamed:@"icon-drink.png"]
+                                                    highlightedContentImage:nil];
+    AwesomeMenuItem *starMenuItem6 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
                                                                ContentImage:[UIImage imageNamed:@"icon_hotel.png"]
                                                     highlightedContentImage:nil];
     
-    NSArray * menus = [NSArray arrayWithObjects:starMenuItem1, starMenuItem2, starMenuItem3, starMenuItem4, starMenuItem5,nil];
+    NSArray * menus = [NSArray arrayWithObjects:starMenuItem1, starMenuItem2, starMenuItem3, starMenuItem4, starMenuItem5,starMenuItem6,nil];
     
     AwesomeMenuItem *startItem = [[AwesomeMenuItem alloc] initWithImage:[UIImage imageNamed:@"bg-addbutton.png"]
                                                        highlightedImage:[UIImage imageNamed:@"bg-addbutton-highlighted.png"]
                                                            ContentImage:[UIImage imageNamed:@"icon-plus.png"]
                                                 highlightedContentImage:nil];
-    
     AwesomeMenu *menu = [[AwesomeMenu alloc] initWithFrame:self.view.bounds startItem:startItem optionMenus:menus];
     menu.startPoint = CGPointMake(40, self.view.bounds.size.height - 40);
     menu.delegate = self;

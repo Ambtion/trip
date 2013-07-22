@@ -195,6 +195,7 @@
 		C5ECB2101782DA9F00840A1E /* oauthor_Title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5ECB20F1782DA9F00840A1E /* oauthor_Title@2x.png */; };
 		C5ECB2121782DB5C00840A1E /* login_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5ECB2111782DB5C00840A1E /* login_button@2x.png */; };
 		C5ECB2141782DB9200840A1E /* login_button_register@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5ECB2131782DB9200840A1E /* login_button_register@2x.png */; };
+		C5F73B39179D1146000A2B24 /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F73B38179D1146000A2B24 /* RequestManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -482,6 +483,8 @@
 		C5ECB20F1782DA9F00840A1E /* oauthor_Title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oauthor_Title@2x.png"; sourceTree = "<group>"; };
 		C5ECB2111782DB5C00840A1E /* login_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_button@2x.png"; sourceTree = "<group>"; };
 		C5ECB2131782DB9200840A1E /* login_button_register@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_button_register@2x.png"; sourceTree = "<group>"; };
+		C5F73B37179D1146000A2B24 /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
+		C5F73B38179D1146000A2B24 /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -550,6 +553,7 @@
 		B859F7D71775AC4C00313DE0 /* AhaTrip */ = {
 			isa = PBXGroup;
 			children = (
+				C5F73B36179D1126000A2B24 /* NetWrok */,
 				B859F7E01775AC4C00313DE0 /* AppDelegate.h */,
 				B859F7E11775AC4C00313DE0 /* AppDelegate.m */,
 				C59230881793A18900ACA120 /* OAuthShareRef.h */,
@@ -1179,6 +1183,15 @@
 			name = AHMenuNavBarView;
 			sourceTree = "<group>";
 		};
+		C5F73B36179D1126000A2B24 /* NetWrok */ = {
+			isa = PBXGroup;
+			children = (
+				C5F73B37179D1146000A2B24 /* RequestManager.h */,
+				C5F73B38179D1146000A2B24 /* RequestManager.m */,
+			);
+			name = NetWrok;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1412,6 +1425,7 @@
 				C59230981793F4C400ACA120 /* SysNotificationCell.m in Sources */,
 				C592309B1793F75D00ACA120 /* SysNotificationContentView.m in Sources */,
 				C58AECCC1794E02100C75BD2 /* UserNotificationContentView.m in Sources */,
+				C5F73B39179D1146000A2B24 /* RequestManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
