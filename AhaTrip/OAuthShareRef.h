@@ -18,12 +18,12 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 
 
-#define QQAPPID @"222222" //官方测试
+#define QQAPPID @"100489202" //官方测试
 
 //Sina Frame
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
 
-#define kAppKey             @"224235466"
-#define kAppSecret          @"45ac1dec970d1a567a9d63515b12707e"
-#define kAppRedirectURI     @"http://www.baidu.com"
+#define kAppKey             @"2247019797"
+#define kAppSecret          @"ce968d8f736a5ec3d28b064005ca1d3b"
+#define kAppRedirectURI     @"http://www.ahatrip.info"

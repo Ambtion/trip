@@ -22,9 +22,17 @@
 @interface PlazeCell : UITableViewCell
 {
     UIImageView * _leftImageView;
+    UIImageView * _leftIcon;
+    
     UIImageView * _rightImageView;
+    UIImageView * _rightIcon;
+
     PlazeCellDataSource * _dataSource;
 }
+
+- (void)setCellShowEnable:(BOOL)enabled;
+- (BOOL)isCellShowEnable;
+
 @property(nonatomic,strong)PlazeCellDataSource * dataSource;
 @property(nonatomic,weak)id<PlazeCellDelegate> delegate;
 @end

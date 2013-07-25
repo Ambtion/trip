@@ -150,9 +150,7 @@
     UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
     
     //clean up
-    CGContextRelease(ctx);
-    CGColorSpaceRelease(colorSpace);
-    
+    CGContextRelease(ctx);    
     free(pixelBuffer);
     CFRelease(inBitmapData);
     

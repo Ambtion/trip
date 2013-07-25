@@ -23,8 +23,6 @@
     [self addTableView];
     [self addPathButton];
     [self addCusNavBar];
-    if (![LoginStateManager isLogin])
-        [self showLoginViewWithMethodNav:NO withAnimation:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -32,6 +30,8 @@
     [super viewWillAppear:animated];
     self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
     self.viewDeckController.delegate = self;
+    if (![LoginStateManager isLogin])
+        [self showLoginViewWithMethodNav:NO withAnimation:YES];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -202,6 +202,7 @@
     if (!cell) {
         cell = [[PlazeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:string];
         cell.delegate = self;
+        [cell setCellShowEnable:NO];
     }
     cell.dataSource = [_assetsArray objectAtIndex:indexPath.row];
     return cell;
@@ -211,7 +212,6 @@
 - (void)awesomeMenu:(AwesomeMenu *)menu didSelectIndex:(NSInteger)idx
 {
     NSLog(@"Select the index : %d",idx);
-    
 }
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
 {

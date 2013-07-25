@@ -45,7 +45,7 @@
 	UIImage *normal4 = [UIImage imageNamed:@"seg_Dinner_Bg.png"];
     UIImage *normal5 = [UIImage imageNamed:@"seg_Drink_Bg.png"];
     UIImage *normal6 = [UIImage imageNamed:@"seg_Hotel_Bg.png"];
-    NSMutableArray *unselectImages = [[NSMutableArray alloc]initWithObjects:normal1, normal2,normal3,normal4,normal5,normal6, nil];
+    NSMutableArray *unselectImages = [[[NSMutableArray alloc]initWithObjects:normal1, normal2,normal3,normal4,normal5,normal6, nil] autorelease];
 
     UIImage *press1 = [UIImage imageNamed:@"seg_seleted_All_Bg.png"];
 	UIImage *press2 = [UIImage imageNamed:@"seg_seleted_Sight_Bg.png"];
@@ -53,7 +53,7 @@
 	UIImage *press4 = [UIImage imageNamed:@"seg_seleted_Dinner_Bg.png"];
     UIImage *press5 = [UIImage imageNamed:@"seg_seleted_Drink_Bg.png"];
     UIImage *press6 = [UIImage imageNamed:@"seg_seleted_Hotel_Bg.png"];
-	NSMutableArray *selectImages = [[NSMutableArray alloc]initWithObjects: press1, press2,press3,press4,press5,press6, nil];
+	NSMutableArray *selectImages = [[[NSMutableArray alloc]initWithObjects: press1, press2,press3,press4,press5,press6, nil] autorelease];
     self.normalImageItems = unselectImages;
 	self.highlightImageItems = selectImages;
     
