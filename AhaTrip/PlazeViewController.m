@@ -89,10 +89,7 @@
 }
 - (void)addTableView
 {
-    if (self) {
-        <#statements#>
-    }
-    
+       
     _tableView = [[EGRefreshTableView alloc] initWithFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44)];
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.pDelegate = self;
