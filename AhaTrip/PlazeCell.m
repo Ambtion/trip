@@ -112,13 +112,13 @@ static char Key_showKind;
     [_leftIcon setHidden:![self isCellShowEnable]];
     [_rightIcon setHidden:![self isCellShowEnable]];
     
-    [_leftImageView setImageWithURL:[NSURL URLWithString:[_dataSource.leftInfo objectForKey:@"photo_thumb"]]];
+    [_leftImageView setImageWithURL:[NSURL URLWithString:[_dataSource.leftInfo objectForKey:@"photo_thumb"]]placeholderImage:[UIImage imageNamed:@"loding_bg.png"]];
     _leftLabel.text =[self getCityNameFromDic:_dataSource.leftInfo];
     [self setIconImage:_leftIcon Byinfo:_dataSource.leftInfo];
     [_rightImageView setHidden:![_dataSource rightInfo]];
     if (_dataSource.rightInfo){
         [_rightImageView setHidden:NO];
-        [_rightImageView setImageWithURL:[NSURL URLWithString:[_dataSource.rightInfo objectForKey:@"photo_thumb"]]];
+        [_rightImageView setImageWithURL:[NSURL URLWithString:[_dataSource.rightInfo objectForKey:@"photo_thumb"]] placeholderImage:[UIImage imageNamed:@"loding_bg.png"]];
         _rightLabel.text = [self getCityNameFromDic:_dataSource.rightInfo];
         [self setIconImage:_rightIcon Byinfo:_dataSource.rightInfo];
     }else{

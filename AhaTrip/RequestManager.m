@@ -35,7 +35,6 @@
         [request setPostValue:[body objectForKey:key] forKey:key];
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
-        DLog(@"sucess :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
         if (weakSelf.responseStatusCode == 200){
             success(weakSelf.responseString);
         }else{
@@ -88,6 +87,12 @@
 + (void)getPlazaWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     NSString * url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/index?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
+    [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
+}
++ (void)getTitleImagesWithId:(NSString *)titleId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+//    http://yyz.ahatrip.info/api/finding?id=1&token=tRyW4rLBiJHffQ
+    NSString* url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/finding?id=%@&token=tRyW4rLBiJHffQ",titleId];
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
 }
 @end

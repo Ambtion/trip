@@ -10,13 +10,20 @@
 #import <Accelerate/Accelerate.h>
 #import <QuartzCore/QuartzCore.h>
 #import "CommentController.h"
+#import "UIImageView+WebCache.h"
 
 #define TIMEOFFSET 0.01f
 #define MOVEOFFSET 0.2f
 
-@implementation PhotoDetailView
+@implementation PhotoDetailViewDataSource
+@synthesize dataSource = _dataSource;
+@synthesize imageUrl = _imageUrl;
+@end
 
-- (id)initWithFrame:(CGRect)frame  controller:(UIViewController *)controller imageInfo:(NSDictionary *)info
+@implementation PhotoDetailView
+@synthesize dataSource = _dataSource;
+
+- (id)initWithFrame:(CGRect)frame  controller:(UIViewController *)controller
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -26,7 +33,6 @@
         [self addDetailView];
         [self addLikesButton];
         [self addComentButton];
-        //        [self startBgAnimation];
     }
     return self;
 }
@@ -35,7 +41,7 @@
     CGFloat maxWidth = MAX(self.frame.size.width, self.frame.size.height);
     _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,maxWidth, maxWidth)];
     _bgImageView.backgroundColor = [UIColor grayColor];
-    _originalImage = [UIImage imageNamed:@"test2.jpg"];
+//    _originalImage = [UIImage imageNamed:@"test2.jpg"];
     _bgImageView.image = _originalImage;
     [self addSubview:_bgImageView];
 }
@@ -44,25 +50,30 @@
 {
     _detailIcon = [[DetailTextIcon alloc] initWithView:self];
     _detailIcon.delegate = self;
-    DesInfoViewDataSource * source = [[DesInfoViewDataSource alloc] init];
-    source.averConsume = @"200美元";
-    source.businessTime = @"5:00--8:00";
-    source.netHasWifi = @"是";
-    source.sortImage = [UIImage imageNamed:@"1.png"];
-    source.userName = @"奈良のIceCream";
-    source.desString = @"没有描述啊,没描述,我就是不描述,你就没描述,没描述啊没描述,没人给你描述啊,没有描述啊,没描述,我就是不描述,你就没描述,没描,没有描述啊,没描述,我就是不描述,你就没描述,没描";
-    source.location  = @"我在那我怎么知道";
-    _detailIcon.datasoure = source;
 }
 - (void)detailTextIconHiddenAnimationDidFinished:(DetailTextIcon *)icon
 {
-    UIImage * toImage = [UIImage imageNamed:@"test2.jpg"];
-    [self changeToImageWithAnimation:toImage];
+    DLog(@"%@",_originalImage);
+    [self changeToImageWithAnimation:_originalImage];
 }
 - (void)detailTextIconShowAnimationDidFinished:(DetailTextIcon *)icon
 {
+    _originalImage = [_bgImageView image];
     [self changeToImageWithAnimation:[self getBlurImage]];
 }
+- (void)setDataSource:(PhotoDetailViewDataSource *)dataSource
+{
+    if (_dataSource != dataSource) {
+        _dataSource = dataSource;
+        _detailIcon.datasoure = dataSource.dataSource;
+ 
+        [_bgImageView setImageWithURL:[NSURL URLWithString:_dataSource.imageUrl] placeholderImage:[UIImage imageNamed:@"test2.jpg"] success:^(UIImage *image) {
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+}
+#pragma mark MoveAction
 - (void)changeToImageWithAnimation:(UIImage *)toImage
 {
     [_timer invalidate];
@@ -126,6 +137,8 @@
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = UITextAlignmentRight;
     label.textColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.75];
     label.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:35];
 }
 

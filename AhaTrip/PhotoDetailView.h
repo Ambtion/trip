@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "DetailTextIcon.h"
 
+@interface PhotoDetailViewDataSource : NSObject
+@property(nonatomic,strong)DesInfoViewDataSource * dataSource;
+@property(nonatomic,strong)NSString * imageUrl;
+@end
+
 @interface PhotoDetailView : UIView<DetailTextIconAnimationDelegate>
 {
     UIImageView * _bgImageView;
@@ -19,12 +24,15 @@
     UIButton * _likeButton;
     UIImage * _originalImage;
     UIImage * _blurImage;
-    __weak UIViewController * _controller;
     NSTimer * _timer;
     BOOL _isMoveToRight;
     BOOL isAnimation;
+    __weak UIViewController * _controller;
+    PhotoDetailViewDataSource * _dataSource;
 }
-- (id)initWithFrame:(CGRect)frame  controller:(UIViewController *)controller imageInfo:(NSDictionary *)info;
+@property(nonatomic,strong)PhotoDetailViewDataSource * dataSource;
+
+- (id)initWithFrame:(CGRect)frame  controller:(UIViewController *)controller;
 - (void)startBgAnimation;
 - (void)stopAnimation;
 @end
