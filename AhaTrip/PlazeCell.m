@@ -7,6 +7,7 @@
 //
 
 #import "PlazeCell.h"
+#import "UIImageView+WebCache.h"
 #import <objc/runtime.h>
 #define IMAGETAP 4
 
@@ -111,19 +112,23 @@ static char Key_showKind;
     [_leftIcon setHidden:![self isCellShowEnable]];
     [_rightIcon setHidden:![self isCellShowEnable]];
     
-    _leftImageView.image = [UIImage imageNamed:@"test2.jpg"];
-    _leftLabel.text = @"中国-香港";
+    [_leftImageView setImageWithURL:[NSURL URLWithString:[_dataSource.leftInfo objectForKey:@"photo_thumb"]]];
+    _leftLabel.text =[self getCityNameFromDic:_dataSource.leftInfo];
     [self setIconImage:_leftIcon Byinfo:_dataSource.leftInfo];
     [_rightImageView setHidden:![_dataSource rightInfo]];
     if (_dataSource.rightInfo){
         [_rightImageView setHidden:NO];
-        _rightImageView.image = [UIImage imageNamed:@"test2.jpg"];
-        _rightLabel.text = @"日本-大阪";
+        [_rightImageView setImageWithURL:[NSURL URLWithString:[_dataSource.rightInfo objectForKey:@"photo_thumb"]]];
+        _rightLabel.text = [self getCityNameFromDic:_dataSource.rightInfo];
         [self setIconImage:_rightIcon Byinfo:_dataSource.rightInfo];
     }else{
         [_rightImageView setHidden:YES];
         _rightImageView.image = nil;
     }
+}
+- (NSString *)getCityNameFromDic:(NSDictionary*)dic
+{
+    return [NSString stringWithFormat:@"%@-%@",[dic objectForKey:@"country"],[dic objectForKey:@"city"]];
 }
 - (void)setIconImage:(UIImageView *)imageView Byinfo:(NSDictionary *)info
 {

@@ -48,6 +48,7 @@
 {
     [self reloadTableViewDataSource];
 }
+
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView *)view
 {
     return _isLoading;
@@ -68,6 +69,7 @@
     if ([_tableView.pDelegate respondsToSelector:@selector(pullingreloadMoreTableViewData:)]) {
         [_tableView.pDelegate pullingreloadMoreTableViewData:_tableView];
         _isLoading = YES;
+        [_footMoreView showLoadingMore];
     }
 }
 - (void)doneMoreLoadingTableViewData
@@ -117,7 +119,6 @@
 {
     if ([_tableView.pDelegate respondsToSelector:@selector(scrollViewShouldScrollToTop:)])
         return [_tableView.pDelegate scrollViewShouldScrollToTop:scrollView];
-    
     return YES;
 }
 
@@ -354,6 +355,7 @@
         _refresHeadView.delegate = _egoManager;
         [self addSubview:_refresHeadView];
         _moreFootView = [[SCPMoreTableFootView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 60) WithLodingImage:[UIImage imageNamed:@"load_more_pics.png"] endImage:[UIImage imageNamed:@"end_bg.png"] WithBackGroud:[UIColor clearColor]];
+        self.tableFooterView = _moreFootView;
         _moreFootView.delegate = _egoManager;
         _egoManager->_tableView = self;
         _egoManager->_headerView = _refresHeadView;
