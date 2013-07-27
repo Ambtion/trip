@@ -9,7 +9,8 @@
 #import "PlazeViewController.h"
 #import "CQSegmentControl.h"
 #import "PhotoDetailController.h"
-
+#import "SingleMenuViewController.h"
+#import "PlazeViewController.h"
 @interface PlazeViewController ()
 @property(nonatomic,strong)NSMutableArray * assetsArray;
 @end
@@ -25,8 +26,35 @@
     [self addTableView];
     [self addPathButton];
     [self addCusNavBar];
+    [self addEveryCategary];
 }
+//每一个分类
+-(void)addEveryCategary{
+    
+    //    0：景观  1：购物  2：餐饮 3：住宿  4：咖啡 5：娱乐  6：其他
+    NSString*viewStr=@"景观";
+    NSString*shopStr=@"购物";
+    NSString*foodStr=@"美食";
+    NSString*cafeiStr=@"住宿";
+    NSString*departMentStr=@"咖啡";
+    NSString*entertainment=@"娱乐";
+    
+    NSDictionary *dic1=[NSDictionary dictionaryWithObjectsAndKeys:viewStr,@"menu",nil];
+    
+    NSDictionary *dic2=[NSDictionary dictionaryWithObjectsAndKeys:shopStr,@"menu",nil];
+    
+    NSDictionary *dic3=[NSDictionary dictionaryWithObjectsAndKeys:foodStr,@"menu",nil];
+    
+    NSDictionary *dic4=[NSDictionary dictionaryWithObjectsAndKeys:cafeiStr,@"menu",nil];
+    
+    NSDictionary *dic5=[NSDictionary dictionaryWithObjectsAndKeys:departMentStr,@"menu",nil];
+    NSDictionary *dic6=[NSDictionary dictionaryWithObjectsAndKeys:entertainment,@"menu",nil];
+    
+    menuArr=[NSMutableArray arrayWithObjects:dic1,dic2,dic3,dic4,dic5,dic6,nil];
+    
 
+
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -61,6 +89,10 @@
 }
 - (void)addTableView
 {
+    if (self) {
+        <#statements#>
+    }
+    
     _tableView = [[EGRefreshTableView alloc] initWithFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44)];
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.pDelegate = self;
@@ -214,10 +246,21 @@
 - (void)awesomeMenu:(AwesomeMenu *)menu didSelectIndex:(NSInteger)idx
 {
     NSLog(@"Select the index : %d",idx);
+    
+    NSLog(@"Select the index : %d",idx);
+    NSDictionary*menuDict=[menuArr objectAtIndex:idx];
+    NSString*menuSelectStr=[menuDict objectForKey:@"menu"];
+    
+    SingleMenuViewController*singleMenu=[[SingleMenuViewController alloc] init];
+    singleMenu.menuStr=menuSelectStr;
+    singleMenu.selectID=idx+1;
+    NSLog(@"%@%d",singleMenu.menuStr,singleMenu.selectID);
+    [self presentViewController:singleMenu animated:YES completion:nil];
+
 }
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
 {
-    [self.navigationController pushViewController:[[PhotoDetailController alloc] init] animated:YES];
+   [self.navigationController pushViewController:[[PhotoDetailController alloc] init] animated:YES];
 }
 #pragma mark - NavBarDelegate
 - (void)menuButtonClick:(UIButton *)button
