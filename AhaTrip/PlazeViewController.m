@@ -11,12 +11,16 @@
 #import "PhotoDetailController.h"
 #import "SingleMenuViewController.h"
 #import "PlazeViewController.h"
+#import "RequestManager.h"
+
 @interface PlazeViewController ()
 @property(nonatomic,strong)NSMutableArray * assetsArray;
+@property(nonatomic,strong)NSMutableArray * dataSouceArray;
 @end
 
 @implementation PlazeViewController
 @synthesize assetsArray = _assetsArray;
+@synthesize dataSouceArray = _dataSouceArray;
 
 - (void)viewDidLoad
 {
@@ -94,6 +98,7 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     _assetsArray = [[NSMutableArray alloc] initWithCapacity:0];
+    _dataSouceArray  = [[NSMutableArray alloc] initWithCapacity:0];
     [self refresFromeNetWork];
 }
 
@@ -169,34 +174,49 @@
 }
 - (void)refresFromeNetWork
 {
-    [_assetsArray removeAllObjects];
-    for (int i = 0; i < 20; i++) {
-        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
-        source.leftInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-        source.rightInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-        [_assetsArray addObject:source];
-    }
+    __block MBProgressHUD *  hhd = [self waitForMomentsWithTitle:@"加载中" withView:self.view];
+    [RequestManager getPlazaWithstart:0 count:20 token:nil success:^(NSString *response) {
+        [_assetsArray removeAllObjects];
+        [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
+        [self convertAssetsToDataSouce];
+        [self stopWaitProgressView:hhd];
+    } failure:^(NSString *error) {
+        [self stopWaitProgressView:hhd];
+        DLog(@"%@",error);
+    }];
     [_tableView reloadData];
     [_tableView didFinishedLoadingTableViewData];
     
 }
+- (void)convertAssetsToDataSouce
+{
+    [_dataSouceArray removeAllObjects];
+    for (int i = 0;i < _assetsArray.count ; i+=2) {
+        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
+        source.leftInfo = [_assetsArray objectAtIndex:i];
+        if (i + 1 < _assetsArray.count) {
+            source.rightInfo = [_assetsArray objectAtIndex:i+1];
+        }
+        [_dataSouceArray addObject:source];
+    }
+    [_tableView reloadData];
+    [_tableView didFinishedLoadingTableViewData];
+}
 - (void)getMoreFromeNetWork
 {
-    //    for (int i = 0; i < 10; i++) {
-    //        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
-    //        source.leftInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-    //        source.rightInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-    //        [_assetsArray addObject:source];
-    //    }
-    //    [_tableView reloadData];
-    [_tableView didFinishedLoadingTableViewData];
+    [RequestManager getPlazaWithstart:_assetsArray.count count:20 token:nil success:^(NSString *response) {
+        [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
+        [self convertAssetsToDataSouce];
+    } failure:^(NSString *error) {
+        [_tableView didFinishedLoadingTableViewData];
+    }];
 }
 
 #pragma mark - tableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _assetsArray.count;
+    return _dataSouceArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -212,7 +232,7 @@
         cell.delegate = self;
 //        [cell setCellShowEnable:NO];
     }
-    cell.dataSource = [_assetsArray objectAtIndex:indexPath.row];
+    cell.dataSource = [_dataSouceArray objectAtIndex:indexPath.row];
     return cell;
 }
 

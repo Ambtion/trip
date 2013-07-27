@@ -26,6 +26,7 @@
 - (void)scpMoreScrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)scpMoreScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
 
+- (void)showLoadingMore;
 - (BOOL)canLoadingMore;
 - (void)setMoreFunctionOff:(BOOL)isOFF;
 @end

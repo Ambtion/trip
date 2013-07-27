@@ -36,8 +36,15 @@
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
         DLog(@"sucess :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
+        if (weakSelf.responseStatusCode == 200){
+            success(weakSelf.responseString);
+        }else{
+            failure([weakSelf.error description]);
+        }
+        
     }];
     [request setFailedBlock:^{
+        failure([weakSelf.error description]);
         DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
     }];
     if (asy)
@@ -77,4 +84,10 @@
     
 }
 
+//广场接口
++ (void)getPlazaWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/index?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
+    [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
+}
 @end

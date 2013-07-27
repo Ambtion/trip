@@ -78,6 +78,4 @@
 @property(nonatomic,strong)NSString*singleCityName;
 @property(nonatomic,strong)NSString*cateryStr;
 
-- (IBAction)clicklodge:(id)sender ;
-
 @end

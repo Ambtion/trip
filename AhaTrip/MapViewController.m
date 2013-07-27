@@ -312,17 +312,7 @@
        
       
     }
-     
-        
-    
-
-
-   
 }
-
-
-
-
 
 -(void)setAnnotionsWithList:(NSArray *)list
 {
