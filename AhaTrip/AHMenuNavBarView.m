@@ -90,29 +90,31 @@
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 7, 200, 30)];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = [UIColor blackColor];
-    _titleLabel.font = [UIFont boldSystemFontOfSize:15.f];
+    _titleLabel.font = [UIFont boldSystemFontOfSize:18.f];
     _titleLabel.shadowColor = [UIColor clearColor];
     _titleLabel.textAlignment = UITextAlignmentCenter;
     [_overView addSubview:_titleLabel];
 }
+
 - (void)setMenuViewActionButton
 {
     UIButton * leftbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftbutton.frame = CGRectMake(7, 7, 30, 30);
+    leftbutton.frame = CGRectMake(0, 0, 44, 44);
+    [leftbutton setContentMode:UIViewContentModeScaleAspectFit];
     leftbutton.tag = 100;
     [leftbutton setImage:[UIImage imageNamed:@"ItemMenuBarBg.png"] forState:UIControlStateNormal];
     [leftbutton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_menuView addSubview:leftbutton];
     
     UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightButton.frame = CGRectMake(320 - 44, 7, 30, 30);
+    rightButton.frame = CGRectMake(320 - 44, 0, 44, 44);
+    [rightButton setContentMode:UIViewContentModeScaleAspectFit];
     rightButton.tag = 200;
     [rightButton setImage:[UIImage imageNamed:@"ItemSearchBarBg.png"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_menuView addSubview:rightButton];
     
 }
-
 
 - (void)buttonClick:(UIButton *)button
 {

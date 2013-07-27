@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Umeng/UMAppKey.h"
+#import "FunctionGuideView.h"
 #import "IIViewDeckController.h"
 #import "PlazeViewController.h"
 #import "LeftMenuController.h"
@@ -20,8 +21,8 @@
 {
     //this register umeng
     [MobClick startWithAppkey:UM_APP_KEY];
+    [FunctionGuideView showViewWithDelegate:nil];
     //this register notification
-    
     //    [[UIApplication sharedApplication]  registerForRemoteNotificationTypes:
     //     (UIRemoteNotificationTypeAlert |
     //      UIRemoteNotificationTypeBadge |
@@ -44,6 +45,7 @@
     [nav_center.navigationBar setHidden:YES];
     self.window.rootViewController = nav_center;
     [self.window makeKeyAndVisible];
+    [self configProject];
     //
     return YES;
 }

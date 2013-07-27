@@ -10,6 +10,9 @@
 #import "CountryListCell.h"
 #import "CityViewController.h"
 
+#define ALLCOUNTRY          @"全部"
+#define OTHERCOUNTRY        @"其他国家/地区"
+
 @implementation CusSearchDisplayController
 - (void)setActive:(BOOL)visible animated:(BOOL)animated;
 {
@@ -38,7 +41,7 @@
 {
     [super viewDidLoad];
     self.wantsFullScreenLayout = YES;
-    self.view.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
+    self.view.backgroundColor = [UIColor blackColor];
     _tableView = [[EGRefreshTableView alloc] initWithFrame:CGRectMake(44, 0, 276, self.view.frame.size.height)];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.separatorColor = [UIColor clearColor];
@@ -49,7 +52,6 @@
     [self initDataContainer];
     [self refrehsFromNetWork];
 }
-
 - (void)addSearchView
 {
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -86,7 +88,7 @@
 {
     [_sourceArray removeAllObjects];
     CountryListCellDataSource * allsource = [[CountryListCellDataSource alloc] init];
-    allsource.cName = @"全部";
+    allsource.cName = ALLCOUNTRY;
     allsource.eName = nil;
     [_sourceArray addObject:allsource];
     for (int i = 0; i < 20; i++) {
@@ -96,7 +98,7 @@
         [_sourceArray addObject:source];
     }
     CountryListCellDataSource * otherSouece = [[CountryListCellDataSource alloc] init];
-    otherSouece.cName = @"其他国家/地区";
+    otherSouece.cName = OTHERCOUNTRY;
     otherSouece.eName = nil;
     [_sourceArray addObject:otherSouece];
     [_tableView reloadData];
@@ -148,16 +150,32 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * identify  = @"CELL";
+    static NSString * allCell = @"ALLCELL";
+    CountryListCellDataSource * source = nil;
+    if (_tableView != tableView)
+        source = [_searchSourceArray objectAtIndex:indexPath.row];
+    else
+        source = [_sourceArray objectAtIndex:indexPath.row];
+    if ([source.cName isEqualToString:ALLCOUNTRY] || [source.cName isEqualToString:OTHERCOUNTRY]) {
+        CountryListCell * cell = [tableView dequeueReusableCellWithIdentifier:allCell];
+        if (!cell) {
+            cell = [[CountryListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+            [cell.arrow setHidden:YES];
+        }
+        cell.dataSource = source;
+        return cell;
+    }
     CountryListCell * cell = [tableView dequeueReusableCellWithIdentifier:identify];
     if (!cell) {
         cell = [[CountryListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
-    [cell.arrow setHidden:indexPath.row != 0];
-    if (_tableView != tableView)
-        cell.dataSource = [_searchSourceArray objectAtIndex:indexPath.row];
-    else
-        cell.dataSource = [_sourceArray objectAtIndex:indexPath.row];
+    
+    cell.dataSource = source;
     return cell;
+}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
 }
 
 #pragma mark Action

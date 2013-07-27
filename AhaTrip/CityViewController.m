@@ -18,10 +18,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
+    self.view.backgroundColor = [UIColor blackColor];
     _tableView = [[EGRefreshTableView alloc] initWithFrame:CGRectMake(44, 0, 276, self.view.frame.size.height)];
     _tableView.backgroundColor = [UIColor clearColor];
-    _tableView.separatorColor = [UIColor blackColor];
+    _tableView.separatorColor = [UIColor clearColor];
     _tableView.pDelegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -32,7 +32,7 @@
 - (void)addBackButton
 {
     UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(60, 5, 33, 33)];
-    [backButton setImage:[UIImage imageNamed:@"right_Menu_back.png"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"right_county_back.png"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
 }
@@ -110,10 +110,5 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (tableView){
-        
-    }else{
-        
-    }
 }
 @end

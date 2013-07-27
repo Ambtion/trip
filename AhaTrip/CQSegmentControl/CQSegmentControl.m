@@ -39,21 +39,25 @@
 - (void)setcustomizing
 {
     self.backgroundColor = [UIColor clearColor];
-    UIImage *normal1 = [UIImage imageNamed:@"seg_All_Bg.png"];
-	UIImage *normal2 = [UIImage imageNamed:@"seg_Sight_Bg.png"];
-    UIImage *normal3 = [UIImage imageNamed:@"seg_Shopping_Bg.png"];
-	UIImage *normal4 = [UIImage imageNamed:@"seg_Dinner_Bg.png"];
-    UIImage *normal5 = [UIImage imageNamed:@"seg_Drink_Bg.png"];
-    UIImage *normal6 = [UIImage imageNamed:@"seg_Hotel_Bg.png"];
-    NSMutableArray *unselectImages = [[[NSMutableArray alloc]initWithObjects:normal1, normal2,normal3,normal4,normal5,normal6, nil] autorelease];
+    UIImage *normal1 = [UIImage imageNamed:@"tag_all.png"];
+	UIImage *normal2 = [UIImage imageNamed:@"tag_view.png"];
+    UIImage *normal3 = [UIImage imageNamed:@"tag_shopping.png"];
+    UIImage *normal4 = [UIImage imageNamed:@"tag_food.png"];
+	UIImage *normal5 = [UIImage imageNamed:@"tag_drink.png"];
+    UIImage *normal6 = [UIImage imageNamed:@"tag_Entertainment.png"];
+    UIImage *normal7 = [UIImage imageNamed:@"tag_hotel.png"];
 
-    UIImage *press1 = [UIImage imageNamed:@"seg_seleted_All_Bg.png"];
-	UIImage *press2 = [UIImage imageNamed:@"seg_seleted_Sight_Bg.png"];
-    UIImage *press3 = [UIImage imageNamed:@"seg_seleted_Shopping_Bg.png"];
-	UIImage *press4 = [UIImage imageNamed:@"seg_seleted_Dinner_Bg.png"];
-    UIImage *press5 = [UIImage imageNamed:@"seg_seleted_Drink_Bg.png"];
-    UIImage *press6 = [UIImage imageNamed:@"seg_seleted_Hotel_Bg.png"];
-	NSMutableArray *selectImages = [[[NSMutableArray alloc]initWithObjects: press1, press2,press3,press4,press5,press6, nil] autorelease];
+    NSMutableArray *unselectImages = [[[NSMutableArray alloc]initWithObjects:normal1, normal2,normal3,normal4,normal5,normal6,normal7, nil] autorelease];
+
+    UIImage *press1 = [UIImage imageNamed:@"tag_all_0.png"];
+	UIImage *press2 = [UIImage imageNamed:@"tag_view_2.png"];
+    UIImage *press3 = [UIImage imageNamed:@"tag_shopping_0.png"];
+    UIImage *press4 = [UIImage imageNamed:@"tag_food_0.png"];
+	UIImage *press5 = [UIImage imageNamed:@"tag_drink_0.png"];
+    UIImage *press6 = [UIImage imageNamed:@"tag_Entertainment_0.png"];
+    UIImage *press7 = [UIImage imageNamed:@"tag_hotel_0.png"];
+
+	NSMutableArray *selectImages = [[[NSMutableArray alloc]initWithObjects: press1, press2,press3,press4,press5,press6,press7, nil] autorelease];
     self.normalImageItems = unselectImages;
 	self.highlightImageItems = selectImages;
     

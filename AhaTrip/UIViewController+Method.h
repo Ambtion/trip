@@ -29,6 +29,7 @@
 
 @interface UIViewController(IsMine)
 - (BOOL)isMineWithOwnerId:(NSString *)ownerID;
+- (BOOL)isIphone5;
 @end
 
 

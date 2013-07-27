@@ -20,8 +20,6 @@
 
 - (void)viewDidLoad
 {
-    
-    
     [super viewDidLoad];
     [self addTableView];
     [self addPathButton];
@@ -85,7 +83,7 @@
 {
     _menuView = [[AHMenuNavBarView alloc] initWithView:self.view];
     _menuView.delegate = self;
-    [_menuView setStringTitleArray:[NSArray arrayWithObjects:@"最新",@"最热", nil] curString:@"最新"];
+    [_menuView setStringTitleArray:[NSArray arrayWithObjects:@"广场",@"最热", nil] curString:@"广场"];
 }
 - (void)addTableView
 {
@@ -113,17 +111,18 @@
                                       highlightedImage:storyMenuItemImagePressed
                                       ContentImage:[UIImage imageNamed:@"icon_shopping.png"]
                                       highlightedContentImage:nil];
+    
     AwesomeMenuItem *starMenuItem3 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
                                                                ContentImage:[UIImage imageNamed:@"icon_food.png"]
                                                     highlightedContentImage:nil];
     AwesomeMenuItem *starMenuItem4 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
-                                                               ContentImage:[UIImage imageNamed:@"icon_food.png"]
+                                                               ContentImage:[UIImage imageNamed:@"icon_drink.png"]
                                                     highlightedContentImage:nil];
     AwesomeMenuItem *starMenuItem5 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
-                                                               ContentImage:[UIImage imageNamed:@"icon-drink.png"]
+                                                               ContentImage:[UIImage imageNamed:@"icon_Entertainment.png"]
                                                     highlightedContentImage:nil];
     AwesomeMenuItem *starMenuItem6 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
@@ -203,29 +202,7 @@
 {
     return [PlazeCellDataSource cellHight];
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 41.f;
-}
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    NSArray * items = [NSArray arrayWithObjects:@"手",@"网",@"网", @"网",@"网",@"网",nil];
-    CQSegmentControl *  segControll = [[CQSegmentControl alloc] initWithItemsAndStype:items stype:TitleAndImageSegmented];
-    [segControll addTarget:self action:@selector(segMentChnageValue:) forControlEvents:UIControlEventValueChanged];
-    segControll.frame = CGRectMake(-2, 0, 324, 49);
-    segControll.selectedSegmentIndex = 0;
-    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 41.f)];
-    [view addSubview:segControll];
-    return view;
-}
-
-- (void)segMentChnageValue:(CQSegmentControl*)seg
-{
-    //    if (!seg.selectedSegmentIndex)
-    //            return;
-    //    [_tableView refrehOnce];
-}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * string = @"CELL";
@@ -233,7 +210,7 @@
     if (!cell) {
         cell = [[PlazeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:string];
         cell.delegate = self;
-        [cell setCellShowEnable:NO];
+//        [cell setCellShowEnable:NO];
     }
     cell.dataSource = [_assetsArray objectAtIndex:indexPath.row];
     return cell;
@@ -271,7 +248,7 @@
 }
 - (void)titleMenuClickWithInfo:(id)info
 {
-    
+    DLog();
 }
 
 - (BOOL)viewDeckController:(IIViewDeckController *)viewDeckController shouldPan:(UIPanGestureRecognizer *)panGestureRecognizer

@@ -11,6 +11,7 @@
 @implementation CountryListCellDataSource
 @synthesize cName,eName,identify;
 @end
+
 @implementation CountryListCell
 @synthesize arrow;
 
@@ -20,14 +21,15 @@
     if (self) {
         self.frame = CGRectMake(0, 0, self.frame.size.width, 44);
         _offset = 20.f;
-        
-        UIImageView * image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leftMenuHigthed.png"]];
-        image.frame = self.bounds;
-        self.selectedBackgroundView = image;
-        
-        UIImageView * line = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menuLine.png"]];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+//        UIImageView * image = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"leftMenuHigthed.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 160, 20, 160)]];
+//        image.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//        image.frame = self.bounds;
+//        self.selectedBackgroundView = image;
+        UIImageView * line = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cutline.png"]];
         line.frame = CGRectMake(0, self.frame.size.height - 2, 320, 2);
         line.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        [self addSubview:line];
         [self.contentView addSubview:line];
         [self addCNameLabel];
         [self addENameLabel];
