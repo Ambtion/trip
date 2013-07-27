@@ -19,5 +19,6 @@
     AHMenuNavBarView * _menuView;
     CGFloat _startFolat;
     UINavigationController* _rightSearch;
+    NSMutableArray*menuArr;
 }
 @end
