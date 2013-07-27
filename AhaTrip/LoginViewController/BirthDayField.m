@@ -29,7 +29,7 @@
 {
     _normalColor = color;
     _seletedColor = seletedColor;
-    [self setGenderButtonsState];
+//    [self setGenderButtonsState];
 }
 - (void)addtextFiled
 {
@@ -68,7 +68,7 @@
     _g_Button.tag = 200;
     [self addSubview:_g_Button];
     
-    self.isBoy = YES;
+//    self.isBoy = YES;
     [self setButtonNormalTextColor:[UIColor whiteColor] seletedColor:[UIColor whiteColor]];
     //    [self setGenderButtonsState];
 }

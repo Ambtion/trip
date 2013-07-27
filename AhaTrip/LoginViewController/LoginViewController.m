@@ -51,11 +51,6 @@
     [_backgroundControl addTarget:self action:@selector(allTextFieldsResignFirstResponder) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backgroundControl];
     [self addFunctionView];
-//    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    backButton.frame = CGRectMake(7, 7, 33, 33);
-//    [backButton setImage:[UIImage imageNamed:@"back_Button.png"] forState:UIControlStateNormal];
-//    [backButton addTarget:self action:@selector(cancelLogin:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:backButton];
 }
 
 - (void)addFunctionView
@@ -68,7 +63,7 @@
     _usernameTextField.font = [UIFont systemFontOfSize:15];
     _usernameTextField.textColor = TEXTLOLOR;
     _usernameTextField.returnKeyType = UIReturnKeyNext;
-    _usernameTextField.placeholder = @" 使用电子邮箱地址";
+    _usernameTextField.placeholder = @"  使用电子邮箱地址";
     _usernameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _usernameTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _usernameTextField.text = [[LoginStateManager lastUserName] copy];
@@ -86,7 +81,7 @@
     _passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _passwordTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     _passwordTextField.secureTextEntry = YES;
-    _passwordTextField.placeholder = @" 密码";
+    _passwordTextField.placeholder = @"  密码";
     
     //登录按钮
     UIButton * loginButton = [UIButton buttonWithType:UIButtonTypeCustom];

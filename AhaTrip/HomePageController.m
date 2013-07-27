@@ -36,8 +36,9 @@
 - (void)addBackButton
 {
     UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(7, 7, 30, 30);
-    if (_isRootController) 
+    backButton.frame = CGRectMake(0, 0, 44, 44);
+    [backButton setContentMode:UIViewContentModeScaleAspectFit];
+    if (_isRootController)
         [backButton setImage:[UIImage imageNamed:@"ItemMenuBarBg-white.png"] forState:UIControlStateNormal];
     else
         [backButton setImage:[UIImage imageNamed:@"back_Button.png"] forState:UIControlStateNormal];

@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 #define IMAGETAP 4
 
-
 @implementation PlazeCellDataSource
 @synthesize rightInfo,leftInfo;
 + (CGFloat)cellHight
@@ -38,7 +37,20 @@ static char Key_showKind;
         [self.contentView addSubview:_leftImageView];
         _leftIcon = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
         _leftIcon.backgroundColor = [UIColor clearColor];
+        _leftIcon.layer.shadowOffset = CGSizeMake(0, 1);
+        _leftIcon.layer.shadowColor = [[UIColor blackColor] CGColor];
+        _leftIcon.layer.shadowOpacity = 0.4;
+
         [_leftImageView addSubview:_leftIcon];
+        
+        _leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 5, 100, 20)];
+        _leftLabel.backgroundColor = [UIColor clearColor];
+        _leftLabel.font = [UIFont boldSystemFontOfSize:12.f];
+        _leftLabel.textColor = [UIColor whiteColor];
+        _leftLabel.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.75];
+        _leftLabel.shadowOffset = CGSizeMake(0, 1);
+        [_leftImageView addSubview:_leftLabel];
+        
         UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGusture:)];
         gesture.numberOfTapsRequired = 1;
         [_leftImageView addGestureRecognizer:gesture];
@@ -48,7 +60,20 @@ static char Key_showKind;
         [self.contentView addSubview:_rightImageView];
         _rightIcon = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
         _rightIcon.backgroundColor = [UIColor clearColor];
+        _rightIcon.layer.shadowOffset = CGSizeMake(0, 1);
+        _rightIcon.layer.shadowColor = [[UIColor blackColor] CGColor];
+        _rightIcon.layer.shadowOpacity = 0.4;
         [_rightImageView addSubview:_rightIcon];
+        
+        _rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 5, 100, 20)];
+        _rightLabel.backgroundColor = [UIColor clearColor];
+        _rightLabel.font = [UIFont boldSystemFontOfSize:12.f];
+        _rightLabel.textColor = [UIColor whiteColor];
+        _rightLabel.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.75];
+        _rightLabel.shadowOffset = CGSizeMake(0, 1);
+
+        [_rightImageView addSubview:_rightLabel];
+        
         UITapGestureRecognizer * gesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGusture:)];
         gesture2.numberOfTapsRequired = 1;
         [_rightImageView addGestureRecognizer:gesture2];
@@ -85,12 +110,15 @@ static char Key_showKind;
 {
     [_leftIcon setHidden:![self isCellShowEnable]];
     [_rightIcon setHidden:![self isCellShowEnable]];
-    _leftImageView.image = [UIImage imageNamed:@"testImage.png"];
+    
+    _leftImageView.image = [UIImage imageNamed:@"test2.jpg"];
+    _leftLabel.text = @"中国-香港";
     [self setIconImage:_leftIcon Byinfo:_dataSource.leftInfo];
     [_rightImageView setHidden:![_dataSource rightInfo]];
     if (_dataSource.rightInfo){
         [_rightImageView setHidden:NO];
-        _rightImageView.image = [UIImage imageNamed:@"testImage.png"];
+        _rightImageView.image = [UIImage imageNamed:@"test2.jpg"];
+        _rightLabel.text = @"日本-大阪";
         [self setIconImage:_rightIcon Byinfo:_dataSource.rightInfo];
     }else{
         [_rightImageView setHidden:YES];
@@ -99,8 +127,9 @@ static char Key_showKind;
 }
 - (void)setIconImage:(UIImageView *)imageView Byinfo:(NSDictionary *)info
 {
-    [imageView setImage:[UIImage imageNamed:@"Entertainment.png"]];
+    [imageView setImage:[UIImage imageNamed:@"food.png"]];
 }
+
 - (void)setCellShowEnable:(BOOL)enabled
 {
     objc_setAssociatedObject(self, &Key_showKind, [NSNumber numberWithBool:enabled], OBJC_ASSOCIATION_RETAIN_NONATOMIC);

@@ -76,7 +76,7 @@
     _usernameTextField.font = [UIFont systemFontOfSize:15];
     _usernameTextField.textColor = TEXTLOLOR;
     _usernameTextField.returnKeyType = UIReturnKeyNext;
-    _usernameTextField.placeholder = @" 昵称";
+    _usernameTextField.placeholder = @"  昵称";
     _usernameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _usernameTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _usernameTextField.delegate = self;
@@ -87,7 +87,7 @@
     _mailBindTextField.font = [UIFont systemFontOfSize:15];
     _mailBindTextField.textColor = TEXTLOLOR;
     _mailBindTextField.returnKeyType = UIReturnKeyNext;
-    _mailBindTextField.placeholder = @" 电子邮箱地址";
+    _mailBindTextField.placeholder = @"  电子邮箱地址";
     _mailBindTextField.delegate = self;
     _mailBindTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _mailBindTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];        _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -102,7 +102,7 @@
     _passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _passwordTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     _passwordTextField.secureTextEntry = YES;
-    _passwordTextField.placeholder = @" 密码";
+    _passwordTextField.placeholder = @"  密码";
     _passwordTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];        _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_passwordTextField addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventEditingDidEndOnExit];
     
@@ -110,7 +110,7 @@
     _birthday.textFiled.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _birthday.textFiled.font = [UIFont systemFontOfSize:15];
     _birthday.textFiled.textColor = TEXTLOLOR;
-    _birthday.textFiled.placeholder = @" 生日(可选)";
+    _birthday.textFiled.placeholder = @"  生日(可选)";
      
     _registerButton = [UIButton  buttonWithType:UIButtonTypeRoundedRect];
     [_registerButton setImage:[UIImage imageNamed:@"register_button.png"] forState:UIControlStateNormal];

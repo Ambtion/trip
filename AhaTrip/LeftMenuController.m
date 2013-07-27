@@ -10,7 +10,7 @@
 #import "LeftMenuCell.h"
 
 
-static  NSString *   menuText[4] =   {@"主页",@"个人昵称",@"消息",@"设置"};
+static  NSString *   menuText[4] =   {@"广场",@"个人昵称",@"消息",@"设置"};
 static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
 
 @implementation LeftMenuController
@@ -25,7 +25,8 @@ ntfController = _ntfController,setController = _setController;
     self.view.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
     _selectPath = [NSIndexPath indexPathForRow:0 inSection:0];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.separatorColor = [UIColor clearColor];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.scrollEnabled = NO;
     _tableView.dataSource = self;

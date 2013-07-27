@@ -94,6 +94,10 @@
 {
     return [LoginStateManager isLogin] && [[LoginStateManager currentUserId] isEqualToString:ownerID];
 }
+- (BOOL)isIphone5
+{
+    return [[UIScreen mainScreen] bounds].size.height > 480;
+}
 @end
 
 @implementation UIImageView(Blur)

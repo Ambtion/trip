@@ -23,10 +23,11 @@
 {
     UIImageView * _leftImageView;
     UIImageView * _leftIcon;
+    UILabel * _leftLabel;
     
     UIImageView * _rightImageView;
     UIImageView * _rightIcon;
-
+    UILabel * _rightLabel;
     PlazeCellDataSource * _dataSource;
 }
 
