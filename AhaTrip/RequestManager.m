@@ -45,6 +45,7 @@
     else
         [request startSynchronous];
 }
+
 #pragma mark GET
 + (void)getSourceWithStringUrl:(NSString * )strUrl asynchronou:(BOOL)asy success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
@@ -66,6 +67,14 @@
 
 
 @implementation RequestManager
++ (void)loingWithUserName:(NSString *)name passpord:(NSString*)passpord success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    
+}
 
++ (void)registerWithUserName:(NSString *)name passpord:(NSString *)passpord gender:(NSString *)gender portrait:(NSData*)imagedata birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    
+}
 
 @end

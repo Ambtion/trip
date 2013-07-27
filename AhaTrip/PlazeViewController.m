@@ -19,8 +19,6 @@
 
 - (void)viewDidLoad
 {
-    
-    
     [super viewDidLoad];
     [self addTableView];
     [self addPathButton];
@@ -32,8 +30,8 @@
     [super viewWillAppear:animated];
     self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
     self.viewDeckController.delegate = self;
-//    if (![LoginStateManager isLogin])
-//        [self showLoginViewWithMethodNav:NO withAnimation:YES];
+    if (![LoginStateManager isLogin])
+        [self showLoginViewWithMethodNav:NO withAnimation:YES];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -231,7 +229,7 @@
 }
 - (void)titleMenuClickWithInfo:(id)info
 {
-    
+    DLog();
 }
 
 - (BOOL)viewDeckController:(IIViewDeckController *)viewDeckController shouldPan:(UIPanGestureRecognizer *)panGestureRecognizer
