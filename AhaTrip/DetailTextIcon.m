@@ -149,6 +149,7 @@
     }
     return self;
 }
+
 - (void)addUserNameLabel
 {
     //39 - 25

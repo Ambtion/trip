@@ -13,7 +13,7 @@
 static NSString * secTitle[3] = {@"账户",@"分享到",@"其他"};
 static NSString * titleSection1[2] = {@"新浪微博",@"腾讯微博"};
 static NSString * iconSection1[2] = {@"setting_Icon_sina.png",@"setting_Icon_qq.png"};
-static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意见反馈",@"清除缓存"};
+static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意见反馈",@"清除缓存",@"检查版本更新"};
 
 @implementation SettingController
 
@@ -114,7 +114,7 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
             return 2;
             break;
         case 2:
-            return 4;
+            return 5;
             break;
     }
     return 0;
@@ -199,6 +199,9 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
             case 3: //缓冲
                 [self showPopAlerViewWithMes:@"确认删除缓存" withDelegate:self cancelButton:@"取消" otherButtonTitles:@"确认",nil];
                 break;
+                case 4: //检查版本
+                [self onCheckVersion];
+                break;
             default:
                 break;
         }
@@ -224,5 +227,40 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
 {
     [self showPopAlerViewWithMes:@"确认登出" withDelegate:self cancelButton:@"取消" otherButtonTitles:@"确认",nil];
 }
+
+
+#pragma checkou Version
+-(void)onCheckVersion
+{
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSNumber * currentVersion = [infoDic objectForKey:@"VersionCode"];
+    NSDictionary * dic = [self getAppInfoFromNet];
+    NSNumber * newVersion = [dic objectForKey:@"versionCode"];
+    BOOL isUpata = [self CompareVersionFromOldVersion:currentVersion newVersion:newVersion];
+    if (0) {
+        UIApplication *application = [UIApplication sharedApplication];
+        [application openURL:[NSURL URLWithString:[dic objectForKey:@"updateURL"]]];
+    }else{
+        [self showPopAlerViewWithMes:@"当前已是最新版本" withDelegate:self cancelButton:@"确定" otherButtonTitles:nil];
+    }
+}
+-(BOOL)CompareVersionFromOldVersion : (NSNumber *)oldVersion newVersion : (NSNumber *)newVersion
+{
+    return ([oldVersion intValue] < [newVersion intValue]);
+}
+- (NSDictionary *)getAppInfoFromNet
+{
+//    NSString *URL =[NSString stringWithFormat:@"%@/version?app=ios",BASICURL_V1];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setURL:[NSURL URLWithString:URL]];
+//    [request setHTTPMethod:@"GET"];
+//    NSHTTPURLResponse *urlResponse = nil;
+//    NSError * error = nil;
+//    NSData * recervedData = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
+//    NSString *results = [[NSString alloc] initWithBytes:[recervedData bytes] length:[recervedData length] encoding:NSUTF8StringEncoding];
+//    return [results JSONValue];
+    return nil;
+}
+
 
 @end
