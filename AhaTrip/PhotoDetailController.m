@@ -92,16 +92,18 @@
     [_pageControll setHidden:[photos count] <= 1];
     _scrollView.contentSize = CGSizeMake(rect.size.width * photos.count, rect.size.height);
 }
+
 - (void)setLikeAndCommentDataSourceWithInfo:(NSDictionary *)info
 {
-    isLiked = YES;
+    isLiked = NO;
     likeCount = 20;
     commentCount = 20;
 }
+
 - (void)serUsrInfo
 {
     NSDictionary * userInfo = [_dataInfo objectForKey:@"user"];
-    [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:[userInfo objectForKey:@"photo_thumb"]]];
+    [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:[userInfo objectForKey:@"photo_thumb"]]placeholderImage:[UIImage imageNamed:@"avatar.png"]];
     _nameLabel.text = [userInfo objectForKey:@"username"];
     [self setLikeAndCommentDataSourceWithInfo:userInfo];
 }
@@ -113,6 +115,7 @@
     source.location = [_dataInfo objectForKey:@"position"];
     source.averConsume = [_dataInfo objectForKey:@"price"];
     source.netHasWifi = [_dataInfo objectForKey:@"wifi"];
+    source.sortImage = [UIImage imageNamed:[self getCateryImage:[[_dataInfo objectForKey:@"category_id"] intValue] - 1]];
     return source;
 }
 
@@ -152,7 +155,8 @@
 }
 - (void)tapGesutre:(id)gesture
 {
-    [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO withUserId:nil] animated:YES];
+    NSDictionary * userInfo = [_dataInfo objectForKey:@"user"];
+    [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO withUserId:[userInfo objectForKey:@"id"]] animated:YES];
 }
 - (void)backButtonClick:(UIButton *)button
 {

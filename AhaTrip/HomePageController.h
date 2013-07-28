@@ -19,6 +19,7 @@
     HomeAccountPage * _homeAccountPage;
     NSString * _userId;
     UIButton * _backButton;
+    BOOL _isFinds;
     BOOL _isRootController;
 }
 - (id)initAsRootViewController:(BOOL)isRoot withUserId:(NSString *)userId;

@@ -21,6 +21,7 @@
     frame.size.height = 180 + 53;
     self = [super initWithFrame:frame];
     if (self) {
+        
         _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
         _bgImageView.image = [UIImage imageNamed:@"profileBg.png"];
         [self addSubview:_bgImageView];
@@ -63,9 +64,10 @@
 }
 - (void)updataDatasource
 {
+    DLog(@"%@ %@",_dataSource.name,_dataSource.descrip);
     _nameLabel.text =_dataSource.name;
     _desLabel.text = _dataSource.descrip;
-    [_portraitImageView.imageView setImageWithURL:[NSURL URLWithString:_dataSource.portraitUrl]];
+    [_portraitImageView.imageView setImageWithURL:[NSURL URLWithString:_dataSource.portraitUrl] placeholderImage:[UIImage imageNamed:@"avatar.png"]];
     [_segMent setFinds:[self getCount:_dataSource.finds] fav:[self getCount:_dataSource.favorite]];
 }
 - (NSString *)getCount:(NSInteger)count

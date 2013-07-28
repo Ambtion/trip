@@ -13,6 +13,7 @@
 #import "PlazeViewController.h"
 #import "LeftMenuController.h"
 #import "RightSerachController.h"
+#import "RequestManager.h"
 
 @implementation AppDelegate
 @synthesize window = _window;
@@ -46,7 +47,6 @@
     self.window.rootViewController = nav_center;
     [self.window makeKeyAndVisible];
     [self configProject];
-    //
     return YES;
 }
 

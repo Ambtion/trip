@@ -67,7 +67,13 @@
         _detailIcon.datasoure = dataSource.dataSource;
         [self setLikeAndCountState];
         NSDate* date = [NSDate date];
-        [_bgImageView setImageWithURL:[NSURL URLWithString:_dataSource.imageUrl] placeholderImage:[UIImage imageNamed:@"test2.jpg"] success:^(UIImage *image) {
+        UIImage * image = nil;
+        if ([_controller isIphone5]) {
+            image = [UIImage imageNamed:@"loading_bgimage_5.png"];
+        }else{
+            image = [UIImage imageNamed:@"loading_bgimage.png"];
+        }
+        [_bgImageView setImageWithURL:[NSURL URLWithString:_dataSource.imageUrl]placeholderImage:image success:^(UIImage *image) {
             DLog(@"LLLLLL:%f",[[NSDate date] timeIntervalSinceDate:date]);
         } failure:^(NSError *error) {
             

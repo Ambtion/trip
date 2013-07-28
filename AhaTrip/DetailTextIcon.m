@@ -153,7 +153,7 @@
 {
     //39 - 25
     _sortImageView = [[UIImageView alloc] initWithFrame:CGRectMake(OFFSETX, (40 - 26)/2.f, 26, 26)];
-    _sortImageView.backgroundColor = [UIColor redColor];
+    _sortImageView.backgroundColor = [UIColor clearColor];
     _sortImageView.layer.cornerRadius = 13.f;
     [self addSubview:_sortImageView];
     self.userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(OFFSETX * 2 + _sortImageView.frame.size.width, 0, 310 - (OFFSETX * 3 + _sortImageView.frame.size.width), 40)];

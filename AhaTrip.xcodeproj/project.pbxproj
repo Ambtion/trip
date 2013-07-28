@@ -318,6 +318,9 @@
 		0505FBAD17A3E1E300C4B77F /* xiaoyuanquan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0505FB9D17A3E1E300C4B77F /* xiaoyuanquan@2x.png */; };
 		0505FBB017A3E2AB00C4B77F /* SearchPlazaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505FBAF17A3E2AB00C4B77F /* SearchPlazaViewController.m */; };
 		0505FBBD17A3E46100C4B77F /* FunctionGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505FBBC17A3E46100C4B77F /* FunctionGuideView.m */; };
+		B83E1F2017A50F3700E07AFC /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = B83E1F1F17A50F3700E07AFC /* avatar.png */; };
+		B83E1F2417A5159800E07AFC /* loading_bgimage_5.png in Resources */ = {isa = PBXBuildFile; fileRef = B83E1F2217A5159800E07AFC /* loading_bgimage_5.png */; };
+		B83E1F2517A5159800E07AFC /* loading_bgimage.png in Resources */ = {isa = PBXBuildFile; fileRef = B83E1F2317A5159800E07AFC /* loading_bgimage.png */; };
 		B8404E221778872B00EDCBB9 /* icon_food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8404E1D1778872B00EDCBB9 /* icon_food@2x.png */; };
 		B8404E231778872B00EDCBB9 /* icon_hotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8404E1E1778872B00EDCBB9 /* icon_hotel@2x.png */; };
 		B8404E241778872B00EDCBB9 /* icon_shopping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8404E1F1778872B00EDCBB9 /* icon_shopping@2x.png */; };
@@ -1044,6 +1047,9 @@
 		0505FBAF17A3E2AB00C4B77F /* SearchPlazaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPlazaViewController.m; sourceTree = "<group>"; };
 		0505FBBB17A3E46100C4B77F /* FunctionGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionGuideView.h; sourceTree = "<group>"; };
 		0505FBBC17A3E46100C4B77F /* FunctionGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionGuideView.m; sourceTree = "<group>"; };
+		B83E1F1F17A50F3700E07AFC /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
+		B83E1F2217A5159800E07AFC /* loading_bgimage_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading_bgimage_5.png; sourceTree = "<group>"; };
+		B83E1F2317A5159800E07AFC /* loading_bgimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading_bgimage.png; sourceTree = "<group>"; };
 		B8404E1D1778872B00EDCBB9 /* icon_food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_food@2x.png"; sourceTree = "<group>"; };
 		B8404E1E1778872B00EDCBB9 /* icon_hotel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_hotel@2x.png"; sourceTree = "<group>"; };
 		B8404E1F1778872B00EDCBB9 /* icon_shopping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_shopping@2x.png"; sourceTree = "<group>"; };
@@ -2043,6 +2049,16 @@
 			name = PicCateroy;
 			sourceTree = "<group>";
 		};
+		B83E1F2117A5157A00E07AFC /* DFImage */ = {
+			isa = PBXGroup;
+			children = (
+				B83E1F2217A5159800E07AFC /* loading_bgimage_5.png */,
+				B83E1F2317A5159800E07AFC /* loading_bgimage.png */,
+				B83E1F1F17A50F3700E07AFC /* avatar.png */,
+			);
+			name = DFImage;
+			sourceTree = "<group>";
+		};
 		B859F7C51775AC4C00313DE0 = {
 			isa = PBXGroup;
 			children = (
@@ -2279,6 +2295,7 @@
 		B859F8561775D6A000313DE0 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B83E1F2117A5157A00E07AFC /* DFImage */,
 				B83E1F1E17A4D5A000E07AFC /* PicCateroy */,
 				C592308D1793E8D700ACA120 /* Notification */,
 				C50A2B741784190A00D7231C /* Setting */,
@@ -3029,6 +3046,9 @@
 				0505FBAB17A3E1E300C4B77F /* guide_nologin_press.png in Resources */,
 				0505FBAC17A3E1E300C4B77F /* xiaoyuanquan-cur@2x.png in Resources */,
 				0505FBAD17A3E1E300C4B77F /* xiaoyuanquan@2x.png in Resources */,
+				B83E1F2017A50F3700E07AFC /* avatar.png in Resources */,
+				B83E1F2417A5159800E07AFC /* loading_bgimage_5.png in Resources */,
+				B83E1F2517A5159800E07AFC /* loading_bgimage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

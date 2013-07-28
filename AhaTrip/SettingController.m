@@ -13,7 +13,7 @@
 static NSString * secTitle[3] = {@"账户",@"分享到",@"其他"};
 static NSString * titleSection1[2] = {@"新浪微博",@"腾讯微博"};
 static NSString * iconSection1[2] = {@"setting_Icon_sina.png",@"setting_Icon_qq.png"};
-static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意见反馈",@"清楚缓冲"};
+static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意见反馈",@"清除缓存"};
 
 @implementation SettingController
 
@@ -36,9 +36,9 @@ static NSString * titleSection2[4] = {@"关于我们",@"给AhaTrip打分",@"意�
 {
     acountSource = [[AcountSettingCellDataSource alloc] init];
     acountSource.poraitImage = [UIImage imageNamed:@"test_portrait.png"];
-    acountSource.userName = @"曹小盖er";
-    acountSource.userDes = @"没什么描述的";
-    acountSource.birthday = @"2012-2-23";
+//    acountSource.userName = @"曹小盖er";
+//    acountSource.userDes = @"没什么描述的";
+//    acountSource.birthday = @"2012-2-23";
     acountSource.isBoy = YES;
 }
 - (void)addNavBar

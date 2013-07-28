@@ -294,7 +294,6 @@
 }
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController didCloseViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated
 {
-    DLog(@"");
     [self setRightSearchBarTonil:YES];
 }
 @end
