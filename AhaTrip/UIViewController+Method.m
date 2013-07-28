@@ -186,3 +186,39 @@
     return (LeftMenuController *)[[self viewDeckController] leftController];
 }
 @end
+//KCateroySight = 0,
+//KCateroyShopping = 1,
+//KCateroyDinner = 2,
+//KCateroyHotel = 3,
+//KCateroyDrink = 4,
+//KCateroyEntertainment = 5,
+
+@implementation NSObject(Cateroy)
+- (NSString *)getCateryImage:(PicUploadCateroy)cateroy
+{
+    switch (cateroy) {
+        case KCateroySight:
+            return @"view.png";
+            break;
+        case KCateroyShopping:
+            return @"shopping.png";
+            break;
+        case KCateroyDinner:
+            return @"food.png";
+            break;
+        case KCateroyHotel:
+            return @"hotel.png";
+            break;
+        case KCateroyDrink:
+            return @"drink.png";
+            break;
+        case KCateroyEntertainment:
+            return @"Entertainment.png";
+            break;
+        default:
+            return nil;
+            break;
+    }
+}
+
+@end

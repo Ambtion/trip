@@ -18,7 +18,8 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSArray * items = [NSArray arrayWithObjects:@"手",@"网",@"网", @"网",@"网",@"网",nil];
+    
+    NSArray * items = [NSArray arrayWithObjects:@"手",@"网",@"网",@"网", @"网",@"网",@"网",nil];
     CQSegmentControl *  segControll = [[CQSegmentControl alloc] initWithItemsAndStype:items stype:TitleAndImageSegmented];
     [segControll addTarget:self action:@selector(segMentChnageValue:) forControlEvents:UIControlEventValueChanged];
     segControll.frame = CGRectMake(-2, 0, 324, 49);

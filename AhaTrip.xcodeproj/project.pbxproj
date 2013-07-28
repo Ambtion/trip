@@ -2036,6 +2036,13 @@
 			name = SearchPlazaViewController;
 			sourceTree = "<group>";
 		};
+		B83E1F1E17A4D5A000E07AFC /* PicCateroy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = PicCateroy;
+			sourceTree = "<group>";
+		};
 		B859F7C51775AC4C00313DE0 = {
 			isa = PBXGroup;
 			children = (
@@ -2272,6 +2279,7 @@
 		B859F8561775D6A000313DE0 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B83E1F1E17A4D5A000E07AFC /* PicCateroy */,
 				C592308D1793E8D700ACA120 /* Notification */,
 				C50A2B741784190A00D7231C /* Setting */,
 				C59227A51782B4BD00ECF679 /* LoginView */,
@@ -2527,7 +2535,7 @@
 			path = CQSegmentControl;
 			sourceTree = "<group>";
 		};
-		C58AC53017A12BCE00985E81 /* kindIcon */ = {
+		C58AC53017A12BCE00985E81 /* PickindIcon */ = {
 			isa = PBXGroup;
 			children = (
 				C58AC53117A12D2200985E81 /* drink@2x.png */,
@@ -2537,7 +2545,7 @@
 				C58AC53517A12D2200985E81 /* shopping@2x.png */,
 				C58AC53617A12D2200985E81 /* view@2x.png */,
 			);
-			name = kindIcon;
+			name = PickindIcon;
 			sourceTree = "<group>";
 		};
 		C5918ED817811EF30001F4EF /* HomePage */ = {
@@ -2708,7 +2716,7 @@
 			children = (
 				B8DC2B1017A3E0B2002A4C92 /* loding_bg.png */,
 				B8DC2AD917A3AD48002A4C92 /* Segment */,
-				C58AC53017A12BCE00985E81 /* kindIcon */,
+				C58AC53017A12BCE00985E81 /* PickindIcon */,
 				C593B6E4177986280000107C /* ItemMenuBarBg@2x.png */,
 				C593B6E5177986280000107C /* ItemSearchBarBg@2x.png */,
 				C593B6E217797E5B0000107C /* NavBar_bg_white@2x.png */,

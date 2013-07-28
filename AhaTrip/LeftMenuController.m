@@ -108,7 +108,7 @@ ntfController = _ntfController,setController = _setController;
 - (HomePageController *)homeController
 {
     if (!_homeController)
-        _homeController = [[HomePageController alloc] initAsRootViewController:YES];
+        _homeController = [[HomePageController alloc] initAsRootViewController:YES withUserId:nil];
     return _homeController;
 }
 - (NotificationController *)ntfController

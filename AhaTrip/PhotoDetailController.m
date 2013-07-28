@@ -36,11 +36,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = BASECOLOR;
     [self addScrollView];
     [self addPageController];
     [self addBackButton];
     [self getDataSource];
 }
+
 - (void)addScrollView
 {
     _scrollView  = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -48,7 +50,7 @@
     [self.view addSubview:_scrollView];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.delegate = self;
-    _scrollView.bounces = YES;    
+    _scrollView.bounces = YES;
 }
 - (void)addPageController
 {
@@ -67,7 +69,9 @@
 - (void)addScrollviewConten
 {
     DLog(@"%@",_dataInfo);
+    
     CGRect rect = self.view.bounds;
+    [self serUsrInfo];
     DesInfoViewDataSource * desInfo = [self getDesSouce];
     NSArray * photos = [_dataInfo objectForKey:@"photos"];
     for (int i = 0; i < photos.count; i++) {
@@ -76,7 +80,10 @@
         PhotoDetailView * view = [[PhotoDetailView alloc] initWithFrame:rect controller:self];
         PhotoDetailViewDataSource * photoSource = [[PhotoDetailViewDataSource alloc] init];
         photoSource.dataSource = desInfo;
-        photoSource.imageUrl = [photoInfo objectForKey:@"photo_thumb"];
+        photoSource.islikedAddress = &isLiked;
+        photoSource.likeCountAddress = &likeCount;
+        photoSource.commentCountAddress = &commentCount;
+        photoSource.imageUrl = [photoInfo objectForKey:@"photo"];
         view.dataSource = photoSource;
         view.tag = i + 1000;
         [_scrollView addSubview:view];
@@ -84,13 +91,19 @@
     _pageControll.numberOfPages = photos.count;
     [_pageControll setHidden:[photos count] <= 1];
     _scrollView.contentSize = CGSizeMake(rect.size.width * photos.count, rect.size.height);
-    [self serUsrInfo];
+}
+- (void)setLikeAndCommentDataSourceWithInfo:(NSDictionary *)info
+{
+    isLiked = YES;
+    likeCount = 20;
+    commentCount = 20;
 }
 - (void)serUsrInfo
 {
     NSDictionary * userInfo = [_dataInfo objectForKey:@"user"];
     [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:[userInfo objectForKey:@"photo_thumb"]]];
     _nameLabel.text = [userInfo objectForKey:@"username"];
+    [self setLikeAndCommentDataSourceWithInfo:userInfo];
 }
 - (DesInfoViewDataSource *)getDesSouce
 {
@@ -102,16 +115,18 @@
     source.netHasWifi = [_dataInfo objectForKey:@"wifi"];
     return source;
 }
+
 #pragma mark BackButton
 - (void)addBackButton
 {
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _backButton.frame = CGRectMake(7, 7, 33, 33);
+    _backButton.frame = CGRectMake(12, 10, 40, 40);
+    [_backButton setContentMode:UIViewContentModeScaleAspectFit];
     [_backButton setImage:[UIImage imageNamed:@"back_Button.png"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backButton];
     
-    _portraitImage = [[PortraitView alloc] initWithFrame:CGRectMake(320 - 47, 7, 40, 40)];
+    _portraitImage = [[PortraitView alloc] initWithFrame:CGRectMake(320 - 52, 10, 40, 40)];
     UITapGestureRecognizer * ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesutre:)];
     _portraitImage.layer.shadowColor = [[UIColor blackColor] CGColor];
     _portraitImage.layer.shadowOpacity = 0.75;
@@ -137,7 +152,7 @@
 }
 - (void)tapGesutre:(id)gesture
 {
-    [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO] animated:YES];
+    [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO withUserId:nil] animated:YES];
 }
 - (void)backButtonClick:(UIButton *)button
 {

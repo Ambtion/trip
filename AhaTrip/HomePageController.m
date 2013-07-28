@@ -12,10 +12,11 @@
 @end
 @implementation HomePageController
 @synthesize assetsArray = _assetsArray;
-- (id)initAsRootViewController:(BOOL)isRoot
+- (id)initAsRootViewController:(BOOL)isRoot withUserId:(NSString *)userId
 {
     if (self = [super init]) {
         _isRootController = isRoot;
+        _userId = userId;
     }
     return self;
 }

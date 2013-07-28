@@ -20,5 +20,6 @@
     CGFloat _startFolat;
     UINavigationController* _rightSearch;
     NSMutableArray*menuArr;
+    BOOL  ;
 }
 @end

@@ -46,10 +46,12 @@
 }
 - (void)addBgViewWithImage:(UIImage *)image
 {
-    _myBgView  = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    CGFloat maxSize = MAX(CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame));
+    _myBgView  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, maxSize, maxSize)];
     _myBgView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _myBgView.image = image;
     [self.view addSubview:_myBgView];
+    _myBgView.center = CGPointMake(self.view.frame.size.width/2.f, self.view.frame.size.height/2.f);
 }
 
 - (void)addTableView
@@ -58,6 +60,7 @@
     _refrehsTableView.backgroundColor =  [UIColor clearColor];
     _refrehsTableView.pDelegate = self;
     _refrehsTableView.dataSource = self;
+    _refrehsTableView.tableFooterView = nil;
     [self.view addSubview:_refrehsTableView];
 }
 
@@ -70,10 +73,11 @@
 }
 - (void)addBackButton
 {
-    UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 40, 40)];
+    [backButton setContentMode:UIViewContentModeScaleAspectFit];
     [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setImage:[UIImage imageNamed:@"comment_back_button.png"] forState:UIControlStateNormal];
-    backButton.center = CGPointMake(self.view.frame.size.width /2.f, 5 + backButton.frame.size.height /2.f);
+    backButton.center = CGPointMake(self.view.frame.size.width /2.f, backButton.center.y);
     [self.view addSubview:backButton];
 }
 

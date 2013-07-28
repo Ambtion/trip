@@ -107,7 +107,6 @@
     self.businessTime.textColor = [UIColor whiteColor];
     self.businessTime.font = [UIFont systemFontOfSize:12.f];
     [_maskView addSubview:self.businessTime];
-//    self.businessTime.text = @"6:00--10:00";
     
 }
 

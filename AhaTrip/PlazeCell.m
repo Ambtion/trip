@@ -126,15 +126,17 @@ static char Key_showKind;
         _rightImageView.image = nil;
     }
 }
+
 - (NSString *)getCityNameFromDic:(NSDictionary*)dic
 {
     return [NSString stringWithFormat:@"%@-%@",[dic objectForKey:@"country"],[dic objectForKey:@"city"]];
 }
 - (void)setIconImage:(UIImageView *)imageView Byinfo:(NSDictionary *)info
 {
-    [imageView setImage:[UIImage imageNamed:@"food.png"]];
+    [imageView setImage:[UIImage imageNamed:[self getCateryImage:[[info objectForKey:@"category_id"] intValue] - 1]]];
 }
 
+#pragma mark 
 - (void)setCellShowEnable:(BOOL)enabled
 {
     objc_setAssociatedObject(self, &Key_showKind, [NSNumber numberWithBool:enabled], OBJC_ASSOCIATION_RETAIN_NONATOMIC);

@@ -18,6 +18,7 @@
 @implementation PhotoDetailViewDataSource
 @synthesize dataSource = _dataSource;
 @synthesize imageUrl = _imageUrl;
+@synthesize islikedAddress,likeCountAddress,commentCountAddress;
 @end
 
 @implementation PhotoDetailView
@@ -41,7 +42,6 @@
     CGFloat maxWidth = MAX(self.frame.size.width, self.frame.size.height);
     _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,maxWidth, maxWidth)];
     _bgImageView.backgroundColor = [UIColor grayColor];
-//    _originalImage = [UIImage imageNamed:@"test2.jpg"];
     _bgImageView.image = _originalImage;
     [self addSubview:_bgImageView];
 }
@@ -53,7 +53,6 @@
 }
 - (void)detailTextIconHiddenAnimationDidFinished:(DetailTextIcon *)icon
 {
-    DLog(@"%@",_originalImage);
     [self changeToImageWithAnimation:_originalImage];
 }
 - (void)detailTextIconShowAnimationDidFinished:(DetailTextIcon *)icon
@@ -66,8 +65,10 @@
     if (_dataSource != dataSource) {
         _dataSource = dataSource;
         _detailIcon.datasoure = dataSource.dataSource;
- 
+        [self setLikeAndCountState];
+        NSDate* date = [NSDate date];
         [_bgImageView setImageWithURL:[NSURL URLWithString:_dataSource.imageUrl] placeholderImage:[UIImage imageNamed:@"test2.jpg"] success:^(UIImage *image) {
+            DLog(@"LLLLLL:%f",[[NSDate date] timeIntervalSinceDate:date]);
         } failure:^(NSError *error) {
             
         }];
@@ -91,19 +92,33 @@
     _likeLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, self.bounds.size.height - 65, 80,35)];
     [self setCountLabels:_likeLabel];
     [self addSubview:_likeLabel];
-    _likeButton = [[UIButton  alloc] initWithFrame:CGRectMake(_likeLabel.frame.size.width + _likeLabel.frame.origin.x + 5, _likeLabel.frame.origin.y + _likeLabel.frame.size.height - 22, 24, 22)];
+    _likeButton = [[UIButton  alloc] initWithFrame:CGRectMake(_likeLabel.frame.size.width + _likeLabel.frame.origin.x + 5 - 10, _likeLabel.frame.origin.y + _likeLabel.frame.size.height - 22 - 10, 44, 42)];
+    [_likeButton setContentMode:UIViewContentModeScaleAspectFit];
     [_likeButton addTarget:self action:@selector(likeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self setLikeState];
     [self addSubview:_likeButton];
 }
-- (void)setLikeState
+- (void)setLikeAndCountState
 {
-    [_likeButton setImage:[UIImage imageNamed:@"details_button_like.png"] forState:UIControlStateNormal];
-    _likeLabel.text = @"45";
+    if ( *_dataSource.islikedAddress == NO) {
+        [_likeButton setImage:[UIImage imageNamed:@"details_button_unLike.png"] forState:UIControlStateNormal];
+    }else{
+        [_likeButton setImage:[UIImage imageNamed:@"details_button_like.png"] forState:UIControlStateNormal];
+    }
+    _likeLabel.text = [NSString stringWithFormat:@"%d",*_dataSource.likeCountAddress];
+    _commentLabel.text = [NSString stringWithFormat:@"%d",*_dataSource.commentCountAddress];
 }
 - (void)likeButtonClick:(UIButton *)button
 {
-    DLog();
+    if (*_dataSource.islikedAddress) {
+        //不喜欢
+        *_dataSource.islikedAddress = NO;
+        (*_dataSource.likeCountAddress)--;
+    }else{
+        //喜欢
+        *_dataSource.islikedAddress = YES;
+        (*_dataSource.likeCountAddress)++;
+    }
+    [self setLikeAndCountState];
 }
 #pragma mark - comment
 - (void)addComentButton
@@ -111,8 +126,9 @@
     _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_likeButton.frame.origin.x + _likeButton.frame.size.width + 20, self.bounds.size.height - 65, 80,35)];
     [self setCountLabels:_commentLabel];
     [self addSubview:_commentLabel];
-    UIButton * commentButton = [[UIButton  alloc] initWithFrame:CGRectMake(_commentLabel.frame.size.width + _commentLabel.frame.origin.x + 5, _commentLabel.frame.origin.y + _commentLabel.frame.size.height - 23, 23, 23)];
-    _commentLabel.text = @"45";
+    
+    UIButton * commentButton = [[UIButton  alloc] initWithFrame:CGRectMake(_commentLabel.frame.size.width + _commentLabel.frame.origin.x + 5 - 10, _commentLabel.frame.origin.y + _commentLabel.frame.size.height - 23 - 10, 43, 43)];
+    [commentButton setContentMode:UIViewContentModeScaleAspectFit];
     [commentButton setImage:[UIImage imageNamed:@"details_button_comment.png"] forState:UIControlStateNormal];
     [commentButton addTarget:self action:@selector(commentButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:commentButton];
@@ -146,6 +162,7 @@
 - (void)startBgAnimation
 {
     [self movePicAnimation];
+    [self setLikeAndCountState];
     _timer = [NSTimer timerWithTimeInterval:TIMEOFFSET target:self selector:@selector(movePicAnimation) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop]addTimer:_timer forMode:NSDefaultRunLoopMode];
 }

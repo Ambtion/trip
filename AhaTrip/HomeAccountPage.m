@@ -7,14 +7,20 @@
 //
 
 #import "HomeAccountPage.h"
+#import "UIImageView+WebCache.h"
+
+@implementation HomeAccountPageDataSource
+@synthesize name,descrip,portraitUrl,finds,favorite;
+@end
 
 @implementation HomeAccountPage
+@synthesize dataSource = _dataSource;
+
 - (id)initWithFrame:(CGRect)frame
 {
     frame.size.height = 180 + 53;
     self = [super initWithFrame:frame];
     if (self) {
-        
         _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
         _bgImageView.image = [UIImage imageNamed:@"profileBg.png"];
         [self addSubview:_bgImageView];
@@ -46,14 +52,27 @@
 }
 - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents
 {
-    [_segMent addTarget:target action:action forControlEvents:controlEvents];
+     [_segMent addTarget:target action:action forControlEvents:controlEvents];
 }
-
+- (void)setDataSource:(HomeAccountPageDataSource *)dataSource
+{
+    if (_dataSource != dataSource) {
+        _dataSource = dataSource;
+        [self updataDatasource];
+    }
+}
 - (void)updataDatasource
 {
-    [_segMent setFinds:@"1" fav:@"9999+"];
-    _nameLabel.text = @"Erfei_Chao";
-    _desLabel.text = @"双脚踩灯泡，胸口碎大石";
-    _portraitImageView.imageView.image = [UIImage imageNamed:@"testPor.png"];
+    _nameLabel.text =_dataSource.name;
+    _desLabel.text = _dataSource.descrip;
+    [_portraitImageView.imageView setImageWithURL:[NSURL URLWithString:_dataSource.portraitUrl]];
+    [_segMent setFinds:[self getCount:_dataSource.finds] fav:[self getCount:_dataSource.favorite]];
+}
+- (NSString *)getCount:(NSInteger)count
+{
+    if (count > 99)
+        return [NSString stringWithFormat:@"%d+",count];
+    else
+        return [NSString stringWithFormat:@"%d",count];
 }
 @end

@@ -45,3 +45,16 @@
 - (AppDelegate*)AppDelegate;
 - (LeftMenuController *)leftMenuController;
 @end
+
+enum __picUploadCateroy {
+    KCateroySight = 0,
+    KCateroyShopping = 1,
+    KCateroyDinner = 2,
+    KCateroyHotel = 3,
+    KCateroyDrink = 4,
+    KCateroyEntertainment = 5,
+};
+typedef enum __picUploadCateroy PicUploadCateroy;
+@interface NSObject(Cateroy)
+- (NSString *)getCateryImage:(PicUploadCateroy)cateroy;
+@end

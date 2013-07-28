@@ -12,6 +12,9 @@
 @interface PhotoDetailViewDataSource : NSObject
 @property(nonatomic,strong)DesInfoViewDataSource * dataSource;
 @property(nonatomic,strong)NSString * imageUrl;
+@property(nonatomic,assign)BOOL * islikedAddress;
+@property(nonatomic,assign)int * likeCountAddress;
+@property(nonatomic,assign)int * commentCountAddress;
 @end
 
 @interface PhotoDetailView : UIView<DetailTextIconAnimationDelegate>
@@ -30,6 +33,7 @@
     __weak UIViewController * _controller;
     PhotoDetailViewDataSource * _dataSource;
 }
+
 @property(nonatomic,strong)PhotoDetailViewDataSource * dataSource;
 
 - (id)initWithFrame:(CGRect)frame  controller:(UIViewController *)controller;

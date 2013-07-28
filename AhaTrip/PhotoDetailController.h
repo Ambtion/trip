@@ -20,6 +20,9 @@
     NSString * _titleId;
     NSDictionary * _dataInfo;
     UIButton * _backButton;
+    BOOL isLiked;
+    int  likeCount;
+    int  commentCount;
 }
 - (id)initWithTitleId:(NSString *)titleId;
 @end
