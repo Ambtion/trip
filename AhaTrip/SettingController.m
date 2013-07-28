@@ -228,7 +228,6 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     [self showPopAlerViewWithMes:@"确认登出" withDelegate:self cancelButton:@"取消" otherButtonTitles:@"确认",nil];
 }
 
-
 #pragma checkou Version
 -(void)onCheckVersion
 {
@@ -237,6 +236,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     NSDictionary * dic = [self getAppInfoFromNet];
     NSNumber * newVersion = [dic objectForKey:@"versionCode"];
     BOOL isUpata = [self CompareVersionFromOldVersion:currentVersion newVersion:newVersion];
+    DLog(@"%d",isUpata);
     if (0) {
         UIApplication *application = [UIApplication sharedApplication];
         [application openURL:[NSURL URLWithString:[dic objectForKey:@"updateURL"]]];
