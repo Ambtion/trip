@@ -13,7 +13,8 @@
     UITableView*cityTable;
     NSMutableArray*cityArr;
     UIImageView*bottomBar;
-
+    int height;
+    
 }
 
 @property(nonatomic,strong)NSString*selectCAtegary;

@@ -88,22 +88,28 @@
 
    
     
+    if ([self isIphone5]) {
+        height=548;
+    }else{
+        height=460;
+    
+    }
     
     
     
-    mytable=[[UITableView alloc] initWithFrame:CGRectMake(10, 210+44, self.view.frame.size.width-20, self.view.bounds.size.height-210-44) style:UITableViewStylePlain];
+    mytable=[[UITableView alloc] initWithFrame:CGRectMake(10, 210+44, self.view.frame.size.width-20, height-210-44) style:UITableViewStylePlain];
     mytable.delegate=self;
     mytable.dataSource=self;
     
     //    [mytable reloadData];
     [self.view addSubview: mytable];
     //    加载底部导航
-    backimageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, self.view.bounds.size.width, self.view.bounds.size.height)];
+    backimageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, height-44, self.view.bounds.size.width, 44)];
     backimageView.backgroundColor=[UIColor blackColor];
     [self.view addSubview:backimageView];
     //    返回国家页的listmenu页的按钮
     UIButton*closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [closeMenuBtn setFrame:CGRectMake(10, self.view.frame.size.height-44, 50, 44)];
+    [closeMenuBtn setFrame:CGRectMake(10,height-44, 50, 44)];
     closeMenuBtn.contentMode=UIViewContentModeScaleAspectFit;
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenuList) forControlEvents:UIControlEventTouchUpInside];
@@ -111,7 +117,7 @@
 
     //跳过此步骤的按钮
     UIButton*tiaoguoBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [tiaoguoBtn setFrame:CGRectMake(220, self.view.frame.size.height-44, 100, 44)];
+    [tiaoguoBtn setFrame:CGRectMake(220,height-44, 100, 44)];
     tiaoguoBtn.contentMode=UIViewContentModeScaleAspectFit;
 //    [tiaoguoBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [tiaoguoBtn setTitle:@"跳过此步骤" forState:UIControlStateNormal];

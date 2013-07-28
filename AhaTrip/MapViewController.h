@@ -65,6 +65,7 @@
     NSMutableArray*titlearr;
     BOOL select;
     UIImageView*backimageView;
+    int height;
 }
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic)  UIProgressHUD *progressHUD;

@@ -13,9 +13,10 @@
     UITableView*singlecityTable;
     NSMutableArray*singleCityArr;
     UIImageView*bottomBar;
-
+    int height;
 }
 @property(nonatomic,strong)NSString*singleCityId;
 @property(nonatomic,strong)NSString*singleCityName;
+@property(nonatomic,strong)NSString*singleCityName1;
 @property(nonatomic,strong)NSString*cateryStr;
 @end

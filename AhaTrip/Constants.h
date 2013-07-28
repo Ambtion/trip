@@ -49,8 +49,8 @@ typedef enum LOtherLoginPlatform
 #define kNewsClassBtnTag     100
 #define kScrollNewsBtnTag    130
 #define kScrollNewsLblTag    140
-
-
+#define iphoneHeight 
+#define iphone4HEIGHT 
 /*
 *** HttpRequest API
  */
