@@ -50,45 +50,51 @@
     
 	
     
-    UILabel*Accombodation=[[UILabel alloc] initWithFrame:CGRectMake(5, 5, 150, 30)];
+    UILabel*Accombodation=[[UILabel alloc] initWithFrame:CGRectMake(15,7, 150, 30)];
     Accombodation.text=@"添加图片";
-    Accombodation.font=[UIFont systemFontOfSize:18];
+    Accombodation.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
     Accombodation.textColor=[UIColor whiteColor];
     Accombodation.backgroundColor=[UIColor clearColor];
     [navView addSubview:Accombodation];
     
+    if ([self isIphone5]) {
+        height=548;
+    }else{
+        height=460;
+    
+    }
     
     //    底部导航
-    bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44,320, 44)];
+    bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0,height-55,320, 55)];
     bottomBar.backgroundColor=[UIColor blackColor];
     [self.view addSubview:bottomBar];
     
     //    返回menu页的按钮
     UIButton*closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [closeMenuBtn setFrame:CGRectMake(10, self.view.frame.size.height-44, 50, 44)];
+    [closeMenuBtn setFrame:CGRectMake(10,height-40, 33, 33)];
     closeMenuBtn.contentMode=UIViewContentModeScaleAspectFit;
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeMenuBtn];
 
 
-    UIButton*mainBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [mainBtn setFrame:CGRectMake(280, self.view.frame.size.height-44, 50, 44)];
-    mainBtn.contentMode=UIViewContentModeScaleAspectFit;
-    [mainBtn setImage:[UIImage imageNamed:@"bottom_back.png"] forState:UIControlStateNormal];
-    [mainBtn addTarget:self action:@selector(mainBtnMenu) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:mainBtn];
+//    UIButton*mainBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+//    [mainBtn setFrame:CGRectMake(280, self.view.frame.size.height-44, 50, 44)];
+//    mainBtn.contentMode=UIViewContentModeScaleAspectFit;
+//    [mainBtn setImage:[UIImage imageNamed:@"bottom_back.png"] forState:UIControlStateNormal];
+//    [mainBtn addTarget:self action:@selector(mainBtnMenu) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:mainBtn];
 
 
 }
-//返回主页
--(void)mainBtnMenu{
-
-   PlazeViewController*centerCTL=[[PlazeViewController alloc] init];
-    [self presentViewController:centerCTL animated:YES completion:nil];
-
-
-}
+////返回主页
+//-(void)mainBtnMenu{
+//
+//   PlazeViewController*centerCTL=[[PlazeViewController alloc] init];
+//    [self presentViewController:centerCTL animated:YES completion:nil];
+//
+//
+//}
 //返回选择国家列表页
 
 -(void)closeBtnBackMenu{

@@ -21,6 +21,7 @@
 @synthesize singleCityId;
 @synthesize  cateryStr;
 @synthesize singleCityName;
+@synthesize singleCityName1;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -40,11 +41,18 @@
 //    request data
     singleCityArr = [NSMutableArray array];
     NSLog(@"%d",singleCityArr.count);
-
+    if ([self isIphone5]) {
+        height=548;
+    }else{
+        height=460;
+    }
+    
     [self addRequestSingleCity];
-    singlecityTable=[[UITableView alloc] initWithFrame:CGRectMake(10, 44+10, self.view.frame.size.width-20, self.view.frame.size.height-100) style:UITableViewStylePlain];
+    singlecityTable=[[UITableView alloc] initWithFrame:CGRectMake(10, 44+10,302, height-100) style:UITableViewStylePlain];
     singlecityTable.dataSource=self;
     singlecityTable.delegate=self;
+    singlecityTable.backgroundColor=[UIColor clearColor];
+    singlecityTable.separatorColor=[UIColor clearColor];
     [self.view addSubview:singlecityTable];
     
        
@@ -53,21 +61,21 @@
     navView.backgroundColor=mRGBColor(50, 200, 160);
     [self.view addSubview:navView];
 
-    
-    UILabel*Accombodation=[[UILabel alloc] initWithFrame:CGRectMake(5, 5, 150, 30)];
-    Accombodation.text=singleCityName;
-    Accombodation.backgroundColor=[UIColor clearColor];
-    Accombodation.textColor=[UIColor whiteColor];
-    Accombodation.font=[UIFont systemFontOfSize:18];
-    [navView addSubview:Accombodation];
+ 
+    DetailTextView * dtView = [[DetailTextView alloc] initWithFrame:CGRectMake(15, 7, 250, 40)];
+    dtView.backgroundColor = [UIColor clearColor];
+    NSString * str = [NSString stringWithFormat:@"%@ %@",singleCityName,singleCityName1];
+    [dtView setText:str WithFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:20] AndColor:[UIColor whiteColor]];
+    [dtView setKeyWordTextArray:[NSArray arrayWithObjects:singleCityName1, nil] WithFont:[UIFont systemFontOfSize:16.f] AndColor:[UIColor whiteColor]];
+    [navView addSubview:dtView];
 
     //    底部导航
-    bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44,320, 44)];
+    bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, height-55,320, 55)];
     bottomBar.backgroundColor=[UIColor blackColor];
     [self.view addSubview:bottomBar];
     //    返回menu页的按钮
     UIButton*closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [closeMenuBtn setFrame:CGRectMake(10, self.view.frame.size.height-44, 50, 44)];
+    [closeMenuBtn setFrame:CGRectMake(10,height-44, 33, 33)];
     closeMenuBtn.contentMode=UIViewContentModeScaleAspectFit;
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenu) forControlEvents:UIControlEventTouchUpInside];
@@ -91,7 +99,7 @@
     NSString*str=[NSString stringWithFormat:@"%@?country_id=%@",singleCityStr,singleCityId];
      NSLog(@"%@",str);
     
-    [[ASIRequest shareInstance] get:str header:nil delegate:self tag:5000 useCache:YES];
+    [[ASIRequest shareInstance] get:str header:nil delegate:self tag:5000 useCache:NO];
 
 
 
@@ -118,7 +126,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 44;
 }
 
 
@@ -142,20 +150,38 @@
          cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = mRGBColor(50, 200, 160);
-        UILabel*citylabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-        citylabel.backgroundColor=[UIColor clearColor];
+        DetailTextView * dtView = [[DetailTextView alloc] initWithFrame:CGRectMake(15, 12, 200, 40)];
+        dtView.backgroundColor = [UIColor clearColor];
+        dtView.tag = 5000;
+        [cell addSubview:dtView];
+        UIImageView * bgView = [[UIImageView alloc] initWithFrame:cell.bounds];
+        bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        bgView.backgroundColor = [UIColor clearColor];
+        bgView.image = [[UIImage imageNamed:@"rect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 150, 20, 150)];
+        cell.backgroundView = bgView;
+        UIImageView*img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 300, 1)];
+        img.image=[UIImage imageNamed:@"line.png"];
+                [cell addSubview:img];
+        img.hidden=YES;
+
+       
+        if (indexPath.row == [singleCityArr count] - 1) {
+            img.hidden = NO;
+        }else{
+            img.hidden=YES;
+        }
         
-        citylabel.tag=1000;
-        [cell addSubview:citylabel];
-        
+
         
         
     }
-    UILabel*cityLabel=(UILabel*)[cell viewWithTag:1000];
     NSDictionary*cityDict=[singleCityArr objectAtIndex:indexPath.row];
-    cityLabel.text=[cityDict objectForKey:@"name"];
     
-    
+    DetailTextView * dtView = (DetailTextView*)[cell viewWithTag:5000];
+    NSString * str = [NSString stringWithFormat:@"%@ %@",[cityDict objectForKey:@"name"],[cityDict objectForKey:@"en_name"]];
+    DLog(@"mLLLLL%@",str);
+    [dtView setText:str WithFont:[UIFont systemFontOfSize:18.f] AndColor:[UIColor blackColor]];
+    [dtView setKeyWordTextArray:[NSArray arrayWithObjects:[cityDict objectForKey:@"en_name"], nil] WithFont:[UIFont systemFontOfSize:12.f] AndColor:[UIColor blackColor]];
     
     return cell;
 }

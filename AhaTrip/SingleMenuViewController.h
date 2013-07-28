@@ -13,8 +13,10 @@
     UITableView*departmentTable;
     NSMutableArray*departMentArr;
     UIImageView*bottomBar;
+    int height;
 
 }
 @property(nonatomic,strong)NSString*menuStr;
+@property(nonatomic,strong)NSString*menuStr1;
 @property(nonatomic,assign)int selectID;
 @end

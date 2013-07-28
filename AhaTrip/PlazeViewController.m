@@ -38,19 +38,26 @@
     NSString*shopStr=@"购物";
     NSString*foodStr=@"美食";
     NSString*cafeiStr=@"住宿";
-    NSString*departMentStr=@"咖啡";
+    NSString*departMentStr=@"饮品";
     NSString*entertainment=@"娱乐";
     
-    NSDictionary *dic1=[NSDictionary dictionaryWithObjectsAndKeys:viewStr,@"menu",nil];
+    NSString*viewStr1=@"View";
+    NSString*shopStr1=@"Shopping";
+    NSString*foodStr1=@"Food";
+    NSString*cafeiStr1=@"Accommodation";
+    NSString*departMentStr1=@"Drink";
+    NSString*entertainment1=@"Entertainment";
     
-    NSDictionary *dic2=[NSDictionary dictionaryWithObjectsAndKeys:shopStr,@"menu",nil];
+    NSDictionary *dic1=[NSDictionary dictionaryWithObjectsAndKeys:viewStr,@"menu",viewStr1,@"menu1",nil];
     
-    NSDictionary *dic3=[NSDictionary dictionaryWithObjectsAndKeys:foodStr,@"menu",nil];
+    NSDictionary *dic2=[NSDictionary dictionaryWithObjectsAndKeys:shopStr,@"menu",shopStr1,@"menu1",nil];
     
-    NSDictionary *dic4=[NSDictionary dictionaryWithObjectsAndKeys:cafeiStr,@"menu",nil];
+    NSDictionary *dic3=[NSDictionary dictionaryWithObjectsAndKeys:foodStr,@"menu",foodStr1,@"menu1",nil];
     
-    NSDictionary *dic5=[NSDictionary dictionaryWithObjectsAndKeys:departMentStr,@"menu",nil];
-    NSDictionary *dic6=[NSDictionary dictionaryWithObjectsAndKeys:entertainment,@"menu",nil];
+    NSDictionary *dic4=[NSDictionary dictionaryWithObjectsAndKeys:cafeiStr,@"menu",cafeiStr1,@"menu1",nil];
+    
+    NSDictionary *dic5=[NSDictionary dictionaryWithObjectsAndKeys:departMentStr,@"menu",departMentStr1,@"menu1",nil];
+    NSDictionary *dic6=[NSDictionary dictionaryWithObjectsAndKeys:entertainment,@"menu",entertainment1,@"menu1",nil];
     
     menuArr=[NSMutableArray arrayWithObjects:dic1,dic2,dic3,dic4,dic5,dic6,nil];
     
@@ -248,9 +255,12 @@
     NSLog(@"Select the index : %d",idx);
     NSDictionary*menuDict=[menuArr objectAtIndex:idx];
     NSString*menuSelectStr=[menuDict objectForKey:@"menu"];
+    NSString*menuSelectStr1=[menuDict objectForKey:@"menu1"];
     
     SingleMenuViewController*singleMenu=[[SingleMenuViewController alloc] init];
     singleMenu.menuStr=menuSelectStr;
+    singleMenu.menuStr1=menuSelectStr1;
+    NSLog(@"%@%@",singleMenu.menuStr1,singleMenu.menuStr);
     singleMenu.selectID=idx+1;
     NSLog(@"%@%d",singleMenu.menuStr,singleMenu.selectID);
     [self presentViewController:singleMenu animated:YES completion:nil];

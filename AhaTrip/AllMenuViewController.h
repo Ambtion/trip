@@ -13,7 +13,7 @@
     UITableView*menuTable;
     NSMutableArray*menuArr;
     UIImageView*bottomBar;
-    
+    int height;
 }
 @property(nonatomic,assign)int selectID;
 @end

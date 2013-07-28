@@ -47,43 +47,51 @@
    cityArr = [NSMutableArray array];
     NSLog(@"%d",cityArr.count);
 
+    if ([self isIphone5]) {
+        height=548;
+    }else{
+        
+        height=460;
+    }
+
     
-    
-    cityTable=[[UITableView alloc] initWithFrame:CGRectMake(10, 54, self.view.frame.size.width-20, self.view.frame.size.height-54-44) style:UITableViewStylePlain];
+    cityTable=[[UITableView alloc] initWithFrame:CGRectMake(10, 54, 302, height-54-44) style:UITableViewStylePlain];
     cityTable.dataSource=self;
     cityTable.delegate=self;
+    cityTable.backgroundColor=[UIColor clearColor];
+    cityTable.separatorColor=[UIColor clearColor];
     [self.view addSubview:cityTable];
-    
-    
-    
-    //    底部导航
-    bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44,320, 44)];
+        
+      //    底部导航
+    bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0,height-55,320, 55)];
     bottomBar.backgroundColor=[UIColor blackColor];
     [self.view addSubview:bottomBar];
     
     
     //    返回menu页的按钮
     UIButton*closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [closeMenuBtn setFrame:CGRectMake(10, self.view.frame.size.height-44, 50, 44)];
+    [closeMenuBtn setFrame:CGRectMake(15,height-40, 33, 33)];
     closeMenuBtn.contentMode=UIViewContentModeScaleAspectFit;
+//    closeMenuBtn.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeMenuBtn];
 
+//    
+//    //    返回主页的按钮
+//    UIButton*backZhuye=[UIButton buttonWithType:UIButtonTypeCustom];
+//    [backZhuye setFrame:CGRectMake(280, self.view.frame.size.height-44, 40, 40)];
+//    backZhuye.contentMode=UIViewContentModeScaleAspectFit;
+//    [backZhuye setImage:[UIImage imageNamed:@"bottom_back.png"] forState:UIControlStateNormal];
+//    [backZhuye addTarget:self action:@selector(backZhuyeClcik) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:backZhuye];
     
-    //    返回主页的按钮
-    UIButton*backZhuye=[UIButton buttonWithType:UIButtonTypeCustom];
-    [backZhuye setFrame:CGRectMake(280, self.view.frame.size.height-44, 50, 44)];
-    backZhuye.contentMode=UIViewContentModeScaleAspectFit;
-    [backZhuye setImage:[UIImage imageNamed:@"bottom_back.png"] forState:UIControlStateNormal];
-    [backZhuye addTarget:self action:@selector(backZhuyeClcik) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backZhuye];
-    
-    UILabel*Accombodation=[[UILabel alloc] initWithFrame:CGRectMake(5, 5, 150, 30)];
+    UILabel*Accombodation=[[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 30)];
     Accombodation.text=@"添加国家/地区";
     Accombodation.backgroundColor=[UIColor clearColor];
+    Accombodation.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
     Accombodation.textColor=[UIColor whiteColor];
-    Accombodation.font=[UIFont systemFontOfSize:18];
+//    Accombodation.font=[UIFont systemFontOfSize:18];
     [navView addSubview:Accombodation];
 
     // Do any additional setup after loading the view from its nib.
@@ -96,14 +104,14 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
-//回到主页
--(void)backZhuyeClcik{
-
-PlazeViewController*centerCTL=[[PlazeViewController alloc] init];
-    [self presentViewController:centerCTL animated:YES completion:nil];
-
-}
-
+////回到主页
+//-(void)backZhuyeClcik{
+//
+//PlazeViewController*centerCTL=[[PlazeViewController alloc] init];
+//    [self presentViewController:centerCTL animated:YES completion:nil];
+//
+//}
+//
 
 
 #pragma request
@@ -138,7 +146,7 @@ NSString*countryStr=@"http://yyz.ahatrip.info/api/countryList?token=tRyW4rLBiJHf
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 44;
 }
 
 
@@ -148,7 +156,10 @@ NSString*countryStr=@"http://yyz.ahatrip.info/api/countryList?token=tRyW4rLBiJHf
 //   return 100;
 
 }
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor whiteColor];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -159,30 +170,56 @@ NSString*countryStr=@"http://yyz.ahatrip.info/api/countryList?token=tRyW4rLBiJHf
     {
         
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:topicCell];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = mRGBColor(50, 200, 160);
+        DetailTextView * dtView = [[DetailTextView alloc] initWithFrame:CGRectMake(15, 12, 200, 40)];
+        dtView.backgroundColor = [UIColor clearColor];
+        dtView.tag = 2000;
+        [cell addSubview:dtView];
+       
+        
+        UIImageView * bgView = [[UIImageView alloc] initWithFrame:cell.bounds];
+        bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        bgView.backgroundColor=[UIColor redColor];
+        bgView.image = [[UIImage imageNamed:@"rect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 150, 20, 150)];
+        cell.backgroundView=bgView;
+//       [cell addSubview:bgView];
+        [cell sendSubviewToBack:bgView];
+        
+        UIImageView*img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 300, 1)];
+        img.image=[UIImage imageNamed:@"line.png"];
+        img.hidden=YES;
+        
+        [cell addSubview:img];
+        if (indexPath.row == [cityArr count] - 1) {
+            img.hidden=NO;
+        }else{
+            img.hidden=YES;
+        }
 
-        UILabel*citylabel=[[UILabel alloc] initWithFrame:CGRectMake(60, 0, 100, 40)];
-        citylabel.tag=1000;
-//        citylabel.text=@"women";
-        [cell addSubview:citylabel];
-        
-        UILabel*citylabelEn=[[UILabel alloc] initWithFrame:CGRectMake(160, 0, 100, 40)];
-        citylabelEn.tag=2000;
-        //        citylabel.text=@"women";
-        [cell addSubview:citylabelEn];
-        
-        
+//        UIImageView*img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 300, 1)];
+//        img.image=[UIImage imageNamed:@"line.png"];
+//        [cell addSubview:img];
+//        img.hidden=YES;
+//        if ([cityArr lastObject]) {
+//            img.hidden=NO;
+//        }else{
+//            img.hidden=YES;
+//        }
+//    
          }
-    UILabel*cityLabel=(UILabel*)[cell viewWithTag:1000];
+    
+      
+
     NSDictionary*cityDict=[cityArr objectAtIndex:indexPath.row];
-    cityLabel.text=[cityDict objectForKey:@"name"];
-   
-    UILabel*cityLabelEn=(UILabel*)[cell viewWithTag:2000];
-   
-    cityLabelEn.text=[cityDict objectForKey:@"en_name"];
+    
+    DetailTextView * dtView = (DetailTextView*)[cell viewWithTag:2000];
+    NSString * str = [NSString stringWithFormat:@"%@ %@",[cityDict objectForKey:@"name"],[cityDict objectForKey:@"en_name"]];
+    DLog(@"mLLLLL%@",str);
+    [dtView setText:str WithFont:[UIFont systemFontOfSize:18.f] AndColor:[UIColor blackColor]];
+    [dtView setKeyWordTextArray:[NSArray arrayWithObjects:[cityDict objectForKey:@"en_name"], nil] WithFont:[UIFont systemFontOfSize:12.f] AndColor:[UIColor blackColor]];
     
     return cell;
 }
@@ -190,11 +227,12 @@ NSString*countryStr=@"http://yyz.ahatrip.info/api/countryList?token=tRyW4rLBiJHf
     NSDictionary*cityIdDict=[cityArr objectAtIndex:indexPath.row];
     NSString*cityid=[cityIdDict objectForKey:@"id"];
     NSString*cityStr=[cityIdDict objectForKey:@"name"];
+    NSString*cityStr1=[cityIdDict objectForKey:@"en_name"];
     
-
     CityTwoViewController*city=[[CityTwoViewController alloc] init];
     city.singleCityId=cityid;
     city.singleCityName=cityStr;
+    city.singleCityName1=cityStr1;
     city.cateryStr=self.selectCAtegary;
     [self presentViewController:city animated:YES completion:nil];
 

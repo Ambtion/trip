@@ -16,11 +16,14 @@
 - (void)PersonalViewControllerDidCancel:(PersonalViewController*)personal;
 @end
 
-@interface PersonalViewController : UIViewController<DLCImagePickerDelegate,UITextFieldDelegate>
+@interface PersonalViewController : UIViewController<DLCImagePickerDelegate,UITextFieldDelegate,UIScrollViewDelegate>
 {
     UIImageView*bottomBar;
     UITextField*nameFild;
     UITextField*addFild;
+    int rectY;
+    UIScrollView*backScroll;
+    int height;
     
 
 

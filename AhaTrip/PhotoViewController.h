@@ -13,7 +13,7 @@
 {
 
     UIImageView*bottomBar;
-
+    int height;
 }
 @property (nonatomic, strong) UIButton *showPickerButton;
 @property(nonatomic,strong)NSString*singleCityId;
