@@ -8,6 +8,7 @@
 
 #import "CityViewController.h"
 #import "CountryListCell.h"
+#import "SearchPlazaViewController.h"
 
 @interface CityViewController()
 @property(nonatomic,strong)NSMutableArray * sourceArray;
@@ -97,11 +98,11 @@
     cell.dataSource = [_sourceArray objectAtIndex:indexPath.row];
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
 }
-
 #pragma mark Action
 - (void)backButtonClick:(UIButton *)button
 {
@@ -109,6 +110,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] init];
+    [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 @end

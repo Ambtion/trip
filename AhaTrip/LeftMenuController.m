@@ -11,7 +11,7 @@
 
 
 static  NSString *   menuText[4] =   {@"广场",@"个人昵称",@"消息",@"设置"};
-static  NSString *   image[4]    =   {@"left_Icon_home.png",@"left_Icon_setting.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
+static  NSString *   image[4]    =   {@"left_Icon_home.png",@"avatar.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
 
 @implementation LeftMenuController
 
@@ -108,7 +108,7 @@ ntfController = _ntfController,setController = _setController;
 - (HomePageController *)homeController
 {
     if (!_homeController)
-        _homeController = [[HomePageController alloc] initAsRootViewController:YES];
+        _homeController = [[HomePageController alloc] initAsRootViewController:YES withUserId:@"2"];
     return _homeController;
 }
 - (NotificationController *)ntfController

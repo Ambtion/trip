@@ -7,15 +7,22 @@
 //
 
 #import "HomePageController.h"
+#import "RequestManager.h"
+
 @interface HomePageController ()
 @property(nonatomic,strong)NSMutableArray * assetsArray;
+@property(nonatomic,strong)NSMutableArray * dataSourceArray;
 @end
 @implementation HomePageController
 @synthesize assetsArray = _assetsArray;
-- (id)initAsRootViewController:(BOOL)isRoot
+@synthesize dataSourceArray = _dataSourceArray;
+
+- (id)initAsRootViewController:(BOOL)isRoot withUserId:(NSString *)userId
 {
     if (self = [super init]) {
         _isRootController = isRoot;
+        _userId = userId;
+        _isFinds = YES;
     }
     return self;
 }
@@ -45,11 +52,11 @@
     [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-//    UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    rightButton.frame = CGRectMake(320 - 44, 7, 30, 30);
-//    [rightButton setImage:[UIImage imageNamed:@"ItemSearchBarBg-white.png"] forState:UIControlStateNormal];
-//    [rightButton addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:rightButton];
+    //    UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    rightButton.frame = CGRectMake(320 - 44, 7, 30, 30);
+    //    [rightButton setImage:[UIImage imageNamed:@"ItemSearchBarBg-white.png"] forState:UIControlStateNormal];
+    //    [rightButton addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    [self.view addSubview:rightButton];
 }
 
 - (void)backButtonClick:(UIButton *)button
@@ -72,14 +79,22 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     _assetsArray = [[NSMutableArray alloc] initWithCapacity:0];
+    _dataSourceArray = [[NSMutableArray alloc] initWithCapacity:0];
     _homeAccountPage = [[HomeAccountPage alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
+    [_homeAccountPage addTarget:self action:@selector(homesegClick:) forControlEvents:UIControlEventValueChanged];
+    
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 225.f)];
     view.backgroundColor = [UIColor clearColor];
     [view addSubview:_homeAccountPage];
     _tableView.tableHeaderView = view;
     [self refresFromeNetWork];
 }
-
+#pragma mark SegmentControll
+- (void)homesegClick:(HomeSegMent *)sender
+{
+    _isFinds = !sender.seletedIndexPath;
+    [self refresFromeNetWork];
+}
 #pragma mark TableViewData
 - (void)pullingreloadTableViewDataSource:(id)sender
 {
@@ -89,28 +104,83 @@
 {
     [self getMoreFromeNetWork];
 }
+- (void)getUserInfo
+{
+    [RequestManager getUserInfoWithUserId:_userId token:nil success:^(NSString *response) {
+        DLog(@"LLLLL");
+        NSDictionary * dic = [[response JSONValue] objectForKey:@"user"];
+        DLog(@"%@",dic);
+        HomeAccountPageDataSource * source = [[HomeAccountPageDataSource alloc] init];
+        source.name = [NSString stringWithFormat:@"%@",[dic objectForKey:@"username"]];
+        source.portraitUrl =[dic objectForKey:@"thumb"];
+        source.descrip = [NSString stringWithFormat:@"%@",[dic objectForKey:@"signature"]];
+        source.finds = [[dic objectForKey:@"finding_count"] integerValue];
+        source.favorite = [[dic objectForKey:@"favorite_count"] integerValue];
+        _homeAccountPage.dataSource = source;
+    } failure:^(NSString *error) {
+        
+    }];
+}
 - (void)refresFromeNetWork
 {
-    [_assetsArray removeAllObjects];
-    for (int i = 0; i < 20; i++) {
-        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
-        source.leftInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-        source.rightInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-        [_assetsArray addObject:source];
+    [self getUserInfo];
+    if (_isFinds) {
+        [RequestManager getFindsUserId:_userId Withstart:0 count:20 token:nil success:^(NSString *response) {
+            [_assetsArray removeAllObjects];
+            [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
+            [self convertAssetsToDataSouce];
+
+        } failure:^(NSString *error) {
+            
+        }];
+    }else{
+        [RequestManager getFavUserId:_userId Withstart:0 count:20 token:nil success:^(NSString *response) {
+            [_assetsArray removeAllObjects];
+            [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
+            [self convertAssetsToDataSouce];
+        } failure:^(NSString *error) {
+            
+        }];
     }
-    [_tableView reloadData];
-    [_tableView didFinishedLoadingTableViewData];
-    
 }
 - (void)getMoreFromeNetWork
 {
-    //    for (int i = 0; i < 10; i++) {
-    //        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
-    //        source.leftInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-    //        source.rightInfo = [NSMutableDictionary dictionaryWithCapacity:0];
-    //        [_assetsArray addObject:source];
-    //    }
-    //    [_tableView reloadData];
+    if (_assetsArray.count % 20){
+        [_tableView didFinishedLoadingTableViewData];
+        return;
+    }
+    if (_isFinds) {
+        [RequestManager getFindsUserId:_userId Withstart:_assetsArray.count count:20 token:nil success:^(NSString *response) {
+            [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
+            [self convertAssetsToDataSouce];
+            DLog(@"%@",[response JSONValue]);
+        } failure:^(NSString *error) {
+            
+        }];
+    }else{
+        [RequestManager getFavUserId:_userId Withstart:0 count:20 token:nil success:^(NSString *response) {
+            [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
+            [self convertAssetsToDataSouce];
+            DLog(@"%@",[response JSONValue]);
+        } failure:^(NSString *error) {
+            
+        }];
+
+    }
+}
+- (void)convertAssetsToDataSouce
+{
+    [_dataSourceArray removeAllObjects];
+    DLog(@"%@",[_assetsArray lastObject]);
+    for (int i = 0;i < _assetsArray.count ; i+=2) {
+        PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
+        source.leftInfo = [_assetsArray objectAtIndex:i];
+        if (i + 1 < _assetsArray.count) {
+            source.rightInfo = [_assetsArray objectAtIndex:i+1];
+        }
+        [_dataSourceArray addObject:source];
+    }
+    [_tableView reloadData];
     [_tableView didFinishedLoadingTableViewData];
 }
 
@@ -118,7 +188,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _assetsArray.count;
+    return _dataSourceArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -133,12 +203,12 @@
         cell = [[PlazeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:string];
         cell.delegate = self;
     }
-    cell.dataSource = [_assetsArray objectAtIndex:indexPath.row];
+    cell.dataSource = [_dataSourceArray objectAtIndex:indexPath.row];
     return cell;
 }
 #pragma mark - AweSomeMenuDelegate
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
 {
-    [self.navigationController pushViewController:[[PhotoDetailController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[PhotoDetailController alloc] initWithTitleId:[NSString stringWithFormat:@"%@",[info objectForKey:@"id"]]] animated:YES];
 }
 @end

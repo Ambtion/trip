@@ -92,6 +92,7 @@
 - (void)setTextFiledPorperty:(UITextField *)field
 {
     field.font = [UIFont systemFontOfSize:15];
+//    field.textColor = [UIColor colorWithRed:153/255.f green:153/255.f blue:153/255.f alpha:1.f];
     field.textColor = [UIColor blackColor];
     field.backgroundColor = [UIColor clearColor];
     field.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;

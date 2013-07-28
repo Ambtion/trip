@@ -107,7 +107,6 @@
     self.businessTime.textColor = [UIColor whiteColor];
     self.businessTime.font = [UIFont systemFontOfSize:12.f];
     [_maskView addSubview:self.businessTime];
-//    self.businessTime.text = @"6:00--10:00";
     
 }
 
@@ -125,7 +124,6 @@
     self.netHasWifi.textColor = [UIColor whiteColor];
     self.netHasWifi.font = [UIFont systemFontOfSize:12.f];
     [_maskView addSubview:self.netHasWifi];
-//    self.netHasWifi.text = @"无";
     
 }
 
@@ -151,18 +149,18 @@
     }
     return self;
 }
+
 - (void)addUserNameLabel
 {
     //39 - 25
     _sortImageView = [[UIImageView alloc] initWithFrame:CGRectMake(OFFSETX, (40 - 26)/2.f, 26, 26)];
-    _sortImageView.backgroundColor = [UIColor redColor];
+    _sortImageView.backgroundColor = [UIColor clearColor];
     _sortImageView.layer.cornerRadius = 13.f;
     [self addSubview:_sortImageView];
     self.userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(OFFSETX * 2 + _sortImageView.frame.size.width, 0, 310 - (OFFSETX * 3 + _sortImageView.frame.size.width), 40)];
     self.userNameLabel.backgroundColor = [UIColor clearColor];
     self.userNameLabel.textColor = [UIColor whiteColor];
     self.userNameLabel.font = [UIFont systemFontOfSize:16.f];
-//    self.userNameLabel.text = @"奈良のIceCream";
     [self addSubview:self.userNameLabel];
     
 }
@@ -173,7 +171,6 @@
     self.desLabel.numberOfLines = 0;
     self.desLabel.textColor = [UIColor whiteColor];
     self.desLabel.font = [UIFont systemFontOfSize:13.f];
-//    self.desLabel.text = @"奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream,奈良のIceCream";
     [self addSubview:self.desLabel];
 }
 - (void)addUserLocationLabel
@@ -186,7 +183,6 @@
     self.locationLabel.backgroundColor = [UIColor clearColor];
     self.locationLabel.textColor = [UIColor colorWithRed:43/255.f green:221/255.f blue:170/255.f alpha:1.f];
     self.locationLabel.font = [UIFont systemFontOfSize:11.f];
-//    self.locationLabel.text = @"日本奈良県奈良市南市町20番";
     [self addSubview:self.locationLabel];
 }
 - (void)layoutAllViews
@@ -194,12 +190,10 @@
 
     _sortImageView.frame = CGRectMake(OFFSETX, (40 - 26)/2.f, 26, 26);
     self.userNameLabel.frame = CGRectMake(OFFSETX * 2 + _sortImageView.frame.size.width, 0, 310 - (OFFSETX * 3 + _sortImageView.frame.size.width), 40);
-    NSLog(@"usenaml %@ %@",self.userNameLabel.text,NSStringFromCGRect(self.userNameLabel.frame));
     //des_Frame
     CGSize desSize = [self sizeofLabel:self.desLabel];
     CGRect rect  = CGRectMake(self.desLabel.frame.origin.x, self.desLabel.frame.origin.y, desSize.width, desSize.height);
     self.desLabel.frame = rect;
-    NSLog(@"des %@ %@",self.desLabel.text,NSStringFromCGRect(self.desLabel.frame));
 
     //location Frame 间隔8
     _locationIcon.frame = CGRectMake(OFFSETX, self.desLabel.frame.origin.y + self.desLabel.frame.size.height + 8, 15, 15);
@@ -209,7 +203,6 @@
     self.locationLabel.frame = CGRectMake(OFFSETX + 15 + 5 , _locationIcon.frame.origin.y - 1, 310 -(OFFSETX + 15 + 5 + OFFSETX) , 15);
     //self frame  向下12px
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 310, _locationIcon.frame.size.height + _locationIcon.frame.origin.y + 12);
-    NSLog(@"self %@ %@",self.locationLabel.text,NSStringFromCGRect(self.frame));
 
     actualSize = self.frame.size;
 }
@@ -298,7 +291,6 @@
     _moreInfoView.frame = moreRect;
     //Detail
     [_desInfoView layoutAllViews];
-    NSLog(@"LLL::%@",NSStringFromCGRect(_desInfoView.frame));
     CGRect detailRect = _desInfoView.frame;
     detailRect.origin.x = 5;
     detailRect.origin.y = _moreInfoView.frame.origin.y - detailRect.size.height - 5.f;

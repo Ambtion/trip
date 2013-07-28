@@ -17,8 +17,8 @@
 #import <TencentOpenAPI/TencentOAuthObject.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 
-
-#define QQAPPID @"100489202" //官方测试
+//#define QQAPPID @"801389186" 
+#define QQAPPID @"222222" //官方测试
 
 //Sina Frame
 #import "SinaWeibo.h"

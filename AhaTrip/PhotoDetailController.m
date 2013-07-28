@@ -8,16 +8,40 @@
 
 #import "PhotoDetailController.h"
 #import "HomePageController.h"
+#import "RequestManager.h"
+#import "UIImageView+WebCache.h"
 
 @implementation PhotoDetailController
+- (id)initWithTitleId:(NSString *)titleId
+{
+    self = [super init];
+    if (self) {
+        _titleId = titleId;
+    }
+    return self;
+}
+#pragma mark Data
+- (void)getDataSource
+{
+    [self waitForMomentsWithTitle:@"加载中" withView:self.view];
+    [RequestManager getTitleImagesWithId:_titleId token:nil success:^(NSString *response) {
+        _dataInfo = [[response JSONValue] objectForKey:@"finding"];
+        [self addScrollviewConten];
+        [self stopWaitProgressView:nil];
+    } failure:^(NSString *error) {
+        [self stopWaitProgressView:nil];
+    }];
+}
+#pragma mark View
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = BASECOLOR;
     [self addScrollView];
     [self addPageController];
     [self addBackButton];
+    [self getDataSource];
 }
-
 
 - (void)addScrollView
 {
@@ -27,15 +51,13 @@
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.delegate = self;
     _scrollView.bounces = YES;
-    [self addScrollviewContent];
-    
 }
 - (void)addPageController
 {
     _pageControll = [[SMPageControl alloc] initWithFrame:CGRectMake(110, _scrollView.bounds.size.height - 35, 100, 40)];
     _pageControll.backgroundColor = [UIColor clearColor];
     _pageControll.currentPage = 0;
-    _pageControll.numberOfPages = 4;
+    _pageControll.numberOfPages = 0;
     [_pageControll setIndicatorMargin:2];
     [_pageControll setIndicatorDiameter:5];
     [_pageControll setPageIndicatorImage:[UIImage imageNamed:@"pageDot.png"]];
@@ -44,37 +66,97 @@
     [self.view addSubview:_pageControll];
     [self  playViewAnimation];
 }
-- (void)addScrollviewContent
+- (void)addScrollviewConten
 {
+    DLog(@"%@",_dataInfo);
+    
     CGRect rect = self.view.bounds;
-    for (int i = 0; i < 4; i++) {
+    [self serUsrInfo];
+    DesInfoViewDataSource * desInfo = [self getDesSouce];
+    NSArray * photos = [_dataInfo objectForKey:@"photos"];
+    for (int i = 0; i < photos.count; i++) {
+        NSDictionary * photoInfo = [photos objectAtIndex:i];
         rect.origin.x = rect.size.width * i;
-        PhotoDetailView * view = [[PhotoDetailView alloc] initWithFrame:rect controller:self imageInfo:nil];
+        PhotoDetailView * view = [[PhotoDetailView alloc] initWithFrame:rect controller:self];
+        PhotoDetailViewDataSource * photoSource = [[PhotoDetailViewDataSource alloc] init];
+        photoSource.dataSource = desInfo;
+        photoSource.islikedAddress = &isLiked;
+        photoSource.likeCountAddress = &likeCount;
+        photoSource.commentCountAddress = &commentCount;
+        photoSource.imageUrl = [photoInfo objectForKey:@"photo"];
+        view.dataSource = photoSource;
         view.tag = i + 1000;
         [_scrollView addSubview:view];
     }
-    _scrollView.contentSize = CGSizeMake(rect.size.width * 4, rect.size.height);
+    _pageControll.numberOfPages = photos.count;
+    [_pageControll setHidden:[photos count] <= 1];
+    _scrollView.contentSize = CGSizeMake(rect.size.width * photos.count, rect.size.height);
+}
+
+- (void)setLikeAndCommentDataSourceWithInfo:(NSDictionary *)info
+{
+    isLiked = NO;
+    likeCount = 20;
+    commentCount = 20;
+}
+
+- (void)serUsrInfo
+{
+    NSDictionary * userInfo = [_dataInfo objectForKey:@"user"];
+    [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:[userInfo objectForKey:@"photo_thumb"]]placeholderImage:[UIImage imageNamed:@"avatar.png"]];
+    _nameLabel.text = [userInfo objectForKey:@"username"];
+    [self setLikeAndCommentDataSourceWithInfo:userInfo];
+}
+- (DesInfoViewDataSource *)getDesSouce
+{
+    DesInfoViewDataSource * source = [[DesInfoViewDataSource alloc] init];
+    source.userName = [NSString stringWithFormat:@"%@-%@",[_dataInfo objectForKey:@"country"],[_dataInfo objectForKey:@"city"]];
+    source.desString = [_dataInfo objectForKey:@"description"];
+    source.location = [_dataInfo objectForKey:@"position"];
+    source.averConsume = [_dataInfo objectForKey:@"price"];
+    source.netHasWifi = [_dataInfo objectForKey:@"wifi"];
+    source.sortImage = [UIImage imageNamed:[self getCateryImage:[[_dataInfo objectForKey:@"category_id"] intValue] - 1]];
+    return source;
 }
 
 #pragma mark BackButton
 - (void)addBackButton
 {
-    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(7, 7, 33, 33);
-    [backButton setImage:[UIImage imageNamed:@"back_Button.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backButton];
+    _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _backButton.frame = CGRectMake(12, 10, 40, 40);
+    [_backButton setContentMode:UIViewContentModeScaleAspectFit];
+    [_backButton setImage:[UIImage imageNamed:@"back_Button.png"] forState:UIControlStateNormal];
+    [_backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_backButton];
     
-    _portraitImage = [[PortraitView alloc] initWithFrame:CGRectMake(320 - 47, 7, 40, 40)];
-    _portraitImage.imageView.image = [UIImage imageNamed:@"testImage.png"];
+    _portraitImage = [[PortraitView alloc] initWithFrame:CGRectMake(320 - 52, 10, 40, 40)];
     UITapGestureRecognizer * ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesutre:)];
+    _portraitImage.layer.shadowColor = [[UIColor blackColor] CGColor];
+    _portraitImage.layer.shadowOpacity = 0.75;
+    _portraitImage.layer.shadowOffset = CGSizeMake(4, 4);
+    _portraitImage.layer.borderColor = [[UIColor whiteColor] CGColor];
+    _portraitImage.layer.borderWidth = 2.f;
     [_portraitImage addGestureRecognizer:ges];
     [_portraitImage setUserInteractionEnabled:YES];
     [self.view addSubview:_portraitImage];
+    
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake( _portraitImage.frame.origin.x - 200, _portraitImage.frame.size.height + _portraitImage.frame.origin.y, _portraitImage.frame.size.width + 200, 20)];
+    _nameLabel.backgroundColor = [UIColor clearColor];
+    _nameLabel.textColor = [UIColor whiteColor];
+    _nameLabel.textAlignment = UITextAlignmentRight;
+    _nameLabel.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.75];
+    _nameLabel.shadowOffset = CGSizeMake(1, 1);
+    [self.view addSubview:_nameLabel];
+}
+- (void)setBackFront
+{
+    [self.view bringSubviewToFront:_backButton];
+    [self.view bringSubviewToFront:_portraitImage];
 }
 - (void)tapGesutre:(id)gesture
 {
-    [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO] animated:YES];
+    NSDictionary * userInfo = [_dataInfo objectForKey:@"user"];
+    [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO withUserId:[userInfo objectForKey:@"id"]] animated:YES];
 }
 - (void)backButtonClick:(UIButton *)button
 {

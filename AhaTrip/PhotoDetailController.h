@@ -16,6 +16,13 @@
     UIScrollView * _scrollView;
     SMPageControl * _pageControll;
     PortraitView * _portraitImage;
+    UILabel * _nameLabel;
+    NSString * _titleId;
+    NSDictionary * _dataInfo;
+    UIButton * _backButton;
+    BOOL isLiked;
+    int  likeCount;
+    int  commentCount;
 }
-
+- (id)initWithTitleId:(NSString *)titleId;
 @end

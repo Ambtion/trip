@@ -112,13 +112,13 @@ static char Key_showKind;
     [_leftIcon setHidden:![self isCellShowEnable]];
     [_rightIcon setHidden:![self isCellShowEnable]];
     
-    [_leftImageView setImageWithURL:[NSURL URLWithString:[_dataSource.leftInfo objectForKey:@"photo_thumb"]]];
+    [_leftImageView setImageWithURL:[NSURL URLWithString:[_dataSource.leftInfo objectForKey:@"photo_thumb"]]placeholderImage:[UIImage imageNamed:@"loding_bg.png"]];
     _leftLabel.text =[self getCityNameFromDic:_dataSource.leftInfo];
     [self setIconImage:_leftIcon Byinfo:_dataSource.leftInfo];
     [_rightImageView setHidden:![_dataSource rightInfo]];
     if (_dataSource.rightInfo){
         [_rightImageView setHidden:NO];
-        [_rightImageView setImageWithURL:[NSURL URLWithString:[_dataSource.rightInfo objectForKey:@"photo_thumb"]]];
+        [_rightImageView setImageWithURL:[NSURL URLWithString:[_dataSource.rightInfo objectForKey:@"photo_thumb"]] placeholderImage:[UIImage imageNamed:@"loding_bg.png"]];
         _rightLabel.text = [self getCityNameFromDic:_dataSource.rightInfo];
         [self setIconImage:_rightIcon Byinfo:_dataSource.rightInfo];
     }else{
@@ -126,15 +126,17 @@ static char Key_showKind;
         _rightImageView.image = nil;
     }
 }
+
 - (NSString *)getCityNameFromDic:(NSDictionary*)dic
 {
     return [NSString stringWithFormat:@"%@-%@",[dic objectForKey:@"country"],[dic objectForKey:@"city"]];
 }
 - (void)setIconImage:(UIImageView *)imageView Byinfo:(NSDictionary *)info
 {
-    [imageView setImage:[UIImage imageNamed:@"food.png"]];
+    [imageView setImage:[UIImage imageNamed:[self getCateryImage:[[info objectForKey:@"category_id"] intValue] - 1]]];
 }
 
+#pragma mark 
 - (void)setCellShowEnable:(BOOL)enabled
 {
     objc_setAssociatedObject(self, &Key_showKind, [NSNumber numberWithBool:enabled], OBJC_ASSOCIATION_RETAIN_NONATOMIC);

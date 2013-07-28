@@ -575,7 +575,7 @@
     self.filtersBackgroundImageView.hidden = NO;
     [UIView animateWithDuration:0.10
                           delay:0.05
-                        options: UIViewAnimationCurveEaseOut
+                        options: UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          self.imageView.frame = imageRect;
                          self.filterScrollView.frame = sliderScrollFrame;
@@ -598,7 +598,7 @@
     
     [UIView animateWithDuration:0.10
                           delay:0.05
-                        options: UIViewAnimationCurveEaseOut
+                        options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          self.imageView.frame = imageRect;
                          self.filterScrollView.frame = sliderScrollFrame;
@@ -611,6 +611,7 @@
                          self.filtersBackgroundImageView.hidden = YES;
                      }];
 }
+
 //点击上传图片
 -(IBAction) toggleFilters:(UIButton *)sender {
         

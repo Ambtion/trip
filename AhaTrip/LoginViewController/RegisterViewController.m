@@ -28,7 +28,7 @@
 - (void)loadView
 {
     [super loadView];
-    UIScrollView * view = [[UIScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    UIScrollView * view = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     view.bounces = NO;
     view.contentSize = view.frame.size;
     view.delegate = self;
@@ -280,6 +280,7 @@
         [self scrollViewDidEndScrollingAnimation:view];
     }else{
         [view setContentOffset:point animated:YES];
+        [view setContentSize:self.view.frame.size];
     }
 }
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView

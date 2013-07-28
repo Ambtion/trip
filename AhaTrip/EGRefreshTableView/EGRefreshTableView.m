@@ -67,9 +67,10 @@
 - (void)moreTableViewDataSource
 {
     if ([_tableView.pDelegate respondsToSelector:@selector(pullingreloadMoreTableViewData:)]) {
+        [_footMoreView showLoadingMore];
         [_tableView.pDelegate pullingreloadMoreTableViewData:_tableView];
         _isLoading = YES;
-        [_footMoreView showLoadingMore];
+        DLog();
     }
 }
 - (void)doneMoreLoadingTableViewData
@@ -82,8 +83,8 @@
 - (void)didFinishedLoadingTableViewData
 {
     _isLoading = NO;
-    [self doneMoreLoadingTableViewData];
     [self doneRefrshLoadingTableViewData];
+    [self doneMoreLoadingTableViewData];
 }
 #pragma mark UIScrollViewDelegate
 #pragma mark Responding to Scrolling and Dragging

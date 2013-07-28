@@ -773,14 +773,14 @@
 			<string key="blur-on.png">{16, 16}</string>
 			<string key="blur.png">{16, 16}</string>
 			<string key="camera-button.png">{16, 16}</string>
-			<string key="close.png">{24, 24}</string>
-			<string key="dock_bg.png">{320, 75}</string>
-			<string key="filter-close.png">{29, 28}</string>
-			<string key="filter-open.png">{28, 28}</string>
-			<string key="flash-off.png">{22, 26}</string>
-			<string key="flash.png">{22, 26}</string>
-			<string key="front-camera.png">{48, 24}</string>
-			<string key="library.png">{28, 28}</string>
+			<string key="close.png">{16, 16}</string>
+			<string key="dock_bg.png">{16, 16}</string>
+			<string key="filter-close.png">{16, 16}</string>
+			<string key="filter-open.png">{16, 16}</string>
+			<string key="flash-off.png">{16, 16}</string>
+			<string key="flash.png">{16, 16}</string>
+			<string key="front-camera.png">{16, 16}</string>
+			<string key="library.png">{16, 16}</string>
 			<string key="take_photo.png">{16, 16}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1929</string>

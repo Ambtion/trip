@@ -69,8 +69,8 @@
     [super viewWillAppear:animated];
     self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
     self.viewDeckController.delegate = self;
-//    if (![LoginStateManager isLogin])
-//        [self showLoginViewWithMethodNav:NO withAnimation:YES];
+    if (![LoginStateManager isLogin])
+        [self showLoginViewWithMethodNav:NO withAnimation:YES];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -181,23 +181,23 @@
 }
 - (void)refresFromeNetWork
 {
-    __block MBProgressHUD *  hhd = [self waitForMomentsWithTitle:@"加载中" withView:self.view];
+    [self waitForMomentsWithTitle:@"加载中" withView:self.view];
     [RequestManager getPlazaWithstart:0 count:20 token:nil success:^(NSString *response) {
         [_assetsArray removeAllObjects];
         [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
-        [self stopWaitProgressView:hhd];
+        [self stopWaitProgressView:nil];
     } failure:^(NSString *error) {
-        [self stopWaitProgressView:hhd];
+        [self stopWaitProgressView:nil];
         DLog(@"%@",error);
     }];
     [_tableView reloadData];
     [_tableView didFinishedLoadingTableViewData];
-    
 }
 - (void)convertAssetsToDataSouce
 {
     [_dataSouceArray removeAllObjects];
+    DLog(@"%@",[_assetsArray lastObject]);
     for (int i = 0;i < _assetsArray.count ; i+=2) {
         PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
         source.leftInfo = [_assetsArray objectAtIndex:i];
@@ -211,6 +211,11 @@
 }
 - (void)getMoreFromeNetWork
 {
+    DLog();
+    if (_assetsArray.count % 20){
+        [_tableView didFinishedLoadingTableViewData];
+        return;
+    }
     [RequestManager getPlazaWithstart:_assetsArray.count count:20 token:nil success:^(NSString *response) {
         [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
@@ -237,7 +242,6 @@
     if (!cell) {
         cell = [[PlazeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:string];
         cell.delegate = self;
-//        [cell setCellShowEnable:NO];
     }
     cell.dataSource = [_dataSouceArray objectAtIndex:indexPath.row];
     return cell;
@@ -264,8 +268,9 @@
 }
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
 {
-   [self.navigationController pushViewController:[[PhotoDetailController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[PhotoDetailController alloc] initWithTitleId:[NSString stringWithFormat:@"%@",[info objectForKey:@"id"]]] animated:YES];
 }
+
 #pragma mark - NavBarDelegate
 - (void)menuButtonClick:(UIButton *)button
 {
@@ -299,7 +304,6 @@
 }
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController didCloseViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated
 {
-    DLog(@"");
     [self setRightSearchBarTonil:YES];
 }
 @end
