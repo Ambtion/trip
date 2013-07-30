@@ -24,9 +24,11 @@
 @synthesize selectID;
 @synthesize menuStr1;
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     [self.navigationController setNavigationBarHidden:YES];
 //    导航
     UIView* navView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
