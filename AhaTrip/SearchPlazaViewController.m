@@ -33,21 +33,36 @@
 - (void)refresFromeNetWork
 {
     [self waitForMomentsWithTitle:@"加载中" withView:self.view];
-    [RequestManager getPlazaWithstart:0 count:20 token:nil success:^(NSString *response) {
+    [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
         [self.assetsArray removeAllObjects];
-        [self.assetsArray   addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
+        DLog(@"%@",[response JSONValue]);
+        [self.assetsArray  addObjectsFromArray:[[[response JSONValue] objectForKey:@"city"] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
         [self stopWaitProgressView:nil];
+
     } failure:^(NSString *error) {
         [self stopWaitProgressView:nil];
+        [_tableView didFinishedLoadingTableViewData];
         DLog(@"%@",error);
+
     }];
-    [_tableView reloadData];
-    [_tableView didFinishedLoadingTableViewData];
 }
+
 - (void)getMoreFromeNetWork
 {
-    
+    [self waitForMomentsWithTitle:@"加载中" withView:self.view];
+    [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
+        DLog(@"%@",[response JSONValue]);
+        [self.assetsArray   addObjectsFromArray:[[[response JSONValue] objectForKey:@"city"] objectForKey:@"findings"]];
+        [self convertAssetsToDataSouce];
+        [self stopWaitProgressView:nil];
+        
+    } failure:^(NSString *error) {
+        [self stopWaitProgressView:nil];
+        [_tableView didFinishedLoadingTableViewData];
+        DLog(@"%@",error);
+    }];
+
 }
 #pragma mark Add Seg
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -57,31 +72,36 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
-    NSArray * items = [NSArray arrayWithObjects:@"手",@"网",@"网",@"网", @"网",@"网",@"网",nil];
-    CQSegmentControl *  segControll = [[CQSegmentControl alloc] initWithItemsAndStype:items stype:TitleAndImageSegmented];
-    [segControll addTarget:self action:@selector(segMentChnageValue:) forControlEvents:UIControlEventValueChanged];
-    segControll.frame = CGRectMake(-2, 0, 324, 49);
-    segControll.selectedSegmentIndex = 0;
-    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 41.f)];
-    [view addSubview:segControll];
-    return view;
+    if (!_segControllView) {
+        NSArray * items = [NSArray arrayWithObjects:@"手",@"网",@"网",@"网", @"网",@"网",@"网",nil];
+        CQSegmentControl *  _segControll = [[CQSegmentControl alloc] initWithItemsAndStype:items stype:TitleAndImageSegmented];
+        [_segControll addTarget:self action:@selector(segMentChnageValue:) forControlEvents:UIControlEventValueChanged];
+        _segControll.frame = CGRectMake(-2, 0, 324, 49);
+        DLog(@"LLLLLL%d", _cateroy == KCateroyAll ? 0 : _cateroy + 1);
+        _segControll.selectedSegmentIndex = _cateroy == KCateroyAll ? 0 : _cateroy + 1;
+        _segControllView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 41.f)];
+        [_segControllView addSubview:_segControll];
+    }
+    return _segControllView;
 }
 
 #pragma mark - AweSomeMenuDelegate
 - (void)segMentChnageValue:(CQSegmentControl*)seg
 {
-    //    if (!seg.selectedSegmentIndex)
-    //            return;
-    //    [_tableView refrehOnce];
-}
-
-- (void)awesomeMenu:(AwesomeMenu *)menu didSelectIndex:(NSInteger)idx
-{
-    NSLog(@"Select the index : %d",idx);
+    if (seg.selectedSegmentIndex == 0) {
+        if (_cateroy != KCateroyAll) {
+            _cateroy = KCateroyAll;
+            [self refresFromeNetWork];
+        }
+    }else{
+        if (seg.selectedSegmentIndex != _cateroy + 1) {
+            _cateroy = seg.selectedSegmentIndex - 1;
+            [self refresFromeNetWork];
+        }
+    }
 }
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
 {
-    [self.navigationController pushViewController:[[PhotoDetailController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[PhotoDetailController alloc] initWithTitleId:[NSString stringWithFormat:@"%@",[info objectForKey:@"id"]]] animated:YES];
 }
 @end

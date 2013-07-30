@@ -53,7 +53,7 @@ enum __picUploadCateroy {
     KCateroyHotel = 3,
     KCateroyDrink = 4,
     KCateroyEntertainment = 5,
-    KCateroyAll = -1,
+    KCateroyAll = 200,
 };
 typedef enum __picUploadCateroy PicUploadCateroy;
 @interface NSObject(Cateroy)

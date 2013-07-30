@@ -93,12 +93,12 @@
 //分类的广场接口
 + (void)getPlazaWithCountryId:(int)countryId cityId:(int)cityId cateroy:(PicUploadCateroy)cateroy start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityIndex?city_id=%d&category_id=%d$start=%d&count=%d&token=tRyW4rLBiJHffQ",cityId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
 + (void)getTitleImagesWithId:(NSString *)titleId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-//    http://yyz.ahatrip.info/api/finding?id=1&token=tRyW4rLBiJHffQ
     NSString* url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/finding?id=%@&token=tRyW4rLBiJHffQ",titleId];
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
 }

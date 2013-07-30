@@ -12,6 +12,7 @@
 @interface SearchPlazaViewController : PlazeViewController
 {
     PicUploadCateroy _cateroy;
+    UIView *  _segControllView;
     NSString * _Atitle;
     int _countryId;
     int _cityId;

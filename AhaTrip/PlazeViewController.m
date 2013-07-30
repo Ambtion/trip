@@ -185,10 +185,9 @@
         [self stopWaitProgressView:nil];
     } failure:^(NSString *error) {
         [self stopWaitProgressView:nil];
+        [_tableView didFinishedLoadingTableViewData];
         DLog(@"%@",error);
     }];
-    [_tableView reloadData];
-    [_tableView didFinishedLoadingTableViewData];
 }
 - (void)convertAssetsToDataSouce
 {
