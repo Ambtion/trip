@@ -9,6 +9,7 @@
 #import "LoginStateManager.h"
 #import "IIViewDeckController.h"
 #import "UIViewController+Method.h"
+#import "AppDelegate.h"
 
 #define BASECOLOR [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1.f]
 

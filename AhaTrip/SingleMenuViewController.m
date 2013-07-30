@@ -23,25 +23,13 @@
 @synthesize menuStr;
 @synthesize selectID;
 @synthesize menuStr1;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        
-       
-        
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//     self.view.backgroundColor=mRGBColor(236, 235, 235);
     [self.navigationController setNavigationBarHidden:YES];
 //    导航
-    UIView*navView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIView* navView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     navView.backgroundColor=mRGBColor(50, 200, 160);
     [self.view addSubview:navView];
    
