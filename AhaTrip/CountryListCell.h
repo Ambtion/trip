@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CountryListCellDataSource : NSObject
-@property(nonatomic,strong)id identify;
+@property(nonatomic,assign)int identify;
 @property(nonatomic,strong)NSString * cName;
 @property(nonatomic,strong)NSString * eName;
 @end
@@ -21,8 +21,10 @@
     UIImageView * arrow;
     CountryListCellDataSource * _dataSource;
     CGFloat _offset;
+    UIView * _bgview;
 }
 @property(nonatomic,strong)CountryListCellDataSource * dataSource;
 @property(nonatomic,strong)UIImageView * arrow;
+- (UIView *)getBgView;
 - (void)setoffset:(CGFloat)offset;
 @end

@@ -9,8 +9,47 @@
 #import "SearchPlazaViewController.h"
 #import "CQSegmentControl.h"
 
+@class SearchPlazaViewController;
 @implementation SearchPlazaViewController
 
+- (id)initWithCountryId:(int)AcountyId cityId:(int)AcityId title:(NSString *)Atitle
+{
+    self = [super init];
+    if (self) {
+        _Atitle = Atitle;
+        _cateroy = KCateroyAll;
+        _countryId = AcountyId;
+        _cityId = AcityId;
+    }
+    return self;
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [_menuView setStringTitleArray:[NSArray arrayWithObjects:_Atitle,nil] curString:_Atitle];
+}
+
+#pragma mark - ReloadData
+- (void)refresFromeNetWork
+{
+    [self waitForMomentsWithTitle:@"加载中" withView:self.view];
+    [RequestManager getPlazaWithstart:0 count:20 token:nil success:^(NSString *response) {
+        [self.assetsArray removeAllObjects];
+        [self.assetsArray   addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
+        [self convertAssetsToDataSouce];
+        [self stopWaitProgressView:nil];
+    } failure:^(NSString *error) {
+        [self stopWaitProgressView:nil];
+        DLog(@"%@",error);
+    }];
+    [_tableView reloadData];
+    [_tableView didFinishedLoadingTableViewData];
+}
+- (void)getMoreFromeNetWork
+{
+    
+}
+#pragma mark Add Seg
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 41.f;

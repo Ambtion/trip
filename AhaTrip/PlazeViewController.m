@@ -13,10 +13,6 @@
 #import "PlazeViewController.h"
 #import "RequestManager.h"
 
-@interface PlazeViewController ()
-@property(nonatomic,strong)NSMutableArray * assetsArray;
-@property(nonatomic,strong)NSMutableArray * dataSouceArray;
-@end
 
 @implementation PlazeViewController
 @synthesize assetsArray = _assetsArray;

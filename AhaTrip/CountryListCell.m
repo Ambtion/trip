@@ -22,22 +22,25 @@
         self.frame = CGRectMake(0, 0, self.frame.size.width, 44);
         _offset = 20.f;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-//        UIImageView * image = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"leftMenuHigthed.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 160, 20, 160)]];
-//        image.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//        image.frame = self.bounds;
-//        self.selectedBackgroundView = image;
+        _bgview = [[UIView alloc] initWithFrame:self.bounds];
+        _bgview.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _bgview.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
+        [self.contentView addSubview:_bgview];
         UIImageView * line = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cutline.png"]];
         line.frame = CGRectMake(0, self.frame.size.height - 2, 320, 2);
         line.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        [self addSubview:line];
-        [self.contentView addSubview:line];
+        [_bgview addSubview:line];
         [self addCNameLabel];
         [self addENameLabel];
         [self addArrow];
     }
     return self;
 }
-
+- (UIView *)getBgView
+{
+    [arrow setHidden:YES];
+    return _bgview;
+}
 - (void)addCNameLabel
 {
     _cNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -45,7 +48,7 @@
     _cNameLabel.backgroundColor = [UIColor clearColor];
     CGFloat colorF = 204/255.f;
     _cNameLabel.textColor = [UIColor colorWithRed:colorF green:colorF blue:colorF alpha:1];
-    [self.contentView addSubview:_cNameLabel];
+    [_bgview addSubview:_cNameLabel];
 }
 
 - (void)addENameLabel
@@ -55,14 +58,14 @@
     _eNameLabel.backgroundColor = [UIColor clearColor];
     _eNameLabel.textColor = [UIColor colorWithRed:colorF green:colorF blue:colorF alpha:1];
     _eNameLabel.font = [UIFont systemFontOfSize:14];
-    [self.contentView addSubview:_eNameLabel];
+    [_bgview addSubview:_eNameLabel];
 }
 
 - (void)addArrow
 {
     arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leftArrow.png"]];
     arrow.frame = CGRectMake(240, (self.frame.size.height - 9)/2.f , 8, 9);
-    [self.contentView addSubview:arrow];
+    [_bgview addSubview:arrow];
 }
 
 #pragma mark setData

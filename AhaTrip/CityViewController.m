@@ -10,25 +10,50 @@
 #import "CountryListCell.h"
 #import "SearchPlazaViewController.h"
 
+#define ALLCOUNTRY          @"全部"
+#define OTHERCOUNTRY        @"其他国家/地区"
+
 @interface CityViewController()
 @property(nonatomic,strong)NSMutableArray * sourceArray;
 @end
 @implementation CityViewController
 @synthesize sourceArray = _sourceArray;
 
+- (id)initWithIdentify:(int)identify
+{
+    if (self = [super init]) {
+        _identify = identify;
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     _tableView = [[EGRefreshTableView alloc] initWithFrame:CGRectMake(44, 0, 276, self.view.frame.size.height)];
-    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
     _tableView.separatorColor = [UIColor clearColor];
     _tableView.pDelegate = self;
     _tableView.dataSource = self;
+    _tableView.tableFooterView = [self getViewWithstr:ALLCOUNTRY];
+    _tableView.tableFooterView = [self getViewWithstr:OTHERCOUNTRY];
     [self.view addSubview:_tableView];
     [self addBackButton];
     [self initDataContainer];
     [self refrehsFromNetWork];
+}
+- (UIView *)getViewWithstr:(NSString *)str
+{
+    CountryListCellDataSource * otherSouece = [[CountryListCellDataSource alloc] init];
+    otherSouece.cName = str;
+    otherSouece.eName = nil;
+    CountryListCell * other = [[CountryListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    [other setoffset:65.f];
+    other.dataSource = otherSouece;
+    UIView * view = [other getBgView];
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    [view addGestureRecognizer:gesture];
+    return view;
 }
 - (void)addBackButton
 {
@@ -52,26 +77,24 @@
 }
 - (void)refrehsFromNetWork
 {
-    [self performSelector:@selector(addSourceFormArray:) withObject:nil afterDelay:0.f];
+    [RequestManager getCityListFromCounty:_identify start:0 count:20 token:nil success:^(NSString *response) {
+        DLog(@"%@",[response JSONValue]);
+        [_sourceArray removeAllObjects];
+        [self addSourceFormArray:[[response JSONValue] objectForKey:@"cities"]];
+    } failure:^(NSString *error) {
+        [_tableView didFinishedLoadingTableViewData];
+    }];
 }
 - (void)addSourceFormArray:(NSArray *)array
 {
-    [_sourceArray removeAllObjects];
-    CountryListCellDataSource * allsource = [[CountryListCellDataSource alloc] init];
-    allsource.cName = @"中国";
-    allsource.eName = nil;
-    [_sourceArray addObject:allsource];
-    
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < array.count; i++) {
+        NSDictionary * dic = [array objectAtIndex:i];
         CountryListCellDataSource * source = [[CountryListCellDataSource alloc] init];
-        source.eName = @"china";
-        source.cName = @"北京";
+        source.eName = [dic objectForKey:@"en_name"];
+        source.cName = [dic objectForKey:@"name"];
+        source.identify = [[dic objectForKey:@"id"] intValue];
         [_sourceArray addObject:source];
     }
-    CountryListCellDataSource * otherSouece = [[CountryListCellDataSource alloc] init];
-    otherSouece.cName = @"其他国家/地区";
-    otherSouece.eName = nil;
-    [_sourceArray addObject:otherSouece];
     [_tableView reloadData];
     [_tableView didFinishedLoadingTableViewData];
 }
@@ -113,5 +136,9 @@
     [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] init];
     [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
     [self.navigationController popViewControllerAnimated:NO];
+}
+- (void)tapGesture:(UIGestureRecognizer *)gesture
+{
+    
 }
 @end

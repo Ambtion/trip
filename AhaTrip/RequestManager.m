@@ -89,6 +89,13 @@
     NSString * url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/index?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
 }
+
+//分类的广场接口
++ (void)getPlazaWithCountryId:(int)countryId cityId:(int)cityId cateroy:(PicUploadCateroy)cateroy start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    
+}
+
 + (void)getTitleImagesWithId:(NSString *)titleId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
 //    http://yyz.ahatrip.info/api/finding?id=1&token=tRyW4rLBiJHffQ
@@ -119,4 +126,16 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
+//国家列表
++ (void)getCountryListWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
+//城市列表
++ (void)getCityListFromCounty:(NSInteger)country start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityList?country_id=%d&token=tRyW4rLBiJHffQ&start=%d&count=%d",country,start,count];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
 @end

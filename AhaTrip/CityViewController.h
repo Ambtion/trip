@@ -12,5 +12,7 @@
 @interface CityViewController : UIViewController<EGRefreshTableViewDelegate,UITableViewDataSource>
 {
     EGRefreshTableView * _tableView;
+    int _identify;
 }
+- (id)initWithIdentify:(int)identify;
 @end
