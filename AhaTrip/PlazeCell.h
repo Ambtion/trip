@@ -31,8 +31,8 @@
     PlazeCellDataSource * _dataSource;
 }
 
-- (void)setCellShowEnable:(BOOL)enabled;
-- (BOOL)isCellShowEnable;
+- (void)setCellShowIconEnable:(BOOL)enabled;
+- (void)setCellShowCityEnable:(BOOL)enabled;
 
 @property(nonatomic,strong)PlazeCellDataSource * dataSource;
 @property(nonatomic,weak)id<PlazeCellDelegate> delegate;

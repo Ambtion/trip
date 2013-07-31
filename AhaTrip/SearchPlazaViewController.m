@@ -19,6 +19,7 @@
 {
     self = [super init];
     if (self) {
+        _cateroy = KCateroyAll;
         _cityId = AcityId;
         _cityName = city;
         _countryId = AcountyId;
@@ -101,6 +102,19 @@
     return _segControllView;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * string = @"CELL";
+    PlazeCell * cell = [tableView dequeueReusableCellWithIdentifier:string];
+    if (!cell) {
+        cell = [[PlazeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:string];
+        cell.delegate = self;
+    }
+    [cell setCellShowIconEnable:_cateroy == KCateroyAll || _cityId == ALLCITY];
+    [cell setCellShowCityEnable:_cityId == ALLCITY];
+    cell.dataSource = [self.dataSouceArray objectAtIndex:indexPath.row];
+    return cell;
+}
 #pragma mark - AweSomeMenuDelegate
 - (void)segMentChnageValue:(CQSegmentControl*)seg
 {

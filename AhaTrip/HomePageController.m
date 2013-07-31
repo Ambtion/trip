@@ -74,7 +74,7 @@
 - (void)addTableView
 {
     _tableView = [[EGRefreshTableView alloc] initWithFrame:self.view.bounds];
-    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.backgroundColor = [UIColor colorWithRed:51.f/255.f green:51.f/255.f blue:51.f/255.f alpha:1.f];
     _tableView.pDelegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];

@@ -22,6 +22,7 @@
 @implementation PlazeCell
 
 static char Key_showKind;
+static char Key_showCity;
 
 @synthesize dataSource = _dataSource;
 @synthesize delegate = _delegate;
@@ -30,7 +31,8 @@ static char Key_showKind;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setCellShowEnable:YES];
+        [self setCellShowIconEnable:YES];
+        [self setCellShowCityEnable:YES];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         CGFloat width = (self.frame.size.width - IMAGETAP) / 2.f;
         _leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
@@ -109,8 +111,11 @@ static char Key_showKind;
 }
 - (void)updataImageViews
 {
-    [_leftIcon setHidden:![self isCellShowEnable]];
-    [_rightIcon setHidden:![self isCellShowEnable]];
+    [_leftIcon setHidden:![self isCellShowIconEnable]];
+    [_rightIcon setHidden:![self isCellShowIconEnable]];
+    
+    [_leftLabel setHidden:![self isCellShowCityEnable]];
+    [_rightLabel setHidden:![self isCellShowCityEnable]];
     
     [_leftImageView setImageWithURL:[NSURL URLWithString:[_dataSource.leftInfo objectForKey:@"photo_thumb"]]placeholderImage:[UIImage imageNamed:@"loding_bg.png"]];
     _leftLabel.text =[self getCityNameFromDic:_dataSource.leftInfo];
@@ -137,12 +142,21 @@ static char Key_showKind;
 }
 
 #pragma mark 
-- (void)setCellShowEnable:(BOOL)enabled
+- (void)setCellShowIconEnable:(BOOL)enabled
 {
     objc_setAssociatedObject(self, &Key_showKind, [NSNumber numberWithBool:enabled], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-- (BOOL)isCellShowEnable
+- (BOOL)isCellShowIconEnable
 {
     return [objc_getAssociatedObject(self, &Key_showKind) boolValue];
 }
+- (void)setCellShowCityEnable:(BOOL)enabled
+{
+    objc_setAssociatedObject(self, &Key_showCity, [NSNumber numberWithBool:enabled], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL)isCellShowCityEnable
+{
+    return [objc_getAssociatedObject(self, &Key_showCity) boolValue];
+}
+
 @end
