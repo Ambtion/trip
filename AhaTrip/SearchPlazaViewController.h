@@ -13,10 +13,12 @@
 {
     PicUploadCateroy _cateroy;
     UIView *  _segControllView;
-    NSString * _Atitle;
     int _countryId;
+    NSString * _countryName;
     int _cityId;
+    NSString * _cityName;
 }
 
-- (id)initWithCountryId:(int)AcountyId cityId:(int)AcityId title:(NSString *)Atitle;
+- (id)initWithCountryId:(int)AcountyId cityId:(int)AcityId  country:(NSString *)country city:(NSString *)city;
+
 @end

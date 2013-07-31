@@ -9,24 +9,40 @@
 #import "SearchPlazaViewController.h"
 #import "CQSegmentControl.h"
 
+#define ALLCITY -100
+
 @class SearchPlazaViewController;
+
 @implementation SearchPlazaViewController
 
-- (id)initWithCountryId:(int)AcountyId cityId:(int)AcityId title:(NSString *)Atitle
+- (id)initWithCountryId:(int)AcountyId cityId:(int)AcityId  country:(NSString *)country city:(NSString *)city
 {
     self = [super init];
     if (self) {
-        _Atitle = Atitle;
-        _cateroy = KCateroyAll;
-        _countryId = AcountyId;
         _cityId = AcityId;
+        _cityName = city;
+        _countryId = AcountyId;
+        _countryName = country;
+    }
+    return self;
+}
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _cityId = ALLCITY;
+        _cateroy = KCateroyAll;
     }
     return self;
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_menuView setStringTitleArray:[NSArray arrayWithObjects:_Atitle,nil] curString:_Atitle];
+    if (_cityName) {
+        [_menuView setStringTitleArray:[NSArray arrayWithObjects:_cityName,nil] curString:_cityName];
+    }else{
+        [_menuView setStringTitleArray:[NSArray arrayWithObjects:@"全部",nil] curString:@"全部"];
+    }
 }
 
 #pragma mark - ReloadData
@@ -36,33 +52,33 @@
     [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
         [self.assetsArray removeAllObjects];
         DLog(@"%@",[response JSONValue]);
-        [self.assetsArray  addObjectsFromArray:[[[response JSONValue] objectForKey:@"city"] objectForKey:@"findings"]];
-        [self convertAssetsToDataSouce];
-        [self stopWaitProgressView:nil];
-
-    } failure:^(NSString *error) {
-        [self stopWaitProgressView:nil];
-        [_tableView didFinishedLoadingTableViewData];
-        DLog(@"%@",error);
-
-    }];
-}
-
-- (void)getMoreFromeNetWork
-{
-    [self waitForMomentsWithTitle:@"加载中" withView:self.view];
-    [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
-        DLog(@"%@",[response JSONValue]);
-        [self.assetsArray   addObjectsFromArray:[[[response JSONValue] objectForKey:@"city"] objectForKey:@"findings"]];
+        NSString * key = _cityId < 0 ? @"total" : @"city";
+        [self.assetsArray  addObjectsFromArray:[[[response JSONValue] objectForKey:key] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
         [self stopWaitProgressView:nil];
         
     } failure:^(NSString *error) {
         [self stopWaitProgressView:nil];
+        [_tableView didFinishedLoadingTableViewData];        
+    }];
+}
+
+- (void)getMoreFromeNetWork
+{
+    if (self.assetsArray.count % 20){
+        [_tableView didFinishedLoadingTableViewData];
+        return;
+    }
+    [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
+        NSString * key = _cityId < 0 ? @"total" : @"city";
+        [self.assetsArray  addObjectsFromArray:[[[response JSONValue] objectForKey:key] objectForKey:@"findings"]];
+        [self convertAssetsToDataSouce];
+        
+    } failure:^(NSString *error) {
         [_tableView didFinishedLoadingTableViewData];
         DLog(@"%@",error);
     }];
-
+    
 }
 #pragma mark Add Seg
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

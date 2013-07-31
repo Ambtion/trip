@@ -19,10 +19,11 @@
 @implementation CityViewController
 @synthesize sourceArray = _sourceArray;
 
-- (id)initWithIdentify:(int)identify
+- (id)initWithCountryId:(int)countryId CountryName:(NSString *)countryName
 {
     if (self = [super init]) {
-        _identify = identify;
+        _countryId = countryId;
+        _countryName = countryName;
     }
     return self;
 }
@@ -77,8 +78,7 @@
 }
 - (void)refrehsFromNetWork
 {
-    [RequestManager getCityListFromCounty:_identify start:0 count:20 token:nil success:^(NSString *response) {
-        DLog(@"%@",[response JSONValue]);
+    [RequestManager getCityListFromCounty:_countryId start:0 count:20 token:nil success:^(NSString *response) {
         [_sourceArray removeAllObjects];
         [self addSourceFormArray:[[response JSONValue] objectForKey:@"cities"]];
     } failure:^(NSString *error) {
@@ -133,7 +133,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] init];
+    CountryListCellDataSource * source = [_sourceArray objectAtIndex:indexPath.row];
+    [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] initWithCountryId:_countryId cityId:source.identify country:@"" city:source.cName];
     [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
     [self.navigationController popViewControllerAnimated:NO];
 }

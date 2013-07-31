@@ -12,7 +12,8 @@
 @interface CityViewController : UIViewController<EGRefreshTableViewDelegate,UITableViewDataSource>
 {
     EGRefreshTableView * _tableView;
-    int _identify;
+    int _countryId;
+    NSString * _countryName;
 }
-- (id)initWithIdentify:(int)identify;
+- (id)initWithCountryId:(int)countryId CountryName:(NSString *)countryName;
 @end

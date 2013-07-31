@@ -9,6 +9,7 @@
 #import "RightSerachController.h"
 #import "CountryListCell.h"
 #import "CityViewController.h"
+#import "SearchPlazaViewController.h"
 
 #define ALLCOUNTRY          @"全部"
 #define OTHERCOUNTRY        @"其他国家/地区"
@@ -209,23 +210,23 @@
 #pragma mark Action
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     if (tableView == _tableView) {
         if (indexPath.row == 0) {
-            
-        }else if(indexPath.row == _sourceArray.count - 1){
-        
+            [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] init];
+            [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
+            [self.navigationController popViewControllerAnimated:NO];
+
         }else{
             CountryListCellDataSource * source = [_sourceArray objectAtIndex:indexPath.row];
-            [self.navigationController pushViewController:[[CityViewController alloc] initWithIdentify:source.identify] animated:YES];
+            [self.navigationController pushViewController:[[CityViewController alloc] initWithCountryId:source.identify CountryName:source.cName] animated:YES];
         }
     }else{
         CountryListCellDataSource * source = [_searchSourceArray objectAtIndex:indexPath.row];
-        [self.navigationController pushViewController:[[CityViewController alloc] initWithIdentify:source.identify] animated:YES];
+        [self.navigationController pushViewController:[[CityViewController alloc] initWithCountryId:source.identify CountryName:source.cName] animated:YES];
     }
 }
 - (void)tapGesture:(UIGestureRecognizer *)gesture
 {
-    
+    DLog(@"Others");
 }
 @end
