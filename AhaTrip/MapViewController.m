@@ -126,7 +126,8 @@
     tiaoguoBtn.contentMode=UIViewContentModeScaleAspectFit;
 //    [tiaoguoBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [tiaoguoBtn setTitle:@"跳过此步骤 >" forState:UIControlStateNormal];
-    tiaoguoBtn.font=[UIFont systemFontOfSize:12];
+//    tiaoguoBtn.font=[UIFont systemFontOfSize:12];
+    tiaoguoBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [tiaoguoBtn setTitleColor:mRGBColor(102, 102, 102) forState:UIControlStateNormal];
       [tiaoguoBtn addTarget:self action:@selector(tiaoguoBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:tiaoguoBtn];

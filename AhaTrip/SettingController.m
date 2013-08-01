@@ -233,10 +233,10 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 -(void)onCheckVersion
 {
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-    NSNumber * currentVersion = [infoDic objectForKey:@"VersionCode"];
+//    NSNumber * currentVersion = [infoDic objectForKey:@"VersionCode"];
     NSDictionary * dic = [self getAppInfoFromNet];
-    NSNumber * newVersion = [dic objectForKey:@"versionCode"];
-    BOOL isUpata = [self CompareVersionFromOldVersion:currentVersion newVersion:newVersion];
+//    NSNumber * newVersion = [dic objectForKey:@"versionCode"];
+//    BOOL isUpata = [self CompareVersionFromOldVersion:currentVersion newVersion:newVersion];
     if (0) {
         UIApplication *application = [UIApplication sharedApplication];
         [application openURL:[NSURL URLWithString:[dic objectForKey:@"updateURL"]]];
