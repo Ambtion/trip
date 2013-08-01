@@ -20,6 +20,7 @@
     NSString * _titleId;
     NSDictionary * _dataInfo;
     UIButton * _backButton;
+    NSInteger _findsId;
     BOOL isLiked;
     int  likeCount;
     int  commentCount;

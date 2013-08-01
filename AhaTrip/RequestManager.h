@@ -38,4 +38,7 @@
 //城市列表
 + (void)getCityListFromCounty:(NSInteger)country start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
+//评论列表
++ (void)getCommentWithFindingId:(NSInteger)findId start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
++ (void)postComment:(NSString *)comment WithFindingId:(NSInteger)findingId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 @end

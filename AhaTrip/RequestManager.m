@@ -135,7 +135,8 @@
 //国家列表
 + (void)getCountryListWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
+    //有内容的地区
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?type=search&token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 //城市列表
@@ -143,5 +144,21 @@
 {
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityList?country_id=%d&token=tRyW4rLBiJHffQ&start=%d&count=%d",country,start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
+
+//评论列表
++ (void)getCommentWithFindingId:(NSInteger)findingId start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/commentList?finding_id=%d&token=tRyW4rLBiJHffQ&start=%d&count=%d",findingId,start,count];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
++ (void)postComment:(NSString *)comment WithFindingId:(NSInteger)findingId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/commentCreate"];
+    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
+    [dic setObject:[NSNumber numberWithInteger:findingId] forKey:@"finding_id"];
+    [dic setObject:@"tRyW4rLBiJHffQ" forKey:@"token"];
+    [dic setObject:comment forKey:@"content"];
+    [self postWithURL:str body:dic success:success failure:failure];
 }
 @end

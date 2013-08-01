@@ -18,6 +18,10 @@
     UIImage * _blurImgage;
     NSMutableArray * _dataSourceArray;
     MakeCommentView * commentView;
+    NSInteger _findsID;
+    NSDictionary * _userInfo;
+    BOOL _isSending;
 }
-- (id)initWithBgImage:(UIImage*)image;
+- (id)initWithBgImage:(UIImage*)image findsID:(NSInteger)findsID;
+- (NSInteger)findsID;
 @end
