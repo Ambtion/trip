@@ -112,7 +112,7 @@
 //用户信息
 + (void)getUserInfoWithUserId:(NSString *)userId token:(NSString*)token  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-
+    
     NSString * url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/user?uid=%@&token=tRyW4rLBiJHffQ",userId];
     DLog(@"%@",url);
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
