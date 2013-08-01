@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DLCImagePickerController.h"
+
 @class PersonalViewController;
 
 @protocol PersonalViewDelegate <NSObject>
@@ -16,7 +17,7 @@
 - (void)PersonalViewControllerDidCancel:(PersonalViewController*)personal;
 @end
 
-@interface PersonalViewController : UIViewController<DLCImagePickerDelegate,UITextFieldDelegate,UIScrollViewDelegate>
+@interface PersonalViewController : UIViewController<DLCImagePickerDelegate,UITextFieldDelegate,UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UIImageView*bottomBar;
     UITextField*nameFild;
@@ -24,6 +25,10 @@
     int rectY;
     UIScrollView*backScroll;
     int height;
+    
+    UIView*selectBackView;
+    UITableView*shareTable;
+    NSMutableArray*shareArr;
     
 
 

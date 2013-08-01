@@ -15,6 +15,7 @@
 #import "AddPlaceViewController.h"
 #import "MapViewController.h"
 #import "Constants.h"
+#import "PersonalViewController.h"
 #define kStaticBlurSize 2.0f
 
 @implementation DLCImagePickerController {
@@ -58,16 +59,9 @@
     //set background color
    
     self.view.backgroundColor = mRGBColor(43, 43, 44);
-//    self.imageView.backgroundColor=[UIColor clearColor];
-    
-//    self.photoBar.backgroundColor = [UIColor colorWithPatternImage:
-//                                     [UIImage imageNamed:@"photo_bar"]];
-//    
-//    self.topBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"photo_bar"]];
-    //button states
     [self.blurToggleButton setSelected:NO];
-    [self.filtersToggleButton setSelected:NO];
-    
+//    [self.filtersToggleButton setSelected:NO];
+    self.filtersToggleButton.hidden=YES;
     staticPictureOriginalOrientation = UIImageOrientationUp;
     
     self.focusView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"focus-crosshair"]];
@@ -94,7 +88,9 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         [self setUpCamera];
     });
-    [self showFilters];
+    
+    
+  [self showFilters];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -226,7 +222,7 @@
         [self prepareStaticFilter];
     }
    
-      
+   
     
 }
 
@@ -387,13 +383,15 @@
     
     [self prepareFilter];
     [self.retakeButton setHidden:NO];
-//    [self.photoCaptureButton setTitle:@"Done" forState:UIControlStateNormal];
+//    [self.photoCaptureButton setTitle:@"已选中" forState:UIControlStateNormal];
     [self.photoCaptureButton setImage:nil forState:UIControlStateNormal];
     [self.photoCaptureButton setEnabled:YES];
-//    [self.photoCaptureButton setHidden:YES];
-    if(![self.filtersToggleButton isSelected]){
-        [self showFilters];
-    }
+    [self.photoCaptureButton setHidden:YES];
+//    filtersToggleButton.hidden=NO;
+//    cancelButton.hidden=YES;
+//    if(!self.filtersToggleButton.hidden){
+//        [self showFilters];
+//    }
 }
 
 -(IBAction) takePhoto:(id)sender{
@@ -405,10 +403,17 @@
         [self.libraryToggleButton setHidden:YES];
         [self.cameraToggleButton setEnabled:NO];
         [self.flashToggleButton setEnabled:NO];
-        [self prepareForCapture];
+    [self prepareForCapture];
+          filtersToggleButton.hidden=NO;
+    }else
+       
+    {isStatic=NO;
+        filtersToggleButton.hidden=YES;
+    
     }
-     filtersToggleButton.hidden=NO;
-//    } else {
+   
+//    }
+//else {
 //        
 //        GPUImageOutput<GPUImageInput> *processUpTo;
 //        
@@ -429,8 +434,22 @@
 }
 
 -(IBAction) retakePhoto:(UIButton *)button {
+//    [self prepareFilter];
+//    [self showFilters];
     [self.retakeButton setHidden:YES];
     [self.libraryToggleButton setHidden:NO];
+    photoCaptureButton.hidden=NO;
+//    if (isStatic) {
+//        cancelButton.hidden=YES;
+//        filtersToggleButton.hidden=NO;
+//
+//    }
+//    else{
+        cancelButton.hidden=NO;
+        filtersToggleButton.hidden=YES;
+
+//    }
+    
     staticPicture = nil;
     staticPictureOriginalOrientation = UIImageOrientationUp;
     isStatic = NO;
@@ -447,13 +466,15 @@
     [self.photoCaptureButton setImage:[UIImage imageNamed:@"take_photo.png"] forState:UIControlStateNormal];
     [self.photoCaptureButton setTitle:nil forState:UIControlStateNormal];
     
-    if ([self.filtersToggleButton isSelected]) {
-        [self hideFilters];
+    if (self.filtersToggleButton) {
+//       [self hideFilters];
+//         [self prepareFilter];
     }
     
     [self setFilter:selectedFilter];
     [self prepareFilter];
-}
+   
+     }
 
 -(IBAction) cancel:(id)sender {
     [self.delegate imagePickerControllerDidCancel:self];
@@ -561,8 +582,9 @@
 }
 
 -(void) showFilters {
-    [self.filtersToggleButton setSelected:YES];
-    self.filtersToggleButton.enabled = NO;
+//    [self.filtersToggleButton setSelected:YES];
+//    self.filtersToggleButton.enabled = NO;
+    self.filtersToggleButton.hidden=YES;
     CGRect imageRect = self.imageView.frame;
     imageRect.origin.y -= 34;
     CGRect sliderScrollFrame = self.filterScrollView.frame;
@@ -586,36 +608,40 @@
                      }];
 }
 
--(void) hideFilters {
-    [self.filtersToggleButton setSelected:NO];
-    CGRect imageRect = self.imageView.frame;
-    imageRect.origin.y += 34;
-    CGRect sliderScrollFrame = self.filterScrollView.frame;
-    sliderScrollFrame.origin.y += self.filterScrollView.frame.size.height;
-    
-    CGRect sliderScrollFrameBackground = self.filtersBackgroundImageView.frame;
-    sliderScrollFrameBackground.origin.y += self.filtersBackgroundImageView.frame.size.height-3;
-    
-    [UIView animateWithDuration:0.10
-                          delay:0.05
-                        options: UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.imageView.frame = imageRect;
-                         self.filterScrollView.frame = sliderScrollFrame;
-                         self.filtersBackgroundImageView.frame = sliderScrollFrameBackground;
-                     } 
-                     completion:^(BOOL finished){
-                         
-                         self.filtersToggleButton.enabled = YES;
-                         self.filterScrollView.hidden = YES;
-                         self.filtersBackgroundImageView.hidden = YES;
-                     }];
-}
+//-(void) hideFilters {
+////    [self.filtersToggleButton setSelected:NO];
+//    self.filtersToggleButton.hidden=YES;
+//    CGRect imageRect = self.imageView.frame;
+//    imageRect.origin.y += 34;
+//    CGRect sliderScrollFrame = self.filterScrollView.frame;
+//    sliderScrollFrame.origin.y += self.filterScrollView.frame.size.height;
+//    
+//    CGRect sliderScrollFrameBackground = self.filtersBackgroundImageView.frame;
+//    sliderScrollFrameBackground.origin.y += self.filtersBackgroundImageView.frame.size.height-3;
+//    
+//    [UIView animateWithDuration:0.10
+//                          delay:0.05
+//                        options: UIViewAnimationOptionCurveEaseOut
+//                     animations:^{
+//                         self.imageView.frame = imageRect;
+//                         self.filterScrollView.frame = sliderScrollFrame;
+//                         self.filtersBackgroundImageView.frame = sliderScrollFrameBackground;
+//                     } 
+//                     completion:^(BOOL finished){
+//                         
+//                         self.filtersToggleButton.enabled = YES;
+//                         self.filterScrollView.hidden = YES;
+//                         self.filtersBackgroundImageView.hidden = YES;
+//                     }];
+//}
 
 //点击上传图片
 -(IBAction) toggleFilters:(UIButton *)sender {
         
-        GPUImageOutput<GPUImageInput> *processUpTo;
+    cancelButton.hidden=YES;
+    filtersToggleButton.hidden=NO;
+    
+    GPUImageOutput<GPUImageInput> *processUpTo;
         
         if (hasBlur) {
             processUpTo = blurFilter;
@@ -652,13 +678,12 @@
     
     NSData*date=UIImageJPEGRepresentation(currentFilteredVideoFrame, 0.5);
     UIImage*iii=[UIImage imageWithData:date];
-//  后期会用到
-//UIImageView*imageV=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, iii.size.width, iii.size.height)];
-//    NSLog(@"%f,%f",iii.size.width,iii.size.height);
-//[self.view addSubview:imageV];
-//imageV.image=iii;
-//    AddPlaceViewController*addCTL=[[AddPlaceViewController alloc] init];
-//    [self presentViewController:addCTL animated:YES completion:nil];
+    
+    
+//    PersonalViewController*personCTL=[[PersonalViewController alloc] init];
+//   
+//    [self presentModalViewController:personCTL animated:YES];
+//
     
     MapViewController*mapCTL=[[MapViewController alloc] init];
    
@@ -740,11 +765,11 @@
         [self.cameraToggleButton setEnabled:NO];
         [self.flashToggleButton setEnabled:NO];
         [self prepareStaticFilter];
-        [self.photoCaptureButton setTitle:@"Done" forState:UIControlStateNormal];
+        [self.photoCaptureButton setTitle:@"" forState:UIControlStateNormal];
         [self.photoCaptureButton setImage:nil forState:UIControlStateNormal];
         [self.photoCaptureButton setEnabled:YES];
-        if(![self.filtersToggleButton isSelected]){
-            [self showFilters];
+        if([self.filtersToggleButton isSelected]){
+//            [self showFilters];
         }
        
 

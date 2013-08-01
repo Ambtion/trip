@@ -9,6 +9,7 @@
 #import "PhotoViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "Constants.h"
+#import "MapViewController.h"
 //#import "CenterViewController.h"
 #import "PlazeViewController.h"
 @interface PhotoViewController ()
@@ -40,8 +41,8 @@
     [self.view addSubview:navView];
     
     showPickerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    showPickerButton.frame = CGRectMake(round(self.view.frame.size.width / 2.0-100), self.view.frame.size.height - 350, 200.0, 200.0);
-    [showPickerButton setTitle:@"添加图片" forState:UIControlStateNormal];
+    showPickerButton.frame = CGRectMake(round(self.view.frame.size.width / 2.0-75), self.view.frame.size.height - 350,150, 111);
+    [showPickerButton setImage:[UIImage imageNamed:@"FromCamera.png"] forState:UIControlStateNormal];
 	showPickerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [showPickerButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [showPickerButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
@@ -122,18 +123,65 @@
 //    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
 //    [self dismissModalViewControllerAnimated:YES];
 //    
-//    if (info) {
-//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//        [library writeImageDataToSavedPhotosAlbum:[info objectForKey:@"data"] metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
-//         {
-//             if (error) {
-//                 NSLog(@"ERROR: the image failed to be written");
-//             }
-//             else {
-//                 NSLog(@"PHOTO SAVED - assetURL: %@", assetURL);
-//             }
-//         }];
-//    }
+////    if (info) {
+////        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+////        [library writeImageDataToSavedPhotosAlbum:[info objectForKey:@"data"] metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
+////         {
+////             if (error) {
+////                 NSLog(@"ERROR: the image failed to be written");
+////             }
+////             else {
+////                 NSLog(@"PHOTO SAVED - assetURL: %@", assetURL);
+////             }
+////         }];
+////    }
+////    UIImage *currentFilteredVideoFrame = [processUpTo imageFromCurrentlyProcessedOutputWithOrientation:staticPictureOriginalOrientation];
+////    
+////    NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:
+////                          UIImageJPEGRepresentation(currentFilteredVideoFrame, self.outputJPEGQuality), @"data", nil];
+////    if (info) {
+////        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+////        ALAsset *asset;
+////        
+////        //        NSDictionary *metadata= [[[asset defaultRepresentation] metadata] objectForKey:@"data"];
+////        [library writeImageDataToSavedPhotosAlbum:[info objectForKey:@"data"] metadata:info completionBlock:^(NSURL *assetURL, NSError *error)
+////         {
+////             if (error) {
+////                 NSLog(@"ERROR: the image failed to be written");
+////             }
+////             else {
+////                 NSLog(@"PHOTO SAVED - assetURL: %@", assetURL);
+////                 //                 NSString * nsALAssetPropertyDate = [library valueForProperty:ALAssetPropertyDate] ;
+////                 NSLog(@"%@",[[asset defaultRepresentation] metadata]);
+////                 
+////                 
+////             }
+////         }];
+////    }
+//    
+//    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+//
+//    NSData*date=UIImageJPEGRepresentation(image, 0.5);
+//    UIImage*iii=[UIImage imageWithData:date];
+//    //  后期会用到
+//    //UIImageView*imageV=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, iii.size.width, iii.size.height)];
+//    //    NSLog(@"%f,%f",iii.size.width,iii.size.height);
+//    //[self.view addSubview:imageV];
+//    //imageV.image=iii;
+//    //    AddPlaceViewController*addCTL=[[AddPlaceViewController alloc] init];
+//    //    [self presentViewController:addCTL animated:YES completion:nil];
+//    
+//    MapViewController*mapCTL=[[MapViewController alloc] init];
+//    
+//    mapCTL.mapImage=iii;
+////    mapCTL.delegate=self;
+//    
+//    mapCTL.cateryStr=self.cateryStr;
+//    mapCTL.singleCityId=self.singleCityId;
+//    mapCTL.singleCityName=self.singleCityName;
+//    
+//    [self presentViewController:mapCTL animated:YES completion:nil];
+//
 //}
 
 -(void) viewDidUnload {

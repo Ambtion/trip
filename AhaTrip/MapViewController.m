@@ -24,6 +24,8 @@
 #import "PersonalViewController.h"
 #import "LocationManager.h"
 #import "SPGooglePlacesAutocompleteViewController.h"
+
+#import "NewPlaceViewController.h"
 #define span_Num 100
 //#define PlaceURLString @"https://maps.googleapis.com/maps/api/place/search/xml?location=%f,%f&radius=%f&types=%@&name=%@&sensor=true&key=AIzaSyBHvxjcnxJNzgukGhgtO65qyxV5aX7DXvg"   //key 需自己在google api申请替换
 //NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/xml?location=%f,%f&radius=500&types=%@&sensor=true&key=％@",location.latitude,location.longitude,type,key];
@@ -63,6 +65,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    [self.mapView removeFromSuperview];
       titlearr=[NSMutableArray array];
     
     
@@ -97,14 +100,16 @@
     
     
     
-    mytable=[[UITableView alloc] initWithFrame:CGRectMake(10, 210+44, self.view.frame.size.width-20, height-210-44) style:UITableViewStylePlain];
+    mytable=[[UITableView alloc] initWithFrame:CGRectMake(10, 210+44, 302, height-210-100) style:UITableViewStylePlain];
     mytable.delegate=self;
     mytable.dataSource=self;
+    mytable.backgroundColor=[UIColor clearColor];
+    mytable.separatorColor=[UIColor clearColor];
     
     //    [mytable reloadData];
     [self.view addSubview: mytable];
     //    加载底部导航
-    backimageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, height-44, self.view.bounds.size.width, 44)];
+    backimageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, height-55, self.view.bounds.size.width, 55)];
     backimageView.backgroundColor=[UIColor blackColor];
     [self.view addSubview:backimageView];
     //    返回国家页的listmenu页的按钮
@@ -120,8 +125,9 @@
     [tiaoguoBtn setFrame:CGRectMake(220,height-44, 100, 44)];
     tiaoguoBtn.contentMode=UIViewContentModeScaleAspectFit;
 //    [tiaoguoBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
-    [tiaoguoBtn setTitle:@"跳过此步骤" forState:UIControlStateNormal];
-    [tiaoguoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [tiaoguoBtn setTitle:@"跳过此步骤 >" forState:UIControlStateNormal];
+    tiaoguoBtn.font=[UIFont systemFontOfSize:12];
+    [tiaoguoBtn setTitleColor:mRGBColor(102, 102, 102) forState:UIControlStateNormal];
       [tiaoguoBtn addTarget:self action:@selector(tiaoguoBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:tiaoguoBtn];
 
@@ -134,28 +140,33 @@
     [self.view addSubview:topBarImag];
 
 //添加位置的label
-    UILabel*addPlaceLable=[[UILabel alloc] initWithFrame:CGRectMake(5, 2, 100, 40)];
+    UILabel*addPlaceLable=[[UILabel alloc] initWithFrame:CGRectMake(15, 3, 100, 40)];
     addPlaceLable.text=@"添加位置";
+    addPlaceLable.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
     addPlaceLable.backgroundColor=[UIColor clearColor];
     addPlaceLable.textColor=[UIColor whiteColor];
     [self.view addSubview:addPlaceLable];
     
-//添加搜索的btn
-    UIButton*serchBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [serchBtn setFrame:CGRectMake(250-20, 2, 80, 35)];
-//    [serchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-    [serchBtn setImage:[UIImage imageNamed:@"serch.png"] forState:UIControlStateNormal];
-    [serchBtn addTarget:self action:@selector(serchBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:serchBtn];
+////添加搜索的btn
+//    UIButton*serchBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+//    [serchBtn setFrame:CGRectMake(250-15, 5, 80, 35)];
+//    serchBtn.backgroundColor=[UIColor redColor];
+////    [serchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+//    [serchBtn setImage:[UIImage imageNamed:@"serch.png"] forState:UIControlStateNormal];
+//    [serchBtn addTarget:self action:@selector(serchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:serchBtn];
     
 }
 //跳到搜索页的click
 -(void)serchBtnClick{
   
+//    NewPlaceViewController*newPlace=[[NewPlaceViewController alloc] init];
+//    [self presentViewController:newPlace animated:YES completion:nil];
+    
+  
     SPGooglePlacesAutocompleteViewController *viewController = [[SPGooglePlacesAutocompleteViewController alloc] initWithNibName:@"SPGooglePlacesAutocompleteViewController" bundle:nil];
     [self presentViewController:viewController animated:YES completion:nil];
-
-
+    
 
 
 
@@ -213,28 +224,6 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark - action
-
-//-(void)clickMapCellButton:(ButtonType)aType placeDetails:(PlaceDetailVO *)aVO
-//{
-//
-//    if (aType == ButtonType_More) {
-//        DetailsViewController *vc = [[DetailsViewController alloc]init];
-//        vc.placeDetailVO = aVO;
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
-//    else if(aType == ButtonType_Distance)
-//    {
-//    
-//    }
-//    else if(aType == ButtonType_More)
-//    {
-//        
-//    }
-//    
-//
-//}
-
-
 
 #pragma mark - PlaceSearch
 -(void)googlePlace
@@ -491,18 +480,21 @@
 #pragma table delegate/datasource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 44;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
+//    return 10;
      NSLog(@"%d",titlearr.count);
     return titlearr.count;
    
 }
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor whiteColor];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -514,15 +506,41 @@
         
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:topicCell];
         //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        UILabel*citylabel=[[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 40)];
+        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = mRGBColor(50, 200, 160);
+
+        UILabel*citylabel=[[UILabel alloc] initWithFrame:CGRectMake(15, 2, 200, 40)];
         citylabel.tag=1000;
+        citylabel.font=[UIFont systemFontOfSize:18.f];
+        citylabel.textColor=[UIColor blackColor];
 //        citylabel.text=@"women";
+        citylabel.backgroundColor=[UIColor clearColor];
         [cell addSubview:citylabel];
+       
         
+        UIImageView * bgView = [[UIImageView alloc] initWithFrame:cell.bounds];
+        bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        //        bgView.backgroundColor = [UIColor redColor];
+        bgView.image = [[UIImage imageNamed:@"rect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 150, 20, 150)];
+        cell.backgroundView = bgView;
         
+        UIImageView*img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 300, 1)];
+        img.image=[UIImage imageNamed:@"line.png"];
+        [cell.contentView addSubview:img];
+        img.hidden=YES;
+        if (indexPath.row == [titlearr count] - 1) {
+            img.hidden = NO;
+        }else{
+            img.hidden = YES;
+        }
         
     }
+
+        
+        
+    
     UILabel*cityLabel=(UILabel*)[cell viewWithTag:1000];
     
     PlaceDetailVO *place = [titlearr objectAtIndex:indexPath.row];
@@ -530,6 +548,7 @@
     coor.latitude = [place.pLatStr floatValue];
     coor.longitude = [place.pLngStr floatValue];
     cityLabel.text=place.pNameStr;
+    
     NSLog(@"%@",place.pNameStr);
     
     

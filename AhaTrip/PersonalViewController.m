@@ -19,7 +19,7 @@
 
 #define kBtnRankNum 4
 #define kBtnOriginX 4
-#define kBtnOriginY 4
+#define kBtnOriginY 20
 #define kBtnWidth   75
 #define kBtnHeight  75
 #define kIntevalX  4
@@ -37,75 +37,7 @@ UINavigationControllerDelegate
 @synthesize placeName,longtitude,latitude;
 @synthesize photoArr;
 @synthesize photoImage;
-//@synthesize singleCityName,singleCityId,cateryStr;
-//-(void)addNameFild{
-//    nameFild=[[UITextField alloc]initWithFrame:CGRectMake(10, rectY, 300, 50)];
-//    nameFild.borderStyle = UITextBorderStyleRoundedRect;
-//    
-//    
-//    //设置输入框的背景颜色，此时设置为白色 如果使用了自定义的背景图片边框会被忽略掉
-//    nameFild.backgroundColor = [UIColor whiteColor];
-//    //设置背景
-//    //    text.background = [UIImage imageNamed:@"dd.png"];
-//    
-//    //设置背景
-//    nameFild.disabledBackground = [UIImage imageNamed:@"cc.png"];
-//    //当输入框没有内容时，水印提示 提示内容为password
-////    nameFild.placeholder = @"password";
-//    
-//    //设置输入框内容的字体样式和大小
-//    nameFild.font = [UIFont fontWithName:@"Arial" size:20.0f];
-//        //设置字体颜色
-//    nameFild.textColor = [UIColor redColor];
-//    
-//    //输入框中是否有个叉号，在什么时候显示，用于一次性删除输入框中的内容
-//    nameFild.clearButtonMode = UITextFieldViewModeAlways;
-//    
-//    //输入框中一开始就有的文字
-//    nameFild.text = @"名称";
-//    
-//    //    //每输入一个字符就变成点 用语密码输入
-//    //  nameFild.secureTextEntry = YES;
-//    //
-//    //是否纠错
-//    nameFild.autocorrectionType = UITextAutocorrectionTypeNo;
-//    
-//    //再次编辑就清空
-//    nameFild.clearsOnBeginEditing = YES;
-//    
-//    //内容对齐方式
-//    nameFild.textAlignment = UITextAlignmentLeft;
-//    
-//    //内容的垂直对齐方式  UITextField继承自UIControl,此类中有一个属性contentVerticalAlignment
-//    nameFild.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//    
-//    //设置为YES时文本会自动缩小以适应文本窗口大小.默认是保持原来大小,而让长文本滚动
-//    nameFild.adjustsFontSizeToFitWidth = YES;
-//    
-//    //设置自动缩小显示的最小字体大小
-//    nameFild.minimumFontSize = 20;
-//    nameFild.textColor=[UIColor lightGrayColor];
-//    
-//    //设置键盘的样式
-//    nameFild.keyboardType = UIKeyboardTypeDefault;
-//    //return键变成什么键
-//    nameFild.returnKeyType =UIReturnKeyDone;
-//    //键盘外观
-//    nameFild.keyboardAppearance=UIKeyboardAppearanceDefault;
-//    
-//    //设置代理 用于实现协议
-//    nameFild.delegate = self;
-//    [self.view addSubview:nameFild];
-//    //
-//    //    //最右侧加图片是以下代码　 左侧类似
-//    //    UIImageView *image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right.png"]];
-//    //    text.rightView=image;
-//    //    text.rightViewMode = UITextFieldViewModeAlways;
-//    
-//    
-//
-//
-//}
+
 -(void)addADDFiled{
 //  153
     addFild=[[UITextField alloc]initWithFrame:CGRectMake(10,rectY, 300, 100)];
@@ -118,30 +50,17 @@ UINavigationControllerDelegate
     
     //设置输入框的背景颜色，此时设置为白色 如果使用了自定义的背景图片边框会被忽略掉
     addFild.backgroundColor = [UIColor whiteColor];
-    //设置背景
-//        addFild.background = [UIImage imageNamed:@"1.jpg"];
-    
-    //设置背景
-   addFild.disabledBackground = [UIImage imageNamed:@"1.jpg"];
-    //当输入框没有内容时，水印提示 提示内容为password
-    //    nameFild.placeholder = @"password";
     
     //设置输入框内容的字体样式和大小
      addFild.font = [UIFont fontWithName:@"Arial" size:20.0f];
-    
-    //设置字体颜色
-     addFild.textColor = [UIColor redColor];
     
     //输入框中是否有个叉号，在什么时候显示，用于一次性删除输入框中的内容
      addFild.clearButtonMode = UITextFieldViewModeAlways;
     
     //输入框中一开始就有的文字
      addFild.text = @"我还有话要说的。。。。";
-    
-    //    //每输入一个字符就变成点 用语密码输入
-    //  nameFild.secureTextEntry = YES;
-    //
-    //是否纠错
+    addFild.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+      //是否纠错
     addFild.autocorrectionType = UITextAutocorrectionTypeNo;
     
     //再次编辑就清空
@@ -155,28 +74,18 @@ UINavigationControllerDelegate
     
     //设置为YES时文本会自动缩小以适应文本窗口大小.默认是保持原来大小,而让长文本滚动
     addFild.adjustsFontSizeToFitWidth = YES;
-    
-    //设置自动缩小显示的最小字体大小
-    addFild.minimumFontSize = 20;
-    addFild.textColor=[UIColor lightGrayColor];
-    
-    //设置键盘的样式
+        //设置键盘的样式
      addFild.keyboardType = UIKeyboardTypeDefault;
     //return键变成什么键
      addFild.returnKeyType =UIReturnKeyDone;
     //键盘外观
      addFild.keyboardAppearance=UIKeyboardAppearanceDefault;
-//    addFild.selectedTextRange=(2, addFild.text.length);
-    //设置代理 用于实现协议
      addFild.delegate = self;
-    
-    //
-    //    //最右侧加图片是以下代码　 左侧类似
-       UIImageView *image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"1.jpg"]];
+       UIImageView *image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"smail.png"]];
        addFild.rightView=image;
         addFild.rightViewMode = UITextFieldViewModeAlways;
     
-[backScroll addSubview: addFild];
+    [backScroll addSubview: addFild];
 
 
 
@@ -187,35 +96,31 @@ UINavigationControllerDelegate
 {
     [super viewDidLoad];
     self.view.backgroundColor=mRGBColor(236, 235, 235);
-//    if ([self isIphone5]) {
-//        height=548;
-//    }else{
-//        height=460;
-//    }
-//    backScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 44, 320,height-100)];
-//    backScroll.delegate=self;
-//    backScroll.backgroundColor=[UIColor redColor];
-//    backScroll.contentSize=CGSizeMake(320, height+100);
-//    [self.view addSubview:backScroll];
-//             
 }
 -(void)closeBtnBack{
 
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
+-(void) imagePickerControllerDidCancel:(DLCImagePickerController *)picker{
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 -(void)buttonClicked:(UIButton*)sender
 {
     if (sender.tag==1000)
     {
-        if (self.photoArr.count<7) {            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        if (self.photoArr.count<7) {
+            
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
             picker.delegate = self;
             picker.allowsEditing = YES;
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             [self presentViewController:picker animated:YES completion:nil];
-                    }
+       
+        }
         else {
            [sender removeFromSuperview];
         
@@ -232,6 +137,9 @@ UINavigationControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+     [UIApplication sharedApplication].statusBarHidden = NO;
+//    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType]; 
+    
     UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     
     NSInteger index = self.photoArr.count - 1;
@@ -287,7 +195,8 @@ UINavigationControllerDelegate
         [btnView.btn setImage:[self.photoArr objectAtIndex:i] forState:UIControlStateNormal];
         
       [backScroll addSubview:btnView];
-        rectY=btnView.frame.origin.y+btnView.frame.size.height+10;
+        rectY=btnView.frame.origin.y+btnView.frame.size.height+15;
+//        rectY=50;
         NSLog(@"%d",rectY);
       }
     if ([self isIphone5]) {
@@ -302,18 +211,156 @@ UINavigationControllerDelegate
     [self addAllNAV];
 //    [self addNameFild];
     [self addADDFiled];
-
+//  选填  
+    [self addSelect];
+//分享到
+    [self addShareUI];
    
 }
+-(void)addShareUI{
+  
+    
+    
+    UIImageView*backShareView=[[UIImageView alloc] initWithFrame:CGRectMake(10, selectBackView.frame.origin.y+selectBackView.frame.size.height+10, 300, 100)];
+    backShareView.backgroundColor=[UIColor clearColor];
+    [backScroll addSubview:backShareView];
+    UILabel*label=[[UILabel alloc] initWithFrame:CGRectMake(0, 5,80,30)];
+    label.text=@"分享到";
+    label.textColor=[UIColor lightGrayColor];
+    label.backgroundColor=[UIColor clearColor];
+    [backShareView addSubview:label];
+    
+    
+    shareTable=[[UITableView alloc] initWithFrame:CGRectMake(0, 35, 300, 100)];
+    shareTable.delegate=self;
+    shareTable.dataSource=self;
+    shareTable.scrollEnabled=NO;
+    shareTable.backgroundColor=[UIColor whiteColor];
+    [backShareView addSubview:shareTable];
+   
+    UIImage*imagesina=[UIImage imageNamed:@"sina.png"];
+    UIImage*imagetencent=[UIImage imageNamed:@"tencent weibo.png"];
+    NSString*sinastr=@"新浪微博";
+    NSString*tencentStr=@"腾讯微博";
+   
+    NSDictionary*dict   = [NSDictionary dictionaryWithObjectsAndKeys:imagesina,@"image",sinastr,@"sso", nil];
+    
+    NSDictionary*dict2=[NSDictionary dictionaryWithObjectsAndKeys:imagetencent,@"image",tencentStr,@"sso", nil];
+    shareArr=[NSMutableArray arrayWithObjects:dict,dict2, nil];
+
+}
+
+-(void)addSelect{
+    selectBackView=[[UIView alloc] initWithFrame:CGRectMake(10, addFild.frame.origin.y+addFild.frame.size.height+15, 300, 100)];
+    selectBackView.backgroundColor=[UIColor clearColor];
+    [backScroll addSubview:selectBackView];
+    
+    UILabel*slectLabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, 40, 30)];
+    slectLabel.text=@"选填";
+    slectLabel.backgroundColor=[UIColor clearColor];
+    slectLabel.textColor=[UIColor blackColor];
+    slectLabel.font=[UIFont systemFontOfSize:18.f];
+    [selectBackView addSubview:slectLabel];
+    
+    UITextField*timeFild=[[UITextField alloc]initWithFrame:CGRectMake(40, 8, 260, 30)];
+   timeFild.borderStyle =  UITextBorderStyleNone;
+//    CALayer *layer = [timeFild layer];
+//    layer.borderColor = [mRGBColor(153, 153, 153)CGColor];
+//    layer.borderWidth = 3.0f;
+    timeFild.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+
+    timeFild.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input2.png"]];
+   timeFild.font = [UIFont fontWithName:@"Arial" size:16.0f];
+    
+    //设置字体颜色
+//    timeFild.textColor = [UIColor blackColor];
+    
+    timeFild.clearButtonMode = UITextFieldViewModeAlways;
+    
+    //输入框中一开始就有的文字
+    timeFild.placeholder = @"营业时间";
+    timeFild.textAlignment=UITextAlignmentCenter;
+  timeFild.clearsOnBeginEditing = YES;
+    
+    timeFild.delegate = self;
+    [selectBackView addSubview:timeFild];
+    
+    
+ 
+    UITextField*avregeText=[[UITextField alloc]initWithFrame:CGRectMake(40, 43, 130, 30)];
+   avregeText.borderStyle =  UITextBorderStyleNone;
+    avregeText.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"input1.png"]];
+   avregeText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+
+//    CALayer *avregeTextlayer = [avregeText layer];
+//   avregeTextlayer.borderColor = [mRGBColor(153, 153, 153)CGColor];
+//   avregeTextlayer.borderWidth = 3.0f;
+//    
+//    avregeText.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    
+    
+//    avregeText.backgroundColor = [UIColor whiteColor];
+    avregeText.font = [UIFont fontWithName:@"Arial" size:16.0f];
+    avregeText.textAlignment=UITextAlignmentCenter;
+    
+    //设置字体颜色
+//  avregeText.textColor = [UIColor blackColor];
+    
+  avregeText.clearButtonMode = UITextFieldViewModeAlways;
+    
+    //输入框中一开始就有的文字
+   avregeText.placeholder = @"人均消费";
+    
+   
+    
+    //再次编辑就清空
+   avregeText.clearsOnBeginEditing = YES;
+    
+    avregeText.delegate = self;
+    [selectBackView addSubview:avregeText];
+    
+    
+    UITextField*wifiText=[[UITextField alloc]initWithFrame:CGRectMake(170, 43, 130, 30)];
+   wifiText.borderStyle =  UITextBorderStyleNone;
+    
+//    CALayer *wifiTextlayer = [wifiText layer];
+//    wifiTextlayer.borderColor = [mRGBColor(153, 153, 153)CGColor];
+//    wifiTextlayer.borderWidth = 3.0f;
+    
+    //    avregeText.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    
+    
+    wifiText.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input1.png"]];
+   wifiText.font = [UIFont fontWithName:@"Arial" size:16.0f];
+    
+    //设置字体颜色
+    wifiText.textColor = [UIColor blackColor];
+    wifiText.textAlignment=UITextAlignmentCenter;
+    wifiText.clearButtonMode = UITextFieldViewModeAlways;
+    
+    //输入框中一开始就有的文字
+    wifiText.placeholder = @"Wifi 有/无";
+     wifiText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    //    timeFild.autocorrectionType = UITextAutocorrectionTypeNo;
+    
+    //再次编辑就清空
+   wifiText.clearsOnBeginEditing = YES;
+    
+    wifiText.delegate = self;
+    [selectBackView addSubview:wifiText];
+
+
+}
+
 -(void)addAllNAV{
     //    底部导航
-    bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0,height-44,320, 44)];
+    bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0,height-55,320, 55)];
     bottomBar.backgroundColor=[UIColor blackColor];
     [self.view addSubview:bottomBar];
     
     //    返回menu页的按钮
     UIButton*closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [closeMenuBtn setFrame:CGRectMake(10,height-44, 50, 44)];
+    [closeMenuBtn setFrame:CGRectMake(10,height-43, 50, 44)];
     closeMenuBtn.contentMode=UIViewContentModeScaleAspectFit;
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBack) forControlEvents:UIControlEventTouchUpInside];
@@ -321,11 +368,11 @@ UINavigationControllerDelegate
     
     //        send的按钮
     UIButton*sendeBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [sendeBtn setFrame:CGRectMake(280, self.view.frame.size.height-44, 50, 44)];
+    [sendeBtn setFrame:CGRectMake(250, self.view.frame.size.height-40, 60, 30)];
     sendeBtn.contentMode=UIViewContentModeScaleAspectFit;
-    [sendeBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
+    [sendeBtn setImage:[UIImage imageNamed:@"send.png"] forState:UIControlStateNormal];
     [sendeBtn addTarget:self action:@selector(senderBTn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:sendeBtn];
+   [self.view addSubview:sendeBtn];
 
 
 
@@ -405,4 +452,82 @@ UINavigationControllerDelegate
 //    textField.selectedTextRange=range;
 
 }
+
+
+#pragma table delegate/datasource
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return 2;
+}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor whiteColor];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    static NSString *topicCell = @"TopicCell";
+    UITableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:topicCell];
+    if(!cell)
+    {
+        NSDictionary*dict=[shareArr objectAtIndex:indexPath.row];
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:topicCell];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIImageView*imgV=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 30, 25)];
+        imgV.image=[dict objectForKey:@"image"];
+        imgV.backgroundColor=[UIColor clearColor];
+        [cell addSubview:imgV];
+        
+        
+        UILabel*ssolabel=[[UILabel alloc] initWithFrame:CGRectMake(65, 2, 80, 45)];
+        ssolabel.text=[dict objectForKey:@"sso"];
+        ssolabel.backgroundColor=[UIColor clearColor];
+        [cell addSubview:ssolabel];
+        
+        if (indexPath.row==0) {
+            UISwitch*sw=[[UISwitch alloc] init];
+            sw.frame=CGRectMake(205,10,50,40);
+            [sw addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+             [sw setOn:YES];
+                       [cell addSubview:sw];
+
+        }
+        else{
+            UISwitch*sw1=[[UISwitch alloc] init];
+            sw1.frame=CGRectMake(205,10,50,40);
+            [sw1 addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+            [sw1 setOn:YES];
+            [cell addSubview:sw1];
+        }
+                      
+    }
+    return cell;
+}
+-(void)switchAction:(id)sender{
+    UISwitch *switchButton = (UISwitch*)sender;
+    BOOL isButtonOn = [switchButton isOn];
+    if (isButtonOn) {
+        [switchButton setOn:YES animated:YES];
+    }else {
+        [switchButton setOn:NO animated:NO];
+    }
+
+
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   
+
+
+}
+
 @end
