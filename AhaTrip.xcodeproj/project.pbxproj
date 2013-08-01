@@ -381,6 +381,8 @@
 		B859F8681775E6A400313DE0 /* left_Icon_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B859F8651775E6A400313DE0 /* left_Icon_home@2x.png */; };
 		B859F8691775E6A400313DE0 /* left_Icon_mes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B859F8661775E6A400313DE0 /* left_Icon_mes@2x.png */; };
 		B859F86A1775E6A400313DE0 /* left_Icon_setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B859F8671775E6A400313DE0 /* left_Icon_setting@2x.png */; };
+		B86C011117AAA98600EA7155 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B87F7E6A17AAA70E0099BB37 /* Default@2x.png */; };
+		B86C011217AAA98B00EA7155 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B87F7E6417AAA5CB0099BB37 /* Default-568h@2x.png */; };
 		B8C2B82F1776A5EE00B559AA /* leftMenuHigthed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C2B82E1776A5EE00B559AA /* leftMenuHigthed@2x.png */; };
 		B8C2B8321776A9E300B559AA /* CountLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C2B8301776A9E300B559AA /* CountLabel.m */; };
 		B8C2B8341776B2BA00B559AA /* mes_Countbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C2B8331776B2BA00B559AA /* mes_Countbg@2x.png */; };
@@ -518,8 +520,8 @@
 		C593B6E7177986290000107C /* ItemSearchBarBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C593B6E5177986280000107C /* ItemSearchBarBg@2x.png */; };
 		C596A89617AA74E5005B87A5 /* commentbgView.png in Resources */ = {isa = PBXBuildFile; fileRef = C596A89517AA74E5005B87A5 /* commentbgView.png */; };
 		C596A89717AA83AB005B87A5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DC2ACF17A3973C002A4C92 /* Default.png */; };
-		C596A89817AA83B0005B87A5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DC2AC117A385EA002A4C92 /* Default@2x.png */; };
-		C596A89917AA83B4005B87A5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DC2ACD17A396D8002A4C92 /* Default-568h@2x.png */; };
+		C596A89817AA83B0005B87A5 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C596A89917AA83B4005B87A5 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		C59D51D21777F31900A635DD /* CountryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59D51D11777F31900A635DD /* CountryListCell.m */; };
 		C59D51D517781CDA00A635DD /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59D51D417781CD900A635DD /* CityViewController.m */; };
 		C59D51D717782A2200A635DD /* right_Menu_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C59D51D617782A2200A635DD /* right_Menu_back@2x.png */; };
@@ -3098,8 +3100,10 @@
 				0573FFB617AA9802002B0AF5 /* input2@2x.png in Resources */,
 				C596A89617AA74E5005B87A5 /* commentbgView.png in Resources */,
 				C596A89717AA83AB005B87A5 /* Default.png in Resources */,
-				C596A89817AA83B0005B87A5 /* Default@2x.png in Resources */,
-				C596A89917AA83B4005B87A5 /* Default-568h@2x.png in Resources */,
+				C596A89817AA83B0005B87A5 /* (null) in Resources */,
+				C596A89917AA83B4005B87A5 /* (null) in Resources */,
+				B86C011117AAA98600EA7155 /* Default@2x.png in Resources */,
+				B86C011217AAA98B00EA7155 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3506,8 +3510,6 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1BA02E14-24F2-4CC7-99D6-D8327E231148";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1BA02E14-24F2-4CC7-99D6-D8327E231148";
 				PROVISIONING_PROFILE = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
 				WRAPPER_EXTENSION = app;
@@ -3543,8 +3545,6 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1BA02E14-24F2-4CC7-99D6-D8327E231148";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1BA02E14-24F2-4CC7-99D6-D8327E231148";
 				PROVISIONING_PROFILE = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
 				WRAPPER_EXTENSION = app;

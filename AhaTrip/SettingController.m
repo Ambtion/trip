@@ -231,7 +231,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 #pragma checkou Version
 -(void)onCheckVersion
 {
-    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+//    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
 //    NSNumber * currentVersion = [infoDic objectForKey:@"VersionCode"];
     NSDictionary * dic = [self getAppInfoFromNet];
 //    NSNumber * newVersion = [dic objectForKey:@"versionCode"];
