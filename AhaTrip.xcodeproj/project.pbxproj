@@ -3431,8 +3431,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Sun (L7DSEZPP6M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Sun (L7DSEZPP6M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: luo ziyang (J8PX8W78GE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: luo ziyang (J8PX8W78GE)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3447,8 +3447,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "1BA02E14-24F2-4CC7-99D6-D8327E231148";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1BA02E14-24F2-4CC7-99D6-D8327E231148";
+				PROVISIONING_PROFILE = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3465,8 +3465,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Sun (L7DSEZPP6M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Sun (L7DSEZPP6M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: luo ziyang (J8PX8W78GE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: luo ziyang (J8PX8W78GE)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3474,8 +3474,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "1BA02E14-24F2-4CC7-99D6-D8327E231148";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1BA02E14-24F2-4CC7-99D6-D8327E231148";
+				PROVISIONING_PROFILE = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3487,8 +3487,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Sun (L7DSEZPP6M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Sun (L7DSEZPP6M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: luo ziyang (J8PX8W78GE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: luo ziyang (J8PX8W78GE)";
 				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3522,8 +3522,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Sun (L7DSEZPP6M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Sun (L7DSEZPP6M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: luo ziyang (J8PX8W78GE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: luo ziyang (J8PX8W78GE)";
 				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
