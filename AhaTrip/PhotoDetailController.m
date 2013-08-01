@@ -103,6 +103,7 @@
 
 - (void)serUsrInfo
 {
+    DLog(@"%@",_dataInfo);
     NSDictionary * userInfo = [_dataInfo objectForKey:@"user"];
     [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:[userInfo objectForKey:@"photo_thumb"]]placeholderImage:[UIImage imageNamed:@"avatar.png"]];
     _nameLabel.text = [userInfo objectForKey:@"username"];
