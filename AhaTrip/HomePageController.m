@@ -52,11 +52,6 @@
     [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    //    UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    rightButton.frame = CGRectMake(320 - 44, 7, 30, 30);
-    //    [rightButton setImage:[UIImage imageNamed:@"ItemSearchBarBg-white.png"] forState:UIControlStateNormal];
-    //    [rightButton addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:rightButton];
 }
 
 - (void)backButtonClick:(UIButton *)button
@@ -74,7 +69,7 @@
 - (void)addTableView
 {
     _tableView = [[EGRefreshTableView alloc] initWithFrame:self.view.bounds];
-    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.backgroundColor = [UIColor colorWithRed:235.f/255 green:235.f/255 blue:235.f/255 alpha:1];
     _tableView.pDelegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];

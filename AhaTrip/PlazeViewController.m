@@ -13,10 +13,6 @@
 #import "PlazeViewController.h"
 #import "RequestManager.h"
 
-@interface PlazeViewController ()
-@property(nonatomic,strong)NSMutableArray * assetsArray;
-@property(nonatomic,strong)NSMutableArray * dataSouceArray;
-@end
 
 @implementation PlazeViewController
 @synthesize assetsArray = _assetsArray;
@@ -61,8 +57,6 @@
     
     menuArr=[NSMutableArray arrayWithObjects:dic1,dic2,dic3,dic4,dic5,dic6,nil];
     
-
-
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -81,14 +75,16 @@
 - (void)setRightSearchBarTonil:(BOOL)isNil
 {
     if (!_rightSearch) {
-        _rightSearch = [[UINavigationController alloc] initWithRootViewController:[[RightSerachController alloc] init]];
-        _rightSearch.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-        [_rightSearch.navigationBar setHidden:YES];
+        _rightSearch = [[RightSerachController alloc] init];
     }
     if (isNil)
         self.viewDeckController.rightController = nil;
-    else
-        self.viewDeckController.rightController = _rightSearch;
+    else{
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:_rightSearch];
+        nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+        [nav.navigationBar setHidden:YES];
+        self.viewDeckController.rightController = nav;
+    }
 }
 - (void)addCusNavBar
 {
@@ -189,10 +185,9 @@
         [self stopWaitProgressView:nil];
     } failure:^(NSString *error) {
         [self stopWaitProgressView:nil];
+        [_tableView didFinishedLoadingTableViewData];
         DLog(@"%@",error);
     }];
-    [_tableView reloadData];
-    [_tableView didFinishedLoadingTableViewData];
 }
 - (void)convertAssetsToDataSouce
 {

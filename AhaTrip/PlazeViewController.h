@@ -16,9 +16,15 @@
 @interface PlazeViewController : UIViewController<AwesomeMenuDelegate,EGRefreshTableViewDelegate,UITableViewDataSource,PlazeCellDelegate,AHMenuNavBarViewDelegate,IIViewDeckControllerDelegate,LoginViewControllerDelegate>
 {
     EGRefreshTableView * _tableView;
-    AHMenuNavBarView * _menuView;
     CGFloat _startFolat;
-    UINavigationController* _rightSearch;
+    RightSerachController * _rightSearch;
     NSMutableArray*menuArr;
+        AHMenuNavBarView * _menuView;
+
 }
+@property(nonatomic,strong)NSMutableArray * assetsArray;
+@property(nonatomic,strong)NSMutableArray * dataSouceArray;
+- (void)refresFromeNetWork;
+- (void)getMoreFromeNetWork;
+- (void)convertAssetsToDataSouce;
 @end

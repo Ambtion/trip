@@ -146,7 +146,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[NotificationCell class]]) {
-        [self presentModalViewController:[[CommentController alloc] initWithBgImage:[UIImage imageNamed:@"test2.jpg"]] animated:YES];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:[[CommentController alloc] initWithBgImage:[UIImage imageNamed:@"test2.jpg"] findsID:0]];
+        [nav.navigationBar setHidden:YES];
+        [self presentModalViewController:nav animated:YES];
     }
 }
 

@@ -18,7 +18,7 @@
 @implementation PhotoDetailViewDataSource
 @synthesize dataSource = _dataSource;
 @synthesize imageUrl = _imageUrl;
-@synthesize islikedAddress,likeCountAddress,commentCountAddress;
+@synthesize islikedAddress,likeCountAddress,commentCountAddress,findingId;
 @end
 
 @implementation PhotoDetailView
@@ -151,7 +151,9 @@
 }
 - (void)showCommentViewControllerWithImage:(UIImage *)image
 {
-    [_controller presentModalViewController:[[CommentController alloc] initWithBgImage:[self getBlurImage]] animated:YES];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:[[CommentController alloc] initWithBgImage:[self getBlurImage] findsID:[_dataSource findingId]]];
+    [nav.navigationBar setHidden:YES];
+    [_controller presentModalViewController:nav animated:YES];
 }
 
 - (void)setCountLabels:(UILabel *)label

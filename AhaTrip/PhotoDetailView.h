@@ -15,6 +15,7 @@
 @property(nonatomic,assign)BOOL * islikedAddress;
 @property(nonatomic,assign)int * likeCountAddress;
 @property(nonatomic,assign)int * commentCountAddress;
+@property(nonatomic,assign)int  findingId;
 @end
 
 @interface PhotoDetailView : UIView<DetailTextIconAnimationDelegate>

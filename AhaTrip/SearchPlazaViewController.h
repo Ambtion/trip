@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "PlazeViewController.h"
+
 @interface SearchPlazaViewController : PlazeViewController
+{
+    PicUploadCateroy _cateroy;
+    UIView *  _segControllView;
+    int _countryId;
+    NSString * _countryName;
+    int _cityId;
+    NSString * _cityName;
+}
+
+- (id)initWithCountryId:(int)AcountyId cityId:(int)AcityId  country:(NSString *)country city:(NSString *)city;
 
 @end

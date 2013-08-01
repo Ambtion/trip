@@ -69,9 +69,9 @@
 - (void)addScrollviewConten
 {
     DLog(@"%@",_dataInfo);
-    
     CGRect rect = self.view.bounds;
     [self serUsrInfo];
+    _findsId  = [[_dataInfo objectForKey:@"id"] intValue];
     DesInfoViewDataSource * desInfo = [self getDesSouce];
     NSArray * photos = [_dataInfo objectForKey:@"photos"];
     for (int i = 0; i < photos.count; i++) {
@@ -84,6 +84,7 @@
         photoSource.likeCountAddress = &likeCount;
         photoSource.commentCountAddress = &commentCount;
         photoSource.imageUrl = [photoInfo objectForKey:@"photo"];
+        photoSource.findingId = _findsId;
         view.dataSource = photoSource;
         view.tag = i + 1000;
         [_scrollView addSubview:view];

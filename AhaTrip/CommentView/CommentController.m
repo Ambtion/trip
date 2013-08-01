@@ -21,11 +21,16 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self];
 }
-- (id)initWithBgImage:(UIImage*)image
+- (NSInteger)findsID
+{
+    return _findsID;
+}
+- (id)initWithBgImage:(UIImage*)image findsID:(NSInteger)findsID
 {
     self = [super init];
     if (self) {
         _blurImgage = image;
+        _findsID = findsID;
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(commentkeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [center addObserver:self selector:@selector(commentkeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -43,6 +48,15 @@
     [self addBackButton];
     _dataSourceArray = [NSMutableArray arrayWithCapacity:0];
     [self refrshDataFromNetWork];
+    [self getUserInfo];
+}
+- (void)getUserInfo
+{
+    [RequestManager getUserInfoWithUserId:@"2" token:nil success:^(NSString *response) {
+        _userInfo = [[response JSONValue] objectForKey:@"user"];
+    } failure:^(NSString *error) {
+       
+    }];
 }
 - (void)addBgViewWithImage:(UIImage *)image
 {
@@ -126,26 +140,28 @@
         [tip show];
         return;
     }
-    //    [RequestManager postCommentWithSourceType:type andSourceID:sourceId onwerID:self.ownerId andAccessToken:[LoginStateManager currentToken] comment:commentView.textView.internalTextView.text success:^(NSString *response) {
-    //        [_dataSourceArray insertObject:[self getCommentSoureWithComment:commentView.textView.internalTextView.text] atIndex:0];
-    //        commentView.textView.internalTextView.text = nil;
-    //        [commentView.textView resignFirstResponder];
-    //        [_refrehsTableView reloadData];
-    //        _isSending  = NO;
-    //    } failure:^(NSString *error) {
-    //        [self showPopAlerViewRatherThentasView:NO WithMes:error];
-    //        [commentView.textView resignFirstResponder];
-    //        _isSending  = NO;
-    //    }];
+    if (_isSending) return;
+    _isSending = YES;
+    [RequestManager postComment:commentView.textView.internalTextView.text WithFindingId:_findsID token:nil success:^(NSString *response) {
+        [_dataSourceArray insertObject:[self getCommentSoureWithComment:commentView.textView.internalTextView.text] atIndex:0];
+        commentView.textView.internalTextView.text = nil;
+        [commentView.textView resignFirstResponder];
+        [_refrehsTableView reloadData];
+        _isSending  = NO;
+    } failure:^(NSString *error) {
+        DLog(@"%@",error);
+        [commentView.textView resignFirstResponder];
+        _isSending  = NO;
+    }];
 }
 
 - (CommentCellDeteSource *)getCommentSoureWithComment:(NSString *)comment
 {
     //临时
     CommentCellDeteSource * dataSource = [[CommentCellDeteSource alloc] init];
-    dataSource.portraitUrl = @"";
-    dataSource.userName = @"ok";
-    dataSource.userId = @"123";
+    dataSource.portraitUrl = [_userInfo objectForKey:@"photo_thumb"];
+    dataSource.userName =[_userInfo objectForKey:@"username"];
+    dataSource.userId = [NSString stringWithFormat:@"%d",[[_userInfo objectForKey:@"id"] intValue]];
     dataSource.commentStr = comment;
     return dataSource;
 }
@@ -161,52 +177,49 @@
 }
 - (void)refrshDataFromNetWork
 {
-    //    _isLoadingMax = NO;
-    //    [RequestManager getCommentWithSourceType:type andSourceID:sourceId page: 1 success:^(NSString *response) {
-    //        [_dataSourceArray removeAllObjects];
-    //        [self addDataSourceWithArray:[[response JSONValue] objectForKey:@"comments"]];
-    //        [_refrehsTableView didFinishedLoadingTableViewData];
-    //
-    //    } failure:^(NSString *error) {
-    //        [self showPopAlerViewRatherThentasView:NO WithMes:error];
-    //        [_refrehsTableView didFinishedLoadingTableViewData];
-    //    }];
-    //    [RequestManager getUserInfoWithId:[LoginStateManager currentUserId] success:^(NSString *response) {
-    //        userInfo = [response JSONValue];
-    //    } failure:^(NSString *error) {
-    //        [self addDataSourceWithArray:nil];
-    //    }];
+    [RequestManager getCommentWithFindingId:_findsID start:0 count:20 token:nil success:^(NSString *response) {
+        DLog(@"%@",[response JSONValue]);
+        [_dataSourceArray removeAllObjects];
+        [self addDataSourceWithArray:[[response JSONValue] objectForKey:@"comments"]];
+    } failure:^(NSString *error) {
+        [_refrehsTableView didFinishedLoadingTableViewData];
+    }];
 }
+- (void)getMoreFromNetWork
+{
+    if (_dataSourceArray.count % 20) {
+        [_refrehsTableView didFinishedLoadingTableViewData];
+        return;
+    }
+    [RequestManager getCommentWithFindingId:_findsID start:0 count:20 token:nil success:^(NSString *response) {
+        DLog(@"%@",[response JSONValue]);
+        [self addDataSourceWithArray:[[response JSONValue] objectForKey:@"comments"]];
+        
+    } failure:^(NSString *error) {
+        [_refrehsTableView didFinishedLoadingTableViewData];
 
+    }];
+}
 - (void)addDataSourceWithArray:(NSArray *)array
 {
     for (int i = 0; i < array.count; i++)
         [_dataSourceArray addObject:[self getCellDataSourceFromInfo:[array objectAtIndex:i]]];
     [_refrehsTableView reloadData];
+    [_refrehsTableView didFinishedLoadingTableViewData];
 }
 
 - (CommentCellDeteSource *)getCellDataSourceFromInfo:(NSDictionary *)info
 {
+    
     CommentCellDeteSource * data = [[CommentCellDeteSource alloc] init];
-    data.userId = [NSString stringWithFormat:@"%@",[info objectForKey:@"user_id"]];
-    data.userName = [info objectForKey:@"user_nick"];
     data.commentStr = [info objectForKey:@"content"];
-    data.portraitUrl = [info objectForKey:@"avatar"];
+    info = [info objectForKey:@"user"];
+    data.userName = [info objectForKey:@"username"];
+    data.userId = [NSString stringWithFormat:@"%@",[info objectForKey:@"id"]];
+    data.portraitUrl = [info objectForKey:@"photo_thumb"];
     return data;
 }
-- (void)getMoreFromNetWork
-{
-    [_refrehsTableView didFinishedLoadingTableViewData];
-    //    [RequestManager getCommentWithSourceType:type andSourceID:sourceId page:(_dataSourceArray.count / 20 + 1) success:^(NSString *response) {
-    //        NSArray * array = [[response JSONValue] objectForKey:@"comments"];
-    //        _isLoadingMax = !array.count;
-    //        [self addDataSourceWithArray:array];
-    //        [_refrehsTableView didFinishedLoadingTableViewData];
-    //    } failure:^(NSString *error) {
-    //        [self showPopAlerViewRatherThentasView:NO WithMes:error];
-    //        [_refrehsTableView didFinishedLoadingTableViewData];
-    //    }];
-}
+
 
 #pragma mark -tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -236,16 +249,17 @@
 #pragma mark Action
 - (void)backButtonClick:(id)sender
 {
-    if (self.navigationController) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
+//    if (self.navigationController) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }else{
         [self.presentingViewController dismissModalViewControllerAnimated:YES];
-    }
+//    }
 }
 
 - (void)commentCell:(CommentCell *)cell clickPortrait:(id)sender
 {
-    //    [self.navigationController pushViewController:[[PhotoWallController alloc] initWithOwnerID:[[cell dataSource] userId] isRootController:NO] animated:YES];
+    DLog(@"%@",self.navigationController);
+    [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO withUserId:cell.dataSource.userId] animated:YES];
 }
 - (void)makeCommentView:(MakeCommentView *)view commentClick:(UIButton *)button
 {
