@@ -14,24 +14,14 @@
 
 @implementation SelectPhotoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     UIView*navView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     navView.backgroundColor=[UIColor greenColor];
     [self.view addSubview:navView];
     
-    
-        
     UILabel*Accombodation=[[UILabel alloc] initWithFrame:CGRectMake(5, 5, 150, 30)];
     Accombodation.text=@"添加图片";
     [navView addSubview:Accombodation];
@@ -42,6 +32,7 @@
     [selectPhotoBtn addTarget:self action:@selector(selectImageBtn:) forControlEvents:UIControlEventTouchUpInside];
     [navView addSubview:selectPhotoBtn];
 }
+
 //从相册选择
 -(void)selectImageBtn:(UIButton*)sender{
 

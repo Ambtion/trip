@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AllMenuViewDeletage <NSObject> 
+- (void)allMenuViewChangeCateroy:(PicUploadCateroy)cateroy;
+@end
 @interface AllMenuViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView*menuTable;
@@ -15,5 +18,5 @@
     UIImageView*bottomBar;
     int height;
 }
-@property(nonatomic,assign)int selectID;
+@property(nonatomic,assign)id<AllMenuViewDeletage> delegate;
 @end

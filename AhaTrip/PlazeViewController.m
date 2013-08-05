@@ -9,10 +9,9 @@
 #import "PlazeViewController.h"
 #import "CQSegmentControl.h"
 #import "PhotoDetailController.h"
-#import "SingleMenuViewController.h"
 #import "PlazeViewController.h"
 #import "RequestManager.h"
-
+#import "UploadViewControllerManager.h"
 
 @implementation PlazeViewController
 @synthesize assetsArray = _assetsArray;
@@ -24,40 +23,8 @@
     [self addTableView];
     [self addPathButton];
     [self addCusNavBar];
-    [self addEveryCategary];
 }
-//每一个分类
--(void)addEveryCategary{
-    
-    //    0：景观  1：购物  2：餐饮 3：住宿  4：咖啡 5：娱乐  6：其他
-    NSString*viewStr=@"景观";
-    NSString*shopStr=@"购物";
-    NSString*foodStr=@"美食";
-    NSString*cafeiStr=@"住宿";
-    NSString*departMentStr=@"饮品";
-    NSString*entertainment=@"娱乐";
-    
-    NSString*viewStr1=@"View";
-    NSString*shopStr1=@"Shopping";
-    NSString*foodStr1=@"Food";
-    NSString*cafeiStr1=@"Accommodation";
-    NSString*departMentStr1=@"Drink";
-    NSString*entertainment1=@"Entertainment";
-    
-    NSDictionary *dic1=[NSDictionary dictionaryWithObjectsAndKeys:viewStr,@"menu",viewStr1,@"menu1",nil];
-    
-    NSDictionary *dic2=[NSDictionary dictionaryWithObjectsAndKeys:shopStr,@"menu",shopStr1,@"menu1",nil];
-    
-    NSDictionary *dic3=[NSDictionary dictionaryWithObjectsAndKeys:foodStr,@"menu",foodStr1,@"menu1",nil];
-    
-    NSDictionary *dic4=[NSDictionary dictionaryWithObjectsAndKeys:cafeiStr,@"menu",cafeiStr1,@"menu1",nil];
-    
-    NSDictionary *dic5=[NSDictionary dictionaryWithObjectsAndKeys:departMentStr,@"menu",departMentStr1,@"menu1",nil];
-    NSDictionary *dic6=[NSDictionary dictionaryWithObjectsAndKeys:entertainment,@"menu",entertainment1,@"menu1",nil];
-    
-    menuArr=[NSMutableArray arrayWithObjects:dic1,dic2,dic3,dic4,dic5,dic6,nil];
-    
-}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -92,9 +59,10 @@
     _menuView.delegate = self;
     [_menuView setStringTitleArray:[NSArray arrayWithObjects:@"广场",@"最热", nil] curString:@"广场"];
 }
+
 - (void)addTableView
 {
-       
+    
     _tableView = [[EGRefreshTableView alloc] initWithFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44)];
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.pDelegate = self;
@@ -166,6 +134,7 @@
     } completion:^(BOOL finished) {
     }];
 }
+
 #pragma mark TableViewData
 - (void)pullingreloadTableViewDataSource:(id)sender
 {
@@ -245,21 +214,7 @@
 #pragma mark - AweSomeMenuDelegate
 - (void)awesomeMenu:(AwesomeMenu *)menu didSelectIndex:(NSInteger)idx
 {
-    NSLog(@"Select the index : %d",idx);
-    
-    NSLog(@"Select the index : %d",idx);
-    NSDictionary*menuDict=[menuArr objectAtIndex:idx];
-    NSString*menuSelectStr=[menuDict objectForKey:@"menu"];
-    NSString*menuSelectStr1=[menuDict objectForKey:@"menu1"];
-    
-    SingleMenuViewController*singleMenu=[[SingleMenuViewController alloc] init];
-    singleMenu.menuStr=menuSelectStr;
-    singleMenu.menuStr1=menuSelectStr1;
-    NSLog(@"%@%@",singleMenu.menuStr1,singleMenu.menuStr);
-    singleMenu.selectID=idx+1;
-    NSLog(@"%@%d",singleMenu.menuStr,singleMenu.selectID);
-    [self presentViewController:singleMenu animated:YES completion:nil];
-
+    [self presentModalViewController:[[UploadViewControllerManager alloc] initWithCateroyId:idx] animated:YES];
 }
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
 {

@@ -139,6 +139,11 @@
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?type=search&token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
++ (void)getCountryAllListForSeletedWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
 //城市列表
 + (void)getCityListFromCounty:(NSInteger)country start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
@@ -146,6 +151,19 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
+//获取所有的cateroy类别
++ (void)getAllCateroyWithToke:(NSString *)token  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = @"http://yyz.ahatrip.info/api/categoryList?token=tRyW4rLBiJHffQ";
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
+
+//获取2级的cateroy列表
++ (void)getSubCateroyWithToken:(NSString *)token WithCateroy_Id:(NSInteger)cateroyId  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString* str =[NSString stringWithFormat:@"http://yyz.ahatrip.info/api/subCategoryList?category_id=%d&token=tRyW4rLBiJHffQ",cateroyId];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
 //评论列表
 + (void)getCommentWithFindingId:(NSInteger)findingId start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {

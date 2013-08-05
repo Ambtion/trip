@@ -18,8 +18,7 @@
     EGRefreshTableView * _tableView;
     CGFloat _startFolat;
     RightSerachController * _rightSearch;
-    NSMutableArray*menuArr;
-        AHMenuNavBarView * _menuView;
+    AHMenuNavBarView * _menuView;
 
 }
 @property(nonatomic,strong)NSMutableArray * assetsArray;

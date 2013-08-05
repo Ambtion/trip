@@ -7,16 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class SingleMenuViewController;
+@protocol SingleMenuViewDelegate <NSObject>
+- (void)singleClickNavBarRightButton:(id)object;
+- (void)singleClickTabBarRightButton:(id)object;
+- (void)singleSelectedSubCateroyWihtInfo:(NSDictionary*)info;
+@end
 @interface SingleMenuViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
-    UITableView*departmentTable;
-    NSMutableArray*departMentArr;
-    UIImageView*bottomBar;
-    int height;
-
+    UITableView * _departmentTable;
+    NSMutableArray * _departMentArr;
+    UIImageView * _bottomBar;
+    int _height;
+    PicUploadCateroy _cateroyId;
+    DetailTextView * _dtView;
 }
-@property(nonatomic,strong)NSString*menuStr;
-@property(nonatomic,strong)NSString*menuStr1;
-@property(nonatomic,assign)int selectID;
+
+- (id)initWithCateroyId:(PicUploadCateroy)AcateroyId;
+
+@property(nonatomic,assign)id<SingleMenuViewDelegate> delegate;
+@property(nonatomic,strong)NSString*menuCStr;
+@property(nonatomic,strong)NSString*menuEStr;
+@property(nonatomic,assign)PicUploadCateroy cateroyId;
 @end

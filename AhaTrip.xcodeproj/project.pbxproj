@@ -63,14 +63,10 @@
 		0505F6AD17A3B24600C4B77F /* DLCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69417A3B24500C4B77F /* DLCImagePickerController.m */; };
 		0505F6AE17A3B24600C4B77F /* GrayscaleContrastFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69617A3B24500C4B77F /* GrayscaleContrastFilter.m */; };
 		0505F6AF17A3B24600C4B77F /* PersonalSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69817A3B24500C4B77F /* PersonalSettingViewController.m */; };
-		0505F6B017A3B24600C4B77F /* PersonalSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0505F69917A3B24500C4B77F /* PersonalSettingViewController.xib */; };
 		0505F6B117A3B24600C4B77F /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69B17A3B24500C4B77F /* PhotoViewController.m */; };
 		0505F6B217A3B24600C4B77F /* SelectPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69D17A3B24500C4B77F /* SelectPhotoViewController.m */; };
-		0505F6B317A3B24600C4B77F /* SelectPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0505F69E17A3B24500C4B77F /* SelectPhotoViewController.xib */; };
 		0505F6B417A3B24600C4B77F /* SingleMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F6A017A3B24500C4B77F /* SingleMenuViewController.m */; };
-		0505F6B517A3B24600C4B77F /* SingleMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0505F6A117A3B24500C4B77F /* SingleMenuViewController.xib */; };
 		0505F6B617A3B24600C4B77F /* SouSuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F6A317A3B24500C4B77F /* SouSuoViewController.m */; };
-		0505F6B717A3B24600C4B77F /* SouSuoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0505F6A417A3B24500C4B77F /* SouSuoViewController.xib */; };
 		0505F6C617A3B44600C4B77F /* ASIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F6B917A3B44600C4B77F /* ASIRequest.m */; };
 		0505F6C717A3B44600C4B77F /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F6BB17A3B44600C4B77F /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0505F6C817A3B44600C4B77F /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F6BD17A3B44600C4B77F /* UIImage+Addition.m */; };
@@ -479,6 +475,7 @@
 		C58AECCC1794E02100C75BD2 /* UserNotificationContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AECCB1794E02100C75BD2 /* UserNotificationContentView.m */; };
 		C58AECCE1794E8C500C75BD2 /* content_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58AECCD1794E8C500C75BD2 /* content_line@2x.png */; };
 		C58AECD01794F30800C75BD2 /* contentBgView.png in Resources */ = {isa = PBXBuildFile; fileRef = C58AECCF1794F30800C75BD2 /* contentBgView.png */; };
+		C58C466E17AF7522003A12C6 /* UploadViewControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C466D17AF7522003A12C6 /* UploadViewControllerManager.m */; };
 		C5918ED7178117260001F4EF /* back_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5918ED6178117260001F4EF /* back_Button@2x.png */; };
 		C5918EDB178123580001F4EF /* HomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5918EDA178123580001F4EF /* HomePageController.m */; };
 		C5918EDE17815AAE0001F4EF /* ItemMenuBarBg-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5918EDC17815AAE0001F4EF /* ItemMenuBarBg-white@2x.png */; };
@@ -632,18 +629,14 @@
 		0505F69617A3B24500C4B77F /* GrayscaleContrastFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrayscaleContrastFilter.m; sourceTree = "<group>"; };
 		0505F69717A3B24500C4B77F /* PersonalSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalSettingViewController.h; sourceTree = "<group>"; };
 		0505F69817A3B24500C4B77F /* PersonalSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalSettingViewController.m; sourceTree = "<group>"; };
-		0505F69917A3B24500C4B77F /* PersonalSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalSettingViewController.xib; sourceTree = "<group>"; };
 		0505F69A17A3B24500C4B77F /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		0505F69B17A3B24500C4B77F /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		0505F69C17A3B24500C4B77F /* SelectPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPhotoViewController.h; sourceTree = "<group>"; };
 		0505F69D17A3B24500C4B77F /* SelectPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPhotoViewController.m; sourceTree = "<group>"; };
-		0505F69E17A3B24500C4B77F /* SelectPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectPhotoViewController.xib; sourceTree = "<group>"; };
 		0505F69F17A3B24500C4B77F /* SingleMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleMenuViewController.h; sourceTree = "<group>"; };
 		0505F6A017A3B24500C4B77F /* SingleMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleMenuViewController.m; sourceTree = "<group>"; };
-		0505F6A117A3B24500C4B77F /* SingleMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SingleMenuViewController.xib; sourceTree = "<group>"; };
 		0505F6A217A3B24500C4B77F /* SouSuoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SouSuoViewController.h; sourceTree = "<group>"; };
 		0505F6A317A3B24500C4B77F /* SouSuoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SouSuoViewController.m; sourceTree = "<group>"; };
-		0505F6A417A3B24500C4B77F /* SouSuoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SouSuoViewController.xib; sourceTree = "<group>"; };
 		0505F6B817A3B44600C4B77F /* ASIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIRequest.h; sourceTree = "<group>"; };
 		0505F6B917A3B44600C4B77F /* ASIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIRequest.m; sourceTree = "<group>"; };
 		0505F6BA17A3B44600C4B77F /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
@@ -1306,6 +1299,8 @@
 		C58AECCB1794E02100C75BD2 /* UserNotificationContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotificationContentView.m; sourceTree = "<group>"; };
 		C58AECCD1794E8C500C75BD2 /* content_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "content_line@2x.png"; sourceTree = "<group>"; };
 		C58AECCF1794F30800C75BD2 /* contentBgView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contentBgView.png; sourceTree = "<group>"; };
+		C58C466C17AF7522003A12C6 /* UploadViewControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewControllerManager.h; sourceTree = "<group>"; };
+		C58C466D17AF7522003A12C6 /* UploadViewControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewControllerManager.m; sourceTree = "<group>"; };
 		C5918ED6178117260001F4EF /* back_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_Button@2x.png"; sourceTree = "<group>"; };
 		C5918ED9178123580001F4EF /* HomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageController.h; sourceTree = "<group>"; };
 		C5918EDA178123580001F4EF /* HomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageController.m; sourceTree = "<group>"; };
@@ -1630,6 +1625,8 @@
 		0505F42117A3827800C4B77F /* Mian CTL */ = {
 			isa = PBXGroup;
 			children = (
+				C58C466C17AF7522003A12C6 /* UploadViewControllerManager.h */,
+				C58C466D17AF7522003A12C6 /* UploadViewControllerManager.m */,
 				0505F44117A385F200C4B77F /* Categary Ctl */,
 				0505F43F17A3829E00C4B77F /* View */,
 				0505F95117A3D27B00C4B77F /* DetailsViewController.h */,
@@ -1694,18 +1691,14 @@
 				0505F69617A3B24500C4B77F /* GrayscaleContrastFilter.m */,
 				0505F69717A3B24500C4B77F /* PersonalSettingViewController.h */,
 				0505F69817A3B24500C4B77F /* PersonalSettingViewController.m */,
-				0505F69917A3B24500C4B77F /* PersonalSettingViewController.xib */,
 				0505F69A17A3B24500C4B77F /* PhotoViewController.h */,
 				0505F69B17A3B24500C4B77F /* PhotoViewController.m */,
 				0505F69C17A3B24500C4B77F /* SelectPhotoViewController.h */,
 				0505F69D17A3B24500C4B77F /* SelectPhotoViewController.m */,
-				0505F69E17A3B24500C4B77F /* SelectPhotoViewController.xib */,
 				0505F69F17A3B24500C4B77F /* SingleMenuViewController.h */,
 				0505F6A017A3B24500C4B77F /* SingleMenuViewController.m */,
-				0505F6A117A3B24500C4B77F /* SingleMenuViewController.xib */,
 				0505F6A217A3B24500C4B77F /* SouSuoViewController.h */,
 				0505F6A317A3B24500C4B77F /* SouSuoViewController.m */,
-				0505F6A417A3B24500C4B77F /* SouSuoViewController.xib */,
 			);
 			name = "Categary Ctl";
 			sourceTree = "<group>";
@@ -2984,10 +2977,6 @@
 				0505F6A817A3B24600C4B77F /* AllMenuViewController.xib in Resources */,
 				0505F6AB17A3B24600C4B77F /* CityTwoViewController.xib in Resources */,
 				0505F6AC17A3B24600C4B77F /* DLCImagePicker.xib in Resources */,
-				0505F6B017A3B24600C4B77F /* PersonalSettingViewController.xib in Resources */,
-				0505F6B317A3B24600C4B77F /* SelectPhotoViewController.xib in Resources */,
-				0505F6B517A3B24600C4B77F /* SingleMenuViewController.xib in Resources */,
-				0505F6B717A3B24600C4B77F /* SouSuoViewController.xib in Resources */,
 				0505F71817A3BF0900C4B77F /* 1.jpg in Resources */,
 				0505F71917A3BF0900C4B77F /* 1@2x.jpg in Resources */,
 				0505F71A17A3BF0900C4B77F /* 2.jpg in Resources */,
@@ -3402,6 +3391,7 @@
 				0505FBB017A3E2AB00C4B77F /* SearchPlazaViewController.m in Sources */,
 				0505FBBD17A3E46100C4B77F /* FunctionGuideView.m in Sources */,
 				7011DF9317AA34CB009D7CD8 /* NewPlaceViewController.m in Sources */,
+				C58C466E17AF7522003A12C6 /* UploadViewControllerManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

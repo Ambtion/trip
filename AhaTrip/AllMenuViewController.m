@@ -9,30 +9,20 @@
 #import "AllMenuViewController.h"
 #import "Constants.h"
 #import "SingleMenuViewController.h"
-@interface AllMenuViewController ()
-
-@end
+#import "RequestManager.h"
 
 @implementation AllMenuViewController
-@synthesize selectID;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize delegate;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
      self.view.backgroundColor=mRGBColor(236, 235, 235);
+    
 //    topbar
     UIView*navView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
      navView.backgroundColor=mRGBColor(50, 200, 160);
     [self.view addSubview:navView];
-    
     
     UILabel*Accombodation=[[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 30)];
     Accombodation.text=@"选择分类";
@@ -54,13 +44,7 @@
     [self.view addSubview:menuTable];
 
     //    底部导航
-    if ([self isIphone5]) {
-        height=548;
-    }
-    else{
-        height=460;
-    
-    }
+    height = [[UIScreen mainScreen] bounds].size.height - 20.f;
     bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, height-55,320, 55)];
     bottomBar.backgroundColor=[UIColor blackColor];
     [self.view addSubview:bottomBar];
@@ -73,64 +57,38 @@
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeMenuBtn];
 
-    // Do any additional setup after loading the view from its nib.
 }
 
 
 #pragma request
--(void)requestCategary{
-    NSString*singleCityStr=@"http://yyz.ahatrip.info/api/categoryList?token=tRyW4rLBiJHffQ";
-    
-//    NSString*str=[NSString stringWithFormat:@"%@?country_id=%@",singleCityStr,singleCityId];
-//    NSLog(@"%@",str);
-    
-    [[ASIRequest shareInstance] get:singleCityStr header:nil delegate:self tag:5 useCache:YES];
-    
-    
-    
-}
-- (void)requestFinished:(ASIHTTPRequest *)request
+-(void)requestCategary
 {
-    if (request.tag == 5 && request.responseStatusCode == 200)
-    {
-        NSDictionary *data =[request responseString].objectFromJSONString;
-        menuArr=[data objectForKey:@"categories"];
+    [RequestManager getAllCateroyWithToke:nil success:^(NSString *response) {
+        NSDictionary *data =[response JSONValue];
+        menuArr = [data objectForKey:@"categories"];
         [menuTable reloadData];
+    } failure:^(NSString *error) {
         
-        
-        
-        
-    }
-    
+    }];
 }
 
--(void)closeBtnBackMenu{
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-//    [self dis];
-
-}
-- (void)didReceiveMemoryWarning
+-(void)closeBtnBackMenu
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return menuArr.count;
-    //    return 100;
-    
+    return menuArr.count;    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     
     static NSString *topicCell = @"TopicCell";
     UITableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:topicCell];
@@ -150,34 +108,22 @@
         
         UIImageView * bgView = [[UIImageView alloc] initWithFrame:cell.bounds];
         bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//        bgView.backgroundColor = [UIColor redColor];
         bgView.image = [[UIImage imageNamed:@"rect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 150, 20, 150)];
         cell.backgroundView = bgView;
         
         UIImageView*img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 300, 1)];
         img.image=[UIImage imageNamed:@"line.png"];
+        img.tag = 10000;
         [cell.contentView addSubview:img];
-        img.hidden=YES;
-        if (indexPath.row == [menuArr count] - 1) {
-            img.hidden = NO;
-        }else{
-            img.hidden = YES;
-        }
-
     }
-//    UILabel*cityLabel=(UILabel*)[cell viewWithTag:1000];
-//    NSDictionary*cityDict=[menuArr objectAtIndex:indexPath.row];
-//    cityLabel.text=[cityDict objectForKey:@"name"];
-//    return cell;
+    UIView * view = [cell viewWithTag:10000];
+    view.hidden = menuArr.count - 1 != indexPath.row;
     NSDictionary*cityDict=[menuArr objectAtIndex:indexPath.row];
     
     DetailTextView * dtView = (DetailTextView*)[cell viewWithTag:1000];
     NSString * str = [NSString stringWithFormat:@"%@ %@",[cityDict objectForKey:@"name"],[cityDict objectForKey:@"en_name"]];
-    DLog(@"mLLLLL%@",str);
     [dtView setText:str WithFont:[UIFont systemFontOfSize:18.f] AndColor:[UIColor blackColor]];
     [dtView setKeyWordTextArray:[NSArray arrayWithObjects:[cityDict objectForKey:@"en_name"], nil] WithFont:[UIFont systemFontOfSize:12.f] AndColor:[UIColor blackColor]];
-//    
-    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,15 +132,10 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    
-    NSDictionary*dict=[menuArr objectAtIndex:indexPath.row];
-    NSString*selectMnu=[dict objectForKey:@"name"];
-    self.selectID=[[dict objectForKey:@"id"] integerValue];
-    
-    SingleMenuViewController*singleMenu=[[SingleMenuViewController alloc] init];
-    singleMenu.menuStr=selectMnu;
-    singleMenu.selectID=self.selectID;
-    
-    [self presentViewController:singleMenu animated:YES completion:nil];
+    NSDictionary * dict=[menuArr objectAtIndex:indexPath.row];
+    if ([delegate respondsToSelector:@selector(allMenuViewChangeCateroy:)])
+        [delegate allMenuViewChangeCateroy: [[dict objectForKey:@"id"] integerValue] - 1];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
