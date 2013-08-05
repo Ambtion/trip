@@ -61,10 +61,7 @@
     else
         [self.navigationController popViewControllerAnimated:YES];
 }
-//- (void)searchButtonClick:(UIButton*)button
-//{
-//    [self.viewDeckController toggleRightViewAnimated:YES];
-//}
+
 #pragma mark TableView
 - (void)addTableView
 {
@@ -124,9 +121,8 @@
             [_assetsArray removeAllObjects];
             [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
             [self convertAssetsToDataSouce];
-
         } failure:^(NSString *error) {
-            
+            [_tableView didFinishedLoadingTableViewData];
         }];
     }else{
         [RequestManager getFavUserId:_userId Withstart:0 count:20 token:nil success:^(NSString *response) {
@@ -134,7 +130,7 @@
             [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
             [self convertAssetsToDataSouce];
         } failure:^(NSString *error) {
-            
+            [_tableView didFinishedLoadingTableViewData];
         }];
     }
 }
@@ -148,17 +144,15 @@
         [RequestManager getFindsUserId:_userId Withstart:_assetsArray.count count:20 token:nil success:^(NSString *response) {
             [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
             [self convertAssetsToDataSouce];
-            DLog(@"%@",[response JSONValue]);
         } failure:^(NSString *error) {
-            
+            [_tableView didFinishedLoadingTableViewData];
         }];
     }else{
-        [RequestManager getFavUserId:_userId Withstart:0 count:20 token:nil success:^(NSString *response) {
+        [RequestManager getFavUserId:_userId Withstart:_assetsArray.count count:20 token:nil success:^(NSString *response) {
             [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
             [self convertAssetsToDataSouce];
-            DLog(@"%@",[response JSONValue]);
         } failure:^(NSString *error) {
-            
+            [_tableView didFinishedLoadingTableViewData];
         }];
 
     }

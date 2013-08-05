@@ -161,4 +161,17 @@
     [dic setObject:comment forKey:@"content"];
     [self postWithURL:str body:dic success:success failure:failure];
 }
+
+//喜欢
++ (void)likeWithFindingId:(NSInteger)findingsId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+//http://yyz.ahatrip.info/api/favoriteCreate?finding_id=1&token=tRyW4rLBiJHffQ
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/favoriteCreate"];
+//    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:findingsId],@"tRyW4rLBiJHffQ",@"finding_id",@"token", nil];
+    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
+    [dic setObject:[NSNumber numberWithInteger:findingsId] forKey:@"finding_id"];
+    [dic setObject:@"tRyW4rLBiJHffQ" forKey:@"token"];
+    DLog(@"%@",str);
+    [self postWithURL:str body:dic success:success failure:failure];
+}
 @end

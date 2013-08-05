@@ -33,6 +33,7 @@
     BOOL isAnimation;
     __weak UIViewController * _controller;
     PhotoDetailViewDataSource * _dataSource;
+    BOOL _isLoading;
 }
 
 @property(nonatomic,strong)PhotoDetailViewDataSource * dataSource;

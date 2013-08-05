@@ -64,7 +64,7 @@
     [_pageControll setCurrentPageIndicatorImage:[UIImage imageNamed:@"currentPageDot.png"]];
     [_pageControll setUserInteractionEnabled:NO];
     [self.view addSubview:_pageControll];
-    [self  playViewAnimation];
+//    [self  playViewAnimation];
 }
 - (void)addScrollviewConten
 {
@@ -92,13 +92,15 @@
     _pageControll.numberOfPages = photos.count;
     [_pageControll setHidden:[photos count] <= 1];
     _scrollView.contentSize = CGSizeMake(rect.size.width * photos.count, rect.size.height);
+    [_scrollView setContentOffset:CGPointZero];
+    [self scrollViewDidScroll:_scrollView];
 }
 
 - (void)setLikeAndCommentDataSourceWithInfo:(NSDictionary *)info
 {
     isLiked = NO;
-    likeCount = 20;
-    commentCount = 20;
+    commentCount = [[info objectForKey:@"comments_count"] intValue];
+    likeCount =  [[info objectForKey:@"favorite_count"] intValue];
 }
 
 - (void)serUsrInfo
@@ -107,7 +109,7 @@
     NSDictionary * userInfo = [_dataInfo objectForKey:@"user"];
     [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:[userInfo objectForKey:@"photo_thumb"]]placeholderImage:[UIImage imageNamed:@"avatar.png"]];
     _nameLabel.text = [userInfo objectForKey:@"username"];
-    [self setLikeAndCommentDataSourceWithInfo:userInfo];
+    [self setLikeAndCommentDataSourceWithInfo:_dataInfo];
 }
 - (DesInfoViewDataSource *)getDesSouce
 {

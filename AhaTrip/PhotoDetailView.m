@@ -92,6 +92,7 @@
                         [[NSRunLoop currentRunLoop]addTimer:_timer forMode:NSDefaultRunLoopMode];
     }];
 }
+
 #pragma mark Like
 - (void)addLikesButton
 {
@@ -103,6 +104,7 @@
     [_likeButton addTarget:self action:@selector(likeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_likeButton];
 }
+
 - (void)setLikeAndCountState
 {
     if ( *_dataSource.islikedAddress == NO) {
@@ -112,19 +114,36 @@
     }
     _likeLabel.text = [NSString stringWithFormat:@"%d",*_dataSource.likeCountAddress];
     _commentLabel.text = [NSString stringWithFormat:@"%d",*_dataSource.commentCountAddress];
+    _isLoading = NO;
 }
 - (void)likeButtonClick:(UIButton *)button
 {
+    if (_isLoading) return;
+    _isLoading = YES;
     if (*_dataSource.islikedAddress) {
-        //不喜欢
-        *_dataSource.islikedAddress = NO;
-        (*_dataSource.likeCountAddress)--;
+        [RequestManager likeWithFindingId:[_dataSource findingId] token:nil success:^(NSString *response) {
+            //不喜欢
+            *_dataSource.islikedAddress = NO;
+            (*_dataSource.likeCountAddress)--;
+            [self setLikeAndCountState];
+        } failure:^(NSString *error) {
+            DLog(@"%@",error);
+            _isLoading = NO;
+        }];
+     
     }else{
+        DLog(@"");
         //喜欢
-        *_dataSource.islikedAddress = YES;
-        (*_dataSource.likeCountAddress)++;
+        [RequestManager likeWithFindingId:[_dataSource findingId] token:nil success:^(NSString *response) {
+            *_dataSource.islikedAddress = YES;
+            (*_dataSource.likeCountAddress)++;
+            [self setLikeAndCountState];
+        } failure:^(NSString *error) {
+            DLog(@"%@",error);
+            _isLoading = NO;
+        }];
+     
     }
-    [self setLikeAndCountState];
 }
 #pragma mark - comment
 - (void)addComentButton
@@ -132,7 +151,6 @@
     _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_likeButton.frame.origin.x + _likeButton.frame.size.width + 20, self.bounds.size.height - 65, 80,35)];
     [self setCountLabels:_commentLabel];
     [self addSubview:_commentLabel];
-    
     UIButton * commentButton = [[UIButton  alloc] initWithFrame:CGRectMake(_commentLabel.frame.size.width + _commentLabel.frame.origin.x + 5 - 10, _commentLabel.frame.origin.y + _commentLabel.frame.size.height - 23 - 10, 43, 43)];
     [commentButton setContentMode:UIViewContentModeScaleAspectFit];
     [commentButton setImage:[UIImage imageNamed:@"details_button_comment.png"] forState:UIControlStateNormal];
