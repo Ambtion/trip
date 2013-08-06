@@ -48,20 +48,17 @@
 @implementation MapViewController
 @synthesize mapView = _mapView;
 @synthesize progressHUD;
-@synthesize mapImage;
-@synthesize strType;
 @synthesize delegate;
-@synthesize singleCityName,singleCityId,cateryStr;
 
 #pragma mark -
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self.mapView removeFromSuperview];
-      titlearr = [NSMutableArray array];    
-     _annotationList = [[NSMutableArray alloc] init];
-
+    
+    titlearr = [NSMutableArray array];
+    _annotationList = [[NSMutableArray alloc] init];
+    
     self.mapView.showsUserLocation = YES;
     MKCoordinateRegion region=MKCoordinateRegionMakeWithDistance(newLocCoordinate,800,800);
     [self.mapView setRegion:region animated:YES];
@@ -71,23 +68,14 @@
     locationManager.delegate = self;
     
     //开启GPS
+    
     if(CLLocationManager.locationServicesEnabled) {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;//设定为最佳精度
         locationManager.distanceFilter = 5.0f;//响应位置变化的最小距离(m)
         [locationManager startUpdatingLocation];
     }
-
-   
     
-    if ([self isIphone5]) {
-        height=548;
-    }else{
-        height=460;
-    
-    }
-    
-    
-    
+    height = [[UIScreen mainScreen] bounds].size.height - 20.f;
     mytable=[[UITableView alloc] initWithFrame:CGRectMake(10, 210+44, 302, height-210-100) style:UITableViewStylePlain];
     mytable.delegate=self;
     mytable.dataSource=self;
@@ -107,28 +95,25 @@
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenuList) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeMenuBtn];
-
-    //跳过此步骤的按钮
+    
+    //     跳过此步骤的按钮
     UIButton*tiaoguoBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [tiaoguoBtn setFrame:CGRectMake(220,height-44, 100, 44)];
     tiaoguoBtn.contentMode=UIViewContentModeScaleAspectFit;
-//    [tiaoguoBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [tiaoguoBtn setTitle:@"跳过此步骤 >" forState:UIControlStateNormal];
-//    tiaoguoBtn.font=[UIFont systemFontOfSize:12];
     tiaoguoBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [tiaoguoBtn setTitleColor:mRGBColor(102, 102, 102) forState:UIControlStateNormal];
-      [tiaoguoBtn addTarget:self action:@selector(tiaoguoBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [tiaoguoBtn addTarget:self action:@selector(tiaoguoBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:tiaoguoBtn];
-
     
-    //   加载topBar
     
-   self.view.backgroundColor=mRGBColor(236, 235, 235);
-   UIImageView*topBarImag=[[UIImageView alloc] initWithFrame:CGRectMake(0,0, self.view.bounds.size.width, 44)];
+    //      加载topBar
+    self.view.backgroundColor=mRGBColor(236, 235, 235);
+    UIImageView*topBarImag=[[UIImageView alloc] initWithFrame:CGRectMake(0,0, self.view.bounds.size.width, 44)];
     topBarImag.backgroundColor=mRGBColor(50, 200, 160);
     [self.view addSubview:topBarImag];
-
-//添加位置的label
+    
+    //      添加位置的label
     UILabel*addPlaceLable=[[UILabel alloc] initWithFrame:CGRectMake(15, 3, 100, 40)];
     addPlaceLable.text=@"添加位置";
     addPlaceLable.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
@@ -136,109 +121,68 @@
     addPlaceLable.textColor=[UIColor whiteColor];
     [self.view addSubview:addPlaceLable];
     
-////添加搜索的btn
-//    UIButton*serchBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-//    [serchBtn setFrame:CGRectMake(250-15, 5, 80, 35)];
-//    serchBtn.backgroundColor=[UIColor redColor];
-////    [serchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-//    [serchBtn setImage:[UIImage imageNamed:@"serch.png"] forState:UIControlStateNormal];
-//    [serchBtn addTarget:self action:@selector(serchBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:serchBtn];
+    //添加搜索的btn
+    UIButton*serchBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    [serchBtn setFrame:CGRectMake(250-15, 5, 80, 35)];
+    serchBtn.backgroundColor=[UIColor redColor];
+    [serchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+    [serchBtn setImage:[UIImage imageNamed:@"serch.png"] forState:UIControlStateNormal];
+    [serchBtn addTarget:self action:@selector(serchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:serchBtn];
     
 }
 //跳到搜索页的click
--(void)serchBtnClick{
-  
-//    NewPlaceViewController*newPlace=[[NewPlaceViewController alloc] init];
-//    [self presentViewController:newPlace animated:YES completion:nil];
+-(void)serchBtnClick
+{
+    if ([delegate respondsToSelector:@selector(mapViewControllerDidSearch:)]) {
+        [delegate mapViewControllerDidSearch:self];
+    }
     
-  
-    SPGooglePlacesAutocompleteViewController *viewController = [[SPGooglePlacesAutocompleteViewController alloc] initWithNibName:@"SPGooglePlacesAutocompleteViewController" bundle:nil];
-    [self presentViewController:viewController animated:YES completion:nil];
+    //    NewPlaceViewController*newPlace=[[NewPlaceViewController alloc] init];
+    //    [self presentViewController:newPlace animated:YES completion:nil];
     
-
-
-
+    
+//    SPGooglePlacesAutocompleteViewController *viewController = [[SPGooglePlacesAutocompleteViewController alloc] initWithNibName:@"SPGooglePlacesAutocompleteViewController" bundle:nil];
+//    [self presentViewController:viewController animated:YES completion:nil];
 }
 //回到滤镜选项页
--(void)closeBtnBackMenuList{
-
-//    [self dismissModalViewControllerAnimated:YES];
-//    [self dismissViewControllerAnimated:YES completion:nil];
-[self.delegate mapViewControllerDidCancel:self];
-
+-(void)closeBtnBackMenuList
+{
+    if ([delegate respondsToSelector:@selector(mapViewControllerDidCancel:)])
+        [delegate mapViewControllerDidCancel:self];
+    
 }
 //跳过此步骤去到个人信息添加页
 -(void)tiaoguoBtnClick{
-
-
-    NSLog(@"跳过");
-    PersonalViewController*personal=[[PersonalViewController alloc] initWithLatitude:@"" longitude:@"" placeName:nil image:mapImage singleCityId:@"" singleCityName:@"" cateryStr:@""];
-    [self presentViewController:personal animated:YES completion:nil];
-
-
-}
-
--(void)tap{
-   
-        if (select) {
-            mytable.hidden=YES;
-                       select=NO;
-        }else{
-            mytable.hidden=NO;
-        
-            select=YES;
-        }
-        
-  
     
+    if ([delegate respondsToSelector:@selector(mapViewControllerDidSkip:)])
+        [delegate mapViewControllerDidSkip:self];
     
-    
+    //    NSLog(@"跳过");
+    //    PersonalViewController*personal=[[PersonalViewController alloc] initWithLatitude:@"" longitude:@"" placeName:nil image:mapImage singleCityId:@"" singleCityName:@"" cateryStr:@""];
+    //    [self presentViewController:personal animated:YES completion:nil];
     
     
 }
 
-
-
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [self.navigationController setNavigationBarHidden:YES];
-    [super viewWillAppear:animated];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-#pragma mark - action
 
 #pragma mark - PlaceSearch
 -(void)googlePlace
 {
-   
-        strType=@"";
-   
-        [self accessGooglePlaceAPI:2000 latitude:newLocCoordinate.latitude longitude:newLocCoordinate.longitude placeType:strType placeContainName:@""];
-        NSLog(@"%@",strType);
-
-
     
-    
-
-    
+    [self accessGooglePlaceAPI:2000 latitude:newLocCoordinate.latitude longitude:newLocCoordinate.longitude placeType:@"" placeContainName:@""];
+    NSLog(@"%@",strType);
 }
 
 -(void)accessGooglePlaceAPI:(CGFloat)radius latitude:(CGFloat)lat longitude:(CGFloat)lon placeType:(NSString *)type placeContainName:(NSString *)name
 {
-   
-    NSString *urlString = [NSString stringWithFormat:PlaceURLString,lat,lon,radius,type,name];    
+    
+    NSString *urlString = [NSString stringWithFormat:PlaceURLString,lat,lon,radius,type,name];
     NSURL *googlePlacesURL = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSData *xmlData = [NSData dataWithContentsOfURL:googlePlacesURL];
     
-//    
-//    //【 使用use NSXMLParserDelegate】
+    //
+    //    //【 使用use NSXMLParserDelegate】
     NSMutableArray *placeMuAry = [XMLHelper useNSXMLParserDelegateToGetResult:xmlData];
     NSLog(@"%@",placeMuAry);
     if (placeMuAry.count>0) {
@@ -248,7 +192,7 @@
             
         });
     }
-
+    
     
 }
 
@@ -267,14 +211,14 @@
 //放置位置指示针【方法2】
 -(void)placeThePinsByAnnotationAry:(NSMutableArray *)aPlaceAry  annoType:(NSString *)aType
 {
-     [titlearr removeAllObjects];
+    [titlearr removeAllObjects];
     NSLog(@"Place pins by using  [mMapView addAnnotations:annoAry]");
     
     [self hideProgressIndicator];
     
     [self removeAllAnnotations];
     [_annotationList removeAllObjects];
-       [_annotationList addObjectsFromArray:aPlaceAry];
+    [_annotationList addObjectsFromArray:aPlaceAry];
     NSLog(@"%d",_annotationList.count);
     [titlearr addObjectsFromArray:aPlaceAry];
     NSLog(@"%@%d",titlearr,titlearr.count);
@@ -285,20 +229,20 @@
         NSLog(@"%@",place.pNameStr);
         coor.latitude = [place.pLatStr floatValue];
         coor.longitude = [place.pLngStr floatValue];
-         PinAnnotation *pinAnno = [[PinAnnotation alloc]initWithLatitude: coor.latitude andLongitude:coor.longitude];
+        PinAnnotation *pinAnno = [[PinAnnotation alloc]initWithLatitude: coor.latitude andLongitude:coor.longitude];
         pinAnno.type = aType;
-       
-        pinAnno.tag = i+100;
-         [self.mapView addAnnotation:pinAnno];
         
-       
-      
+        pinAnno.tag = i+100;
+        [self.mapView addAnnotation:pinAnno];
+        
+        
+        
     }
 }
 
 -(void)setAnnotionsWithList:(NSArray *)list
 {
-  
+    
     for (NSDictionary *dic in list) {
         
         CLLocationDegrees latitude=[[dic objectForKey:@"latitude"] doubleValue];
@@ -310,7 +254,7 @@
         [_mapView setRegion:adjustedRegion animated:YES];
         
         PinAnnotation *  annotation=[[PinAnnotation alloc] initWithLatitude:latitude andLongitude:longitude];
-//        annotation.coordinate=location;
+        //        annotation.coordinate=location;
         [_mapView   addAnnotation:annotation];
     }
 }
@@ -336,7 +280,7 @@
 	}
 }
 
-#pragma mark - 
+#pragma mark -
 
 //选中MKAnnotationView
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
@@ -346,21 +290,21 @@
             _detailsAnnotation = nil;
         }
         _detailsAnnotation = [[DetailsAnnotation alloc]
-                               initWithLatitude:view.annotation.coordinate.latitude
-                               andLongitude:view.annotation.coordinate.longitude];
+                              initWithLatitude:view.annotation.coordinate.latitude
+                              andLongitude:view.annotation.coordinate.longitude];
         PinAnnotation *anno = (PinAnnotation *)view.annotation;
         _detailsAnnotation.tag = anno.tag;
         
         [mapView addAnnotation:_detailsAnnotation];
         
-       
+        
         
         [mapView setCenterCoordinate:_detailsAnnotation.coordinate animated:YES];
 	}
     else{
-//        if([delegate respondsToSelector:@selector(customMKMapViewDidSelectedWithInfo:)]){
-//            [delegate customMKMapViewDidSelectedWithInfo:@"点击至之后你要在这干点啥"];
-//        }
+        //        if([delegate respondsToSelector:@selector(customMKMapViewDidSelectedWithInfo:)]){
+        //            [delegate customMKMapViewDidSelectedWithInfo:@"点击至之后你要在这干点啥"];
+        //        }
     }
 }
 
@@ -384,9 +328,9 @@
         PlaceDetailVO *place = [_annotationList objectAtIndex:anno.tag-100];
         
         MapCell  *cell = [MapCell getInstanceWithNibWithBlock:^(ButtonType aType) {
-//            [self clickMapCellButton:aType placeDetails:place];
+            //            [self clickMapCellButton:aType placeDetails:place];
         }];
-      
+        
         cell.placeDetailVO = place;
         [cell toAppearItemsView];
         
@@ -398,7 +342,7 @@
         MKAnnotationView *annotationView =[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"PinAnnotation"];
         if (!annotationView) {
             annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
-                                                           reuseIdentifier:@"PinAnnotation"];
+                                                          reuseIdentifier:@"PinAnnotation"];
             annotationView.canShowCallout = NO;
             annotationView.image = [UIImage imageNamed:@"dot.png"];
         }
@@ -420,7 +364,7 @@
 // 用户位置更新后，会调用此函数
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-   
+    
     newLocCoordinate = [newLocation coordinate];
 	CGFloat lat = newLocCoordinate.latitude;
 	CGFloat lon	= newLocCoordinate.longitude;
@@ -429,11 +373,9 @@
 	theCenter.latitude =lat;
 	theCenter.longitude = lon;
     
-//    MKCoordinateRegion theRegin = self.mapView.region;
-//	theRegin.center=theCenter;
 	MKCoordinateRegion theRegin = self.mapView.region;
 	theRegin.center=theCenter;
-
+    
 	MKCoordinateSpan theSpan;
 	theSpan.latitudeDelta = 0.1;
 	theSpan.longitudeDelta = 0.1;
@@ -447,19 +389,14 @@
     [self.mapView setCenterCoordinate:coordinate2D animated:YES];
     
     if (!havePlaced) {
-        havePlaced = !havePlaced;
+        havePlaced = YES;
         [self googlePlace];
     }
-//    [self googlePlace];
-//    [mytable reloadData];
-    
-    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
 	[locationManager stopUpdatingLocation];
 	[locationManager stopUpdatingHeading];
-	
 	[[self.mapView viewForAnnotation:[self.mapView userLocation]] setTransform:CGAffineTransformIdentity];
 	
 }
@@ -473,10 +410,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return 10;
-     NSLog(@"%d",titlearr.count);
     return titlearr.count;
-   
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -490,76 +424,61 @@
     UITableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:topicCell];
     if(!cell)
     {
-        
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:topicCell];
-        //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-
+        
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = mRGBColor(50, 200, 160);
-
+        
         UILabel*citylabel=[[UILabel alloc] initWithFrame:CGRectMake(15, 2, 200, 40)];
         citylabel.tag=1000;
         citylabel.font=[UIFont systemFontOfSize:18.f];
         citylabel.textColor=[UIColor blackColor];
-//        citylabel.text=@"women";
         citylabel.backgroundColor=[UIColor clearColor];
         [cell addSubview:citylabel];
-       
+        
         
         UIImageView * bgView = [[UIImageView alloc] initWithFrame:cell.bounds];
         bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        //        bgView.backgroundColor = [UIColor redColor];
         bgView.image = [[UIImage imageNamed:@"rect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 150, 20, 150)];
         cell.backgroundView = bgView;
         
         UIImageView*img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 300, 1)];
         img.image=[UIImage imageNamed:@"line.png"];
+        img.tag = 10000;
         [cell.contentView addSubview:img];
-        img.hidden=YES;
-        if (indexPath.row == [titlearr count] - 1) {
-            img.hidden = NO;
-        }else{
-            img.hidden = YES;
-        }
-        
     }
-
-        
-        
+    
+    UIView * view = [cell viewWithTag:10000];
+    view.hidden = titlearr.count - 1 != indexPath.row;
     
     UILabel*cityLabel=(UILabel*)[cell viewWithTag:1000];
-    
     PlaceDetailVO *place = [titlearr objectAtIndex:indexPath.row];
     CLLocationCoordinate2D coor;
     coor.latitude = [place.pLatStr floatValue];
     coor.longitude = [place.pLngStr floatValue];
     cityLabel.text=place.pNameStr;
     
-    NSLog(@"%@",place.pNameStr);
-    
-    
-    
-    
-    
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     PlaceDetailVO *place = [titlearr objectAtIndex:indexPath.row];
     CLLocationCoordinate2D coor;
     coor.latitude = [place.pLatStr floatValue];
     coor.longitude = [place.pLngStr floatValue];
-   
-//       PersonalViewController*personCTL=[[PersonalViewController alloc] initWithLatitude:place.pLatStr longitude:place.pLngStr placeName:place.pNameStr image:mapImage];
-     PersonalViewController*personCTL=[[PersonalViewController alloc] initWithLatitude:place.pLatStr longitude:place.pLngStr placeName:place.pNameStr image:mapImage singleCityId:self.singleCityId singleCityName:self.singleCityName cateryStr:self.cateryStr];
-//     [personCTL Latitude:place.pLatStr longitude:place.pLngStr placeName:place.pNameStr];
-    personCTL.longtitude=place.pLatStr;
-    personCTL.latitude=place.pLngStr;
-    personCTL.placeName=place.pNameStr;
-    NSLog(@"%@%@%@",personCTL.latitude,personCTL.longtitude,personCTL.placeName);
-    [self presentModalViewController:personCTL animated:YES];
-
-
+    
+    //
+    ////       PersonalViewController*personCTL=[[PersonalViewController alloc] initWithLatitude:place.pLatStr longitude:place.pLngStr placeName:place.pNameStr image:mapImage];
+    //     PersonalViewController*personCTL=[[PersonalViewController alloc] initWithLatitude:place.pLatStr longitude:place.pLngStr placeName:place.pNameStr image:mapImage singleCityId:self.singleCityId singleCityName:self.singleCityName cateryStr:self.cateryStr];
+    ////     [personCTL Latitude:place.pLatStr longitude:place.pLngStr placeName:place.pNameStr];
+    //    personCTL.longtitude=place.pLatStr;
+    //    personCTL.latitude=place.pLngStr;
+    //    personCTL.placeName=place.pNameStr;
+    //    NSLog(@"%@%@%@",personCTL.latitude,personCTL.longtitude,personCTL.placeName);
+    //    [self presentModalViewController:personCTL animated:YES];
+    
+    
 }
 
 @end

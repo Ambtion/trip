@@ -50,8 +50,9 @@
 @class MapViewController;
 @protocol MapViewDelegate <NSObject>
 @optional
-
 - (void)mapViewControllerDidCancel:(MapViewController *)picker;
+- (void)mapViewControllerDidSkip:(MapViewController *)picker;
+- (void)mapViewControllerDidSearch:(MapViewController *)picker;
 @end
 
 @interface MapViewController : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -61,22 +62,15 @@
     NSString                        *strType;
     
     UIProgressHUD                   *progressHUD;
-    UITableView*mytable;
-    NSMutableArray*titlearr;
+    UITableView                     *mytable;
+    NSMutableArray                  *titlearr;
     BOOL select;
-    UIImageView*backimageView;
+    UIImageView                     *backimageView;
     int height;
 }
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic)  UIProgressHUD *progressHUD;
-@property(nonatomic,strong)UIImage*mapImage;
-@property(nonatomic,strong)NSString*strType;
 @property (nonatomic, weak) id <MapViewDelegate> delegate;
 
-
-
-@property(nonatomic,strong)NSString*singleCityId;
-@property(nonatomic,strong)NSString*singleCityName;
-@property(nonatomic,strong)NSString*cateryStr;
 
 @end

@@ -121,15 +121,21 @@
     //
     
     MapViewController*mapCTL=[[MapViewController alloc] init];
-    
-//    mapCTL.mapImage=iii;
     mapCTL.delegate=self;
-    
-    //    mapCTL.cateryStr=self.cateryStr;
-    //    mapCTL.singleCityId=self.singleCityId;
-    //    mapCTL.singleCityName=self.singleCityName;
-    
-    [self presentViewController:mapCTL animated:YES completion:nil];
+    [self pushViewController:mapCTL animated:YES];
 }
 
+#pragma mark - MapViewDelegate
+- (void)mapViewControllerDidCancel:(MapViewController *)picker
+{
+    [self popViewControllerAnimated:YES];
+}
+- (void)mapViewControllerDidSearch:(MapViewController *)picker
+{
+    
+}
+- (void)mapViewControllerDidSkip:(MapViewController *)picker
+{
+    
+}
 @end

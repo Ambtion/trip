@@ -13,8 +13,9 @@
 #import "CityListController.h"
 #import "SeletedPhotoMethodController.h"
 #import "DLCImagePickerController.h"
+#import "MapViewController.h"
 
-@interface UploadViewControllerManager : UINavigationController<SingleMenuViewDelegate,AllMenuViewDeletage,CountryListViewDelegate,CityListControllerDelegate,SeletedPhotoMethodDelegate,DLCImagePickerDelegate>
+@interface UploadViewControllerManager : UINavigationController<SingleMenuViewDelegate,AllMenuViewDeletage,CountryListViewDelegate,CityListControllerDelegate,SeletedPhotoMethodDelegate,DLCImagePickerDelegate,MapViewDelegate>
 {
     PicUploadCateroy _cateroyId;
     NSDictionary * _subCateroyInfo;
