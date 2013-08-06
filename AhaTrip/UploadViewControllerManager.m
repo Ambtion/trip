@@ -89,7 +89,7 @@
 
 - (void)DLImagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self popViewControllerAnimated:YES];
+//    [self popViewControllerAnimated:YES];
 //    if (info) {
 //        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 //        ALAsset *asset;
@@ -113,8 +113,6 @@
 //    
 //    NSData*date= UIImageJPEGRepresentation(currentFilteredVideoFrame, 0.5);
 //    UIImage*iii=[UIImage imageWithData:date];
-    
-    
     //    PersonalViewController*personCTL=[[PersonalViewController alloc] init];
     //
     //    [self presentModalViewController:personCTL animated:YES];
