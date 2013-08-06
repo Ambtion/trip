@@ -69,9 +69,7 @@ NSString *const kXMLHelperTextNodeKey = @"text";
 + (NSMutableArray*)useNSXMLParserDelegateToGetResult:(NSData*)xmlData
 {
     NSLog(@"Using NSXMLParserDelegate");
-    
     NSMutableArray *resultArray = [[[NSMutableArray alloc] init] autorelease];
-    
     NSDictionary *xmlDic = [XMLHelper dictionaryForXMLData:xmlData error:nil];
     
     for (id key in xmlDic) {

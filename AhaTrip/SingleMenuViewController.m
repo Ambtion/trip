@@ -8,16 +8,13 @@
 
 #import "SingleMenuViewController.h"
 #import "AllMenuViewController.h"
-#import "SouSuoViewController.h"
+#import "CountryListController.h"
 #import "SelectPhotoViewController.h"
-#import "PhotoViewController.h"
+#import "SeletedPhotoMethodController.h"
 #import "Constants.h"
 #import "QuartzCore/QuartzCore.h"
 #import "DetailTextView.h"
 
-@interface SingleMenuViewController ()
-
-@end
 
 @implementation SingleMenuViewController
 @synthesize cateroyId = _cateroyId;
@@ -148,22 +145,16 @@
     [_dtView setKeyWordTextArray:[NSArray arrayWithObjects:menuEStr, nil] WithFont:[UIFont systemFontOfSize:16.f] AndColor:[UIColor whiteColor]];
 }
 
-
-//暂时留着.... 时间不容许
-
 //请求的request
 -(void)requestSingleCategary
 {
     
-    [self.view setUserInteractionEnabled:NO];
     [RequestManager getSubCateroyWithToken:nil WithCateroy_Id:_cateroyId + 1 success:^(NSString *response) {
         NSDictionary  * data =[response JSONValue];
         [_departMentArr removeAllObjects];
         _departMentArr = [data objectForKey:@"sub_categories"];
         [_departmentTable reloadData];
-        [self.view setUserInteractionEnabled:YES];
     } failure:^(NSString *error) {
-        [self.view setUserInteractionEnabled:YES];
     }];
 }
 

@@ -52,32 +52,20 @@
 @synthesize strType;
 @synthesize delegate;
 @synthesize singleCityName,singleCityId,cateryStr;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+
 #pragma mark -
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 //    [self.mapView removeFromSuperview];
-      titlearr=[NSMutableArray array];
-    
-    
+      titlearr = [NSMutableArray array];    
      _annotationList = [[NSMutableArray alloc] init];
 
     self.mapView.showsUserLocation = YES;
     MKCoordinateRegion region=MKCoordinateRegionMakeWithDistance(newLocCoordinate,800,800);
     [self.mapView setRegion:region animated:YES];
     [self.mapView setCenterCoordinate:newLocCoordinate animated:YES];
-    
-    
-
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -251,7 +239,7 @@
     
 //    
 //    //【 使用use NSXMLParserDelegate】
-     NSMutableArray *placeMuAry = [XMLHelper useNSXMLParserDelegateToGetResult:xmlData];
+    NSMutableArray *placeMuAry = [XMLHelper useNSXMLParserDelegateToGetResult:xmlData];
     NSLog(@"%@",placeMuAry);
     if (placeMuAry.count>0) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -259,8 +247,6 @@
             [self placeThePinsByAnnotationAry:placeMuAry annoType:type];
             
         });
-        
-
     }
 
     

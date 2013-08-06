@@ -6,49 +6,43 @@
 //  Copyright (c) 2012 Backspaces Inc. All rights reserved.
 //
 
-#import "PhotoViewController.h"
+#import "SeletedPhotoMethodController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "Constants.h"
 #import "MapViewController.h"
-//#import "CenterViewController.h"
-#import "PlazeViewController.h"
-@interface PhotoViewController ()
 
-@end
+@implementation SeletedPhotoMethodController
+@synthesize delegate;
 
-@implementation PhotoViewController
-
-@synthesize showPickerButton;
-@synthesize  singleCityId,singleCityName,cateryStr;
-
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(void)viewDidLoad
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
--(void)viewDidLoad{
-
+    
     [super viewDidLoad];
     self.view.backgroundColor=mRGBColor(236, 235, 235);
     //    topbar
     UIView*navView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     navView.backgroundColor=mRGBColor(50, 200, 160);
     [self.view addSubview:navView];
+    CGFloat offsety = 10.f;
+    UIButton * cameraButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    cameraButton.frame = CGRectMake(round(self.view.frame.size.width / 2.0-75), 105 - offsety,150, 111);
+    [cameraButton setImage:[UIImage imageNamed:@"FromCamera.png"] forState:UIControlStateHighlighted];
+    [cameraButton setImage:[UIImage imageNamed:@"FromCamera_0.png"] forState:UIControlStateNormal];
+    [cameraButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
+    [cameraButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    cameraButton.tag = KbuttonTagOpenCamera;
+    [self.view addSubview:cameraButton];
     
-    showPickerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    showPickerButton.frame = CGRectMake(round(self.view.frame.size.width / 2.0-75), self.view.frame.size.height - 350,150, 111);
-    [showPickerButton setImage:[UIImage imageNamed:@"FromCamera.png"] forState:UIControlStateNormal];
-	showPickerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    [showPickerButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
-    [showPickerButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-    
-    [self.view addSubview:showPickerButton];
-    
+    UIButton * assetsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    assetsButton.frame = CGRectMake(round(self.view.frame.size.width / 2.0-75), 250 - offsety,150, 111);
+    [assetsButton setImage:[UIImage imageNamed:@"FromPic_0.png"] forState:UIControlStateNormal];
+    [assetsButton setImage:[UIImage imageNamed:@"FromPic.png"] forState:UIControlStateHighlighted];
+
+    assetsButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [assetsButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
+    [assetsButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    assetsButton.tag = KbuttonTagOpenAssetsLib;
+    [self.view addSubview:assetsButton];
 	
     
     UILabel*Accombodation=[[UILabel alloc] initWithFrame:CGRectMake(15,7, 150, 30)];
@@ -58,15 +52,9 @@
     Accombodation.backgroundColor=[UIColor clearColor];
     [navView addSubview:Accombodation];
     
-    if ([self isIphone5]) {
-        height=548;
-    }else{
-        height=460;
-    
-    }
-    
+    CGFloat height = [[UIScreen mainScreen] bounds].size.height - 20;
     //    底部导航
-    bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0,height-55,320, 55)];
+    UIImageView * bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, height -55 ,320, 55)];
     bottomBar.backgroundColor=[UIColor blackColor];
     [self.view addSubview:bottomBar];
     
@@ -77,52 +65,29 @@
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeMenuBtn];
-
-
-//    UIButton*mainBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-//    [mainBtn setFrame:CGRectMake(280, self.view.frame.size.height-44, 50, 44)];
-//    mainBtn.contentMode=UIViewContentModeScaleAspectFit;
-//    [mainBtn setImage:[UIImage imageNamed:@"bottom_back.png"] forState:UIControlStateNormal];
-//    [mainBtn addTarget:self action:@selector(mainBtnMenu) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:mainBtn];
-
-
-}
-////返回主页
-//-(void)mainBtnMenu{
-//
-//   PlazeViewController*centerCTL=[[PlazeViewController alloc] init];
-//    [self presentViewController:centerCTL animated:YES completion:nil];
-//
-//
-//}
-//返回选择国家列表页
-
--(void)closeBtnBackMenu{
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 
--(void) takePhoto:(id)sender{
-    DLCImagePickerController *picker = [[DLCImagePickerController alloc] init];
-    picker.delegate = self;
-    picker.singleCityId=self.singleCityId;
-    picker.singleCityName=self.singleCityName;
-    picker.cateryStr=self.cateryStr;
-    
-    [self presentModalViewController:picker animated:YES];
+-(void)closeBtnBackMenu
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void) takePhoto:(UIButton *)button
+{
+    if ([delegate respondsToSelector:@selector(seletedPhotoMethodControllerDidClickOpneView:)])
+        [delegate seletedPhotoMethodControllerDidClickOpneView:button];
+}
 
--(void) imagePickerControllerDidCancel:(DLCImagePickerController *)picker{
+-(void) imagePickerControllerDidCancel:(DLCImagePickerController *)picker
+{
     [self dismissModalViewControllerAnimated:YES];
 }
 
 //-(void) imagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 //    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
 //    [self dismissModalViewControllerAnimated:YES];
-//    
+//
 ////    if (info) {
 ////        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 ////        [library writeImageDataToSavedPhotosAlbum:[info objectForKey:@"data"] metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
@@ -136,13 +101,13 @@
 ////         }];
 ////    }
 ////    UIImage *currentFilteredVideoFrame = [processUpTo imageFromCurrentlyProcessedOutputWithOrientation:staticPictureOriginalOrientation];
-////    
+////
 ////    NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:
 ////                          UIImageJPEGRepresentation(currentFilteredVideoFrame, self.outputJPEGQuality), @"data", nil];
 ////    if (info) {
 ////        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 ////        ALAsset *asset;
-////        
+////
 ////        //        NSDictionary *metadata= [[[asset defaultRepresentation] metadata] objectForKey:@"data"];
 ////        [library writeImageDataToSavedPhotosAlbum:[info objectForKey:@"data"] metadata:info completionBlock:^(NSURL *assetURL, NSError *error)
 ////         {
@@ -153,12 +118,12 @@
 ////                 NSLog(@"PHOTO SAVED - assetURL: %@", assetURL);
 ////                 //                 NSString * nsALAssetPropertyDate = [library valueForProperty:ALAssetPropertyDate] ;
 ////                 NSLog(@"%@",[[asset defaultRepresentation] metadata]);
-////                 
-////                 
+////
+////
 ////             }
 ////         }];
 ////    }
-//    
+//
 //    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
 //
 //    NSData*date=UIImageJPEGRepresentation(image, 0.5);
@@ -170,22 +135,18 @@
 //    //imageV.image=iii;
 //    //    AddPlaceViewController*addCTL=[[AddPlaceViewController alloc] init];
 //    //    [self presentViewController:addCTL animated:YES completion:nil];
-//    
+//
 //    MapViewController*mapCTL=[[MapViewController alloc] init];
-//    
+//
 //    mapCTL.mapImage=iii;
 ////    mapCTL.delegate=self;
-//    
+//
 //    mapCTL.cateryStr=self.cateryStr;
 //    mapCTL.singleCityId=self.singleCityId;
 //    mapCTL.singleCityName=self.singleCityName;
-//    
+//
 //    [self presentViewController:mapCTL animated:YES completion:nil];
 //
 //}
 
--(void) viewDidUnload {
-    [super viewDidUnload];
-    showPickerButton = nil;
-}
 @end

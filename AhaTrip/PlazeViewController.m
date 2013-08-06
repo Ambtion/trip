@@ -30,8 +30,8 @@
     [super viewWillAppear:animated];
     self.viewDeckController.panningMode = IIViewDeckDelegatePanning;
     self.viewDeckController.delegate = self;
-    if (![LoginStateManager isLogin])
-        [self showLoginViewWithMethodNav:NO withAnimation:YES];
+//    if (![LoginStateManager isLogin])
+//        [self showLoginViewWithMethodNav:NO withAnimation:YES];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {

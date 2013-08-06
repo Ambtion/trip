@@ -6,41 +6,33 @@
 //  Copyright (c) 2013年 tagux imac04. All rights reserved.
 //
 
-#import "SouSuoViewController.h"
-#import "CityTwoViewController.h"
-#import "SingleMenuViewController.h"
-#import "AppDelegate.h"
-#import "ASIRequest.h"
+#import "CountryListController.h"
 #import "Constants.h"
-#import "PlazeViewController.h"
-@interface SouSuoViewController ()
+#import "RequestManager.h"
 
-@end
 
-@implementation SouSuoViewController
-@synthesize selectCAtegary;
+@implementation CountryListController
+@synthesize delegate;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor=mRGBColor(236, 235, 235);
+    self.view.backgroundColor = mRGBColor(236, 235, 235);
     //    topbar
     UIView*navView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    navView.backgroundColor=mRGBColor(50, 200, 160);
+    navView.backgroundColor = mRGBColor(50, 200, 160);
     [self.view addSubview:navView];
+
     
-    //    request
-    [self addCountryRequest];
-    
-    cityArr = [NSMutableArray array];
+    countryArray = [NSMutableArray array];
 
     height = [[UIScreen mainScreen] bounds].size.height - 20.f;
-    cityTable =[[UITableView alloc] initWithFrame:CGRectMake(10, 54, 302, height-54 - 44 - 20) style:UITableViewStylePlain];
-    cityTable.dataSource=self;
-    cityTable.delegate=self;
-    cityTable.backgroundColor=[UIColor clearColor];
-    cityTable.separatorColor=[UIColor clearColor];
-    [self.view addSubview:cityTable];
+    countryTable  =[[UITableView alloc] initWithFrame:CGRectMake(10, 54, 302, height-54 - 44 - 20) style:UITableViewStylePlain];
+    countryTable.dataSource=self;
+    countryTable.delegate=self;
+    countryTable.backgroundColor=[UIColor clearColor];
+    countryTable.separatorColor=[UIColor clearColor];
+    [self.view addSubview:countryTable];
     
     //    底部导航
     bottomBar=[[UIImageView alloc] initWithFrame:CGRectMake(0,height-55,320, 55)];
@@ -64,6 +56,9 @@
     Accombodation.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
     Accombodation.textColor=[UIColor whiteColor];
     [navView addSubview:Accombodation];
+    
+    //    request
+    [self addCountryRequest];
 }
 
 //返回到分类列表页
@@ -75,20 +70,15 @@
 #pragma request
 -(void)addCountryRequest
 {
-    NSString*countryStr=@"http://yyz.ahatrip.info/api/countryList?token=tRyW4rLBiJHffQ";
-    [[ASIRequest shareInstance] get:countryStr header:nil delegate:self tag:1000 useCache:YES];
-    
+    [RequestManager getCountryAllListForSeletedWithstart:0 count:10000 token:nil success:^(NSString *response) {
+        NSDictionary *data = [response JSONValue];
+        countryArray =[data objectForKey:@"countries"];
+        [countryTable reloadData];
+    } failure:^(NSString *error) {
+        
+    }];
 }
-- (void)requestFinished:(ASIHTTPRequest *)request
-{
-    if (request.tag == 1000 && request.responseStatusCode == 200)
-    {
-        NSDictionary *data =[request responseString].objectFromJSONString;
-        cityArr=[data objectForKey:@"countries"];
-        [cityTable reloadData];
-    }
-    
-}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -97,7 +87,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  cityArr.count;
+    return  countryArray.count;
     
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -132,11 +122,11 @@
         UIImageView * img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 300, 1)];
         img.image=[UIImage imageNamed:@"line.png"];
         [cell addSubview:img];
-        img.hidden = [cityArr count] - 1 != indexPath.row;
+        img.hidden = [countryArray count] - 1 != indexPath.row;
 
     }
     
-    NSDictionary*cityDict=[cityArr objectAtIndex:indexPath.row];
+    NSDictionary*cityDict=[countryArray objectAtIndex:indexPath.row];
     DetailTextView * dtView = (DetailTextView*)[cell viewWithTag:2000];
     NSString * str = [NSString stringWithFormat:@"%@ %@",[cityDict objectForKey:@"name"],[cityDict objectForKey:@"en_name"]];
     [dtView setText:str WithFont:[UIFont systemFontOfSize:18.f] AndColor:[UIColor blackColor]];
@@ -147,17 +137,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary*cityIdDict=[cityArr objectAtIndex:indexPath.row];
-    NSString*cityid=[cityIdDict objectForKey:@"id"];
-    NSString*cityStr=[cityIdDict objectForKey:@"name"];
-    NSString*cityStr1=[cityIdDict objectForKey:@"en_name"];
-    
-    CityTwoViewController*city=[[CityTwoViewController alloc] init];
-    city.singleCityId=cityid;
-    city.singleCityName=cityStr;
-    city.singleCityName1=cityStr1;
-    city.cateryStr=self.selectCAtegary;
-    [self presentViewController:city animated:YES completion:nil];
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSDictionary * cityIdDict= [countryArray objectAtIndex:indexPath.row];
+    if ([delegate respondsToSelector:@selector(countryListControllerSeletedCountry:)])
+        [delegate countryListControllerSeletedCountry:cityIdDict];
 }
 @end

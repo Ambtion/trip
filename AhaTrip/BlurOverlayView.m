@@ -26,7 +26,8 @@
     return self;
 }
 
--(void) setCircleCenter:(CGPoint)circleCenter{
+-(void) setCircleCenter:(CGPoint)circleCenter
+{
     _circleCenter = circleCenter;
     holeRect = CGRectMake(circleCenter.x-self.radius, circleCenter.y-self.radius,
                           self.radius*2,
