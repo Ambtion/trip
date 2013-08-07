@@ -66,6 +66,7 @@
     [super viewDidLoad];
     [self initContainer];
     self.bg_errorView.backgroundColor = mRGBColor(235, 235, 235);
+    [self setMapViewsPerpoty];
     [self.bg_errorView setHidden:YES];
     [self addtabView];
     [self addTabBar];
@@ -88,6 +89,7 @@
     mytable.separatorColor=[UIColor clearColor];
     [self.view addSubview: mytable];
     [self addSearchView];
+    [mytable setContentOffset:CGPointMake(0, 44) animated:NO];
 }
 - (void)addSearchView
 {
@@ -102,7 +104,7 @@
     _searchDisPlay.searchResultsDataSource = self;
     _searchDisPlay.delegate = self;
 }
-- (void)setMapViews
+- (void)setMapViewsPerpoty
 {
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
     self.mapView.delegate = self;
@@ -135,7 +137,7 @@
     
     //返回国家页的listmenu页的按钮
     UIButton*closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [closeMenuBtn setFrame:CGRectMake(10,height-44, 50, 44)];
+    [closeMenuBtn setFrame:CGRectMake(10,height - 44, 50, 44)];
     closeMenuBtn.contentMode=UIViewContentModeScaleAspectFit;
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenuList) forControlEvents:UIControlEventTouchUpInside];
@@ -184,7 +186,6 @@
     }
     //    NewPlaceViewController*newPlace=[[NewPlaceViewController alloc] init];
     //    [self presentViewController:newPlace animated:YES completion:nil];
-    
 //    SPGooglePlacesAutocompleteViewController *viewController = [[SPGooglePlacesAutocompleteViewController alloc] initWithNibName:@"SPGooglePlacesAutocompleteViewController" bundle:nil];
 //    [self presentViewController:viewController animated:YES completion:nil];
 }
@@ -489,6 +490,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView != mytable) {
+        tableView.backgroundColor = mytable.backgroundColor;
+        tableView.separatorColor = mytable.separatorColor;
+        [self searchDataWithString:_searchBar.text];
+        [self fixTableViewFrame:tableView];
         return _searchArray.count;
     }
     return titlearr.count ? titlearr.count + 1 : 0;
@@ -503,7 +508,7 @@
 {
     static NSString * topicCell = @"TopicCell";
     static NSString *mapCell = @"MapCell";
-    NSInteger index = indexPath.row - 1;
+    NSInteger index = indexPath.row;
     NSMutableArray * sourceArray = nil;
     if (tableView == mytable) {
         sourceArray = titlearr;
