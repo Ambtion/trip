@@ -45,18 +45,6 @@
     [super viewWillAppear:animated];
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewDidUnload {
-    [self setMyNavItem:nil];
-    [self setTableView:nil];
-    [super viewDidUnload];
-}
 - (IBAction)clickBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }

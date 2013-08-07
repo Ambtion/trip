@@ -117,7 +117,6 @@
     //
     //    [self presentModalViewController:personCTL animated:YES];
     //
-    
     MapViewController*mapCTL=[[MapViewController alloc] init];
     mapCTL.delegate=self;
     [self pushViewController:mapCTL animated:YES];

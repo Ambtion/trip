@@ -169,7 +169,6 @@
 {
     
     [self accessGooglePlaceAPI:2000 latitude:newLocCoordinate.latitude longitude:newLocCoordinate.longitude placeType:@"" placeContainName:@""];
-    NSLog(@"%@",strType);
 }
 
 -(void)accessGooglePlaceAPI:(CGFloat)radius latitude:(CGFloat)lat longitude:(CGFloat)lon placeType:(NSString *)type placeContainName:(NSString *)name
@@ -182,7 +181,6 @@
     //
     //    //【 使用use NSXMLParserDelegate】
     NSMutableArray *placeMuAry = [XMLHelper useNSXMLParserDelegateToGetResult:xmlData];
-    NSLog(@"%@",placeMuAry);
     if (placeMuAry.count>0) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self placeThePinsByAnnotationAry:placeMuAry annoType:type];
@@ -211,14 +209,11 @@
     [self removeAllAnnotations];
     [_annotationList removeAllObjects];
     [_annotationList addObjectsFromArray:aPlaceAry];
-    NSLog(@"%d",_annotationList.count);
     [titlearr addObjectsFromArray:aPlaceAry];
-    NSLog(@"%@%d",titlearr,titlearr.count);
     [mytable reloadData];
     for (int i=0; i<[aPlaceAry count]; i++) {
         PlaceDetailVO *place = [aPlaceAry objectAtIndex:i];
         CLLocationCoordinate2D coor;
-        NSLog(@"%@",place.pNameStr);
         coor.latitude = [place.pLatStr floatValue];
         coor.longitude = [place.pLngStr floatValue];
         PinAnnotation *pinAnno = [[PinAnnotation alloc]initWithLatitude: coor.latitude andLongitude:coor.longitude];

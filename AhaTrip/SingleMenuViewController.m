@@ -9,7 +9,6 @@
 #import "SingleMenuViewController.h"
 #import "AllMenuViewController.h"
 #import "CountryListController.h"
-#import "SelectPhotoViewController.h"
 #import "SeletedPhotoMethodController.h"
 #import "Constants.h"
 #import "QuartzCore/QuartzCore.h"

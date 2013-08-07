@@ -16,6 +16,7 @@
 #import "MapViewController.h"
 #import "Constants.h"
 #import "PersonalViewController.h"
+
 #define kStaticBlurSize 2.0f
 
 @implementation DLCImagePickerController {
@@ -48,7 +49,6 @@ outputJPEGQuality;
     if (self) {
         self.outputJPEGQuality = 1.0;
     }
-    
     return self;
 }
 
@@ -57,7 +57,6 @@ outputJPEGQuality;
     [super viewDidLoad];
     self.wantsFullScreenLayout = YES;
     //set background color
-    
     self.view.backgroundColor = mRGBColor(43, 43, 44);
     [self.blurToggleButton setSelected:NO];
     self.finalOutPutButton.hidden=YES;
@@ -73,12 +72,10 @@ outputJPEGQuality;
     //                                                                         self.imageView.frame.size.height)];
     //    self.blurOverlayView.alpha = 0;
     //    [self.imageView addSubview:self.blurOverlayView];
-    
     hasBlur = NO;
     [self loadFilters];
-    
     //we need a crop filter for the live video
-    cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0f, 0.0f, 1.0f, 0.75f)];
+    cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0f, 0.0f, 1.0f, 0.75)];
     filter = [[GPUImageFilter alloc] init];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         [self setUpCamera];
@@ -387,21 +384,16 @@ outputJPEGQuality;
 
 -(void)captureImage
 {
-    
     UIImage *img = [cropFilter imageFromCurrentlyProcessedOutput];
+    DLog(@"LLLLLLLL:%@",NSStringFromCGSize(img.size));
     [stillCamera.inputCamera unlockForConfiguration];
     [stillCamera stopCameraCapture];
     [self removeAllTargets];
-    
     staticPicture = [[GPUImagePicture alloc] initWithImage:img
                                        smoothlyScaleOutput:YES];
     
     staticPictureOriginalOrientation = img.imageOrientation;
     [self prepareFilter];
-    //    [self.retakeButton setHidden:NO];
-    //    [self.photoCaptureButton setImage:nil forState:UIControlStateNormal];
-    //    [self.photoCaptureButton setEnabled:YES];
-    //    [self.photoCaptureButton setHidden:YES];
     [self setTabBarButtonToFinal:YES];
 }
 

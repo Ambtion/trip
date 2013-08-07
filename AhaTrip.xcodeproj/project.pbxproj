@@ -62,9 +62,7 @@
 		0505F6AC17A3B24600C4B77F /* DLCImagePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0505F69217A3B24500C4B77F /* DLCImagePicker.xib */; };
 		0505F6AD17A3B24600C4B77F /* DLCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69417A3B24500C4B77F /* DLCImagePickerController.m */; };
 		0505F6AE17A3B24600C4B77F /* GrayscaleContrastFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69617A3B24500C4B77F /* GrayscaleContrastFilter.m */; };
-		0505F6AF17A3B24600C4B77F /* PersonalSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69817A3B24500C4B77F /* PersonalSettingViewController.m */; };
 		0505F6B117A3B24600C4B77F /* SeletedPhotoMethodController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69B17A3B24500C4B77F /* SeletedPhotoMethodController.m */; };
-		0505F6B217A3B24600C4B77F /* SelectPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F69D17A3B24500C4B77F /* SelectPhotoViewController.m */; };
 		0505F6B417A3B24600C4B77F /* SingleMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F6A017A3B24500C4B77F /* SingleMenuViewController.m */; };
 		0505F6B617A3B24600C4B77F /* CountryListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F6A317A3B24500C4B77F /* CountryListController.m */; };
 		0505F6C617A3B44600C4B77F /* ASIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F6B917A3B44600C4B77F /* ASIRequest.m */; };
@@ -630,12 +628,8 @@
 		0505F69417A3B24500C4B77F /* DLCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLCImagePickerController.m; sourceTree = "<group>"; };
 		0505F69517A3B24500C4B77F /* GrayscaleContrastFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrayscaleContrastFilter.h; sourceTree = "<group>"; };
 		0505F69617A3B24500C4B77F /* GrayscaleContrastFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrayscaleContrastFilter.m; sourceTree = "<group>"; };
-		0505F69717A3B24500C4B77F /* PersonalSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalSettingViewController.h; sourceTree = "<group>"; };
-		0505F69817A3B24500C4B77F /* PersonalSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalSettingViewController.m; sourceTree = "<group>"; };
 		0505F69A17A3B24500C4B77F /* SeletedPhotoMethodController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeletedPhotoMethodController.h; sourceTree = "<group>"; };
 		0505F69B17A3B24500C4B77F /* SeletedPhotoMethodController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeletedPhotoMethodController.m; sourceTree = "<group>"; };
-		0505F69C17A3B24500C4B77F /* SelectPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPhotoViewController.h; sourceTree = "<group>"; };
-		0505F69D17A3B24500C4B77F /* SelectPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPhotoViewController.m; sourceTree = "<group>"; };
 		0505F69F17A3B24500C4B77F /* SingleMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleMenuViewController.h; sourceTree = "<group>"; };
 		0505F6A017A3B24500C4B77F /* SingleMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleMenuViewController.m; sourceTree = "<group>"; };
 		0505F6A217A3B24500C4B77F /* CountryListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryListController.h; sourceTree = "<group>"; };
@@ -1634,13 +1628,21 @@
 				C58C466C17AF7522003A12C6 /* UploadViewControllerManager.h */,
 				C58C466D17AF7522003A12C6 /* UploadViewControllerManager.m */,
 				0505F44117A385F200C4B77F /* Categary Ctl */,
-				0505F43F17A3829E00C4B77F /* View */,
-				0505F95117A3D27B00C4B77F /* DetailsViewController.h */,
-				0505F95217A3D27B00C4B77F /* DetailsViewController.m */,
-				0505F95317A3D27B00C4B77F /* DetailsViewController.xib */,
+				0505F69F17A3B24500C4B77F /* SingleMenuViewController.h */,
+				0505F6A017A3B24500C4B77F /* SingleMenuViewController.m */,
+				0505F6A217A3B24500C4B77F /* CountryListController.h */,
+				0505F6A317A3B24500C4B77F /* CountryListController.m */,
+				0505F69A17A3B24500C4B77F /* SeletedPhotoMethodController.h */,
+				0505F69B17A3B24500C4B77F /* SeletedPhotoMethodController.m */,
+				0505F69317A3B24500C4B77F /* DLCImagePickerController.h */,
+				0505F69417A3B24500C4B77F /* DLCImagePickerController.m */,
+				0505F69217A3B24500C4B77F /* DLCImagePicker.xib */,
 				0505F95417A3D27B00C4B77F /* MapViewController.h */,
 				0505F95517A3D27B00C4B77F /* MapViewController.m */,
 				0505F42717A3829300C4B77F /* MapViewController.xib */,
+				0505F95117A3D27B00C4B77F /* DetailsViewController.h */,
+				0505F95217A3D27B00C4B77F /* DetailsViewController.m */,
+				0505F95317A3D27B00C4B77F /* DetailsViewController.xib */,
 				7011DF9017AA34CA009D7CD8 /* NewPlaceViewController.h */,
 				7011DF9117AA34CB009D7CD8 /* NewPlaceViewController.m */,
 				7011DF9217AA34CB009D7CD8 /* NewPlaceViewController.xib */,
@@ -1654,6 +1656,7 @@
 				0505F42F17A3829300C4B77F /* PersonalViewController.xib */,
 				0505F43017A3829300C4B77F /* DeleteViewController.h */,
 				0505F43117A3829300C4B77F /* DeleteViewController.m */,
+				0505F43F17A3829E00C4B77F /* View */,
 			);
 			name = "Mian CTL";
 			sourceTree = "<group>";
@@ -1693,21 +1696,8 @@
 				70F07B6817A90940003DDC6D /* tencent weibo@2x.png */,
 				7011DF9517AA54B4009D7CD8 /* smail@2x.png */,
 				70F0798117A8C3DC003DDC6D /* camera_button@2x.png */,
-				0505F69317A3B24500C4B77F /* DLCImagePickerController.h */,
-				0505F69417A3B24500C4B77F /* DLCImagePickerController.m */,
-				0505F69217A3B24500C4B77F /* DLCImagePicker.xib */,
 				0505F69517A3B24500C4B77F /* GrayscaleContrastFilter.h */,
 				0505F69617A3B24500C4B77F /* GrayscaleContrastFilter.m */,
-				0505F69717A3B24500C4B77F /* PersonalSettingViewController.h */,
-				0505F69817A3B24500C4B77F /* PersonalSettingViewController.m */,
-				0505F69A17A3B24500C4B77F /* SeletedPhotoMethodController.h */,
-				0505F69B17A3B24500C4B77F /* SeletedPhotoMethodController.m */,
-				0505F69C17A3B24500C4B77F /* SelectPhotoViewController.h */,
-				0505F69D17A3B24500C4B77F /* SelectPhotoViewController.m */,
-				0505F69F17A3B24500C4B77F /* SingleMenuViewController.h */,
-				0505F6A017A3B24500C4B77F /* SingleMenuViewController.m */,
-				0505F6A217A3B24500C4B77F /* CountryListController.h */,
-				0505F6A317A3B24500C4B77F /* CountryListController.m */,
 			);
 			name = "Categary Ctl";
 			sourceTree = "<group>";
@@ -3221,9 +3211,7 @@
 				0505F6AA17A3B24600C4B77F /* CityListController.m in Sources */,
 				0505F6AD17A3B24600C4B77F /* DLCImagePickerController.m in Sources */,
 				0505F6AE17A3B24600C4B77F /* GrayscaleContrastFilter.m in Sources */,
-				0505F6AF17A3B24600C4B77F /* PersonalSettingViewController.m in Sources */,
 				0505F6B117A3B24600C4B77F /* SeletedPhotoMethodController.m in Sources */,
-				0505F6B217A3B24600C4B77F /* SelectPhotoViewController.m in Sources */,
 				0505F6B417A3B24600C4B77F /* SingleMenuViewController.m in Sources */,
 				0505F6B617A3B24600C4B77F /* CountryListController.m in Sources */,
 				0505F6C617A3B44600C4B77F /* ASIRequest.m in Sources */,
