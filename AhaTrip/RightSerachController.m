@@ -27,7 +27,6 @@
         [self.searchBar resignFirstResponder];
     }
 }
-
 @end
 
 @interface RightSerachController()

@@ -38,11 +38,10 @@
 }
 - (void)singleSelectedSubCateroyWihtInfo:(NSDictionary *)info
 {
-    SeletedPhotoMethodController *photoCTL=[[SeletedPhotoMethodController alloc] init];
-    photoCTL.delegate = self;
-    [self pushViewController:photoCTL animated:YES];
+    MapViewController*mapCTL=[[MapViewController alloc] init];
+    mapCTL.delegate=self;
+    [self pushViewController:mapCTL animated:YES];
     return;
-    
     _subCateroyInfo = info;
     CountryListController * souSuoCTL = [[CountryListController alloc] init];
     souSuoCTL.delegate = self;

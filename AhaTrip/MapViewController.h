@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "MASearchKit.h"
 
 @interface UIProgressIndicator : UIActivityIndicatorView {
 }
@@ -55,7 +56,11 @@
 - (void)mapViewControllerDidSearch:(MapViewController *)picker;
 @end
 
-@interface MapViewController : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface MapSearchDisplayController : UISearchDisplayController
+
+@end
+
+@interface MapViewController : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate,MASearchDelegate,UISearchDisplayDelegate>
 {
     CLLocationManager               *locationManager;
     CLLocationCoordinate2D          newLocCoordinate;
@@ -66,9 +71,14 @@
     NSMutableArray                  *titlearr;
     BOOL select;
     UIImageView                     *backimageView;
-    int height;
+    MASearch                        * maSearch;
+    
+    UISearchBar * _searchBar;
+    MapSearchDisplayController * _searchDisPlay;
+
 }
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIImageView *bg_errorView;
+@property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic)  UIProgressHUD *progressHUD;
 @property (nonatomic, weak) id <MapViewDelegate> delegate;
 

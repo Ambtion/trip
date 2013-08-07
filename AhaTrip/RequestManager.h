@@ -51,4 +51,8 @@
 
 //喜欢
 + (void)likeWithFindingId:(NSInteger)findingsId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
+
+//GooglePlaces
++ (void)getGooglePlaceWithRadius:(CGFloat)radius latitude:(CGFloat)lat longitude:(CGFloat)lon placeType:(NSString *)type placeContainName:(NSString *)name success:(void (^) (NSData * data))success  failure:(void (^) (NSString * error))failure;
+
 @end

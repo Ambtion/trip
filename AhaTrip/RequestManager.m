@@ -27,7 +27,6 @@
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]]; //开启缓冲
     [request setCachePolicy:ASIFallbackToCacheIfLoadFailsCachePolicy];
     [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
-    [request addRequestHeader:@"accept" value:@"application/json"];
     [request setRequestMethod:method];
     [request setTimeOutSeconds:TIMEOUT];
     [request setStringEncoding:NSUTF8StringEncoding];
@@ -191,5 +190,40 @@
     [dic setObject:@"tRyW4rLBiJHffQ" forKey:@"token"];
     DLog(@"%@",str);
     [self postWithURL:str body:dic success:success failure:failure];
+}
+
+
+#pragma mark - GoogleApi
+//Google Places Api Type:https://developers.google.com/places/documentation/supported_types
+
+#define PlaceURLString @"https://maps.googleapis.com/maps/api/place/search/xml?location=%f,%f&radius=%f&types=%@&name=%@&sensor=true&key=AIzaSyBHvxjcnxJNzgukGhgtO65qyxV5aX7DXvg&language=zh-CN"   //key 需自己在google api申请替换
+
++ (void)getGooglePlaceWithRadius:(CGFloat)radius latitude:(CGFloat)lat longitude:(CGFloat)lon placeType:(NSString *)type placeContainName:(NSString *)name success:(void (^) (NSData * data))success  failure:(void (^) (NSString * error))failure
+{
+
+    NSString * strUrl = [NSString stringWithFormat:PlaceURLString,lat,lon,radius,type,name];
+    NSURL * googlePlacesURL = [NSURL URLWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+    __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:googlePlacesURL];
+    [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]]; //开启缓冲
+    [request setCachePolicy:ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
+    [request setRequestMethod:@"GET"];
+    [request setTimeOutSeconds:TIMEOUT];
+    [request setStringEncoding:NSUTF8StringEncoding];
+    __weak ASIFormDataRequest * weakSelf = request;
+    [request setCompletionBlock:^{
+        if (weakSelf.responseStatusCode == 200){
+            success(weakSelf.responseData);
+        }else{
+            failure([weakSelf.error description]);
+        }
+        
+    }];
+    [request setFailedBlock:^{
+        failure([weakSelf.error description]);
+        DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
+    }];
+    [request startAsynchronous];
 }
 @end
