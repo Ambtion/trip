@@ -14,6 +14,7 @@
 #import "SeletedPhotoMethodController.h"
 #import "DLCImagePickerController.h"
 #import "MapViewController.h"
+#import "PersonalViewController.h"
 
 @interface UploadViewControllerManager : UINavigationController<SingleMenuViewDelegate,AllMenuViewDeletage,CountryListViewDelegate,CityListControllerDelegate,SeletedPhotoMethodDelegate,DLCImagePickerDelegate,MapViewDelegate>
 {
@@ -21,6 +22,8 @@
     NSDictionary * _subCateroyInfo;
     NSDictionary * _countryInfo;
     NSDictionary * _cityInfo;
+    NSMutableArray * _imageUrlArray;
+    NSString * _locationName;
 }
 
 - (id)initWithCateroyId:(PicUploadCateroy)cateroyId;

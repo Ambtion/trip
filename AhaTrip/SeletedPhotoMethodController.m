@@ -7,7 +7,6 @@
 //
 
 #import "SeletedPhotoMethodController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "Constants.h"
 #import "MapViewController.h"
 

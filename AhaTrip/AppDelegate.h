@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "AppDelegateOauthor.h"
 
 @interface AppDelegate : AppDelegateOauthor <UIApplicationDelegate>
 
+@property (strong, nonatomic) ALAssetsLibrary * lib;
 @property (strong, nonatomic) UIWindow *window;
-
+- (ALAssetsLibrary *)defaultAssetLib;
 @end

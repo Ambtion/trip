@@ -59,3 +59,7 @@ typedef enum __picUploadCateroy PicUploadCateroy;
 @interface NSObject(Cateroy)
 - (NSString *)getCateryImage:(PicUploadCateroy)cateroy;
 @end
+
+@interface NSObject(AssetLib)
+- (ALAssetsLibrary *)defaultLib;
+@end

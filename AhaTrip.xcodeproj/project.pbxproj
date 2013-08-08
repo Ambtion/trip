@@ -31,7 +31,6 @@
 		0505F43717A3829300C4B77F /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0505F42717A3829300C4B77F /* MapViewController.xib */; };
 		0505F43A17A3829300C4B77F /* PersonalImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F42C17A3829300C4B77F /* PersonalImageModel.m */; };
 		0505F43B17A3829300C4B77F /* PersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F42E17A3829300C4B77F /* PersonalViewController.m */; };
-		0505F43C17A3829300C4B77F /* PersonalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0505F42F17A3829300C4B77F /* PersonalViewController.xib */; };
 		0505F43E17A3829300C4B77F /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F43317A3829300C4B77F /* ButtonView.m */; };
 		0505F65917A3975D00C4B77F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0505F65817A3975D00C4B77F /* CoreImage.framework */; };
 		0505F65B17A3977500C4B77F /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0505F65A17A3977500C4B77F /* libz.1.1.3.dylib */; };
@@ -533,6 +532,7 @@
 		C5B5856C17B098EC00758913 /* FromCamera_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B5856917B098EB00758913 /* FromCamera_0@2x.png */; };
 		C5B5856D17B098EC00758913 /* FromPic_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B5856A17B098EB00758913 /* FromPic_0@2x.png */; };
 		C5B5856E17B098EC00758913 /* FromPic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B5856B17B098EB00758913 /* FromPic@2x.png */; };
+		C5C3582617B3A90400FEFC7C /* button_cancel_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3582517B3A90400FEFC7C /* button_cancel_search@2x.png */; };
 		C5ECB20B1782DA4900840A1E /* Login_button_qq_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5ECB2071782DA4900840A1E /* Login_button_qq_normal@2x.png */; };
 		C5ECB20C1782DA4900840A1E /* Login_button_qq_rpress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5ECB2081782DA4900840A1E /* Login_button_qq_rpress@2x.png */; };
 		C5ECB20D1782DA4900840A1E /* Login_button_sina_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5ECB2091782DA4900840A1E /* Login_button_sina_normal@2x.png */; };
@@ -584,7 +584,6 @@
 		0505F42C17A3829300C4B77F /* PersonalImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalImageModel.m; sourceTree = "<group>"; };
 		0505F42D17A3829300C4B77F /* PersonalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalViewController.h; sourceTree = "<group>"; };
 		0505F42E17A3829300C4B77F /* PersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalViewController.m; sourceTree = "<group>"; };
-		0505F42F17A3829300C4B77F /* PersonalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalViewController.xib; sourceTree = "<group>"; };
 		0505F43217A3829300C4B77F /* ButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
 		0505F43317A3829300C4B77F /* ButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		0505F65817A3975D00C4B77F /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -1382,6 +1381,7 @@
 		C5B5856917B098EB00758913 /* FromCamera_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FromCamera_0@2x.png"; sourceTree = "<group>"; };
 		C5B5856A17B098EB00758913 /* FromPic_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FromPic_0@2x.png"; sourceTree = "<group>"; };
 		C5B5856B17B098EB00758913 /* FromPic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FromPic@2x.png"; sourceTree = "<group>"; };
+		C5C3582517B3A90400FEFC7C /* button_cancel_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_cancel_search@2x.png"; sourceTree = "<group>"; };
 		C5ECB2071782DA4900840A1E /* Login_button_qq_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_button_qq_normal@2x.png"; sourceTree = "<group>"; };
 		C5ECB2081782DA4900840A1E /* Login_button_qq_rpress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_button_qq_rpress@2x.png"; sourceTree = "<group>"; };
 		C5ECB2091782DA4900840A1E /* Login_button_sina_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_button_sina_normal@2x.png"; sourceTree = "<group>"; };
@@ -1655,7 +1655,6 @@
 				0505F42C17A3829300C4B77F /* PersonalImageModel.m */,
 				0505F42D17A3829300C4B77F /* PersonalViewController.h */,
 				0505F42E17A3829300C4B77F /* PersonalViewController.m */,
-				0505F42F17A3829300C4B77F /* PersonalViewController.xib */,
 				0505F43F17A3829E00C4B77F /* View */,
 			);
 			name = "Mian CTL";
@@ -2662,6 +2661,7 @@
 		C59227A51782B4BD00ECF679 /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
+				C5C3582517B3A90400FEFC7C /* button_cancel_search@2x.png */,
 				C587365617856E2200950F05 /* register_image@2x.png */,
 				C58736541785690F00950F05 /* gender_button_bg@2x.png */,
 				C50A2B79178427BB00D7231C /* button_cancel@2x.png */,
@@ -3019,7 +3019,6 @@
 				0505F41F17A3824900C4B77F /* location.png in Resources */,
 				0505F42017A3824900C4B77F /* location@2x.png in Resources */,
 				0505F43717A3829300C4B77F /* MapViewController.xib in Resources */,
-				0505F43C17A3829300C4B77F /* PersonalViewController.xib in Resources */,
 				0505F6A617A3B24600C4B77F /* AddPlaceViewController.xib in Resources */,
 				0505F6A817A3B24600C4B77F /* AllMenuViewController.xib in Resources */,
 				0505F6AB17A3B24600C4B77F /* CityListController.xib in Resources */,
@@ -3142,6 +3141,7 @@
 				C5B5856D17B098EC00758913 /* FromPic_0@2x.png in Resources */,
 				C5B5856E17B098EC00758913 /* FromPic@2x.png in Resources */,
 				C5A9DA6617B1F67C00A27958 /* location_failture_bg@2x.png in Resources */,
+				C5C3582617B3A90400FEFC7C /* button_cancel_search@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 #import "MapCell.h"
 #import <QuartzCore/QuartzCore.h>
-#import "PlaceDetailVO.h"
+#import "MASearch.h"
 #import "UIImageView+DispatchLoad.h"
 #import "DealHelper.h"
 #define ANGLE_TO_PI M_PI/180
@@ -38,42 +38,11 @@
 #pragma mark - methods
 -(void)toAppearItemsView
 {
-     self.labelTitle.text = self.placeDetailVO.pNameStr;
-    [self.imageViewBg setImageFromUrl:self.placeDetailVO.pIconURLStr completion:^{
-        
+     self.labelTitle.text = self.placeDetailVO.name;
+    [self.imageViewBg setImageFromUrl:self.placeDetailVO.url completion:^{
     }];
-    
     [[DealHelper sharedInstance]dealViewRoundCorners:self.imageViewBg radius:self.imageViewBg.bounds.size.width/2];
-    
     [[DealHelper sharedInstance]dealScaleView:self.buttonItem1 scale:0.1];
-//    [[DealHelper sharedInstance]dealScaleView:self.buttonItem2 scale:0.1];
-//    [[DealHelper sharedInstance]dealScaleView:self.buttonItem3 scale:0.1];
-    
-//    // 延迟2秒执行：
-//    double delayInSeconds = 0.2;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-//    dispatch_after(popTime,  dispatch_get_main_queue(), ^(void){//dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-//       
-//         [self appearItemsViews:self.buttonItem1 tag:[NSNumber numberWithInteger:0]];
-//         [self appearItemsViews:self.buttonItem2 tag:[NSNumber numberWithInteger:1]];
-//        [self appearItemsViews:self.buttonItem3 tag:[NSNumber numberWithInteger:3]];
-//
-//        
-////        double delayInSeconds = 0.1;
-////        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-////        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-////             [self appearItemsViews:self.buttonItem2 tag:[NSNumber numberWithInteger:1]];
-////            
-////            double delayInSeconds = 0.1;
-////            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-////            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-////                 [self appearItemsViews:self.buttonItem1 tag:[NSNumber numberWithInteger:0]];
-////                             });
-////        });
-//       
-//       
-//    });
-
 }
 -(void)appearItemsViews:(UIView *)aView tag:(NSNumber *)aTagNum
 {

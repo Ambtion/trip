@@ -29,9 +29,6 @@
     UIView*selectBackView;
     UITableView*shareTable;
     NSMutableArray*shareArr;
-    
-
-
 }
 @property(nonatomic,strong)NSString*latitude;
 @property(nonatomic,strong)NSString*longtitude;

@@ -24,7 +24,6 @@
 - (void)dealloc
 {
     self.contentView = nil;
-  
 }
 
 

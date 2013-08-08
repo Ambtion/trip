@@ -53,7 +53,7 @@
 @optional
 - (void)mapViewControllerDidCancel:(MapViewController *)picker;
 - (void)mapViewControllerDidSkip:(MapViewController *)picker;
-- (void)mapViewControllerDidSearch:(MapViewController *)picker;
+- (void)mapViewControllerDidSeletedLocation:(NSString *)locationName;
 @end
 
 @interface MapSearchDisplayController : UISearchDisplayController
@@ -68,11 +68,12 @@
     
     UIProgressHUD                   *progressHUD;
     UITableView                     *mytable;
-    NSMutableArray                  *titlearr;
+    NSMutableArray                  *_dataSource;
     BOOL select;
     UIImageView                     *backimageView;
     MASearch                        * maSearch;
     
+    UILabel * addPlaceLable;
     UISearchBar * _searchBar;
     MapSearchDisplayController * _searchDisPlay;
 

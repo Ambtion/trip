@@ -222,3 +222,11 @@
 }
 
 @end
+
+
+@implementation NSObject(AssetLib)
+- (ALAssetsLibrary *)defaultLib
+{
+    return [(AppDelegate *)[[UIApplication sharedApplication] delegate] defaultLib];
+}
+@end

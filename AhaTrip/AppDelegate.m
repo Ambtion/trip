@@ -17,6 +17,7 @@
 
 @implementation AppDelegate
 @synthesize window = _window;
+@synthesize lib = _lib;
 
 - (void)configProject
 {
@@ -72,4 +73,11 @@
     //    application.applicationIconBadgeNumber -= 1;
 }
 
+- (ALAssetsLibrary *)defaultAssetLib
+{
+    if (!self.lib) {
+        self.lib = [[ALAssetsLibrary alloc] init];
+    }
+    return self.lib;
+}
 @end

@@ -88,37 +88,28 @@
 
 - (void)DLImagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-//    [self popViewControllerAnimated:YES];
-//    if (info) {
-//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//        ALAsset *asset;
-//        
-//        //        NSDictionary *metadata= [[[asset defaultRepresentation] metadata] objectForKey:@"data"];
-//        [library writeImageDataToSavedPhotosAlbum:[info objectForKey:@"data"] metadata:info completionBlock:^(NSURL *assetURL, NSError *error)
-//         {
-//             if (error) {
-//                 NSLog(@"ERROR: the image failed to be written");
-//             }
-//             else {
-//                 NSLog(@"PHOTO SAVED - assetURL: %@", assetURL);
-//                 //                 NSString * nsALAssetPropertyDate = [library valueForProperty:ALAssetPropertyDate] ;
-//                 NSLog(@"%@",[[asset defaultRepresentation] metadata]);
-//                 
-//                 
-//             }
-//         }];
-//    }
-//    
-//    
-//    NSData*date= UIImageJPEGRepresentation(currentFilteredVideoFrame, 0.5);
-//    UIImage*iii=[UIImage imageWithData:date];
-    //    PersonalViewController*personCTL=[[PersonalViewController alloc] init];
-    //
-    //    [self presentModalViewController:personCTL animated:YES];
-    //
-    MapViewController*mapCTL=[[MapViewController alloc] init];
-    mapCTL.delegate=self;
-    [self pushViewController:mapCTL animated:YES];
+    if (!_imageUrlArray)
+        _imageUrlArray = [NSMutableArray arrayWithCapacity:0];
+    if (info) {
+        UIImage * image = [info objectForKey:@"Image"];
+        [[self defaultLib] writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)image.imageOrientation completionBlock:^(NSURL *assetURL, NSError *error){
+            
+             if (error) {
+                 NSLog(@"ERROR: the image failed to be written");
+                 MapViewController * mapCTL=[[MapViewController alloc] init];
+                 mapCTL.delegate=self;
+                 [self pushViewController:mapCTL animated:YES];
+             }
+             else {
+                 if (![_imageUrlArray containsObject:assetURL])
+                     [_imageUrlArray addObject:assetURL];
+                 [self popViewControllerAnimated:YES];
+                 MapViewController * mapCTL=[[MapViewController alloc] init];
+                 mapCTL.delegate=self;
+                 [self pushViewController:mapCTL animated:YES];
+             }
+         }];
+    }
 }
 
 #pragma mark - MapViewDelegate
@@ -126,12 +117,16 @@
 {
     [self popViewControllerAnimated:YES];
 }
-- (void)mapViewControllerDidSearch:(MapViewController *)picker
-{
-    
-}
 - (void)mapViewControllerDidSkip:(MapViewController *)picker
 {
-    
+    _locationName = nil;
+    PersonalViewController*personal=[[PersonalViewController alloc] initWithLatitude:@"" longitude:@"" placeName:@"" image:[UIImage imageNamed:@"testImage.png"] singleCityId:@"" singleCityName:@"" cateryStr:@""];
+    [self pushViewController:personal animated:YES];
+}
+- (void)mapViewControllerDidSeletedLocation:(NSString *)locationName
+{
+    _locationName = locationName;
+    PersonalViewController*personal=[[PersonalViewController alloc] init];
+    [self pushViewController:personal animated:YES];
 }
 @end

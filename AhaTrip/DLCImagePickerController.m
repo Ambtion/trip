@@ -65,7 +65,6 @@ outputJPEGQuality;
     self.focusView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"focus-crosshair"]];
 	[self.view addSubview:self.focusView];
 	self.focusView.alpha = 0;
-    
     //模糊图层不需要
     //    self.blurOverlayView = [[BlurOverlayView alloc] initWithFrame:CGRectMake(0, 0,
     //                                                                         self.imageView.frame.size.width,
@@ -385,6 +384,7 @@ outputJPEGQuality;
 -(void)captureImage
 {
     UIImage *img = [cropFilter imageFromCurrentlyProcessedOutput];
+    UIImageWriteToSavedPhotosAlbum(img, nil, nil, NULL);
     DLog(@"LLLLLLLL:%@",NSStringFromCGSize(img.size));
     [stillCamera.inputCamera unlockForConfiguration];
     [stillCamera stopCameraCapture];
@@ -402,40 +402,13 @@ outputJPEGQuality;
     [self.photoCaptureButton setEnabled:NO];
     if (!isStatic) {
         isStatic = YES;
-        //        [self.libraryToggleButton setHidden:YES];
-        //        [self.cameraToggleButton setEnabled:NO];
-        //        [self.flashToggleButton setEnabled:NO];
-        //        [self setTabBarButtonToFinal:YES];
         [self prepareForCapture];
-        //        finalOutPutButton.hidden=NO;
     }else
         
     {
         isStatic = NO;
         [self setTabBarButtonToFinal:YES];
-        //        finalOutPutButton.hidden=YES;
-        
     }
-    
-    //    }
-    //else {
-    //
-    //        GPUImageOutput<GPUImageInput> *processUpTo;
-    //
-    //        if (hasBlur) {
-    //            processUpTo = blurFilter;
-    //        } else {
-    //            processUpTo = filter;
-    //        }
-    //
-    //        [staticPicture processImage];
-    //
-    //        UIImage *currentFilteredVideoFrame = [processUpTo imageFromCurrentlyProcessedOutputWithOrientation:staticPictureOriginalOrientation];
-    //
-    //        NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:
-    //                              UIImageJPEGRepresentation(currentFilteredVideoFrame, self.outputJPEGQuality), @"data", nil];
-    //        [self.delegate imagePickerController:self didFinishPickingMediaWithInfo:info];
-    //    }
 }
 
 -(IBAction)retakePhoto:(UIButton *)button
@@ -636,13 +609,7 @@ outputJPEGQuality;
 //点击上传图片
 -(IBAction) finalOutPutImage:(UIButton *)sender
 {
-    
-    
-    //    cancelButton.hidden=YES;
-    //    finalOutPutButton.hidden=NO;
-    DLog(@"");
     GPUImageOutput<GPUImageInput> *processUpTo;
-    
     if (hasBlur) {
         processUpTo = blurFilter;
     } else {
@@ -651,10 +618,8 @@ outputJPEGQuality;
     [staticPicture processImage];
     
     UIImage *currentFilteredVideoFrame = [processUpTo imageFromCurrentlyProcessedOutputWithOrientation:staticPictureOriginalOrientation];
-    
     NSMutableDictionary * info = [NSMutableDictionary dictionaryWithCapacity:0];
-    [info setObject: UIImageJPEGRepresentation(currentFilteredVideoFrame, self.outputJPEGQuality) forKey:@"data"];
-    [info setObject:currentFilteredVideoFrame forKey:@"EditingImage"];
+    [info setObject:currentFilteredVideoFrame forKey:@"Image"];
     if ([delegate respondsToSelector:@selector(DLImagePickerController:didFinishPickingMediaWithInfo:)])
         [delegate DLImagePickerController:self didFinishPickingMediaWithInfo:info];
     

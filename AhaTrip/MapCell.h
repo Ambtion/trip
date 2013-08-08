@@ -17,7 +17,7 @@ typedef enum {
 
 typedef void (^ClickButtonBlock)(ButtonType aType);
 
-@class PlaceDetailVO;
+@class MAPOI;
 @interface MapCell : UIView
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewBg;
@@ -26,7 +26,7 @@ typedef void (^ClickButtonBlock)(ButtonType aType);
 @property (weak, nonatomic) IBOutlet UIButton *buttonItem3;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 
-@property (nonatomic,strong)PlaceDetailVO   *placeDetailVO;
+@property (nonatomic,strong)MAPOI   * placeDetailVO;
 
 @property (nonatomic,strong)ClickButtonBlock    blockButton;
 
