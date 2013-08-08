@@ -66,11 +66,11 @@
     [super viewDidLoad];
     [self initContainer];
     self.bg_errorView.backgroundColor = mRGBColor(235, 235, 235);
-    [self setMapViewsPerpoty];
     [self.bg_errorView setHidden:YES];
     [self addtabView];
     [self addTabBar];
     [self addNavBar];
+    [self setMapViewsPerpoty];
     [self.view bringSubviewToFront:self.bg_errorView];
 }
 - (void)initContainer
@@ -104,27 +104,28 @@
     _searchDisPlay.searchResultsDataSource = self;
     _searchDisPlay.delegate = self;
 }
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setMapViewsPerpoty];
+}
+
 - (void)setMapViewsPerpoty
 {
-    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
-    self.mapView.delegate = self;
+
     self.mapView.showsUserLocation = YES;
-    MKCoordinateRegion region= MKCoordinateRegionMakeWithDistance(newLocCoordinate,800,800);
-    [self.mapView setRegion:region animated:YES];
-    [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
-    self.mapView.scrollEnabled = NO;
-    self.mapView.zoomEnabled = NO;
+//    self.mapView.scrollEnabled = NO;
+//    self.mapView.zoomEnabled = NO;
     
-    DLog();
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
-    
     //开启GPS
     if(CLLocationManager.locationServicesEnabled) {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;//设定为最佳精度
         locationManager.distanceFilter = 5.0f;//响应位置变化的最小距离(m)
         [locationManager startUpdatingLocation];
     }
+    DLog(@"%f",newLocCoordinate.latitude);
 
 }
 - (void)addTabBar
@@ -290,7 +291,6 @@
         pinAnno.tag = i+100;
         [self.mapView addAnnotation:pinAnno];
     }
-    [self.mapView setHidden:NO];
 }
 
 - (void)placeThePinsByPiosArray:(NSArray *)array
@@ -501,7 +501,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

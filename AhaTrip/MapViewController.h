@@ -78,7 +78,7 @@
 
 }
 @property (weak, nonatomic) IBOutlet UIImageView *bg_errorView;
-@property (strong, nonatomic) MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet  MKMapView *mapView;
 @property (strong, nonatomic)  UIProgressHUD *progressHUD;
 @property (nonatomic, weak) id <MapViewDelegate> delegate;
 
