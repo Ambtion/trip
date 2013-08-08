@@ -10,9 +10,9 @@
 #import "ButtonView.h"
 #import "GPUImage.h"
 #import "BlurOverlayView.h"
-#import "DeleteViewController.h"
 #import "QuartzCore/QuartzCore.h"
-#import "Constants.h"   
+#import "Constants.h"  
+
 #define  PIC_WIDTH 70
 #define  PIC_HEIGHT 70
 #define  INSETS 10
