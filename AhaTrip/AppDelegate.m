@@ -73,7 +73,7 @@
     //    application.applicationIconBadgeNumber -= 1;
 }
 
-- (ALAssetsLibrary *)defaultAssetLib
+- (ALAssetsLibrary *)appDefaultAssetLib
 {
     if (!self.lib) {
         self.lib = [[ALAssetsLibrary alloc] init];

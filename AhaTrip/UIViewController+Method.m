@@ -220,13 +220,11 @@
             break;
     }
 }
-
 @end
-
 
 @implementation NSObject(AssetLib)
 - (ALAssetsLibrary *)defaultLib
 {
-    return [(AppDelegate *)[[UIApplication sharedApplication] delegate] defaultLib];
+    return [(AppDelegate *)[[UIApplication sharedApplication] delegate] appDefaultAssetLib];
 }
 @end

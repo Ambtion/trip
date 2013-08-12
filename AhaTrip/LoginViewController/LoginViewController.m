@@ -196,6 +196,7 @@
     DLog(@"%@",self.navigationController);
     [self.navigationController pushViewController:reg animated:YES];
 }
+
 #pragma mark Handle Login Result
 
 - (void)handleLoginInfo:(NSDictionary *)response

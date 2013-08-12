@@ -14,8 +14,5 @@
     UIButton*closeBtn;
     UISearchBar*serchBar;
     UIButton*addBtn;
-
-
-
 }
 @end

@@ -52,7 +52,6 @@
 @protocol MapViewDelegate <NSObject>
 @optional
 - (void)mapViewControllerDidCancel:(MapViewController *)picker;
-- (void)mapViewControllerDidSkip:(MapViewController *)picker;
 - (void)mapViewControllerDidSeletedLocation:(NSString *)locationName;
 @end
 
@@ -76,7 +75,7 @@
     UILabel * addPlaceLable;
     UISearchBar * _searchBar;
     MapSearchDisplayController * _searchDisPlay;
-
+    BOOL _isSearchNO;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *bg_errorView;
 @property (weak, nonatomic) IBOutlet  MKMapView *mapView;

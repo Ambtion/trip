@@ -127,9 +127,10 @@
 
 #pragma mark - Actions
 
-- (void)showActionSheetPicker {
-    UIView *masterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewSize.width, 260)];    
-    UIToolbar *pickerToolbar = [self createPickerToolbarWithTitle:self.title];
+- (void)showActionSheetPicker
+{
+    UIView * masterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewSize.width, 260)];    
+    UIToolbar * pickerToolbar = [self createPickerToolbarWithTitle:self.title];
     [pickerToolbar setBarStyle:UIBarStyleBlackTranslucent];
     [masterView addSubview:pickerToolbar];
     self.pickerView = [self configuredPickerView];

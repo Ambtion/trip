@@ -14,5 +14,5 @@
 
 @property (strong, nonatomic) ALAssetsLibrary * lib;
 @property (strong, nonatomic) UIWindow *window;
-- (ALAssetsLibrary *)defaultAssetLib;
+- (ALAssetsLibrary *)appDefaultAssetLib;
 @end

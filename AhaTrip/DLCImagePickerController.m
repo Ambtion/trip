@@ -15,7 +15,6 @@
 #import "AddPlaceViewController.h"
 #import "MapViewController.h"
 #import "Constants.h"
-#import "PersonalViewController.h"
 
 #define kStaticBlurSize 2.0f
 

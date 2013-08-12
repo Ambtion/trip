@@ -30,7 +30,6 @@
 		0505F42017A3824900C4B77F /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0505F41C17A3824900C4B77F /* location@2x.png */; };
 		0505F43717A3829300C4B77F /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0505F42717A3829300C4B77F /* MapViewController.xib */; };
 		0505F43A17A3829300C4B77F /* PersonalImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F42C17A3829300C4B77F /* PersonalImageModel.m */; };
-		0505F43B17A3829300C4B77F /* PersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F42E17A3829300C4B77F /* PersonalViewController.m */; };
 		0505F43E17A3829300C4B77F /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F43317A3829300C4B77F /* ButtonView.m */; };
 		0505F65917A3975D00C4B77F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0505F65817A3975D00C4B77F /* CoreImage.framework */; };
 		0505F65B17A3977500C4B77F /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0505F65A17A3977500C4B77F /* libz.1.1.3.dylib */; };
@@ -422,6 +421,7 @@
 		C50A2B761784191200D7231C /* setting_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C50A2B751784191200D7231C /* setting_bar@2x.png */; };
 		C50A2B7817841A2E00D7231C /* setting_bar_done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C50A2B7717841A2E00D7231C /* setting_bar_done@2x.png */; };
 		C50A2B7A178427BB00D7231C /* button_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C50A2B79178427BB00D7231C /* button_cancel@2x.png */; };
+		C517FE3317B8D9DD0000DA05 /* BusinessTimeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C517FE3217B8D9DD0000DA05 /* BusinessTimeLabel.m */; };
 		C52F2666177C4FD800980761 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C52F2665177C4FD800980761 /* Accelerate.framework */; };
 		C540B33B177C48EE00B5CADC /* DetailDes_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C540B335177C48EE00B5CADC /* DetailDes_bg@2x.png */; };
 		C540B33C177C48EE00B5CADC /* DetailIcon_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C540B336177C48EE00B5CADC /* DetailIcon_Bg@2x.png */; };
@@ -511,6 +511,7 @@
 		C593B6E7177986290000107C /* ItemSearchBarBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C593B6E5177986280000107C /* ItemSearchBarBg@2x.png */; };
 		C596A89617AA74E5005B87A5 /* commentbgView.png in Resources */ = {isa = PBXBuildFile; fileRef = C596A89517AA74E5005B87A5 /* commentbgView.png */; };
 		C596A89717AA83AB005B87A5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DC2ACF17A3973C002A4C92 /* Default.png */; };
+		C599897317B878DE0068F912 /* UploadInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C599897217B878DE0068F912 /* UploadInfoViewController.m */; };
 		C59D51D21777F31900A635DD /* CountryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59D51D11777F31900A635DD /* CountryListCell.m */; };
 		C59D51D517781CDA00A635DD /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59D51D417781CD900A635DD /* CityViewController.m */; };
 		C59D51D717782A2200A635DD /* right_Menu_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C59D51D617782A2200A635DD /* right_Menu_back@2x.png */; };
@@ -582,8 +583,6 @@
 		0505F42717A3829300C4B77F /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		0505F42B17A3829300C4B77F /* PersonalImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalImageModel.h; sourceTree = "<group>"; };
 		0505F42C17A3829300C4B77F /* PersonalImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalImageModel.m; sourceTree = "<group>"; };
-		0505F42D17A3829300C4B77F /* PersonalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalViewController.h; sourceTree = "<group>"; };
-		0505F42E17A3829300C4B77F /* PersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalViewController.m; sourceTree = "<group>"; };
 		0505F43217A3829300C4B77F /* ButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
 		0505F43317A3829300C4B77F /* ButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		0505F65817A3975D00C4B77F /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -1226,6 +1225,8 @@
 		C50A2B751784191200D7231C /* setting_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_bar@2x.png"; sourceTree = "<group>"; };
 		C50A2B7717841A2E00D7231C /* setting_bar_done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_bar_done@2x.png"; sourceTree = "<group>"; };
 		C50A2B79178427BB00D7231C /* button_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_cancel@2x.png"; sourceTree = "<group>"; };
+		C517FE3117B8D9DD0000DA05 /* BusinessTimeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessTimeLabel.h; sourceTree = "<group>"; };
+		C517FE3217B8D9DD0000DA05 /* BusinessTimeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessTimeLabel.m; sourceTree = "<group>"; };
 		C52F2665177C4FD800980761 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C540B335177C48EE00B5CADC /* DetailDes_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DetailDes_bg@2x.png"; sourceTree = "<group>"; };
 		C540B336177C48EE00B5CADC /* DetailIcon_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DetailIcon_Bg@2x.png"; sourceTree = "<group>"; };
@@ -1348,6 +1349,8 @@
 		C593B6E4177986280000107C /* ItemMenuBarBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ItemMenuBarBg@2x.png"; sourceTree = "<group>"; };
 		C593B6E5177986280000107C /* ItemSearchBarBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ItemSearchBarBg@2x.png"; sourceTree = "<group>"; };
 		C596A89517AA74E5005B87A5 /* commentbgView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = commentbgView.png; sourceTree = "<group>"; };
+		C599897117B878DE0068F912 /* UploadInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadInfoViewController.h; sourceTree = "<group>"; };
+		C599897217B878DE0068F912 /* UploadInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadInfoViewController.m; sourceTree = "<group>"; };
 		C59D51D01777F31900A635DD /* CountryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryListCell.h; sourceTree = "<group>"; };
 		C59D51D11777F31900A635DD /* CountryListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryListCell.m; sourceTree = "<group>"; };
 		C59D51D317781CD900A635DD /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
@@ -1645,6 +1648,10 @@
 				0505F95417A3D27B00C4B77F /* MapViewController.h */,
 				0505F95517A3D27B00C4B77F /* MapViewController.m */,
 				0505F42717A3829300C4B77F /* MapViewController.xib */,
+				C599897117B878DE0068F912 /* UploadInfoViewController.h */,
+				C599897217B878DE0068F912 /* UploadInfoViewController.m */,
+				C517FE3117B8D9DD0000DA05 /* BusinessTimeLabel.h */,
+				C517FE3217B8D9DD0000DA05 /* BusinessTimeLabel.m */,
 				0505F95117A3D27B00C4B77F /* DetailsViewController.h */,
 				0505F95217A3D27B00C4B77F /* DetailsViewController.m */,
 				0505F95317A3D27B00C4B77F /* DetailsViewController.xib */,
@@ -1653,8 +1660,6 @@
 				7011DF9217AA34CB009D7CD8 /* NewPlaceViewController.xib */,
 				0505F42B17A3829300C4B77F /* PersonalImageModel.h */,
 				0505F42C17A3829300C4B77F /* PersonalImageModel.m */,
-				0505F42D17A3829300C4B77F /* PersonalViewController.h */,
-				0505F42E17A3829300C4B77F /* PersonalViewController.m */,
 				0505F43F17A3829E00C4B77F /* View */,
 			);
 			name = "Mian CTL";
@@ -3246,7 +3251,6 @@
 				0505F41417A3810900C4B77F /* SPGooglePlacesAutocompleteViewController.m in Sources */,
 				0505F41617A3810900C4B77F /* AddMapPinViewController.m in Sources */,
 				0505F43A17A3829300C4B77F /* PersonalImageModel.m in Sources */,
-				0505F43B17A3829300C4B77F /* PersonalViewController.m in Sources */,
 				0505F43E17A3829300C4B77F /* ButtonView.m in Sources */,
 				0505F67B17A399CA00C4B77F /* DealHelper.m in Sources */,
 				0505F68617A3AEA300C4B77F /* NetworkState.m in Sources */,
@@ -3438,6 +3442,8 @@
 				7011DF9317AA34CB009D7CD8 /* NewPlaceViewController.m in Sources */,
 				C58C466E17AF7522003A12C6 /* UploadViewControllerManager.m in Sources */,
 				C5A9DA7617B2405600A27958 /* CLLocation+Sino.m in Sources */,
+				C599897317B878DE0068F912 /* UploadInfoViewController.m in Sources */,
+				C517FE3317B8D9DD0000DA05 /* BusinessTimeLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

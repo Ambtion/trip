@@ -17,7 +17,6 @@
 #import "XMLHelper.h"
 #import "PlaceDetailVO.h"
 #import "DetailsViewController.h"
-#import "PersonalViewController.h"
 #import "Constants.h"
 #import "LocationManager.h"
 #import "SPGooglePlacesAutocompleteViewController.h"
@@ -29,6 +28,7 @@
 #define span_Num 100
 #define SEARCHRECT CGRectMake(0 + 200, 0, 100, 44)
 #define NAVTITLE @"添加位置"
+
 @implementation MapSearchDisplayController
 - (void)setActive:(BOOL)visible animated:(BOOL)animated;
 {
@@ -39,6 +39,7 @@
     if (visible) {
         for (UIView * view in self.searchContentsController.view.subviews){
             if ([NSStringFromClass([view class]) isEqualToString:@"UIControl"]) {
+                [view setHidden:YES];
                 [view removeFromSuperview];
             }
         }
@@ -48,6 +49,7 @@
         for (UIView * view in self.searchContentsController.view.subviews){
             if ([NSStringFromClass([view class]) isEqualToString:@"UIControl"]) {
                 [view removeFromSuperview];
+                [view setHidden:YES];
             }
         }
         [self cusCancelButton];
@@ -120,7 +122,7 @@
 - (void)addtabView
 {
     CGFloat height = [[UIScreen mainScreen] bounds].size.height - 20.f;
-    mytable=[[UITableView alloc] initWithFrame:CGRectMake(10 , 44, 300, height - 44 - 55) style:UITableViewStylePlain];
+    mytable =[[UITableView alloc] initWithFrame:CGRectMake(10 , 44, 300, height - 44 - 55) style:UITableViewStylePlain];
     mytable.delegate=self;
     mytable.dataSource=self;
     mytable.backgroundColor=[UIColor clearColor];
@@ -171,6 +173,8 @@
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;//设定为最佳精度
         locationManager.distanceFilter = 5.0f;//响应位置变化的最小距离(m)
         [locationManager startUpdatingLocation];
+    }else{
+        [self.bg_errorView setHidden:NO];
     }
     DLog(@"%f",newLocCoordinate.latitude);
 }
@@ -190,16 +194,6 @@
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenuList) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeMenuBtn];
-    
-    //跳过此步骤的按钮
-    UIButton*tiaoguoBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [tiaoguoBtn setFrame:CGRectMake(220,height - 44, 100, 44)];
-    tiaoguoBtn.contentMode=UIViewContentModeScaleAspectFit;
-    [tiaoguoBtn setTitle:@"跳过此步骤 >" forState:UIControlStateNormal];
-    tiaoguoBtn.titleLabel.font = [UIFont systemFontOfSize:12.f];
-    [tiaoguoBtn setTitleColor:mRGBColor(50, 200, 160) forState:UIControlStateNormal];
-    [tiaoguoBtn addTarget:self action:@selector(tiaoguoBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:tiaoguoBtn];
 }
 
 - (void)addNavBar
@@ -229,13 +223,6 @@
         [delegate mapViewControllerDidCancel:self];
 }
 
-//跳过此步骤去到个人信息添加页
--(void)tiaoguoBtnClick
-{
-    if ([delegate respondsToSelector:@selector(mapViewControllerDidSkip:)])
-        [delegate mapViewControllerDidSkip:self];
-}
-
 #pragma mark GetPlaceFromAutoNav
 - (void)getPoiByAddressWithAutoNav
 {
@@ -255,29 +242,14 @@
 
 - (void)reverseGeocodingSearch:(MAReverseGeocodingSearchOption *)geoCodingSearchOption Result:(MAReverseGeocodingSearchResult *)result
 {
+    
     if ([geoCodingSearchOption isKindOfClass:[MAReverseGeocodingSearchOption class]]) {
-        //        DLog(@"LLLLLLLLLLLLL%d",result.resultArray.count);
-        //        for (int i = 0; i<result.resultArray.count; i++)
-        //        {
-        //            MAReverseGeocodingInfo* revResult = [result.resultArray objectAtIndex:i];
-        //            MAProvince* revProvince = revResult.province;
-        //            NSLog(@"province name : %@",revProvince.name);
-        //            MACity* revCity = revResult.city;
-        //            NSLog(@"city name : %@",revCity.name);
-        //            MADistrict* revDistrict = revResult.district;
-        //            NSLog(@"district name : %@",revDistrict.name);
-        //            for (int k=0; k< revResult.pois.count; k++) {
-        //                MAPOI* poi = [revResult.pois objectAtIndex:k];
-        //                NSLog(@"%dpoi name : %@",k,poi.name);
-        //                NSLog(@"poi address : %@",poi.address);
-        //                NSLog(@"poi type : %@",poi.type);
-        //                NSLog(@"poi distance: %@",poi.distance);
-        //            }
-        //        }
         if (result.resultArray.count) {
             MAReverseGeocodingInfo* revResult = [result.resultArray objectAtIndex:0];
             if (revResult && revResult.pois.count)
                 [self placeThePinsByPiosArray:revResult.pois];
+            else
+                [self.bg_errorView setHidden:NO];
         }else{
             [self.bg_errorView setHidden:NO];
         }
@@ -291,7 +263,9 @@
         NSMutableArray *placeMuAry = [XMLHelper useNSXMLParserDelegateToGetResult:data];
         if (placeMuAry.count>0)
             [self placeThePinsByAnnotationAry:placeMuAry annoType:@""];
-        
+        else
+            [self.bg_errorView setHidden:NO];
+
     } failure:^(NSString *error) {
         [self.bg_errorView setHidden:NO];
     }];
@@ -322,6 +296,7 @@
 
 - (void)placeThePinsByPiosArray:(NSArray *)array
 {
+    DLog(@"%@",_dataSource);
     [_dataSource removeAllObjects];    
     [self removeAllAnnotations];
     [_annotationList removeAllObjects];
@@ -461,7 +436,7 @@
     [self.mapView setRegion:theRegin];
     [self.mapView regionThatFits:theRegin];
     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate];
-    if (!havePlaced) {
+    if (!havePlaced && mytable) {
         havePlaced = YES;
         [self getPoiByAddressWithAutoNav];
     }
@@ -509,6 +484,7 @@
             [_searchArray addObject:poi];
         }
     }
+    _isSearchNO = !_searchArray.count;
 }
 - (void)fixTableViewFrame:(UITableView *)tableView
 {
@@ -535,7 +511,7 @@
         tableView.separatorColor = mytable.separatorColor;
         [self searchDataWithString:_searchBar.text];
         [self fixTableViewFrame:tableView];
-        return _searchArray.count;
+        return _isSearchNO ? 1 : _searchArray.count;
     }
     return _dataSource.count ? _dataSource.count + 1 : 0;
 }
@@ -547,6 +523,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString * topicCell = @"TopicCell";
     static NSString *mapCell = @"MapCell";
     NSInteger index = indexPath.row;
@@ -554,7 +531,7 @@
     if (tableView == mytable) {
         sourceArray = _dataSource;
         if (!indexPath.row) {
-            UITableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:mapCell];
+            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:mapCell];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:mapCell];
                 cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
@@ -595,8 +572,13 @@
     UIView * view = [cell viewWithTag:10000];
     view.hidden = _dataSource.count - 1 != indexPath.row;
     UILabel*cityLabel=(UILabel*)[cell viewWithTag:1000];
-    MAPOI * poi = [sourceArray objectAtIndex:index];
-    cityLabel.text = poi.name;
+    if (1) {
+        MAPOI * poi = [sourceArray objectAtIndex:index];
+        cityLabel.text = poi.name;
+    }else{
+        cityLabel.text = @"添加新的地址";
+    }
+   
     return cell;
 }
 

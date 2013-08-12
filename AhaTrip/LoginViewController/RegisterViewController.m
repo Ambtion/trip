@@ -213,21 +213,21 @@
     [_passwordTextField becomeFirstResponder];
     
 }
-- (void)usernameDidEndOnExit
-{
-    [_mailBindTextField becomeFirstResponder];
-}
-//- (void)buttonDateClick:(UIButton *)button
+//- (void)usernameDidEndOnExit
 //{
-//    ActionSheetDatePicker * actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"" datePickerMode:UIDatePickerModeDate selectedDate:[NSDate date] target:self action:@selector(dateWasSelected:element:) origin:button];
-//    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Today" value:[NSDate date]];
-//    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Yesterday" value:[[NSDate date] TC_dateByAddingCalendarUnits:NSDayCalendarUnit amount:-1]];
-//    [actionSheetPicker showActionSheetPicker];
+//    [_mailBindTextField becomeFirstResponder];
 //}
-- (void)dateWasSelected:(NSDate *)selectedDate element:(id)element
-{
-    _birthday.textFiled.text = [NSString stringWithFormat:@" 生日: %@",[self stringFromdate:selectedDate]];
-}
+////- (void)buttonDateClick:(UIButton *)button
+////{
+////    ActionSheetDatePicker * actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"" datePickerMode:UIDatePickerModeDate selectedDate:[NSDate date] target:self action:@selector(dateWasSelected:element:) origin:button];
+////    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Today" value:[NSDate date]];
+////    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Yesterday" value:[[NSDate date] TC_dateByAddingCalendarUnits:NSDayCalendarUnit amount:-1]];
+////    [actionSheetPicker showActionSheetPicker];
+////}
+//- (void)dateWasSelected:(NSDate *)selectedDate element:(id)element
+//{
+//    _birthday.textFiled.text = [NSString stringWithFormat:@" 生日: %@",[self stringFromdate:selectedDate]];
+//}
 #pragma mark
 - (void)backHomeWithRespose:(NSDictionary *)response
 {
