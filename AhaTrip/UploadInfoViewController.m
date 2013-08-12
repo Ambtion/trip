@@ -274,7 +274,7 @@
         [button3 addTarget:self action:@selector(buttonDateClick:) forControlEvents:UIControlEventTouchUpInside];
         [wifiText addSubview:button3];
     }else{
-        [_myScrollView addSubview:_locationView];
+        [_myScrollView addSubview:_optionalView];
         _optionalView.frame =CGRectMake(10, _locationView.frame.origin.y+ _locationView.frame.size.height+20, 300, 100);
     }
 }
@@ -392,6 +392,8 @@
 }
 - (void)closeBtnBack
 {
+    [_imagesArray removeAllObjects];
+    _locationName = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
