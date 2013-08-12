@@ -177,28 +177,28 @@ outputJPEGQuality;
     
     [sender setSelected:YES];
     [self removeAllTargets];
-    
     selectedFilter = sender.tag;
     [self setFilter:sender.tag];
     [self prepareFilter];
 }
 
-
 -(void) setFilter:(int) index
 {
     switch (index) {
         case 1:{
-            filter = [[GPUImageContrastFilter alloc] init];
-            [(GPUImageContrastFilter *) filter setContrast:1.75];
+            filter = [[GPUImageFilter alloc] init];
         } break;
         case 2: {
             filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"crossprocess"];
         } break;
         case 3: {
-            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"02"];
+//            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"02"];
+            filter = [[GPUImageContrastFilter alloc] init];
+            [(GPUImageContrastFilter *) filter setContrast:1.75];
         } break;
         case 4: {
-            filter = [[GrayscaleContrastFilter alloc] init];
+            filter = [[GPUImageContrastFilter alloc] init];
+            [(GPUImageContrastFilter *) filter setContrast:1.75];
         } break;
         case 5: {
             filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"17"];

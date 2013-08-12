@@ -128,7 +128,7 @@
     mytable.backgroundColor=[UIColor clearColor];
     mytable.separatorColor=[UIColor clearColor];
     [self.view addSubview: mytable];
-//    [self addSearchView];
+    //    [self addSearchView];
     [mytable setContentOffset:CGPointMake(0, 44) animated:NO];
 }
 
@@ -137,11 +137,11 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:SEARCHRECT];
     _searchBar.barStyle = UIBarStyleBlack;
     _searchBar.placeholder = @" ";
-//    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 30)]forState:UIControlStateNormal];
+    //    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 30)]forState:UIControlStateNormal];
     [_searchBar setBackgroundColor:[UIColor whiteColor]];
     [_searchBar setImage:[UIImage imageNamed:@"search_Icon.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-//    mytable.tableHeaderView = _searchBar;
-
+    //    mytable.tableHeaderView = _searchBar;
+    
     _searchDisPlay = [[MapSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     _searchDisPlay.searchResultsDelegate = self;
     _searchDisPlay.searchResultsDataSource = self;
@@ -200,7 +200,7 @@
 {
     //加载topBar
     self.view.backgroundColor=mRGBColor(236, 235, 235);
-    UIImageView*topBarImag=[[UIImageView alloc] initWithFrame:CGRectMake(0,0, self.view.bounds.size.width, 44)];
+    UIImageView* topBarImag =[[UIImageView alloc] initWithFrame:CGRectMake(0,0, self.view.bounds.size.width, 44)];
     topBarImag.backgroundColor=mRGBColor(50, 200, 160);
     [self.view addSubview:topBarImag];
     [topBarImag setUserInteractionEnabled:YES];
@@ -265,7 +265,7 @@
             [self placeThePinsByAnnotationAry:placeMuAry annoType:@""];
         else
             [self.bg_errorView setHidden:NO];
-
+        
     } failure:^(NSString *error) {
         [self.bg_errorView setHidden:NO];
     }];
@@ -297,7 +297,7 @@
 - (void)placeThePinsByPiosArray:(NSArray *)array
 {
     DLog(@"%@",_dataSource);
-    [_dataSource removeAllObjects];    
+    [_dataSource removeAllObjects];
     [self removeAllAnnotations];
     [_annotationList removeAllObjects];
     [_annotationList addObjectsFromArray:array];
@@ -484,7 +484,7 @@
             [_searchArray addObject:poi];
         }
     }
-    _isSearchNO = !_searchArray.count;
+_isSearchNO = !_searchArray.count;
 }
 - (void)fixTableViewFrame:(UITableView *)tableView
 {
@@ -572,18 +572,24 @@
     UIView * view = [cell viewWithTag:10000];
     view.hidden = _dataSource.count - 1 != indexPath.row;
     UILabel*cityLabel=(UILabel*)[cell viewWithTag:1000];
-    if (1) {
+    if (!_isSearchNO) {
         MAPOI * poi = [sourceArray objectAtIndex:index];
         cityLabel.text = poi.name;
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }else{
         cityLabel.text = @"添加新的地址";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-   
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (_isSearchNO && tableView != mytable) {
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        [self.navigationController pushViewController:[[NewPlaceViewController alloc] init] animated:YES];
+        return;
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString * name = nil;
     if (tableView != mytable) {
@@ -593,7 +599,7 @@
         MAPOI * poi = [_dataSource objectAtIndex:indexPath.row - 1];
         name = poi.name;
     }
-    if ([delegate respondsToSelector:@selector(mapViewControllerDidSeletedLocation:)]) 
+    if ([delegate respondsToSelector:@selector(mapViewControllerDidSeletedLocation:)])
         [delegate mapViewControllerDidSeletedLocation:name];
 }
 

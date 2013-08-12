@@ -27,7 +27,7 @@
     serchBar.delegate=self;
     serchBar.placeholder = @"搜索附近位置";
 
-     serchBar.showsCancelButton = YES;
+    serchBar.showsCancelButton = YES;
     serchBar.keyboardType =  UIKeyboardTypeDefault;
     //为UISearchBar添加背景图片
     UIView *segment = [serchBar.subviews objectAtIndex:0];
