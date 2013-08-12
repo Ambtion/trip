@@ -275,7 +275,7 @@
         [wifiText addSubview:button3];
     }else{
         [_myScrollView addSubview:_optionalView];
-        _optionalView.frame =CGRectMake(10, _locationView.frame.origin.y+ _locationView.frame.size.height+20, 300, 100);
+        _optionalView.frame = CGRectMake(10, _locationView.frame.origin.y+ _locationView.frame.size.height+20, 300, 100);
     }
 }
 
@@ -300,12 +300,12 @@
         _bindTableView.backgroundColor=[UIColor whiteColor];
         [_bindView addSubview:_bindTableView];
         
-        UIImage * imagesina=[UIImage imageNamed:@"sina.png"];
-        UIImage * imagetencent=[UIImage imageNamed:@"tencent weibo.png"];
-        NSString * sinastr=@"新浪微博";
+        UIImage * imagesina = [UIImage imageNamed:@"sina.png"];
+        UIImage * imagetencent = [UIImage imageNamed:@"tencent weibo.png"];
+        NSString * sinastr = @"新浪微博";
         NSString * tencentStr = @"腾讯微博";
         NSDictionary*dict = [NSDictionary dictionaryWithObjectsAndKeys:imagesina,@"image",sinastr,@"sso", nil];
-        NSDictionary* dict2=[NSDictionary dictionaryWithObjectsAndKeys:imagetencent,@"image",tencentStr,@"sso", nil];
+        NSDictionary* dict2 =[NSDictionary dictionaryWithObjectsAndKeys:imagetencent,@"image",tencentStr,@"sso", nil];
         _bindArray = [NSMutableArray arrayWithObjects:dict,dict2, nil];
         [_myScrollView addSubview:_bindView];
     }else{
@@ -431,6 +431,11 @@
     }else{
         
     }
+}
+
+- (void)dateWasSelected:(NSDate *)selectedDate element:(id)element
+{
+    DLog();
 }
 
 - (void)uploadImageView:(UIButton *)button
