@@ -149,7 +149,7 @@
 #pragma mark UploadInfo
 - (void)uploadInfoViewControllerDidClickAddPic:(UIButton *)button
 {
-//    [self popViewControllerAnimated:NO];
+    [self popViewControllerAnimated:NO];
     SeletedPhotoMethodController *photoCTL=[[SeletedPhotoMethodController alloc] init];
     photoCTL.delegate = self;
     [self pushViewController:photoCTL animated:YES];
@@ -160,7 +160,7 @@
 }
 - (void)uploadInfoViewControllerDidClickAddLocation:(UIButton *)button
 {
-//    [self popViewControllerAnimated:NO];
+    [self popViewControllerAnimated:NO];
     MapViewController * map = [[MapViewController alloc] init];
     map.delegate = self;
     [self pushViewController:map animated:YES];
