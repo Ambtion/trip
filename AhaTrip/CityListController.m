@@ -55,8 +55,19 @@
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeMenuBtn];
     
+    //  返回主页的按钮
+    UIButton*closeAll=[UIButton buttonWithType:UIButtonTypeCustom];
+    [closeAll setFrame:CGRectMake(280 - 8, height - 40, 40, 40)];
+    closeAll.contentMode = UIViewContentModeScaleAspectFit;
+    [closeAll setImage:[UIImage imageNamed:@"bottom_back.png"] forState:UIControlStateNormal];
+    [closeAll addTarget:self action:@selector(closeBtnBackMenu:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:closeAll];
+    
 }
-
+- (void)closeBtnBackMenu:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 //返回到国家分类列表页
 -(void)closeBtnBackMenu
 {

@@ -64,8 +64,6 @@
     CLLocationManager               *locationManager;
     CLLocationCoordinate2D          newLocCoordinate;
     NSString                        *strType;
-    
-    UIProgressHUD                   *progressHUD;
     UITableView                     *mytable;
     NSMutableArray                  *_dataSource;
     BOOL select;
@@ -77,9 +75,9 @@
     MapSearchDisplayController * _searchDisPlay;
     BOOL _isSearchNO;
 }
-@property (weak, nonatomic) IBOutlet UIImageView *bg_errorView;
+
+@property (weak, nonatomic) IBOutlet UIImageView * bg_errorView;
 @property (weak, nonatomic) IBOutlet  MKMapView *mapView;
-@property (strong, nonatomic)  UIProgressHUD *progressHUD;
 @property (nonatomic, weak) id <MapViewDelegate> delegate;
 
 

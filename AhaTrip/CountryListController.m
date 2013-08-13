@@ -41,14 +41,20 @@
     
     
     //    返回menu页的按钮
-    UIButton*closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton * closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [closeMenuBtn setFrame:CGRectMake(15, height - 40, 33, 33)];
     closeMenuBtn.contentMode=UIViewContentModeScaleAspectFit;
-    //    closeMenuBtn.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeMenuBtn];
     
+    //  返回主页的按钮
+    UIButton*closeAll=[UIButton buttonWithType:UIButtonTypeCustom];
+    [closeAll setFrame:CGRectMake(280 - 8, height - 40, 40, 40)];
+    closeAll.contentMode = UIViewContentModeScaleAspectFit;
+    [closeAll setImage:[UIImage imageNamed:@"bottom_back.png"] forState:UIControlStateNormal];
+    [closeAll addTarget:self action:@selector(closeBtnBackMenu:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:closeAll];
     
     UILabel*Accombodation=[[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 30)];
     Accombodation.text=@"添加国家/地区";
@@ -60,7 +66,10 @@
     //    request
     [self addCountryRequest];
 }
-
+- (void)closeBtnBackMenu:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 //返回到分类列表页
 -(void)closeBtnBackMenu
 {

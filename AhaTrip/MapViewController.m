@@ -94,7 +94,6 @@
 
 @implementation MapViewController
 @synthesize mapView = _mapView;
-@synthesize progressHUD;
 @synthesize delegate;
 @synthesize searchArray = _searchArray;
 
@@ -159,6 +158,12 @@
     [super viewWillAppear:animated];
     [self setMapViewsPerpoty];
 }
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [locationManager stopUpdatingHeading];
+    [locationManager stopUpdatingLocation];
+}
 - (void)setMapViewsPerpoty
 {
     
@@ -186,9 +191,8 @@
     backimageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, height-55, self.view.bounds.size.width, 55)];
     backimageView.backgroundColor=[UIColor blackColor];
     [self.view addSubview:backimageView];
-    
     //返回国家页的listmenu页的按钮
-    UIButton*closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton * closeMenuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [closeMenuBtn setFrame:CGRectMake(10,height - 44, 50, 44)];
     closeMenuBtn.contentMode=UIViewContentModeScaleAspectFit;
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
@@ -413,6 +417,8 @@
     [self setAnnotionsWithList:_annotationList];
 }
 
+
+
 #pragma mark CLLocationManagerDelegate
 // 用户位置更新后，会调用此函数
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -484,7 +490,7 @@
             [_searchArray addObject:poi];
         }
     }
-_isSearchNO = !_searchArray.count;
+    _isSearchNO = !_searchArray.count;
 }
 - (void)fixTableViewFrame:(UITableView *)tableView
 {

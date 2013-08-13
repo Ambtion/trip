@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface NewPlaceViewController : UIViewController<UISearchBarDelegate>
+@interface NewPlaceViewController : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate>
 {
-    UIView*backView;
-    UIButton*closeBtn;
-    UISearchBar*serchBar;
-    UIButton*addBtn;
+    CLLocationManager * locationManager;
 }
+@property (weak, nonatomic) IBOutlet  MKMapView *mapView;
 @end

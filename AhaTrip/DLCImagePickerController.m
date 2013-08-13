@@ -106,7 +106,7 @@ outputJPEGQuality;
 -(void) loadFilters
 {
     
-    for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < 9; i++) {
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%d.jpg", i + 1]] forState:UIControlStateNormal];
         button.frame = CGRectMake(10+i*(60+10), 5.0f, 60.0f, 60.0f);
@@ -185,39 +185,34 @@ outputJPEGQuality;
 -(void) setFilter:(int) index
 {
     switch (index) {
-            switch (index) {
-                case 1:{
-                    filter = [[GPUImageContrastFilter alloc] init];
-                    [(GPUImageContrastFilter *) filter setContrast:1.75];
-                } break;
-                case 2: {
-                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"crossprocess"];
-                } break;
-                case 3: {
-                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"02"];
-                } break;
-                case 4: {
-                    filter = [[GrayscaleContrastFilter alloc] init];
-                } break;
-                case 5: {
-                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"17"];
-                } break;
-                case 6: {
-                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"aqua"];
-                } break;
-                case 7: {
-                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"yellow-red"];
-                } break;
-                case 8: {
-                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"06"];
-                } break;
-                case 9: {
-                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"purple-green"];
-                } break;
-                default:
-                    filter = [[GPUImageFilter alloc] init];
-                    break;
-            }
+        case 1:{
+            filter = [[GPUImageContrastFilter alloc] init];
+            [(GPUImageContrastFilter *) filter setContrast:1.75];
+        } break;
+        case 2: {
+            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"crossprocess"];
+        } break;
+        case 3: {
+            filter = [[GrayscaleContrastFilter alloc] init];
+        } break;
+        case 4: {
+            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"17"];
+        } break;
+        case 5: {
+            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"aqua"];
+        } break;
+        case 6: {
+            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"yellow-red"];
+        } break;
+        case 7: {
+            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"06"];
+        } break;
+        case 8: {
+            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"purple-green"];
+        } break;
+        default:
+            filter = [[GPUImageFilter alloc] init];
+            break;
     }
 }
 
@@ -258,7 +253,6 @@ outputJPEGQuality;
         // TODO: fix this hack
         [self performSelector:@selector(switchToLibrary:) withObject:nil afterDelay:0.5];
     }
-    
     [staticPicture addTarget:filter];
     
     // blur is terminal filter
@@ -457,7 +451,7 @@ outputJPEGQuality;
 
 - (IBAction) cancel:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 -(IBAction) handlePan:(UIGestureRecognizer *) sender
@@ -716,7 +710,7 @@ outputJPEGQuality;
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:!isLibModel completion:nil];
     if (isLibModel)
         [self cancel:nil];
     else

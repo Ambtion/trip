@@ -192,6 +192,8 @@
     
     UIImageView * arrowImage = [[UIImageView alloc] initWithFrame:CGRectMake(_locationView.frame.size.width - _locationView.frame.size.height, 0 , _locationView.frame.size.height, _locationView.frame.size.height)];
     arrowImage.backgroundColor = [UIColor clearColor];
+    arrowImage.contentMode = UIViewContentModeScaleAspectFit;
+    arrowImage.image = [UIImage imageNamed:@"arrow.png"];
     [_locationView addSubview:arrowImage];
     UIButton * button = [[UIButton alloc] initWithFrame:_locationView.bounds];
     [button addTarget:self action:@selector(locationGestureClick:) forControlEvents:UIControlEventTouchUpInside];
