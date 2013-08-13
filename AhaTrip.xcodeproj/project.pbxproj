@@ -29,7 +29,6 @@
 		0505F41F17A3824900C4B77F /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 0505F41B17A3824900C4B77F /* location.png */; };
 		0505F42017A3824900C4B77F /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0505F41C17A3824900C4B77F /* location@2x.png */; };
 		0505F43717A3829300C4B77F /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0505F42717A3829300C4B77F /* MapViewController.xib */; };
-		0505F43A17A3829300C4B77F /* PersonalImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F42C17A3829300C4B77F /* PersonalImageModel.m */; };
 		0505F43E17A3829300C4B77F /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505F43317A3829300C4B77F /* ButtonView.m */; };
 		0505F65917A3975D00C4B77F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0505F65817A3975D00C4B77F /* CoreImage.framework */; };
 		0505F65B17A3977500C4B77F /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0505F65A17A3977500C4B77F /* libz.1.1.3.dylib */; };
@@ -581,8 +580,6 @@
 		0505F41B17A3824900C4B77F /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		0505F41C17A3824900C4B77F /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
 		0505F42717A3829300C4B77F /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
-		0505F42B17A3829300C4B77F /* PersonalImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalImageModel.h; sourceTree = "<group>"; };
-		0505F42C17A3829300C4B77F /* PersonalImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalImageModel.m; sourceTree = "<group>"; };
 		0505F43217A3829300C4B77F /* ButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
 		0505F43317A3829300C4B77F /* ButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		0505F65817A3975D00C4B77F /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -1658,8 +1655,6 @@
 				7011DF9017AA34CA009D7CD8 /* NewPlaceViewController.h */,
 				7011DF9117AA34CB009D7CD8 /* NewPlaceViewController.m */,
 				7011DF9217AA34CB009D7CD8 /* NewPlaceViewController.xib */,
-				0505F42B17A3829300C4B77F /* PersonalImageModel.h */,
-				0505F42C17A3829300C4B77F /* PersonalImageModel.m */,
 				0505F43F17A3829E00C4B77F /* View */,
 			);
 			name = "Mian CTL";
@@ -3250,7 +3245,6 @@
 				0505F41317A3810900C4B77F /* SPGooglePlacesAutocompletePlace.m in Sources */,
 				0505F41417A3810900C4B77F /* SPGooglePlacesAutocompleteViewController.m in Sources */,
 				0505F41617A3810900C4B77F /* AddMapPinViewController.m in Sources */,
-				0505F43A17A3829300C4B77F /* PersonalImageModel.m in Sources */,
 				0505F43E17A3829300C4B77F /* ButtonView.m in Sources */,
 				0505F67B17A399CA00C4B77F /* DealHelper.m in Sources */,
 				0505F68617A3AEA300C4B77F /* NetworkState.m in Sources */,

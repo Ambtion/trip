@@ -14,7 +14,6 @@
 
 @implementation NewPlaceViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -26,7 +25,6 @@
     serchBar=[[UISearchBar alloc] initWithFrame:CGRectMake(15, 6, 236, 44)];
     serchBar.delegate=self;
     serchBar.placeholder = @"搜索附近位置";
-
     serchBar.showsCancelButton = YES;
     serchBar.keyboardType =  UIKeyboardTypeDefault;
     //为UISearchBar添加背景图片

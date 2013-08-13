@@ -80,7 +80,7 @@
     picker.delegate = self;
     if (button.tag == KbuttonTagOpenAssetsLib) {
         [self pushViewController:picker animated:NO];
-        [picker switchToLibrary:nil];
+        [picker switchToLibraryWithAnimaion:NO];
     }else{
         [self pushViewController:picker animated:YES];
     }

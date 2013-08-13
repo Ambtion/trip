@@ -26,6 +26,7 @@
     GPUImageCropFilter *cropFilter;
     GPUImagePicture * staticPicture;
     UIImageOrientation staticPictureOriginalOrientation;
+    BOOL isLibModel;
     
 }
 
@@ -50,6 +51,6 @@
 
 @property (nonatomic, assign) CGFloat outputJPEGQuality;
 
--(IBAction)switchToLibrary:(id)sender;
+- (void)switchToLibraryWithAnimaion:(BOOL)animation;
 
 @end

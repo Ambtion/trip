@@ -185,39 +185,39 @@ outputJPEGQuality;
 -(void) setFilter:(int) index
 {
     switch (index) {
-        case 1:{
-            filter = [[GPUImageFilter alloc] init];
-        } break;
-        case 2: {
-            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"crossprocess"];
-        } break;
-        case 3: {
-//            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"02"];
-            filter = [[GPUImageContrastFilter alloc] init];
-            [(GPUImageContrastFilter *) filter setContrast:1.75];
-        } break;
-        case 4: {
-            filter = [[GPUImageContrastFilter alloc] init];
-            [(GPUImageContrastFilter *) filter setContrast:1.75];
-        } break;
-        case 5: {
-            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"17"];
-        } break;
-        case 6: {
-            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"aqua"];
-        } break;
-        case 7: {
-            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"yellow-red"];
-        } break;
-        case 8: {
-            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"06"];
-        } break;
-        case 9: {
-            filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"purple-green"];
-        } break;
-        default:
-            filter = [[GPUImageFilter alloc] init];
-            break;
+            switch (index) {
+                case 1:{
+                    filter = [[GPUImageContrastFilter alloc] init];
+                    [(GPUImageContrastFilter *) filter setContrast:1.75];
+                } break;
+                case 2: {
+                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"crossprocess"];
+                } break;
+                case 3: {
+                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"02"];
+                } break;
+                case 4: {
+                    filter = [[GrayscaleContrastFilter alloc] init];
+                } break;
+                case 5: {
+                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"17"];
+                } break;
+                case 6: {
+                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"aqua"];
+                } break;
+                case 7: {
+                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"yellow-red"];
+                } break;
+                case 8: {
+                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"06"];
+                } break;
+                case 9: {
+                    filter = [[GPUImageToneCurveFilter alloc] initWithACV:@"purple-green"];
+                } break;
+                default:
+                    filter = [[GPUImageFilter alloc] init];
+                    break;
+            }
     }
 }
 
@@ -319,7 +319,20 @@ outputJPEGQuality;
     imagePickerController.allowsEditing = YES;
     [self presentViewController:imagePickerController animated:YES completion:NULL];
 }
-
+- (void)switchToLibraryWithAnimaion:(BOOL)animation
+{
+    if (!isStatic) {
+        // shut down camera
+        [stillCamera stopCameraCapture];
+        [self removeAllTargets];
+    }
+    isLibModel = YES;
+    UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    [self presentViewController:imagePickerController animated:animation completion:NULL];
+}
 -(IBAction)toggleFlash:(UIButton *)button
 {
     [button setSelected:!button.selected];
@@ -659,6 +672,7 @@ outputJPEGQuality;
 }
 
 -(void) dealloc {
+    
     [self removeAllTargets];
     stillCamera = nil;
     cropFilter = nil;
@@ -703,7 +717,10 @@ outputJPEGQuality;
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self retakePhoto:nil];
+    if (isLibModel)
+        [self cancel:nil];
+    else
+        [self retakePhoto:nil];
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
