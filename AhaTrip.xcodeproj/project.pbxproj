@@ -469,6 +469,7 @@
 		C58AECD01794F30800C75BD2 /* contentBgView.png in Resources */ = {isa = PBXBuildFile; fileRef = C58AECCF1794F30800C75BD2 /* contentBgView.png */; };
 		C58C466E17AF7522003A12C6 /* UploadViewControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C466D17AF7522003A12C6 /* UploadViewControllerManager.m */; };
 		C58F4CCC17B9CB3800770A0C /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58F4CCB17B9CB3800770A0C /* arrow@2x.png */; };
+		C58F4CCE17BA10F800770A0C /* mapSectionView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58F4CCD17BA10F800770A0C /* mapSectionView@2x.png */; };
 		C5918ED7178117260001F4EF /* back_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5918ED6178117260001F4EF /* back_Button@2x.png */; };
 		C5918EDB178123580001F4EF /* HomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5918EDA178123580001F4EF /* HomePageController.m */; };
 		C5918EDE17815AAE0001F4EF /* ItemMenuBarBg-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5918EDC17815AAE0001F4EF /* ItemMenuBarBg-white@2x.png */; };
@@ -1288,6 +1289,7 @@
 		C58C466C17AF7522003A12C6 /* UploadViewControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewControllerManager.h; sourceTree = "<group>"; };
 		C58C466D17AF7522003A12C6 /* UploadViewControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewControllerManager.m; sourceTree = "<group>"; };
 		C58F4CCB17B9CB3800770A0C /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		C58F4CCD17BA10F800770A0C /* mapSectionView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapSectionView@2x.png"; sourceTree = "<group>"; };
 		C5918ED6178117260001F4EF /* back_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_Button@2x.png"; sourceTree = "<group>"; };
 		C5918ED9178123580001F4EF /* HomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageController.h; sourceTree = "<group>"; };
 		C5918EDA178123580001F4EF /* HomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageController.m; sourceTree = "<group>"; };
@@ -1685,6 +1687,7 @@
 				0573FFB417AA9802002B0AF5 /* input2@2x.png */,
 				70F07B6817A90940003DDC6D /* tencent weibo@2x.png */,
 				7011DF9517AA54B4009D7CD8 /* smail@2x.png */,
+				C58F4CCD17BA10F800770A0C /* mapSectionView@2x.png */,
 				70F0798117A8C3DC003DDC6D /* camera_button@2x.png */,
 				0505F69517A3B24500C4B77F /* GrayscaleContrastFilter.h */,
 				0505F69617A3B24500C4B77F /* GrayscaleContrastFilter.m */,
@@ -3133,6 +3136,7 @@
 				C5A9DA6617B1F67C00A27958 /* location_failture_bg@2x.png in Resources */,
 				C5C3582617B3A90400FEFC7C /* button_cancel_search@2x.png in Resources */,
 				C58F4CCC17B9CB3800770A0C /* arrow@2x.png in Resources */,
+				C58F4CCE17BA10F800770A0C /* mapSectionView@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

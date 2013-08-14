@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MASearchKit.h"
+#import "NewPlaceViewController.h"
 
 @interface UIProgressIndicator : UIActivityIndicatorView {
 }
@@ -59,7 +60,7 @@
 
 @end
 
-@interface MapViewController : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate,MASearchDelegate,UISearchDisplayDelegate>
+@interface MapViewController : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate,MASearchDelegate,UISearchDisplayDelegate,NewPlaceViewControllerDelegate>
 {
     CLLocationManager               *locationManager;
     CLLocationCoordinate2D          newLocCoordinate;

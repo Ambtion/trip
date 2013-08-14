@@ -241,9 +241,7 @@ outputJPEGQuality;
     } else {
         [filter addTarget:self.imageView];
     }
-    
     [filter prepareForImageCapture];
-    
 }
 
 -(void) prepareStaticFilter
@@ -451,7 +449,8 @@ outputJPEGQuality;
 
 - (IBAction) cancel:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    
+    [self dismissViewControllerAnimated:!isLibModel completion:NULL];
 }
 
 -(IBAction) handlePan:(UIGestureRecognizer *) sender

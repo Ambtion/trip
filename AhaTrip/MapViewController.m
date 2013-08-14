@@ -139,7 +139,6 @@
     //    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 30)]forState:UIControlStateNormal];
     [_searchBar setBackgroundColor:[UIColor whiteColor]];
     [_searchBar setImage:[UIImage imageNamed:@"search_Icon.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    //    mytable.tableHeaderView = _searchBar;
     
     _searchDisPlay = [[MapSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     _searchDisPlay.searchResultsDelegate = self;
@@ -198,8 +197,19 @@
     [closeMenuBtn setImage:[UIImage imageNamed:@"bottomBack.png"] forState:UIControlStateNormal];
     [closeMenuBtn addTarget:self action:@selector(closeBtnBackMenuList) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeMenuBtn];
+    
+    //  返回主页的按钮
+    UIButton*closeAll=[UIButton buttonWithType:UIButtonTypeCustom];
+    [closeAll setFrame:CGRectMake(280 - 8, height - 40, 40, 40)];
+    closeAll.contentMode = UIViewContentModeScaleAspectFit;
+    [closeAll setImage:[UIImage imageNamed:@"bottom_back.png"] forState:UIControlStateNormal];
+    [closeAll addTarget:self action:@selector(closeBtnBackMenu:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:closeAll];
 }
-
+- (void)closeBtnBackMenu:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 - (void)addNavBar
 {
     //加载topBar
@@ -323,7 +333,7 @@
 -(void)removeAllAnnotations
 {
     id userAnnotation = self.mapView.userLocation;
-    NSMutableArray *annotations = [NSMutableArray arrayWithArray:self.mapView.annotations];
+    NSMutableArray * annotations = [NSMutableArray arrayWithArray:self.mapView.annotations];
     [annotations removeObject:userAnnotation];
     [self.mapView removeAnnotations:annotations];
 }
@@ -593,7 +603,10 @@
 {
     if (_isSearchNO && tableView != mytable) {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
-        [self.navigationController pushViewController:[[NewPlaceViewController alloc] init] animated:YES];
+        [_searchDisPlay setActive:NO animated:NO];
+        NewPlaceViewController * np = [[NewPlaceViewController alloc] init];
+        np.delegate = self;
+        [self.navigationController pushViewController:np animated:YES];
         return;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -609,4 +622,9 @@
         [delegate mapViewControllerDidSeletedLocation:name];
 }
 
+#pragma mark
+- (void)newPlaceViewControllerButtonClick:(NSString *)name address:(NSString *)address Location:(CLLocationCoordinate2D)coordinate
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

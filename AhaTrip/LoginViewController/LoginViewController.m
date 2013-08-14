@@ -63,7 +63,7 @@
     _usernameTextField.font = [UIFont systemFontOfSize:15];
     _usernameTextField.textColor = TEXTLOLOR;
     _usernameTextField.returnKeyType = UIReturnKeyNext;
-    _usernameTextField.placeholder = @"  使用电子邮箱地址";
+    _usernameTextField.placeholder = @"使用电子邮箱地址";
     _usernameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _usernameTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _usernameTextField.text = [[LoginStateManager lastUserName] copy];
@@ -81,7 +81,7 @@
     _passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _passwordTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     _passwordTextField.secureTextEntry = YES;
-    _passwordTextField.placeholder = @"  密码";
+    _passwordTextField.placeholder = @"密码";
     
     //登录按钮
     UIButton * loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -166,26 +166,27 @@
 }
 - (void)loginButtonClicked:(UIButton*)button
 {
-    //    if (!_usernameTextField.text|| [_usernameTextField.text isEqualToString:@""]) {
-    //        [self showPopAlerViewRatherThentasView:YES WithMes:@"您还没有填写用户名"];
-    //        return;
-    //    }
-    //    if (!_passwordTextField.text || [_passwordTextField.text isEqualToString:@""]) {
-    //        [self showPopAlerViewRatherThentasView:YES WithMes:@"您还没有填写密码"];
-    //        return;
-    //    }
-    //    NSString * useName = [NSString stringWithFormat:@"%@",[_usernameTextField.text lowercaseString]];
-    //    NSString * passWord = [NSString stringWithFormat:@"%@",_passwordTextField.text];
-    //    MBProgressHUD * hud = [[MBProgressHUD alloc] initWithView:self.view];
-    //    [self.view addSubview:hud];
-    //    [hud show:YES];
-    //    [AccountLoginResquest sohuLoginWithuseName:useName password:passWord sucessBlock:^(NSDictionary *response) {
-    //        [hud hide:YES];
-    //        [self handleLoginInfo:response];
-    //    } failtureSucess:^(NSString *error) {
-    //        [hud hide:YES];
-    //        [self showError:error];
-    //    }];
+    if (!_usernameTextField.text|| [_usernameTextField.text isEqualToString:@""]) {
+        [self showPopAlerViewWithMes:@"您还没有填写用户名" withDelegate:nil cancelButton:@"确定" otherButtonTitles:nil];
+        return;
+    }
+       if (!_passwordTextField.text || [_passwordTextField.text isEqualToString:@""]) {
+           [self showPopAlerViewWithMes:@"您还没有填写密码" withDelegate:nil cancelButton:@"确定" otherButtonTitles:nil];
+         return;
+    }
+    NSString * useName = [NSString stringWithFormat:@"%@",[_usernameTextField.text lowercaseString]];
+    NSString * passWord = [NSString stringWithFormat:@"%@",_passwordTextField.text];
+    MBProgressHUD * hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    [hud show:YES];
+    [RequestManager loingWithUserName:useName passpord:passWord success:^(NSString *response) {
+        [hud hide:YES];
+        [LoginStateManager storelastName:_usernameTextField.text];
+        [self handleLoginInfo:[response JSONValue]];
+    } failure:^(NSString *error) {
+        [hud hide:YES];
+        [self showPopAlerViewWithMes:@"用户名或者密码不对" withDelegate:nil cancelButton:@"确定" otherButtonTitles:nil];
+    }];
 }
 - (void)registerButtonClicked:(UIButton *)button
 {
@@ -201,7 +202,8 @@
 
 - (void)handleLoginInfo:(NSDictionary *)response
 {
-    [LoginStateManager loginUserId:@"1" withToken:@"sdf" RefreshToken:@"sdf"];
+    
+    [LoginStateManager loginUserId:@"1" withToken:[response objectForKey:@"token"] RefreshToken:@"sdf"];
     [self cancelLogin:nil];
 }
 - (void)showError:(NSString *)error

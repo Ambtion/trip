@@ -16,6 +16,8 @@
 #import "MapViewController.h"
 #import "UploadInfoViewController.h"
 
+#import "NewPlaceViewController.h" //Fortest
+
 @interface UploadViewControllerManager : UINavigationController<SingleMenuViewDelegate,AllMenuViewDeletage,CountryListViewDelegate,CityListControllerDelegate,SeletedPhotoMethodDelegate,DLCImagePickerDelegate,MapViewDelegate,UploadInfoViewControllerDelegate>
 {
     PicUploadCateroy _cateroyId;

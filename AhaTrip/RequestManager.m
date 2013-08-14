@@ -74,7 +74,9 @@
 @implementation RequestManager
 + (void)loingWithUserName:(NSString *)name passpord:(NSString*)passpord success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    
+//http://yyz.ahatrip.info/api/login/?username=test&password=123456
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/login/?username=%@&password=%@",name,passpord];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
 + (void)registerWithUserName:(NSString *)name passpord:(NSString *)passpord gender:(NSString *)gender portrait:(NSData*)imagedata birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure

@@ -101,8 +101,11 @@
             [imageBtn setImage:PLUSICON forState:UIControlStateNormal];
         }else{
             [imageBtn setTag:i];
-            [imageBtn setImage:[[_imagesArray objectAtIndex:i] objectForKey:@"Thumbnail"] forState:UIControlStateNormal];
-//            [imageBtn setImage:[_imagesArray objectAtIndex:i] forState:UIControlStateNormal];
+            if ([[_imagesArray objectAtIndex:i] isKindOfClass:[NSDictionary class]]) {
+                [imageBtn setImage:[[_imagesArray objectAtIndex:i] objectForKey:@"Thumbnail"] forState:UIControlStateNormal];
+            }else{
+              [imageBtn setImage:[_imagesArray objectAtIndex:i] forState:UIControlStateNormal];
+            }
         }
         _offsetY = imageBtn.frame.origin.y+ imageBtn.frame.size.height + 15;
         [_myScrollView addSubview:imageBtn];
@@ -190,10 +193,11 @@
     textLabel.tag = 1000;
     [_locationView addSubview:textLabel];
     
-    UIImageView * arrowImage = [[UIImageView alloc] initWithFrame:CGRectMake(_locationView.frame.size.width - _locationView.frame.size.height, 0 , _locationView.frame.size.height, _locationView.frame.size.height)];
+    UIImageView * arrowImage = [[UIImageView alloc] initWithFrame:CGRectMake(_locationView.frame.size.width - _locationView.frame.size.height, 0 , 26, 16)];
+    arrowImage.center = CGPointMake(arrowImage.center.x, _locationView.frame.size.height /2.f);
     arrowImage.backgroundColor = [UIColor clearColor];
-    arrowImage.contentMode = UIViewContentModeScaleAspectFit;
     arrowImage.image = [UIImage imageNamed:@"arrow.png"];
+    arrowImage.contentMode = UIViewContentModeScaleAspectFit;
     [_locationView addSubview:arrowImage];
     UIButton * button = [[UIButton alloc] initWithFrame:_locationView.bounds];
     [button addTarget:self action:@selector(locationGestureClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -219,10 +223,10 @@
 - (void)resetOptionalSeleted
 {
     if (!_optionalView) {
+        
         _optionalView = [[UIView alloc] initWithFrame:CGRectMake(10, _locationView.frame.origin.y+ _locationView.frame.size.height+20, 300, 100)];
         _optionalView.backgroundColor=[UIColor clearColor];
         [_myScrollView addSubview:_optionalView];
-        
         UILabel * slectLabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, 40, 30)];
         slectLabel.text=@"选填";
         slectLabel.backgroundColor=[UIColor clearColor];
