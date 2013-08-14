@@ -17,8 +17,6 @@
 - (void)DLImagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 @end
 
-
-
 @interface DLCImagePickerController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate,MapViewDelegate> {
     GPUImageStillCamera *stillCamera;
     GPUImageOutput<GPUImageInput> * filter;
@@ -27,23 +25,22 @@
     GPUImagePicture * staticPicture;
     UIImageOrientation staticPictureOriginalOrientation;
     BOOL isLibModel;
+    UIImageView * filterSeletedImageView;
     
 }
 
-@property (nonatomic, weak) IBOutlet GPUImageView *imageView;
+@property (nonatomic, strong) GPUImageView *imageView;
 @property (nonatomic, weak) id <DLCImagePickerDelegate> delegate;
 @property (nonatomic, weak) IBOutlet UIButton *photoCaptureButton;
 @property (nonatomic, weak) IBOutlet UIButton *cancelButton;
 
 @property (nonatomic, weak) IBOutlet UIButton *cameraToggleButton;
-@property (nonatomic, weak) IBOutlet UIButton *blurToggleButton;
 @property (nonatomic, weak) IBOutlet UIButton *finalOutPutButton;
 @property (nonatomic, weak) IBOutlet UIButton *libraryToggleButton;
 @property (nonatomic, weak) IBOutlet UIButton *flashToggleButton;
 @property (nonatomic, weak) IBOutlet UIButton *retakeButton; //后退按钮
 
 @property (nonatomic, weak) IBOutlet UIScrollView *filterScrollView;
-@property (nonatomic, weak) IBOutlet UIImageView *filtersBackgroundImageView;
 @property (nonatomic, weak) IBOutlet UIView *photoBar;
 @property (nonatomic, weak) IBOutlet UIView *topBar;
 @property (nonatomic, strong) BlurOverlayView *blurOverlayView;

@@ -7,11 +7,15 @@ void runOnMainQueueWithoutDeadlocking(void (^block)(void))
 {
 	if ([NSThread isMainThread])
 	{
-		block();
+        @autoreleasepool {
+            block(); 
+        }
 	}
 	else
 	{
-		dispatch_sync(dispatch_get_main_queue(), block);
+        @autoreleasepool {
+            dispatch_sync(dispatch_get_main_queue(), block);
+        }
 	}
 }
 
@@ -157,7 +161,6 @@ void reportAvailableMemoryForGPUImage(NSString *tag)
         [newTarget setTextureDelegate:self atIndex:textureLocation];
         [targets addObject:newTarget];
         [targetTextureIndices addObject:[NSNumber numberWithInteger:textureLocation]];
-        
         allTargetsWantMonochromeData = allTargetsWantMonochromeData && [newTarget wantsMonochromeInput];
     });
 }

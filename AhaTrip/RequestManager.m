@@ -76,6 +76,7 @@
 {
 //http://yyz.ahatrip.info/api/login/?username=test&password=123456
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/login/?username=%@&password=%@",name,passpord];
+    DLog(@"%@",str);
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
@@ -85,7 +86,7 @@
 }
 
 //广场接口
-+ (void)getPlazaWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)getPlazaWithstart:(NSInteger)start count:(NSInteger)count  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     NSString * url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/index?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
@@ -104,7 +105,7 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
-+ (void)getTitleImagesWithId:(NSString *)titleId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)getTitleImagesWithId:(NSString *)titleId success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     NSString* url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/finding?id=%@&token=tRyW4rLBiJHffQ",titleId];
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
@@ -166,30 +167,31 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 //评论列表
-+ (void)getCommentWithFindingId:(NSInteger)findingId start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)getCommentWithFindingId:(NSInteger)findingId start:(NSInteger)start count:(NSInteger)count success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/commentList?finding_id=%d&token=tRyW4rLBiJHffQ&start=%d&count=%d",findingId,start,count];
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/commentList?finding_id=%d&token=%@&start=%d&count=%d",findingId,@"tRyW4rLBiJHffQ",start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
-+ (void)postComment:(NSString *)comment WithFindingId:(NSInteger)findingId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)postComment:(NSString *)comment WithFindingId:(NSInteger)findingId withCommentFatherId:(NSInteger )fatherid success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/commentCreate"];
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
     [dic setObject:[NSNumber numberWithInteger:findingId] forKey:@"finding_id"];
     [dic setObject:@"tRyW4rLBiJHffQ" forKey:@"token"];
+    [dic setObject:[NSNumber numberWithInt:fatherid] forKey:@"parent_id"];
     [dic setObject:comment forKey:@"content"];
+    DLog(@"%@",str);
+    DLog(@"%@",dic);
     [self postWithURL:str body:dic success:success failure:failure];
 }
 
 //喜欢
-+ (void)likeWithFindingId:(NSInteger)findingsId token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)likeWithFindingId:(NSInteger)findingsId  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-//http://yyz.ahatrip.info/api/favoriteCreate?finding_id=1&token=tRyW4rLBiJHffQ
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/favoriteCreate"];
-//    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:findingsId],@"tRyW4rLBiJHffQ",@"finding_id",@"token", nil];
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
     [dic setObject:[NSNumber numberWithInteger:findingsId] forKey:@"finding_id"];
-    [dic setObject:@"tRyW4rLBiJHffQ" forKey:@"token"];
+    [dic setObject:[LoginStateManager currentToken] forKey:@"token"];
     DLog(@"%@",str);
     [self postWithURL:str body:dic success:success failure:failure];
 }

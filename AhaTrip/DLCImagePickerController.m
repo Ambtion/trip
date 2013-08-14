@@ -16,6 +16,14 @@
 #import "MapViewController.h"
 #import "Constants.h"
 
+static NSString * FillterImageIcon[9] = {
+    @"1_Original.png",@"2_Lake.png",@"3._Film.png",@"4_Ansel.png",@"5_ Aesthetic.png",
+    @"6_Luna.png",@"7_Retro.png",@"8_Hazy.png",@"9_Dusk.png"
+};
+static NSString * FillterName[9] = {
+    @"Original",@"Lake",@"Film",@"Ansel",@"Aesthetic",
+    @"Luna",@"Retro",@"Hazy",@"Dusk"
+};
 #define kStaticBlurSize 2.0f
 
 @implementation DLCImagePickerController {
@@ -28,14 +36,12 @@
 imageView,
 cameraToggleButton,
 photoCaptureButton,
-blurToggleButton,
 flashToggleButton,
 cancelButton,
 retakeButton,
 finalOutPutButton,
 libraryToggleButton,
 filterScrollView,
-filtersBackgroundImageView,
 photoBar,
 topBar,
 blurOverlayView,
@@ -54,34 +60,38 @@ outputJPEGQuality;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self addcreateImageView];
     self.wantsFullScreenLayout = YES;
     //set background color
     self.view.backgroundColor = mRGBColor(43, 43, 44);
-    [self.blurToggleButton setSelected:NO];
     self.finalOutPutButton.hidden=YES;
     staticPictureOriginalOrientation = UIImageOrientationUp;
     
     self.focusView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"focus-crosshair"]];
 	[self.view addSubview:self.focusView];
 	self.focusView.alpha = 0;
-    //模糊图层不需要
-    //    self.blurOverlayView = [[BlurOverlayView alloc] initWithFrame:CGRectMake(0, 0,
-    //                                                                         self.imageView.frame.size.width,
-    //                                                                         self.imageView.frame.size.height)];
-    //    self.blurOverlayView.alpha = 0;
-    //    [self.imageView addSubview:self.blurOverlayView];
     hasBlur = NO;
     [self loadFilters];
     //we need a crop filter for the live video
     cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0f, 0.0f, 1.0f, 0.75)];
     filter = [[GPUImageFilter alloc] init];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [self setUpCamera];
+        @autoreleasepool {
+            [self setUpCamera];
+        }
     });
     [self showFilters];
     [self setTabBarButtonToFinal:NO];
 }
-
+- (void)addcreateImageView
+{
+    self.imageView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 425)];
+    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.imageView];
+    [self.view sendSubviewToBack:self.imageView];
+}
 - (void)setTabBarButtonToFinal:(BOOL)isFinal
 {
     self.retakeButton.hidden = !isFinal;
@@ -102,20 +112,36 @@ outputJPEGQuality;
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     [super viewWillAppear:animated];
 }
+- (void)addSeletedFilterbg
+{
+    filterSeletedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fillterbg.png"]];
+    filterSeletedImageView.frame = CGRectMake(-100, 0, 68, 68);
+    filterSeletedImageView.backgroundColor = [UIColor clearColor];
+    filterSeletedImageView.layer.shouldRasterize = YES;
 
+    [self.filterScrollView addSubview:filterSeletedImageView];
+
+}
 -(void) loadFilters
 {
-    
+    self.filterScrollView.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height, 320, 100);
+    [self addSeletedFilterbg];
     for(int i = 0; i < 9; i++) {
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%d.jpg", i + 1]] forState:UIControlStateNormal];
-        button.frame = CGRectMake(10+i*(60+10), 5.0f, 60.0f, 60.0f);
+        button.backgroundColor = [UIColor clearColor];
+        [button setImage:[UIImage imageNamed:FillterImageIcon[i]] forState:UIControlStateNormal];
+        button.frame = CGRectMake(10+i*(60+10), 15.f, 60.0f, 60.0f);
+        [button setContentMode:UIViewContentModeScaleAspectFit];
         button.layer.cornerRadius = 7.0f;
-        
-        //use bezier path instead of maskToBounds on button.layer
-        UIBezierPath *bi = [UIBezierPath bezierPathWithRoundedRect:button.bounds
-                                                 byRoundingCorners:UIRectCornerAllCorners
-                                                       cornerRadii:CGSizeMake(7.0,7.0)];
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x, button.frame.origin.y + button.frame.size.height, button.frame.size.width, 20)];
+        label.text = FillterName[i];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.textAlignment = UITextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:10.f];
+        UIBezierPath * bi = [UIBezierPath bezierPathWithRoundedRect:button.bounds
+                                                  byRoundingCorners:UIRectCornerAllCorners
+                                                        cornerRadii:CGSizeMake(7.0,7.0)];
         
         CAShapeLayer *maskLayer = [CAShapeLayer layer];
         maskLayer.frame = button.bounds;
@@ -129,24 +155,34 @@ outputJPEGQuality;
                    action:@selector(filterClicked:)
          forControlEvents:UIControlEventTouchUpInside];
         button.tag = i;
-        [button setTitle:@"*" forState:UIControlStateSelected];
+        //        [button setImage:[UIImage imageNamed:@""] forState: forState:UIControlStateSelected];
         if(i == 0){
-            [button setSelected:YES];
+//            [button setSelected:YES];
+            [self setButtonSeleted:button withAnimation:NO];
         }
 		[self.filterScrollView addSubview:button];
+        [self.filterScrollView addSubview:label];
 	}
-	[self.filterScrollView setContentSize:CGSizeMake(10 + 10*(60+10), 75.0)];
+    
+	[self.filterScrollView setContentSize:CGSizeMake(10 + 9*(60+10), 75.0)];
 }
-
+- (void)setButtonSeleted:(UIButton *)button withAnimation:(BOOL)animation
+{
+    if (animation) {
+        [UIView animateWithDuration:0.3 animations:^{
+            filterSeletedImageView.center = button.center;
+        }];
+    }else{
+            filterSeletedImageView.center = button.center;
+    }
+}
 
 -(void) setUpCamera
 {
     
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]){
         // Has camera
-        
         stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
-        
         stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
         runOnMainQueueWithoutDeadlocking(^{
             [stillCamera startCameraCapture];
@@ -175,7 +211,8 @@ outputJPEGQuality;
         }
     }
     
-    [sender setSelected:YES];
+//    [sender setSelected:YES];
+    [self setButtonSeleted:sender withAnimation:YES];
     [self removeAllTargets];
     selectedFilter = sender.tag;
     [self setFilter:sender.tag];
@@ -246,14 +283,19 @@ outputJPEGQuality;
 
 -(void) prepareStaticFilter
 {
-    
     if (!staticPicture) {
         // TODO: fix this hack
         [self performSelector:@selector(switchToLibrary:) withObject:nil afterDelay:0.5];
     }
-    [staticPicture addTarget:filter];
+    if (!filter){
+        filter = [[GPUImageFilter alloc] init];
+    }
     
+    [staticPicture addTarget:filter];
     // blur is terminal filter
+    if (!self.imageView) {
+        [self addcreateImageView];
+    }
     if (hasBlur) {
         [filter addTarget:blurFilter];
         [blurFilter addTarget:self.imageView];
@@ -280,8 +322,6 @@ outputJPEGQuality;
     
     // seems like atIndex is ignored by GPUImageView...
     [self.imageView setInputRotation:imageViewRotationMode atIndex:0];
-    
-    
     [staticPicture processImage];
 }
 
@@ -313,17 +353,13 @@ outputJPEGQuality;
 }
 - (void)switchToLibraryWithAnimaion:(BOOL)animation
 {
-    if (!isStatic) {
-        // shut down camera
-        [stillCamera stopCameraCapture];
-        [self removeAllTargets];
-    }
     isLibModel = YES;
-    UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
+    UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePickerController.delegate = self;
     imagePickerController.allowsEditing = YES;
-    [self presentViewController:imagePickerController animated:animation completion:NULL];
+    //    [self presentViewController:imagePickerController animated:animation completion:NULL];
+    [self presentModalViewController:imagePickerController animated:animation];
 }
 -(IBAction)toggleFlash:(UIButton *)button
 {
@@ -355,7 +391,6 @@ outputJPEGQuality;
 //    [self prepareFilter];
 //    [self.blurToggleButton setEnabled:YES];
 //}
-
 -(IBAction) switchCamera
 {
     [self.cameraToggleButton setEnabled:NO];
@@ -417,15 +452,6 @@ outputJPEGQuality;
 
 -(IBAction)retakePhoto:(UIButton *)button
 {
-    //    [self prepareFilter];
-    //    [self showFilters];
-    //    [self.retakeButton setHidden:YES];
-    //    [self.libraryToggleButton setHidden:NO];
-    //    photoCaptureButton.hidden=NO;
-    //
-    //    cancelButton.hidden=NO;
-    //    finalOutPutButton.hidden=YES;
-    
     staticPicture = nil;
     staticPictureOriginalOrientation = UIImageOrientationUp;
     isStatic = NO;
@@ -438,9 +464,6 @@ outputJPEGQuality;
        && [stillCamera.inputCamera hasTorch]) {
         [self.flashToggleButton setEnabled:YES];
     }
-    
-    //    [self.photoCaptureButton setImage:[UIImage imageNamed:@"take_photo.png"] forState:UIControlStateNormal];
-    //    [self.photoCaptureButton setTitle:nil forState:UIControlStateNormal];
     [self setTabBarButtonToFinal:NO];
     [self setFilter:selectedFilter];
     [self prepareFilter];
@@ -563,21 +586,16 @@ outputJPEGQuality;
     
     CGRect imageRect = self.imageView.frame;
     CGRect sliderScrollFrame = self.filterScrollView.frame;
-    sliderScrollFrame.origin.y -= self.filterScrollView.frame.size.height;
-    CGRect sliderScrollFrameBackground = self.filtersBackgroundImageView.frame;
-    sliderScrollFrameBackground.origin.y -=
-    self.filtersBackgroundImageView.frame.size.height-3;
+    sliderScrollFrame.origin.y = [[UIScreen mainScreen] bounds].size.height -  self.filterScrollView.frame.size.height - 55;
     
     self.filterScrollView.hidden = NO;
-    self.filtersBackgroundImageView.hidden = NO;
-    self.filterScrollView.backgroundColor = [UIColor clearColor];
+    self.filterScrollView.backgroundColor =  mRGBColor(43, 43, 44);
     [UIView animateWithDuration:0.10
                           delay:0.05
                         options: UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          self.imageView.frame = imageRect;
                          self.filterScrollView.frame = sliderScrollFrame;
-                         self.filtersBackgroundImageView.frame = sliderScrollFrameBackground;
                      }
                      completion:^(BOOL finished){
                          self.finalOutPutButton.enabled = YES;
@@ -691,12 +709,10 @@ outputJPEGQuality;
     if (outputImage == nil) {
         outputImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
-    
     if (outputImage) {
         staticPicture = [[GPUImagePicture alloc] initWithImage:outputImage smoothlyScaleOutput:YES];
         staticPictureOriginalOrientation = outputImage.imageOrientation;
         isStatic = YES;
-        [self dismissViewControllerAnimated:YES completion:nil];
         [self.cameraToggleButton setEnabled:NO];
         [self.flashToggleButton setEnabled:NO];
         [self prepareStaticFilter];
@@ -704,6 +720,7 @@ outputJPEGQuality;
         //        [self.photoCaptureButton setImage:nil forState:UIControlStateNormal];
         //        [self.photoCaptureButton setEnabled:YES];
         [self setTabBarButtonToFinal:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

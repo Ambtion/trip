@@ -59,22 +59,29 @@
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(allTextFieldsResignFirstResponder)];
     gesture.delegate = self;
     [_funtionView addGestureRecognizer:gesture];
-    _usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(18, 0, 215, 35)];
+    UIView * bgmage = [[UIView alloc] initWithFrame:CGRectMake(18, 0, 215, 35)];
+    bgmage.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    
+    _usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(18 + 10, 0, 205, 35)];
     _usernameTextField.font = [UIFont systemFontOfSize:15];
     _usernameTextField.textColor = TEXTLOLOR;
     _usernameTextField.returnKeyType = UIReturnKeyNext;
     _usernameTextField.placeholder = @"使用电子邮箱地址";
     _usernameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _usernameTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _usernameTextField.backgroundColor = [UIColor clearColor];
     _usernameTextField.text = [[LoginStateManager lastUserName] copy];
     _usernameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_usernameTextField addTarget:self action:@selector(usernameDidEndOnExit) forControlEvents:UIControlEventEditingDidEndOnExit];
     
     //输入密码
-    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(18, 39, 215, 35)];
+    UIView * bgmage2 = [[UIView alloc] initWithFrame:CGRectMake(18, 39, 215, 35)];
+    bgmage2.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(18 + 10, 39, 205, 35)];
     _passwordTextField.font = [UIFont systemFontOfSize:15];
     _passwordTextField.textColor = TEXTLOLOR;
     _passwordTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _passwordTextField.backgroundColor = [UIColor clearColor];
     _passwordTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _passwordTextField.returnKeyType = UIReturnKeyDone;
     _passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
@@ -100,7 +107,9 @@
     [forgetPassWord setImage:[UIImage imageNamed:@"forget.png"] forState:UIControlStateNormal];
     forgetPassWord.backgroundColor = [UIColor clearColor];
     [forgetPassWord addTarget:self action:@selector(forgetPassWord:) forControlEvents:UIControlEventTouchUpInside];
+    [_funtionView addSubview:bgmage];
     [_funtionView addSubview:_usernameTextField];
+    [_funtionView addSubview:bgmage2];
     [_funtionView addSubview:_passwordTextField];
     [_funtionView addSubview:registerButton];
     [_funtionView addSubview:loginButton];
@@ -170,9 +179,9 @@
         [self showPopAlerViewWithMes:@"您还没有填写用户名" withDelegate:nil cancelButton:@"确定" otherButtonTitles:nil];
         return;
     }
-       if (!_passwordTextField.text || [_passwordTextField.text isEqualToString:@""]) {
-           [self showPopAlerViewWithMes:@"您还没有填写密码" withDelegate:nil cancelButton:@"确定" otherButtonTitles:nil];
-         return;
+    if (!_passwordTextField.text || [_passwordTextField.text isEqualToString:@""]) {
+        [self showPopAlerViewWithMes:@"您还没有填写密码" withDelegate:nil cancelButton:@"确定" otherButtonTitles:nil];
+        return;
     }
     NSString * useName = [NSString stringWithFormat:@"%@",[_usernameTextField.text lowercaseString]];
     NSString * passWord = [NSString stringWithFormat:@"%@",_passwordTextField.text];
@@ -180,30 +189,36 @@
     [self.view addSubview:hud];
     [hud show:YES];
     [RequestManager loingWithUserName:useName passpord:passWord success:^(NSString *response) {
+        NSDictionary * dic = [[response JSONValue] objectForKey:@"result"];
         [hud hide:YES];
-        [LoginStateManager storelastName:_usernameTextField.text];
-        [self handleLoginInfo:[response JSONValue]];
+        DLog(@"%@",dic);
+        if ([[dic objectForKey:@"code"] intValue] == 200) {
+            [LoginStateManager storelastName:_usernameTextField.text];
+            [self handleLoginInfo:dic];
+        }else{
+            [self showPopAlerViewWithMes:@"用户名或者密码不对" withDelegate:nil cancelButton:@"确定" otherButtonTitles:nil];
+        }
     } failure:^(NSString *error) {
         [hud hide:YES];
-        [self showPopAlerViewWithMes:@"用户名或者密码不对" withDelegate:nil cancelButton:@"确定" otherButtonTitles:nil];
+        
     }];
 }
 - (void)registerButtonClicked:(UIButton *)button
-{
-    [_passwordTextField resignFirstResponder];
-    [_usernameTextField resignFirstResponder];
-    RegisterViewController * reg = [[RegisterViewController alloc] init];
-    reg.loginController = self;
-    DLog(@"%@",self.navigationController);
-    [self.navigationController pushViewController:reg animated:YES];
-}
-
+    {
+        [_passwordTextField resignFirstResponder];
+        [_usernameTextField resignFirstResponder];
+        RegisterViewController * reg = [[RegisterViewController alloc] init];
+        reg.loginController = self;
+        DLog(@"%@",self.navigationController);
+        [self.navigationController pushViewController:reg animated:YES];
+    }
+     
 #pragma mark Handle Login Result
 
 - (void)handleLoginInfo:(NSDictionary *)response
 {
-    
-    [LoginStateManager loginUserId:@"1" withToken:[response objectForKey:@"token"] RefreshToken:@"sdf"];
+    DLog(@"%@",response);
+    [LoginStateManager loginUserId:[response objectForKey:@"uid"] withToken:[response objectForKey:@"token"] RefreshToken:@"sdf"];
     [self cancelLogin:nil];
 }
 - (void)showError:(NSString *)error
@@ -214,80 +229,80 @@
 }
 
 #pragma mark OAuth
-- (void)sinaLogin:(UIButton*)button
-{
-    [[self AppDelegate] sinaLoginWithDelegate:self];
-}
-- (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
-{
-    DLog(@"%@",[[self AppDelegate] sinaweibo].accessToken);
-    [self handleLoginInfo:nil];
-}
-- (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
-{
-    [self showTotasViewWithMes:@"授权失败"];
-}
-- (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
-{
-    [self showTotasViewWithMes:@"授权失败"];
-}
-
+     - (void)sinaLogin:(UIButton*)button
+    {
+        [[self AppDelegate] sinaLoginWithDelegate:self];
+    }
+     - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
+    {
+        DLog(@"%@",[[self AppDelegate] sinaweibo].accessToken);
+        [self handleLoginInfo:nil];
+    }
+     - (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
+    {
+        [self showTotasViewWithMes:@"授权失败"];
+    }
+     - (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
+    {
+        [self showTotasViewWithMes:@"授权失败"];
+    }
+     
 #pragma mark QQ
-- (void)qqLogin:(UIButton *)button
-{
-    [[self AppDelegate] qqLoginWithDelegate:self];
-}
-- (void)tencentDidLogin
-{
-    DLog(@"%@",[[self AppDelegate] tencentOAuth].accessToken);
-    [self handleLoginInfo:nil];
-}
-- (void)tencentDidNotLogin:(BOOL)cancelled
-{
-    [self showTotasViewWithMes:@"授权失败"];
-}
-- (void)tencentDidNotNetWork
-{
-    [self showTotasViewWithMes:@"授权失败"];
-}
+     - (void)qqLogin:(UIButton *)button
+    {
+        [[self AppDelegate] qqLoginWithDelegate:self];
+    }
+     - (void)tencentDidLogin
+    {
+        DLog(@"%@",[[self AppDelegate] tencentOAuth].accessToken);
+        [self handleLoginInfo:nil];
+    }
+     - (void)tencentDidNotLogin:(BOOL)cancelled
+    {
+        [self showTotasViewWithMes:@"授权失败"];
+    }
+     - (void)tencentDidNotNetWork
+    {
+        [self showTotasViewWithMes:@"授权失败"];
+    }
 #pragma forgetPassWord
-- (void)forgetPassWord:(id)sender
-{
-    //忘记密码
-}
+     - (void)forgetPassWord:(id)sender
+    {
+        //忘记密码
+    }
 #pragma mark Keyboard lifeCircle
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-    UIScrollView * view = (UIScrollView *) self.view;
-    view.scrollEnabled = YES;
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    CGSize size = view.bounds.size;
-    size.height += keyboardSize.height;
-    view.contentSize = size;
-    
-    CGPoint point = view.contentOffset;
-    point.y =  120;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
-    view.contentOffset = point;
-    [UIView commitAnimations];
-}
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-    //视图消失时自动失去第一响应者,为了保持动画一致性
-    if ([LoginStateManager isLogin]) return;
-    DLog(@"%s",__FUNCTION__);
-    UIScrollView *view = (UIScrollView *) self.view;
-    CGPoint point = view.contentOffset;
-    point.y  =  0;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
-    view.contentOffset = point;
-    [UIView commitAnimations];
-    view.scrollEnabled = NO;
-    CGSize size = view.bounds.size;
-    view.contentSize = size;
-}
-@end
+     - (void)keyboardWillShow:(NSNotification *)notification
+    {
+        UIScrollView * view = (UIScrollView *) self.view;
+        view.scrollEnabled = YES;
+        CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+        CGSize size = view.bounds.size;
+        size.height += keyboardSize.height;
+        view.contentSize = size;
+        
+        CGPoint point = view.contentOffset;
+        point.y =  120;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+        [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+        view.contentOffset = point;
+        [UIView commitAnimations];
+    }
+     - (void)keyboardWillHide:(NSNotification *)notification
+    {
+        //视图消失时自动失去第一响应者,为了保持动画一致性
+        if ([LoginStateManager isLogin]) return;
+        DLog(@"%s",__FUNCTION__);
+        UIScrollView *view = (UIScrollView *) self.view;
+        CGPoint point = view.contentOffset;
+        point.y  =  0;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+        [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+        view.contentOffset = point;
+        [UIView commitAnimations];
+        view.scrollEnabled = NO;
+        CGSize size = view.bounds.size;
+        view.contentSize = size;
+    }
+     @end

@@ -24,7 +24,7 @@
 - (void)getDataSource
 {
     [self waitForMomentsWithTitle:@"加载中" withView:self.view];
-    [RequestManager getTitleImagesWithId:_titleId token:nil success:^(NSString *response) {
+    [RequestManager getTitleImagesWithId:_titleId success:^(NSString *response) {
         _dataInfo = [[response JSONValue] objectForKey:@"finding"];
         [self addScrollviewConten];
         [self stopWaitProgressView:nil];

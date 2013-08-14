@@ -195,22 +195,23 @@
     }
     
     runAsynchronouslyOnVideoProcessingQueue(^{
-        
-        if (MAX(pixelSizeOfImage.width, pixelSizeOfImage.height) > 1000.0)
-        {
-            [self conserveMemoryForNextFrame];
-        }
-        
-        for (id<GPUImageInput> currentTarget in targets)
-        {
-            NSInteger indexOfObject = [targets indexOfObject:currentTarget];
-            NSInteger textureIndexOfTarget = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
+        @autoreleasepool {
+            if (MAX(pixelSizeOfImage.width, pixelSizeOfImage.height) > 1000.0)
+            {
+                [self conserveMemoryForNextFrame];
+            }
             
-            [currentTarget setInputSize:pixelSizeOfImage atIndex:textureIndexOfTarget];
-            [currentTarget newFrameReadyAtTime:kCMTimeIndefinite atIndex:textureIndexOfTarget];
+            for (id<GPUImageInput> currentTarget in targets)
+            {
+                NSInteger indexOfObject = [targets indexOfObject:currentTarget];
+                NSInteger textureIndexOfTarget = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
+                
+                [currentTarget setInputSize:pixelSizeOfImage atIndex:textureIndexOfTarget];
+                [currentTarget newFrameReadyAtTime:kCMTimeIndefinite atIndex:textureIndexOfTarget];
+            }
+            
+            dispatch_semaphore_signal(imageUpdateSemaphore);
         }
-        
-        dispatch_semaphore_signal(imageUpdateSemaphore);
     });
 }
 

@@ -121,7 +121,7 @@
     if (_isLoading) return;
     _isLoading = YES;
     if (*_dataSource.islikedAddress) {
-        [RequestManager likeWithFindingId:[_dataSource findingId] token:nil success:^(NSString *response) {
+        [RequestManager likeWithFindingId:[_dataSource findingId] success:^(NSString *response) {
             //不喜欢
             *_dataSource.islikedAddress = NO;
             (*_dataSource.likeCountAddress)--;
@@ -134,7 +134,7 @@
     }else{
         DLog(@"");
         //喜欢
-        [RequestManager likeWithFindingId:[_dataSource findingId] token:nil success:^(NSString *response) {
+        [RequestManager likeWithFindingId:[_dataSource findingId] success:^(NSString *response) {
             *_dataSource.islikedAddress = YES;
             (*_dataSource.likeCountAddress)++;
             [self setLikeAndCountState];

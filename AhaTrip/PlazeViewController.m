@@ -147,7 +147,7 @@
 - (void)refresFromeNetWork
 {
     [self waitForMomentsWithTitle:@"加载中" withView:self.view];
-    [RequestManager getPlazaWithstart:0 count:20 token:nil success:^(NSString *response) {
+    [RequestManager getPlazaWithstart:0 count:20 success:^(NSString *response) {
         [_assetsArray removeAllObjects];
         [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
@@ -180,7 +180,7 @@
         [_tableView didFinishedLoadingTableViewData];
         return;
     }
-    [RequestManager getPlazaWithstart:_assetsArray.count count:20 token:nil success:^(NSString *response) {
+    [RequestManager getPlazaWithstart:_assetsArray.count count:20  success:^(NSString *response) {
         [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
     } failure:^(NSString *error) {

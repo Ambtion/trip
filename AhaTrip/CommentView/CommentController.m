@@ -31,6 +31,7 @@
     if (self) {
         _blurImgage = image;
         _findsID = findsID;
+        _commentId = 0;
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(commentkeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [center addObserver:self selector:@selector(commentkeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -52,7 +53,7 @@
 }
 - (void)getUserInfo
 {
-    [RequestManager getUserInfoWithUserId:@"2" token:nil success:^(NSString *response) {
+    [RequestManager getUserInfoWithUserId:[LoginStateManager currentUserId] token:nil success:^(NSString *response) {
         _userInfo = [[response JSONValue] objectForKey:@"user"];
     } failure:^(NSString *error) {
        
@@ -70,7 +71,7 @@
 
 - (void)addTableView
 {
-    _refrehsTableView = [[EGRefreshTableView alloc] initWithFrame:CGRectMake(0, 44, 320, self.view.bounds.size.height - 44 - 38) style:UITableViewStylePlain];
+    _refrehsTableView = [[EGRefreshTableView alloc] initWithFrame:CGRectMake(0, 44 + 15, 320, self.view.bounds.size.height - 44 - 38 - 15) style:UITableViewStylePlain];
     _refrehsTableView.backgroundColor =  [UIColor clearColor];
     _refrehsTableView.pDelegate = self;
     _refrehsTableView.dataSource = self;
@@ -142,12 +143,13 @@
     }
     if (_isSending) return;
     _isSending = YES;
-    [RequestManager postComment:commentView.textView.internalTextView.text WithFindingId:_findsID token:nil success:^(NSString *response) {
+    [RequestManager postComment:commentView.textView.internalTextView.text WithFindingId:_findsID withCommentFatherId:_commentId success:^(NSString *response) {
         [_dataSourceArray insertObject:[self getCommentSoureWithComment:commentView.textView.internalTextView.text] atIndex:0];
         commentView.textView.internalTextView.text = nil;
         [commentView.textView resignFirstResponder];
         [_refrehsTableView reloadData];
         _isSending  = NO;
+        DLog(@"%@",[response JSONValue]);
     } failure:^(NSString *error) {
         DLog(@"%@",error);
         [commentView.textView resignFirstResponder];
@@ -161,6 +163,10 @@
     CommentCellDeteSource * dataSource = [[CommentCellDeteSource alloc] init];
     dataSource.portraitUrl = [_userInfo objectForKey:@"photo_thumb"];
     dataSource.userName =[_userInfo objectForKey:@"username"];
+    dataSource.commentID = _commentId;
+    DLog(@"LLL:%d",_commentId);
+    if (_commentId)
+        dataSource.toUserName = _toUserName;
     dataSource.userId = [NSString stringWithFormat:@"%d",[[_userInfo objectForKey:@"id"] intValue]];
     dataSource.commentStr = comment;
     return dataSource;
@@ -177,7 +183,7 @@
 }
 - (void)refrshDataFromNetWork
 {
-    [RequestManager getCommentWithFindingId:_findsID start:0 count:20 token:nil success:^(NSString *response) {
+    [RequestManager getCommentWithFindingId:_findsID start:0 count:20   success:^(NSString *response) {
         DLog(@"%@",[response JSONValue]);
         [_dataSourceArray removeAllObjects];
         [self addDataSourceWithArray:[[response JSONValue] objectForKey:@"comments"]];
@@ -191,8 +197,7 @@
         [_refrehsTableView didFinishedLoadingTableViewData];
         return;
     }
-    [RequestManager getCommentWithFindingId:_findsID start:0 count:20 token:nil success:^(NSString *response) {
-        DLog(@"%@",[response JSONValue]);
+    [RequestManager getCommentWithFindingId:_findsID start:0 count:20  success:^(NSString *response) {
         [self addDataSourceWithArray:[[response JSONValue] objectForKey:@"comments"]];
         
     } failure:^(NSString *error) {
@@ -213,13 +218,15 @@
     
     CommentCellDeteSource * data = [[CommentCellDeteSource alloc] init];
     data.commentStr = [info objectForKey:@"content"];
+    data.toUserName = [info objectForKey:@"to_user_name"];
+    data.commentID = [[info objectForKey:@"id"] intValue];
+    
     info = [info objectForKey:@"user"];
     data.userName = [info objectForKey:@"username"];
     data.userId = [NSString stringWithFormat:@"%@",[info objectForKey:@"id"]];
     data.portraitUrl = [info objectForKey:@"photo_thumb"];
     return data;
 }
-
 
 #pragma mark -tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -260,6 +267,12 @@
 {
     DLog(@"%@",self.navigationController);
     [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO withUserId:cell.dataSource.userId] animated:YES];
+}
+- (void)commentCell:(CommentCell *)cell clickComment:(id)sender
+{
+    _commentId = [cell.dataSource commentID];
+    _toUserName = [cell.dataSource toUserName];
+    [commentView.textView becomeFirstResponder];
 }
 - (void)makeCommentView:(MakeCommentView *)view commentClick:(UIButton *)button
 {
