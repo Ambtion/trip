@@ -98,7 +98,7 @@
 }
 - (void)getUserInfo
 {
-    [RequestManager getUserInfoWithUserId:_userId token:nil success:^(NSString *response) {
+    [RequestManager getUserInfoWithUserId:_userId  success:^(NSString *response) {
         DLog(@"LLLLL");
         NSDictionary * dic = [[response JSONValue] objectForKey:@"user"];
         DLog(@"%@",dic);
@@ -113,11 +113,12 @@
         
     }];
 }
+
 - (void)refresFromeNetWork
 {
     [self getUserInfo];
     if (_isFinds) {
-        [RequestManager getFindsUserId:_userId Withstart:0 count:20 token:nil success:^(NSString *response) {
+        [RequestManager getFindsUserId:_userId Withstart:0 count:20  success:^(NSString *response) {
             [_assetsArray removeAllObjects];
             [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
             [self convertAssetsToDataSouce];
@@ -125,7 +126,7 @@
             [_tableView didFinishedLoadingTableViewData];
         }];
     }else{
-        [RequestManager getFavUserId:_userId Withstart:0 count:20 token:nil success:^(NSString *response) {
+        [RequestManager getFavUserId:_userId Withstart:0 count:20  success:^(NSString *response) {
             [_assetsArray removeAllObjects];
             [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
             [self convertAssetsToDataSouce];
@@ -141,14 +142,14 @@
         return;
     }
     if (_isFinds) {
-        [RequestManager getFindsUserId:_userId Withstart:_assetsArray.count count:20 token:nil success:^(NSString *response) {
+        [RequestManager getFindsUserId:_userId Withstart:_assetsArray.count count:20   success:^(NSString *response) {
             [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
             [self convertAssetsToDataSouce];
         } failure:^(NSString *error) {
             [_tableView didFinishedLoadingTableViewData];
         }];
     }else{
-        [RequestManager getFavUserId:_userId Withstart:_assetsArray.count count:20 token:nil success:^(NSString *response) {
+        [RequestManager getFavUserId:_userId Withstart:_assetsArray.count count:20  success:^(NSString *response) {
             [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
             [self convertAssetsToDataSouce];
         } failure:^(NSString *error) {

@@ -9,6 +9,7 @@
 #import "SettingController.h"
 #import "FeedBackController.h"
 #import "PlazeViewController.h"
+#import "UIImageView+WebCache.h"
 
 static NSString * secTitle[3] = {@"账户",@"分享到",@"其他"};
 static NSString * titleSection1[2] = {@"新浪微博",@"腾讯微博"};
@@ -34,12 +35,21 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 }
 - (void)getUserInfo
 {
-    acountSource = [[AcountSettingCellDataSource alloc] init];
-    acountSource.poraitImage = [UIImage imageNamed:@"test_portrait.png"];
-//    acountSource.userName = @"曹小盖er";
-//    acountSource.userDes = @"没什么描述的";
-//    acountSource.birthday = @"2012-2-23";
-    acountSource.isBoy = YES;
+    [RequestManager getUserInfoWithUserId:[LoginStateManager currentUserId] success:^(NSString *response) {
+        NSDictionary  * userInfo = [[response JSONValue] objectForKey:@"user"];
+        DLog(@"%@",userInfo);
+        acountSource = [[AcountSettingCellDataSource alloc] init];
+        acountSource.poraitImage = [userInfo objectForKey:@"thumb"];
+        DLog(@"%@",acountSource.poraitImage);
+        acountSource.userName = [userInfo objectForKey:@"username"];
+        acountSource.userDes = [userInfo objectForKey:@"signature"];
+        acountSource.birthday = [userInfo objectForKey:@"birth"];
+        acountSource.isBoy = [@"male" isEqualToString:[userInfo objectForKey:@"sex"]];
+        [_tableView reloadData];
+    } failure:^(NSString *error) {
+       
+    }];
+  
 }
 - (void)addNavBar
 {
@@ -128,6 +138,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
             cell = [[AcountSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             cell.delegate = self;
         }
+        DLog(@"%@",acountSource.poraitImage);
         cell.dataSouce = acountSource;
         return cell;
     }

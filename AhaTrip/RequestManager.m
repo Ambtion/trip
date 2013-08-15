@@ -112,38 +112,38 @@
 }
 
 //用户信息
-+ (void)getUserInfoWithUserId:(NSString *)userId token:(NSString*)token  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)getUserInfoWithUserId:(NSString *)userId   success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     
-    NSString * url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/user?uid=%@&token=tRyW4rLBiJHffQ",userId];
+    NSString * url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/user?uid=%@&token=%@",userId,[LoginStateManager currentToken]];
     DLog(@"%@",url);
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
 }
 
 //用户finds
-+ (void)getFindsUserId:(NSString *)userId Withstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)getFindsUserId:(NSString *)userId Withstart:(NSInteger)start count:(NSInteger)count  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/userFinding?uid=%@&start=%d&count=%d&token=tRyW4rLBiJHffQ",userId,start,count];
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/userFinding?uid=%@&start=%d&count=%d&token=%@",userId,start,count,[LoginStateManager currentToken]];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
 //用户favarite
-+ (void)getFavUserId:(NSString *)userId Withstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)getFavUserId:(NSString *)userId Withstart:(NSInteger)start count:(NSInteger)count success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/userFavorite?uid=%@&start=%d&count=%d&token=tRyW4rLBiJHffQ",userId,start,count];
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/userFavorite?uid=%@&start=%d&count=%d&token=%@",userId,start,count,[LoginStateManager currentToken]];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
 //国家列表
-+ (void)getCountryListWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)getCountryListWithstart:(NSInteger)start count:(NSInteger)count  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     //有内容的地区
-    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?type=search&token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?type=search&token=%@&start=%d&count=%d",[LoginStateManager currentToken],start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
-+ (void)getCountryAllListForSeletedWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)getCountryAllListForSeletedWithstart:(NSInteger)start count:(NSInteger)count  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?token=%@&start=%d&count=%d",[LoginStateManager currentToken],start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 //城市列表

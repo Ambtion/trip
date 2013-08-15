@@ -25,17 +25,17 @@
 + (void)getTitleImagesWithId:(NSString *)titleId  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
 //用户信息
-+ (void)getUserInfoWithUserId:(NSString *)userId token:(NSString*)token  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
++ (void)getUserInfoWithUserId:(NSString *)userId  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
 //用户finds
-+ (void)getFindsUserId:(NSString *)userId Withstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
++ (void)getFindsUserId:(NSString *)userId Withstart:(NSInteger)start count:(NSInteger)count success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
 //用户favarite
-+ (void)getFavUserId:(NSString *)userId Withstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
++ (void)getFavUserId:(NSString *)userId Withstart:(NSInteger)start count:(NSInteger)count  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
 //国家列表
-+ (void)getCountryListWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
-+ (void)getCountryAllListForSeletedWithstart:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
++ (void)getCountryListWithstart:(NSInteger)start count:(NSInteger)count success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
++ (void)getCountryAllListForSeletedWithstart:(NSInteger)start count:(NSInteger)count success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 //城市列表
 + (void)getCityListFromCounty:(NSInteger)country start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 

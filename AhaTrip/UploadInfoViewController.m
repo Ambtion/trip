@@ -14,19 +14,19 @@
 #define  INSETS 10
 
 #define kBtnRankNum 4
-#define kBtnOriginX 4
-#define kBtnOriginY 15
-#define kBtnWidth   75
-#define kBtnHeight  75
-#define kIntevalX  4
+#define kBtnOriginX 10
+#define kBtnOriginY 10
+#define kBtnWidth   70
+#define kBtnHeight  70
+#define kIntevalX  7
 #define kIntevalY  15
 
 #define PLUSICON [UIImage imageNamed:@"plus_icon.png"]
 #define DESC_COUNT_LIMIT 100
 
-@interface UploadInfoViewController ()
-
-@end
+#define TIMEBGVIEWTAG  20000
+#define AVERCOAST      20001
+#define HASWIFI        20002
 
 @implementation UploadInfoViewController
 @synthesize delegate;
@@ -46,7 +46,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     self.view.backgroundColor= [UIColor colorWithRed:235.f/255.f green:235.f/255.f blue:235.f/255.f alpha:1.f];
+    self.view.backgroundColor= [UIColor colorWithRed:235.f/255.f green:235.f/255.f blue:235.f/255.f alpha:1.f];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [self addScrollView];
@@ -60,10 +60,9 @@
 #pragma mark Notification
 - (void)keyboardDidShow:(NSNotification *)notification
 {
-    if (_myScrollView.contentOffset.y < 90)
-        [_myScrollView setContentOffset:CGPointMake(0, 90) animated:YES];
+    if (_myScrollView.contentOffset.y < 60)
+        [_myScrollView setContentOffset:CGPointMake(0, 60) animated:YES];
 }
-
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     if ([touch.view isKindOfClass:[UIButton class]])
@@ -104,14 +103,13 @@
             if ([[_imagesArray objectAtIndex:i] isKindOfClass:[NSDictionary class]]) {
                 [imageBtn setImage:[[_imagesArray objectAtIndex:i] objectForKey:@"Thumbnail"] forState:UIControlStateNormal];
             }else{
-              [imageBtn setImage:[_imagesArray objectAtIndex:i] forState:UIControlStateNormal];
+                [imageBtn setImage:[_imagesArray objectAtIndex:i] forState:UIControlStateNormal];
             }
         }
         _offsetY = imageBtn.frame.origin.y+ imageBtn.frame.size.height + 15;
         [_myScrollView addSubview:imageBtn];
     }
     [self resetDesTextView];
-    [self resetLocation];
     [self resetOptionalSeleted];
     [self addBindViews];
 }
@@ -124,7 +122,7 @@
 {
     //  153
     if (!_desTextView) {
-        _desTextView = [[UITextView alloc]initWithFrame:CGRectMake(10,_offsetY, 300, 100)];
+        _desTextView = [[UITextView alloc]initWithFrame:CGRectMake(kBtnOriginX ,_offsetY, 300, 60)];
         _desTextView.layer.borderColor = [[UIColor colorWithRed:153.f/255 green:153.f/255  blue:153.f/255  alpha:1.f] CGColor];
         _desTextView.layer.borderWidth = 1.0f;
         _desTextView.backgroundColor = [UIColor whiteColor];
@@ -136,12 +134,12 @@
         _desTextView.keyboardAppearance = UIKeyboardAppearanceDefault;
         _desTextView.delegate = self;
         _placeHolder = [[UITextField alloc] initWithFrame:CGRectMake(5, 5, 250, 30)];
-        _placeHolder.placeholder = @"我还有话要说的。。。。 😄";
+        _placeHolder.placeholder = @"我还有话要说的...";
         [_placeHolder setUserInteractionEnabled:NO];
         [_desTextView addSubview:_placeHolder];
         [_myScrollView addSubview: _desTextView];
     }else{
-        _desTextView.frame = CGRectMake(10,_offsetY, 300, 100);
+        _desTextView.frame = CGRectMake(kBtnOriginX,_offsetY, 300, 60);
         [_myScrollView addSubview:_desTextView];
     }
 }
@@ -167,133 +165,133 @@
 }
 
 #pragma mark LocaionView
-- (void)resetLocation
-{
-    if (!_locationView) {
-        [self creteLocatonView];
-    }else{
-        _locationView.frame = CGRectMake(10,_desTextView.frame.size.height + _desTextView.frame.origin.y + 15, 300, 30);
-        [_myScrollView addSubview:_locationView];
-    }
-    [self setLocationText:_locationName];
-}
+
 - (void)creteLocatonView
 {
-    _locationView = [[UIView alloc] initWithFrame:CGRectMake(10,_desTextView.frame.size.height + _desTextView.frame.origin.y + 15, 300, 30)];
-    _locationView.backgroundColor = [UIColor colorWithRed:220.f/255.f green:220.f/255.f blue:220.f/255.f alpha:1.f];
-    
+    _locationView = [[UIImageView alloc] initWithFrame:CGRectMake(0,30, 300, 44)];
+    _locationView.image = [UIImage imageNamed:@"rect.png"];
+    _locationView.backgroundColor = [UIColor clearColor];
+    [_locationView setUserInteractionEnabled:YES];
     UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _locationView.frame.size.height, _locationView.frame.size.height)];
-    imageView.image  = [UIImage imageNamed:@"LocationIcon.png"];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.image  = [UIImage imageNamed:@"icon_location.png"];
+    imageView.contentMode = UIViewContentModeCenter;
     [_locationView addSubview:imageView];
+    
     UILabel * textLabel  = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, _locationView.frame.size.width -  40 - 10, _locationView.frame.size.height)];
     textLabel.backgroundColor = [UIColor clearColor];
-    textLabel.font = [UIFont systemFontOfSize:14.f];
-    textLabel.textColor = [UIColor colorWithRed:50.f/255 green:200/255.f blue:160.f/255 alpha:1.f];
+    textLabel.font = [UIFont boldSystemFontOfSize:16.f];
+    textLabel.textColor = [UIColor blackColor];
     textLabel.tag = 1000;
     [_locationView addSubview:textLabel];
-    
-    UIImageView * arrowImage = [[UIImageView alloc] initWithFrame:CGRectMake(_locationView.frame.size.width - _locationView.frame.size.height, 0 , 26, 16)];
+    UIImageView * arrowImage = [[UIImageView alloc] initWithFrame:CGRectMake(_locationView.frame.size.width + 10 - _locationView.frame.size.height, 0 , 26, 16)];
     arrowImage.center = CGPointMake(arrowImage.center.x, _locationView.frame.size.height /2.f);
     arrowImage.backgroundColor = [UIColor clearColor];
-    arrowImage.image = [UIImage imageNamed:@"arrow.png"];
-    arrowImage.contentMode = UIViewContentModeScaleAspectFit;
+    arrowImage.image = [UIImage imageNamed:@"leftArrow.png"];
+    arrowImage.contentMode = UIViewContentModeCenter;
     [_locationView addSubview:arrowImage];
     UIButton * button = [[UIButton alloc] initWithFrame:_locationView.bounds];
     [button addTarget:self action:@selector(locationGestureClick:) forControlEvents:UIControlEventTouchUpInside];
     [_locationView addSubview:button];
-    [_myScrollView addSubview:_locationView];
 }
 
 - (void)setLocationText:(NSString *)str
 {
     UILabel * label = (UILabel *)[_locationView viewWithTag:1000];
+    if (![str isEqualToString:@"添加当前位置"]) {
+        label.textColor = [UIColor colorWithRed:50.f/255 green:200.f/255 blue:160.f/255 alpha:1];
+    }else{
+        label.textColor = [UIColor blackColor];
+    }
     label.text = str;
     _locationName = str;
-}
-
-#pragma mark optional  des
-- (UIImageView *)bgViewFromFile:(UITextField *)filed
-{
-    UIImageView * bgView = [[UIImageView alloc] initWithFrame:filed.frame];
-    bgView.image = [[UIImage imageNamed:@"input1.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
-    return bgView;
 }
 
 - (void)resetOptionalSeleted
 {
     if (!_optionalView) {
         
-        _optionalView = [[UIView alloc] initWithFrame:CGRectMake(10, _locationView.frame.origin.y+ _locationView.frame.size.height+20, 300, 100)];
+        _optionalView = [[UIView alloc] initWithFrame:CGRectMake(kBtnOriginX, _desTextView.frame.origin.y + _desTextView.frame.size.height + 15, 300, 206)];
         _optionalView.backgroundColor=[UIColor clearColor];
         [_myScrollView addSubview:_optionalView];
-        UILabel * slectLabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, 40, 30)];
-        slectLabel.text=@"选填";
+        UILabel * slectLabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 28)];
+        slectLabel.text=@"等多(选填)";
         slectLabel.backgroundColor=[UIColor clearColor];
-        slectLabel.textColor=[UIColor blackColor];
-        slectLabel.font=[UIFont systemFontOfSize:18.f];
+        slectLabel.textColor=[UIColor lightGrayColor];
         [_optionalView addSubview:slectLabel];
         
-        UITextField* timeFild =[[UITextField alloc]initWithFrame:CGRectMake(40 + 10, 8, 250, 30)];
-        timeFild.borderStyle =  UITextBorderStyleNone;
-        timeFild.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        timeFild.backgroundColor = [UIColor clearColor];
-        timeFild.font = [UIFont fontWithName:@"Arial" size:16.0f];
-        timeFild.placeholder = @"营业时间";
-        timeFild.textAlignment=UITextAlignmentCenter;
-        [_optionalView addSubview:[self bgViewFromFile:timeFild]];
-        [_optionalView addSubview:timeFild];
-        UIButton * button = [[UIButton alloc] initWithFrame:timeFild.bounds];
-        button.tag = 1;
-        [button addTarget:self action:@selector(buttonDateClick:) forControlEvents:UIControlEventTouchUpInside];
-        [timeFild addSubview:button];
+        [self creteLocatonView];
+        [self setLocationText:_locationName];
+        [_optionalView addSubview:_locationView];
         
-        UITextField* avregeText=[[UITextField alloc]initWithFrame:CGRectMake(50, 43, 125, 30)];
-        avregeText.borderStyle =  UITextBorderStyleNone;
-        avregeText.backgroundColor=[UIColor clearColor];
-        avregeText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        avregeText.font = [UIFont fontWithName:@"Arial" size:16.0f];
-        avregeText.textAlignment=UITextAlignmentCenter;
-        avregeText.placeholder = @"人均消费";
-        [_optionalView addSubview:[self bgViewFromFile:avregeText]];
-        [_optionalView addSubview:avregeText];
-        UIButton * button2 = [[UIButton alloc] initWithFrame:timeFild.bounds];
-        button2.tag = 2;
-        [button2 addTarget:self action:@selector(buttonDateClick:) forControlEvents:UIControlEventTouchUpInside];
-        [avregeText addSubview:button2];
+        UIImageView * timeView = [self getLabelWithIcon:[UIImage imageNamed:@"icon_time.png"] tag:TIMEBGVIEWTAG title:@"营业时间"];
+        timeView.frame = CGRectMake(0, _locationView.frame.size.height + _locationView.frame.origin.y, _locationView.frame.size.width, _locationView.frame.size.height);
+        [_optionalView addSubview:timeView];
         
-        UITextField * wifiText=[[UITextField alloc]initWithFrame:CGRectMake(175, 43, 125, 30)];
-        wifiText.borderStyle =  UITextBorderStyleNone;
-        wifiText.backgroundColor = [UIColor clearColor];
-        wifiText.font = [UIFont fontWithName:@"Arial" size:16.0f];
-        wifiText.textColor = [UIColor blackColor];
-        wifiText.textAlignment=UITextAlignmentCenter;
-        wifiText.clearButtonMode = UITextFieldViewModeAlways;
+        UIImageView * averCost = [self getLabelWithIcon:[UIImage imageNamed:@"icon_dollar.png"] tag:AVERCOAST title:@"人均消费"];
+        averCost.frame = CGRectMake(0, timeView.frame.size.height + timeView.frame.origin.y, timeView.frame.size.width, timeView.frame.size.height);
+        [_optionalView addSubview:averCost];
         
-        //输入框中一开始就有的文字
-        wifiText.placeholder = @"Wifi 有/无";
-        wifiText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        [_optionalView addSubview:[self bgViewFromFile:wifiText]];
-        [_optionalView addSubview:wifiText];
-        UIButton * button3 = [[UIButton alloc] initWithFrame:timeFild.bounds];
-        button3.tag = 3;
-        [button3 addTarget:self action:@selector(buttonDateClick:) forControlEvents:UIControlEventTouchUpInside];
-        [wifiText addSubview:button3];
+        UIImageView * wifi = [self getLabelWithIcon:[UIImage imageNamed:@"icon_wifi.png"] tag:HASWIFI title:@"WIFI"];
+        wifi.frame = CGRectMake(0, averCost.frame.size.height + averCost.frame.origin.y, averCost.frame.size.width, averCost.frame.size.height);
+        [_optionalView addSubview:wifi];
+        
     }else{
         [_myScrollView addSubview:_optionalView];
-        _optionalView.frame = CGRectMake(10, _locationView.frame.origin.y+ _locationView.frame.size.height+20, 300, 100);
+        _optionalView.frame = CGRectMake(kBtnOriginX, _desTextView.frame.origin.y + _desTextView.frame.size.height + 15, 300, 206);
     }
 }
+- (UIImageView *)getLabelWithIcon:(UIImage *)image tag:(NSInteger)tag title:(NSString *)title
+{
+    UIImageView * bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,30, 300, 44)];
+    bgView.image = [UIImage imageNamed:@"rect.png"];
+    bgView.backgroundColor = [UIColor clearColor];
+    bgView.tag = tag;
+    [bgView setUserInteractionEnabled:YES];
 
+    UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, bgView.frame.size.height, bgView.frame.size.height)];
+    imageView.image  = image;
+    imageView.contentMode = UIViewContentModeCenter;
+    [bgView addSubview:imageView];
+    UILabel * textLabel  = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 80, bgView.frame.size.height)];
+    textLabel.backgroundColor = [UIColor clearColor];
+    textLabel.font = [UIFont boldSystemFontOfSize:16.f];
+    textLabel.text = title;
+    textLabel.textColor = [UIColor blackColor];
+    [bgView addSubview:textLabel];
+    
+    UILabel * contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 0, 150, 44)];
+    contentLabel.backgroundColor = [UIColor clearColor];
+    contentLabel.font = [UIFont boldSystemFontOfSize:16.f];
+    contentLabel.textAlignment = UITextAlignmentRight;
+    contentLabel.textColor = [UIColor colorWithRed:50.f/255 green:200.f/255 blue:160.f/255 alpha:1];
+    [bgView addSubview:contentLabel];
+    
+    UIImageView * arrowImage = [[UIImageView alloc] initWithFrame:CGRectMake(bgView.frame.size.width - bgView.frame.size.height + 10, 0 , 26, 16)];
+    arrowImage.center = CGPointMake(arrowImage.center.x, bgView.frame.size.height /2.f);
+    arrowImage.backgroundColor = [UIColor clearColor];
+    arrowImage.image = [UIImage imageNamed:@"leftArrow.png"];
+    arrowImage.contentMode = UIViewContentModeCenter;
+    [bgView addSubview:arrowImage];
+    UIButton * button = [[UIButton alloc] initWithFrame:_locationView.bounds];
+    [button addTarget:self action:@selector(seletedOptionalClick:) forControlEvents:UIControlEventTouchUpInside];
+    [bgView addSubview:button];
+    return bgView;
+}
 
+- (void)setView:(UIImageView *)imageView WithText:(NSString *)str
+{
+    UILabel * label = (UILabel *)[imageView viewWithTag:1000];
+    label.text = str;
+    _locationName = str;
+}
 #pragma mark Bind
 -(void)addBindViews
 {
     if (!_bindView) {
-        _bindView=[[UIView alloc] initWithFrame:CGRectMake(10, _optionalView.frame.origin.y + _optionalView.frame.size.height+10, 300, 140)];
+        _bindView=[[UIView alloc] initWithFrame:CGRectMake(10, _optionalView.frame.origin.y + _optionalView.frame.size.height + 10, 300, 140)];
         _bindView.backgroundColor=[UIColor clearColor];
         [_myScrollView addSubview:_bindView];
-        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5,80,30)];
+         UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5,80,30)];
         label.text= @"分享到";
         label.textColor=[UIColor lightGrayColor];
         label.backgroundColor=[UIColor clearColor];
@@ -316,7 +314,7 @@
         [_myScrollView addSubview:_bindView];
     }else{
         [_myScrollView addSubview:_bindView];
-        _bindView.frame = CGRectMake(10, _optionalView.frame.origin.y + _optionalView.frame.size.height+10, 300, 100);
+        _bindView.frame = CGRectMake(10, _optionalView.frame.origin.y + _optionalView.frame.size.height + 10, 300, 140);
     }
     _myScrollView.contentSize = CGSizeMake(_myScrollView.frame.size.width, _bindView.frame.size.height + _bindView.frame.origin.y);
 }
@@ -425,7 +423,10 @@
     if ([delegate respondsToSelector:@selector(uploadInfoViewControllerDidClickAddLocation:)])
         [delegate uploadInfoViewControllerDidClickAddLocation:button];
 }
-
+- (void)seletedOptionalClick:(UIButton *)button
+{
+    DLog(@"");
+}
 - (void)buttonDateClick:(UIButton *)button
 {
     if (button.tag == 1) {

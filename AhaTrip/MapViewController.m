@@ -233,6 +233,7 @@
 //回到滤镜选项页
 -(void)closeBtnBackMenuList
 {
+    DLog();
     if ([delegate respondsToSelector:@selector(mapViewControllerDidCancel:)])
         [delegate mapViewControllerDidCancel:self];
 }

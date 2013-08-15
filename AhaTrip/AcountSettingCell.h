@@ -17,7 +17,7 @@
 - (void)acountSettingCellDidFinishedEdit:(AcountSettingCell*)cell;
 @end
 @interface AcountSettingCellDataSource : NSObject
-@property(nonatomic,strong)UIImage * poraitImage;
+@property(nonatomic,strong)NSString * poraitImage;
 @property(nonatomic,strong)NSString * userName;
 @property(nonatomic,strong)NSString * userDes;
 @property(nonatomic,strong)NSString * birthday;
@@ -31,7 +31,7 @@
     UITextField * _userNameLabel;
     UITextField * _userDes;
     BirthDayField * _birthday;
-    AcountSettingCellDataSource * _dataSource;
+    AcountSettingCellDataSource * _dataSouce;
 }
 @property(nonatomic,weak)id<AcountSettingCellDelegate> delegate;
 @property(nonatomic,strong)AcountSettingCellDataSource * dataSouce;

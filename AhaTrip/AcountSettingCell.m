@@ -8,7 +8,7 @@
 
 #import "AcountSettingCell.h"
 #define OFFSET   5.f
-
+#import "UIImageView+WebCache.h"
 
 @class AcountSettingCell;
 @implementation AcountSettingCellDataSource
@@ -48,7 +48,7 @@
 - (void)addPortraitImage
 {
     _portraitImage = [[PortraitView alloc] initWithFrame:CGRectMake(OFFSET, OFFSET, 300 - OFFSET * 2, 300 - OFFSET * 2)];
-    _portraitImage.backgroundColor  = [UIColor redColor];
+    _portraitImage.backgroundColor  = [UIColor clearColor];
     [_portraitImage setUserInteractionEnabled:YES];
     [self.contentView addSubview:_portraitImage];
     UIButton * button  = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 35)];
@@ -124,10 +124,11 @@
         _dataSouce = dataSouce;
         [self updataAllViews];
     }
+
 }
 - (void)updataAllViews
 {
-    _portraitImage.imageView.image = _dataSouce.poraitImage;
+    [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:_dataSouce.poraitImage] placeholderImage:nil];
     _userNameLabel.text = _dataSouce.userName;
     _userDes.text = _dataSouce.userDes;
     _birthday.textFiled.text = _dataSouce.birthday;

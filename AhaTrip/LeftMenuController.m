@@ -8,7 +8,7 @@
 
 #import "LeftMenuController.h"
 #import "LeftMenuCell.h"
-
+#import "UIImageView+WebCache.h"
 
 static  NSString *   menuText[4] =   {@"广场",@"个人昵称",@"消息",@"设置"};
 static  NSString *   image[4]    =   {@"left_Icon_home.png",@"avatar.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
@@ -37,9 +37,15 @@ ntfController = _ntfController,setController = _setController;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [_tableView selectRowAtIndexPath:_selectPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [RequestManager getUserInfoWithUserId:[LoginStateManager currentUserId]  success:^(NSString *response) {
+        _userInfo = [[response JSONValue] objectForKey:@"user"];
+        [_tableView reloadData];
+        [_tableView selectRowAtIndexPath:_selectPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    } failure:^(NSString *error) {
+        _userInfo = nil;
+        [_tableView selectRowAtIndexPath:_selectPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }];
 }
-
 #pragma mark - dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -57,8 +63,15 @@ ntfController = _ntfController,setController = _setController;
     if (!cell) {
         cell = [[LeftMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
     }
-    cell.iconImage.imageView.image = [UIImage imageNamed:image[indexPath.row]];
-    cell.titleLabel.text = menuText[indexPath.row];
+    if (indexPath.row == 1 && _userInfo) {
+        DLog(@"%@",_userInfo);
+        cell.titleLabel.text = [_userInfo objectForKey:@"username"];
+        [cell.iconImage.imageView setImageWithURL:[NSURL URLWithString:[_userInfo objectForKey:@"thumb"]] placeholderImage:[UIImage imageNamed:image[indexPath.row]]];
+    }else{
+        cell.iconImage.imageView.image = [UIImage imageNamed:image[indexPath.row]];
+        cell.titleLabel.text = menuText[indexPath.row];
+    }
+   
     [cell.countLabel setHidden:indexPath.row != 2];
     return cell;
 }

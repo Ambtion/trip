@@ -21,6 +21,7 @@
     HomePageController * _homeController;
     NotificationController * _ntfController;
     SettingController * _setController;
+    NSDictionary * _userInfo;
 }
 @property(nonatomic,strong)PlazeViewController * plazeController;
 @property(nonatomic,strong)HomePageController * homeController;

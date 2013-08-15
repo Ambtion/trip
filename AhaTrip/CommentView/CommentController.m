@@ -53,7 +53,7 @@
 }
 - (void)getUserInfo
 {
-    [RequestManager getUserInfoWithUserId:[LoginStateManager currentUserId] token:nil success:^(NSString *response) {
+    [RequestManager getUserInfoWithUserId:[LoginStateManager currentUserId] success:^(NSString *response) {
         _userInfo = [[response JSONValue] objectForKey:@"user"];
     } failure:^(NSString *error) {
        

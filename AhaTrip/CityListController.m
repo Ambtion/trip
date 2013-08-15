@@ -106,7 +106,6 @@
     UITableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:topicCell];
     if(!cell)
     {
-        
         cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier:topicCell];
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];

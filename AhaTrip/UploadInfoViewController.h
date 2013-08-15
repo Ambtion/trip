@@ -23,7 +23,7 @@
     CGFloat _offsetY;
     
     UITextView * _desTextView;
-    UIView * _locationView;
+    UIImageView * _locationView;
     UIView * _optionalView;
     UIView * _bindView;
     NSArray * _bindArray;

@@ -39,8 +39,9 @@
 
 - (void)singleSelectedSubCateroyWihtInfo:(NSDictionary *)info
 {
-//    UploadInfoViewController * uc = [[UploadInfoViewController alloc] initWithImageUrls:[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],nil]];
-//    [self pushViewController:uc animated:YES];
+//    tempInfoController = [[UploadInfoViewController alloc] initWithImageUrls:[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],nil]];
+//    tempInfoController.delegate = self;
+//    [self pushViewController:tempInfoController animated:YES];
 //    return;
     _subCateroyInfo = info;
     CountryListController * souSuoCTL = [[CountryListController alloc] init];
@@ -109,7 +110,11 @@
                                 tempInfoController =[[UploadInfoViewController alloc] initWithImageUrls:_imageUrlArray];
                                 tempInfoController.delegate = self;
                             }
-                            [self pushViewController:tempInfoController animated:YES];
+                            if (![self.navigationController.childViewControllers containsObject:tempInfoController]) {
+                                [self pushViewController:tempInfoController animated:YES];
+                            }else{
+                                [self popToViewController:tempInfoController animated:YES];
+                            }
                         });
                         
                     } failureBlock:^(NSError *error) {
@@ -137,20 +142,19 @@
 #pragma mark - MapViewDelegate
 - (void)mapViewControllerDidCancel:(MapViewController *)picker
 {
-   [self popViewControllerAnimated:NO];
+    [self popViewControllerAnimated:YES];
 }
 - (void)mapViewControllerDidSeletedLocation:(NSString *)locationName
 {
     _locationName = locationName;
     [tempInfoController setLocationText:_locationName];
-    [self popViewControllerAnimated:NO];
+    [self popViewControllerAnimated:YES];
 }
 
 #pragma mark UploadInfo
 - (void)uploadInfoViewControllerDidClickAddPic:(UIButton *)button
 {
-    [self popViewControllerAnimated:NO];
-    SeletedPhotoMethodController *photoCTL=[[SeletedPhotoMethodController alloc] init];
+    SeletedPhotoMethodController * photoCTL=[[SeletedPhotoMethodController alloc] init];
     photoCTL.delegate = self;
     [self pushViewController:photoCTL animated:YES];
 }
@@ -160,7 +164,6 @@
 }
 - (void)uploadInfoViewControllerDidClickAddLocation:(UIButton *)button
 {
-    [self popViewControllerAnimated:NO];
     MapViewController * map = [[MapViewController alloc] init];
     map.delegate = self;
     [self pushViewController:map animated:YES];
