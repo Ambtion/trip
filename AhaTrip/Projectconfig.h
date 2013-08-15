@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "RequestManager.h"
 
+#define BASEGREENCOLOR [UIColor colorWithRed:50.f/255 green:200.f/255 blue:160.f/255 alpha:1]
 #define BASECOLOR [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1.f]
 
 

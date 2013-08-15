@@ -234,6 +234,9 @@
         UIImageView * wifi = [self getLabelWithIcon:[UIImage imageNamed:@"icon_wifi.png"] tag:HASWIFI title:@"WIFI"];
         wifi.frame = CGRectMake(0, averCost.frame.size.height + averCost.frame.origin.y, averCost.frame.size.width, averCost.frame.size.height);
         [_optionalView addSubview:wifi];
+        UIImageView * imag = [[UIImageView alloc] initWithFrame:CGRectMake(0, wifi.frame.size.height + wifi.frame.origin.y - 1, 300, 1)];
+        imag.image = [UIImage imageNamed:@"line.png"];
+        [_optionalView addSubview:imag];
         
     }else{
         [_myScrollView addSubview:_optionalView];
@@ -247,7 +250,7 @@
     bgView.backgroundColor = [UIColor clearColor];
     bgView.tag = tag;
     [bgView setUserInteractionEnabled:YES];
-
+    
     UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, bgView.frame.size.height, bgView.frame.size.height)];
     imageView.image  = image;
     imageView.contentMode = UIViewContentModeCenter;
@@ -291,7 +294,7 @@
         _bindView=[[UIView alloc] initWithFrame:CGRectMake(10, _optionalView.frame.origin.y + _optionalView.frame.size.height + 10, 300, 140)];
         _bindView.backgroundColor=[UIColor clearColor];
         [_myScrollView addSubview:_bindView];
-         UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5,80,30)];
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5,80,30)];
         label.text= @"分享到";
         label.textColor=[UIColor lightGrayColor];
         label.backgroundColor=[UIColor clearColor];
@@ -389,11 +392,12 @@
     //send的按钮
     UIButton * sendeBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [sendeBtn setFrame:CGRectMake(250, 0 , 50, 55)];
-    sendeBtn.contentMode=UIViewContentModeScaleAspectFit;
-    [sendeBtn setImage:[UIImage imageNamed:@"send.png"] forState:UIControlStateNormal];
+    sendeBtn.contentMode=UIViewContentModeCenter;
+    [sendeBtn setImage:[UIImage imageNamed:@"button_sent.png"] forState:UIControlStateNormal];
     [sendeBtn addTarget:self action:@selector(uploadImageView:) forControlEvents:UIControlEventTouchUpInside];
     [bottomBar addSubview:sendeBtn];
 }
+
 - (void)closeBtnBack
 {
     [_imagesArray removeAllObjects];
@@ -426,24 +430,20 @@
 - (void)seletedOptionalClick:(UIButton *)button
 {
     DLog(@"");
-}
-- (void)buttonDateClick:(UIButton *)button
-{
-    if (button.tag == 1) {
-        //营业时间
-        ActionSheetDatePicker * actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"" datePickerMode:UIDatePickerModeTime selectedDate:[NSDate date] target:self action:@selector(dateWasSelected:element:) origin:button];
-        [actionSheetPicker showActionSheetPicker];
-    }else if(button.tag == 2){
-        
-    }else{
-        
+    switch (button.superview.tag) {
+        case TIMEBGVIEWTAG:
+            
+            break;
+        case AVERCOAST:
+            break;
+        case HASWIFI:
+            break;
+        default:
+            break;
     }
 }
 
-- (void)dateWasSelected:(NSDate *)selectedDate element:(id)element
-{
-    DLog();
-}
+#pragma mark OptionalDelegate
 
 - (void)uploadImageView:(UIButton *)button
 {

@@ -187,7 +187,9 @@
     NSString * passWord = [NSString stringWithFormat:@"%@",_passwordTextField.text];
     MBProgressHUD * hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
-    [hud show:YES];
+//    [hud show:YES];
+    [self handleLoginInfo:nil];
+
     [RequestManager loingWithUserName:useName passpord:passWord success:^(NSString *response) {
         NSDictionary * dic = [[response JSONValue] objectForKey:@"result"];
         [hud hide:YES];
