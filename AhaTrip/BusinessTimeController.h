@@ -12,5 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
 @property (weak, nonatomic) IBOutlet UIView *seletedBgView;
-
+@property (weak, nonatomic) IBOutlet UILabel *startCotent;
+@property (weak, nonatomic) IBOutlet UILabel *endContent;
+- (IBAction)tapGesture:(id)sender;
 @end

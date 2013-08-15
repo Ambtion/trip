@@ -18,15 +18,14 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor= [UIColor colorWithRed:235.f/255.f green:235.f/255.f blue:235.f/255.f alpha:1.f];
-
-    // Do any additional setup after loading the view from its nib.
+    self.seletedBgView.backgroundColor = BASEGREENCOLOR;
+    
 }
 
-
-- (void)viewDidUnload {
-    [self setEndTimeLabel:nil];
-    [self setStartTimeLabel:nil];
-    [self setSeletedBgView:nil];
-    [super viewDidUnload];
+- (IBAction)tapGesture:(id)sender {
+}
+- (void)setSeletedToStartView:(BOOL)isEndView WithAnimation:(BOOL)animation
+{
+    
 }
 @end
