@@ -262,10 +262,11 @@
     textLabel.textColor = [UIColor blackColor];
     [bgView addSubview:textLabel];
     
-    UILabel * contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 0, 150, 44)];
+    UILabel * contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 150, 44)];
     contentLabel.backgroundColor = [UIColor clearColor];
-    contentLabel.font = [UIFont boldSystemFontOfSize:16.f];
+    contentLabel.font = [UIFont systemFontOfSize:13.f];
     contentLabel.textAlignment = UITextAlignmentRight;
+    contentLabel.tag = 1000;
     contentLabel.textColor = [UIColor colorWithRed:50.f/255 green:200.f/255 blue:160.f/255 alpha:1];
     [bgView addSubview:contentLabel];
     
@@ -429,21 +430,46 @@
 }
 - (void)seletedOptionalClick:(UIButton *)button
 {
-    DLog(@"");
-    switch (button.superview.tag) {
-        case TIMEBGVIEWTAG:
-            
+    NSInteger tag = button.superview.tag;
+    if (tag == TIMEBGVIEWTAG) {
+        BusinessTimeController * bus = [[BusinessTimeController alloc] init];
+        bus.delegate = self;
+        [self.navigationController pushViewController:bus  animated:YES];
+    }else if (tag == AVERCOAST ){
+        AvertCoastController * cos = [[AvertCoastController alloc] init];
+        [self.navigationController pushViewController:cos animated:YES];
+    }else{
+        HasWiFiController * wifi = [[HasWiFiController alloc] init];
+        wifi.delegate = self;
+        [self.navigationController pushViewController:wifi animated:YES];
+    }
+}
+#pragma mark OptionalDelegate
+- (void)businessTimeControllerDidSeletedTime:(NSString *)startTime endTime:(NSString *)endTime
+{
+    UIImageView * view = (UIImageView *)[self.view viewWithTag:TIMEBGVIEWTAG];
+    DLog(@"%@",view);
+    [self setView:view WithText:[NSString stringWithFormat:@"%@-%@",startTime,endTime]];
+}
+- (void)wifiControllerDidSeletedWithIndexTag:(NSInteger)tag
+{
+    UIImageView * view = (UIImageView *)[self.view viewWithTag:HASWIFI];
+    NSString * str = nil;
+    switch (tag) {
+        case -1:
+            str = @"";
             break;
-        case AVERCOAST:
+        case 0:
+            str = @"有";
             break;
-        case HASWIFI:
+        case 1:
+            str = @"无";
             break;
         default:
             break;
     }
+    [self setView:view WithText:str];
 }
-
-#pragma mark OptionalDelegate
 
 - (void)uploadImageView:(UIButton *)button
 {

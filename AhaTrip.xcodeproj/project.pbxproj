@@ -440,6 +440,12 @@
 		C587365E1785831900950F05 /* setting_Icon_qq@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C587365C1785831900950F05 /* setting_Icon_qq@2x.png */; };
 		C587366117858C6E00950F05 /* FeedBackController.m in Sources */ = {isa = PBXBuildFile; fileRef = C587365F17858C6E00950F05 /* FeedBackController.m */; };
 		C587366317858DA000950F05 /* setting_logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C587366217858DA000950F05 /* setting_logout@2x.png */; };
+		C589FB8917BDC69900E04BF9 /* popup_alert.png in Resources */ = {isa = PBXBuildFile; fileRef = C589FB8817BDC69900E04BF9 /* popup_alert.png */; };
+		C589FB8D17BDCD3700E04BF9 /* AVertCoastController.m in Sources */ = {isa = PBXBuildFile; fileRef = C589FB8B17BDCD3700E04BF9 /* AVertCoastController.m */; };
+		C589FB8E17BDCD3700E04BF9 /* AVertCoastController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C589FB8C17BDCD3700E04BF9 /* AVertCoastController.xib */; };
+		C589FB9217BDD0A100E04BF9 /* HasWiFiController.m in Sources */ = {isa = PBXBuildFile; fileRef = C589FB9017BDD0A000E04BF9 /* HasWiFiController.m */; };
+		C589FB9317BDD0A100E04BF9 /* HasWiFiController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C589FB9117BDD0A000E04BF9 /* HasWiFiController.xib */; };
+		C589FB9517BDD93E00E04BF9 /* gou@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C589FB9417BDD93E00E04BF9 /* gou@2x.png */; };
 		C58AC53717A12D2200985E81 /* drink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58AC53117A12D2200985E81 /* drink@2x.png */; };
 		C58AC53817A12D2200985E81 /* Entertainment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58AC53217A12D2200985E81 /* Entertainment@2x.png */; };
 		C58AC53917A12D2200985E81 /* food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58AC53317A12D2200985E81 /* food@2x.png */; };
@@ -1261,6 +1267,14 @@
 		C587365F17858C6E00950F05 /* FeedBackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackController.m; sourceTree = "<group>"; };
 		C587366017858C6E00950F05 /* FeedBackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackController.h; sourceTree = "<group>"; };
 		C587366217858DA000950F05 /* setting_logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_logout@2x.png"; sourceTree = "<group>"; };
+		C589FB8817BDC69900E04BF9 /* popup_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_alert.png; sourceTree = "<group>"; };
+		C589FB8A17BDCD3700E04BF9 /* AVertCoastController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVertCoastController.h; sourceTree = "<group>"; };
+		C589FB8B17BDCD3700E04BF9 /* AVertCoastController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVertCoastController.m; sourceTree = "<group>"; };
+		C589FB8C17BDCD3700E04BF9 /* AVertCoastController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AVertCoastController.xib; sourceTree = "<group>"; };
+		C589FB8F17BDD0A000E04BF9 /* HasWiFiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HasWiFiController.h; sourceTree = "<group>"; };
+		C589FB9017BDD0A000E04BF9 /* HasWiFiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HasWiFiController.m; sourceTree = "<group>"; };
+		C589FB9117BDD0A000E04BF9 /* HasWiFiController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HasWiFiController.xib; sourceTree = "<group>"; };
+		C589FB9417BDD93E00E04BF9 /* gou@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gou@2x.png"; sourceTree = "<group>"; };
 		C58AC53117A12D2200985E81 /* drink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drink@2x.png"; sourceTree = "<group>"; };
 		C58AC53217A12D2200985E81 /* Entertainment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Entertainment@2x.png"; sourceTree = "<group>"; };
 		C58AC53317A12D2200985E81 /* food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "food@2x.png"; sourceTree = "<group>"; };
@@ -1445,7 +1459,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0505F3D217A37BA800C4B77F /* Map */ = {
+		0505F3D217A37BA800C4B77F /* UploadViews */ = {
 			isa = PBXGroup;
 			children = (
 				0505F68317A3AEA000C4B77F /* Constants.h */,
@@ -1455,7 +1469,7 @@
 				0505F3DD17A37E7000C4B77F /* GoogleMap */,
 				0505F3D417A37E5100C4B77F /* Third */,
 			);
-			name = Map;
+			name = UploadViews;
 			sourceTree = "<group>";
 		};
 		0505F3D417A37E5100C4B77F /* Third */ = {
@@ -1658,6 +1672,12 @@
 				C5AF779817BCE148001D3A8A /* BusinessTimeController.h */,
 				C5AF779917BCE148001D3A8A /* BusinessTimeController.m */,
 				C5AF779A17BCE148001D3A8A /* BusinessTimeController.xib */,
+				C589FB8A17BDCD3700E04BF9 /* AVertCoastController.h */,
+				C589FB8B17BDCD3700E04BF9 /* AVertCoastController.m */,
+				C589FB8C17BDCD3700E04BF9 /* AVertCoastController.xib */,
+				C589FB8F17BDD0A000E04BF9 /* HasWiFiController.h */,
+				C589FB9017BDD0A000E04BF9 /* HasWiFiController.m */,
+				C589FB9117BDD0A000E04BF9 /* HasWiFiController.xib */,
 				0505F95117A3D27B00C4B77F /* DetailsViewController.h */,
 				0505F95217A3D27B00C4B77F /* DetailsViewController.m */,
 				0505F95317A3D27B00C4B77F /* DetailsViewController.xib */,
@@ -1682,6 +1702,7 @@
 				0505F68F17A3B24500C4B77F /* CityListController.h */,
 				0505F69017A3B24500C4B77F /* CityListController.m */,
 				0505F69117A3B24500C4B77F /* CityListController.xib */,
+				C589FB9417BDD93E00E04BF9 /* gou@2x.png */,
 				C537BCE817BCC873002A3132 /* icon_dollar@2x.png */,
 				C537BCE917BCC873002A3132 /* icon_location@2x.png */,
 				C537BCEA17BCC873002A3132 /* icon_time@2x.png */,
@@ -2163,7 +2184,7 @@
 				0505FBB117A3E2B300C4B77F /* SearchPlazaViewController */,
 				0505FB8B17A3E1E300C4B77F /* FunctionGuide */,
 				0505F96717A3D5E600C4B77F /* GPUUimage */,
-				0505F3D217A37BA800C4B77F /* Map */,
+				0505F3D217A37BA800C4B77F /* UploadViews */,
 				C5F73B36179D1126000A2B24 /* NetWrok */,
 				B859F85D1775E30B00313DE0 /* PlazeViewController */,
 				C5918ED817811EF30001F4EF /* HomePage */,
@@ -2437,6 +2458,7 @@
 		B8DC2AFC17A3D3A5002A4C92 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				C589FB8817BDC69900E04BF9 /* popup_alert.png */,
 				B8DC2AFD17A3D3A5002A4C92 /* JSON.h */,
 				B8DC2AFE17A3D3A5002A4C92 /* NSObject+SBJSON.h */,
 				B8DC2AFF17A3D3A5002A4C92 /* NSObject+SBJSON.m */,
@@ -3153,6 +3175,10 @@
 				C5AF779517BCDFB4001D3A8A /* button_sent@2x.png in Resources */,
 				C5AF779717BCE0BA001D3A8A /* button_ok@2x.png in Resources */,
 				C5AF779C17BCE148001D3A8A /* BusinessTimeController.xib in Resources */,
+				C589FB8917BDC69900E04BF9 /* popup_alert.png in Resources */,
+				C589FB8E17BDCD3700E04BF9 /* AVertCoastController.xib in Resources */,
+				C589FB9317BDD0A100E04BF9 /* HasWiFiController.xib in Resources */,
+				C589FB9517BDD93E00E04BF9 /* gou@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3448,6 +3474,8 @@
 				C5A9DA7617B2405600A27958 /* CLLocation+Sino.m in Sources */,
 				C599897317B878DE0068F912 /* UploadInfoViewController.m in Sources */,
 				C5AF779B17BCE148001D3A8A /* BusinessTimeController.m in Sources */,
+				C589FB8D17BDCD3700E04BF9 /* AVertCoastController.m in Sources */,
+				C589FB9217BDD0A100E04BF9 /* HasWiFiController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

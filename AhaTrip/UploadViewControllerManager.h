@@ -17,6 +17,8 @@
 #import "UploadInfoViewController.h"
 
 #import "BusinessTimeController.h" //Fortest
+#import "AvertCoastController.h"
+#import "HasWiFiController.h"
 
 @interface UploadViewControllerManager : UINavigationController<SingleMenuViewDelegate,AllMenuViewDeletage,CountryListViewDelegate,CityListControllerDelegate,SeletedPhotoMethodDelegate,DLCImagePickerDelegate,MapViewDelegate,UploadInfoViewControllerDelegate>
 {

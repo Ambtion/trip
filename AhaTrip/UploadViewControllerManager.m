@@ -43,9 +43,10 @@
 //    tempInfoController.delegate = self;
 //    [self pushViewController:tempInfoController animated:YES];
 //    return;
-    BusinessTimeController * bs = [[BusinessTimeController alloc] init];
-    [self pushViewController:bs animated:YES];
-    return;
+//    BusinessTimeController * bs = [[BusinessTimeController alloc] init];
+//    [self pushViewController:bs animated:YES];
+//    HasWiFiController * xos = [[HasWiFiController alloc] init];
+//    [self pushViewController:xos animated:YES];
     _subCateroyInfo = info;
     CountryListController * souSuoCTL = [[CountryListController alloc] init];
     souSuoCTL.delegate = self;
