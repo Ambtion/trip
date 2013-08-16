@@ -54,4 +54,29 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)tapGesture:(id)sender
+{
+    UIGestureRecognizer * ges  = (UIGestureRecognizer *)sender;
+    
+    ActionSheetCustomPicker * picker = [[ActionSheetCustomPicker alloc] initWithTitle:@"" delegate:self showCancelButton:NO origin:[ges view]];
+    [picker showActionSheetPicker];
+}
+- (void)actionSheetPickerDidSucceed:(AbstractActionSheetPicker *)actionSheetPicker origin:(id)origin
+{
+    DLog(@"%@",origin);
+    DLog(@"%@",actionSheetPicker.title);
+}
+#pragma mark PickerDelegate
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return 10.f;
+}
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return @"ll";
+}
 @end

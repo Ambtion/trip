@@ -50,8 +50,8 @@
     
     //  返回主页的按钮
     UIButton*closeAll=[UIButton buttonWithType:UIButtonTypeCustom];
-    [closeAll setFrame:CGRectMake(280 - 8, height - 40, 40, 40)];
-    closeAll.contentMode = UIViewContentModeScaleAspectFit;
+    [closeAll setFrame:CGRectMake(320 - 55, height - 55, 55, 55)];
+    closeAll.contentMode = UIViewContentModeCenter;
     [closeAll setImage:[UIImage imageNamed:@"bottom_back.png"] forState:UIControlStateNormal];
     [closeAll addTarget:self action:@selector(closeBtnBackMenu:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeAll];

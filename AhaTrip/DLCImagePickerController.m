@@ -61,11 +61,13 @@ outputJPEGQuality;
 {
     [super viewDidLoad];
     [self addcreateImageView];
+    [self addcreteFillterView];
     self.wantsFullScreenLayout = YES;
     //set background color
     self.view.backgroundColor = mRGBColor(43, 43, 44);
     self.finalOutPutButton.hidden=YES;
     staticPictureOriginalOrientation = UIImageOrientationUp;
+    
     
     self.focusView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"focus-crosshair"]];
 	[self.view addSubview:self.focusView];
@@ -91,6 +93,13 @@ outputJPEGQuality;
     self.imageView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.imageView];
     [self.view sendSubviewToBack:self.imageView];
+}
+- (void)addcreteFillterView
+{
+    self.filterScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 1000, 320, 100)];
+    self.filterScrollView.showsHorizontalScrollIndicator = self.filterScrollView.showsVerticalScrollIndicator = NO;
+    self.filterScrollView.bounces = NO;
+    [self.view addSubview:self.filterScrollView];
 }
 - (void)setTabBarButtonToFinal:(BOOL)isFinal
 {
@@ -583,23 +592,12 @@ outputJPEGQuality;
 
 -(void) showFilters
 {
-    
     CGRect imageRect = self.imageView.frame;
     CGRect sliderScrollFrame = self.filterScrollView.frame;
     sliderScrollFrame.origin.y = [[UIScreen mainScreen] bounds].size.height -  self.filterScrollView.frame.size.height - 55;
-    
-    self.filterScrollView.hidden = NO;
     self.filterScrollView.backgroundColor =  mRGBColor(43, 43, 44);
-    [UIView animateWithDuration:0.10
-                          delay:0.05
-                        options: UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         self.imageView.frame = imageRect;
-                         self.filterScrollView.frame = sliderScrollFrame;
-                     }
-                     completion:^(BOOL finished){
-                         self.finalOutPutButton.enabled = YES;
-                     }];
+    self.filterScrollView.frame = sliderScrollFrame;
+    self.imageView.frame = imageRect;
 }
 
 //-(void) hideFilters {

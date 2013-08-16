@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class BusinessTimeController;
 @protocol BusinessTimeControllerDeleagte <NSObject>
 - (void)businessTimeControllerDidSeletedTime:(NSString *)startTime endTime:(NSString *)endTime;

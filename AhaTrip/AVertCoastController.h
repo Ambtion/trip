@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AvertCoastController : UIViewController
+@interface AvertCoastController : UIViewController<ActionSheetCustomPickerDelegate>
+- (IBAction)tapGesture:(id)sender;
 
 @end

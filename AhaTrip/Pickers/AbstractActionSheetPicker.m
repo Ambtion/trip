@@ -102,7 +102,6 @@
     
     if ([self.pickerView respondsToSelector:@selector(setDataSource:)])
         [self.pickerView performSelector:@selector(setDataSource:) withObject:nil];
-    
     self.target = nil;
     
 }

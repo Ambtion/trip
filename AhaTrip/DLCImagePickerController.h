@@ -40,7 +40,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *flashToggleButton;
 @property (nonatomic, weak) IBOutlet UIButton *retakeButton; //后退按钮
 
-@property (nonatomic, weak) IBOutlet UIScrollView *filterScrollView;
+@property (nonatomic, strong) UIScrollView *filterScrollView;
 @property (nonatomic, weak) IBOutlet UIView *photoBar;
 @property (nonatomic, weak) IBOutlet UIView *topBar;
 @property (nonatomic, strong) BlurOverlayView *blurOverlayView;

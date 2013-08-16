@@ -43,10 +43,9 @@
 //    tempInfoController.delegate = self;
 //    [self pushViewController:tempInfoController animated:YES];
 //    return;
-//    BusinessTimeController * bs = [[BusinessTimeController alloc] init];
+//    AvertCoastController * bs = [[AvertCoastController alloc] init];
 //    [self pushViewController:bs animated:YES];
-//    HasWiFiController * xos = [[HasWiFiController alloc] init];
-//    [self pushViewController:xos animated:YES];
+//    return;
     _subCateroyInfo = info;
     CountryListController * souSuoCTL = [[CountryListController alloc] init];
     souSuoCTL.delegate = self;
@@ -101,20 +100,19 @@
              if (error) {
                  DLog(@"%@",error);
              }else {
-                 DLog(@"%d %@",[self array:_imageUrlArray containURL:assetURL],assetURL);
                  if (![self array:_imageUrlArray containURL:assetURL]){
+                     DLog(@"%d %@",[self array:_imageUrlArray containURL:assetURL],assetURL);
                     [[self defaultLib] assetForURL:assetURL resultBlock:^(ALAsset *asset) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             NSMutableDictionary *  dic = [NSMutableDictionary dictionaryWithDictionary:info];
                             [dic setValue:[UIImage imageWithCGImage:[asset thumbnail]] forKey:@"Thumbnail"];
                             [dic setValue:assetURL forKey:@"URL"];
                             [_imageUrlArray addObject:dic];
-                            [self popViewControllerAnimated:NO];
                             if (!tempInfoController) {
                                 tempInfoController =[[UploadInfoViewController alloc] initWithImageUrls:_imageUrlArray];
                                 tempInfoController.delegate = self;
                             }
-                            if (![self.navigationController.childViewControllers containsObject:tempInfoController]) {
+                            if (![self.childViewControllers containsObject:tempInfoController]) {
                                 [self pushViewController:tempInfoController animated:YES];
                             }else{
                                 [self popToViewController:tempInfoController animated:YES];
