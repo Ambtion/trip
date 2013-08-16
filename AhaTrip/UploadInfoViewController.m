@@ -436,7 +436,7 @@
         bus.delegate = self;
         [self.navigationController pushViewController:bus  animated:YES];
     }else if (tag == AVERCOAST ){
-        AvertCoastController * cos = [[AvertCoastController alloc] init];
+        AvertCoastController * cos = [[AvertCoastController alloc] initWithNibName:@"AVertCoastController" bundle:nil];
         cos.delete = self;
         [self.navigationController pushViewController:cos animated:YES];
     }else{

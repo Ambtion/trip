@@ -61,6 +61,8 @@ outputJPEGQuality;
 {
     [super viewDidLoad];
     [self addcreateImageView];
+    UITapGestureRecognizer * ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToFocus:)];
+    [self.imageView addGestureRecognizer:ges];
     [self addcreteFillterView];
     self.wantsFullScreenLayout = YES;
     //set background color
@@ -517,7 +519,8 @@ outputJPEGQuality;
     }
 }
 
-- (IBAction) handleTapToFocus:(UITapGestureRecognizer *)tgr{
+- (void) handleTapToFocus:(UITapGestureRecognizer *)tgr{
+    DLog();
     //聚焦点击
 	if (!isStatic && tgr.state == UIGestureRecognizerStateRecognized) {
 		CGPoint location = [tgr locationInView:self.imageView];

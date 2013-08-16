@@ -23,6 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor= [UIColor colorWithRed:235.f/255.f green:235.f/255.f blue:235.f/255.f alpha:1.f];
     _dataSource = [NSMutableArray arrayWithCapacity:0];
     [self addTabBar];
     [self getUnits];
