@@ -18,7 +18,7 @@
 - (void)uploadInfoViewControllerDidClickSender:(NSDictionary *)info;
 @end
 
-@interface UploadInfoViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,BusinessTimeControllerDeleagte,HasWiFiControllerDelegate>
+@interface UploadInfoViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,BusinessTimeControllerDeleagte,AvertCoastControllerDelegate,HasWiFiControllerDelegate>
 {
     
     NSMutableArray* _imagesArray;

@@ -45,6 +45,10 @@
 //获取2级的cateroy列表
 + (void)getSubCateroyWithToken:(NSString *)token WithCateroy_Id:(NSInteger)cateroyId  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
+//获取价格单位
++ (void)getUintWithSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
+
+
 //评论列表
 + (void)getCommentWithFindingId:(NSInteger)findId start:(NSInteger)start count:(NSInteger)count  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 + (void)postComment:(NSString *)comment WithFindingId:(NSInteger)findingId withCommentFatherId:(NSInteger )fatherid success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;

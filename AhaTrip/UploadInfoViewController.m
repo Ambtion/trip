@@ -437,6 +437,7 @@
         [self.navigationController pushViewController:bus  animated:YES];
     }else if (tag == AVERCOAST ){
         AvertCoastController * cos = [[AvertCoastController alloc] init];
+        cos.delete = self;
         [self.navigationController pushViewController:cos animated:YES];
     }else{
         HasWiFiController * wifi = [[HasWiFiController alloc] init];
@@ -444,12 +445,18 @@
         [self.navigationController pushViewController:wifi animated:YES];
     }
 }
+
 #pragma mark OptionalDelegate
 - (void)businessTimeControllerDidSeletedTime:(NSString *)startTime endTime:(NSString *)endTime
 {
     UIImageView * view = (UIImageView *)[self.view viewWithTag:TIMEBGVIEWTAG];
-    DLog(@"%@",view);
     [self setView:view WithText:[NSString stringWithFormat:@"%@-%@",startTime,endTime]];
+}
+- (void)avertCoastControllerDidSeletedPrice:(NSString *)price uinit:(NSDictionary *)info
+{
+    DLog(@"");
+    UIImageView * view = (UIImageView *)[self.view viewWithTag:AVERCOAST];
+    [self setView:view WithText:[NSString stringWithFormat:@"%@ %@",price, [info objectForKey:@"en_name"]]];
 }
 - (void)wifiControllerDidSeletedWithIndexTag:(NSInteger)tag
 {

@@ -43,9 +43,6 @@
 //    tempInfoController.delegate = self;
 //    [self pushViewController:tempInfoController animated:YES];
 //    return;
-//    AvertCoastController * bs = [[AvertCoastController alloc] init];
-//    [self pushViewController:bs animated:YES];
-//    return;
     _subCateroyInfo = info;
     CountryListController * souSuoCTL = [[CountryListController alloc] init];
     souSuoCTL.delegate = self;

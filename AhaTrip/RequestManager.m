@@ -166,6 +166,15 @@
     NSString* str =[NSString stringWithFormat:@"http://yyz.ahatrip.info/api/subCategoryList?category_id=%d&token=tRyW4rLBiJHffQ",cateroyId];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
+
+//获取价格单位
++ (void)getUintWithSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+//http://yyz.ahatrip.info/api/priceUnitList?token=tRyW4rLBiJHffQ
+    NSString * str = @"http://yyz.ahatrip.info/api/priceUnitList?token=tRyW4rLBiJHffQ";
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
+
 //评论列表
 + (void)getCommentWithFindingId:(NSInteger)findingId start:(NSInteger)start count:(NSInteger)count success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
