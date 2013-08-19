@@ -7,13 +7,10 @@
 //
 
 #import "DLCImagePickerController.h"
-#import "GrayscaleContrastFilter.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "AddPlaceViewController.h"
+#import "GrayscaleContrastFilter.h"
 #import "UIImage+Addition.h"
 #import <ImageIO/ImageIO.h>
-#import "AddPlaceViewController.h"
-#import "MapViewController.h"
 #import "Constants.h"
 
 static NSString * FillterImageIcon[9] = {
@@ -634,23 +631,18 @@ outputJPEGQuality;
 -(IBAction) finalOutPutImage:(UIButton *)sender
 {
     GPUImageOutput<GPUImageInput> *processUpTo;
-    if (hasBlur) {
+    if (hasBlur && 0) {
         processUpTo = blurFilter;
     } else {
         processUpTo = filter;
     }
     [staticPicture processImage];
-    
     UIImage *currentFilteredVideoFrame = [processUpTo imageFromCurrentlyProcessedOutputWithOrientation:staticPictureOriginalOrientation];
     NSMutableDictionary * info = [NSMutableDictionary dictionaryWithCapacity:0];
     [info setObject:currentFilteredVideoFrame forKey:@"Image"];
+    DLog();
     if ([delegate respondsToSelector:@selector(DLImagePickerController:didFinishPickingMediaWithInfo:)])
         [delegate DLImagePickerController:self didFinishPickingMediaWithInfo:info];
-    
-}
-
--(void)mapViewControllerDidCancel:(MapViewController *)picker{
-    [self dismissModalViewControllerAnimated:YES];
     
 }
 

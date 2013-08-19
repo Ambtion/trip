@@ -17,7 +17,7 @@
 - (void)DLImagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 @end
 
-@interface DLCImagePickerController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate,MapViewDelegate> {
+@interface DLCImagePickerController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
     GPUImageStillCamera *stillCamera;
     GPUImageOutput<GPUImageInput> * filter;
     GPUImageOutput<GPUImageInput> * blurFilter;

@@ -106,7 +106,8 @@
     UIView *btnView = [anim valueForKey:@"BtnAni"];
     
     if (flag && btnView) {
-        CGPoint currentRect = [[btnView.layer presentationLayer]position];
+//        CGPoint currentRect = [[btnView.layer presentationLayer]position];
+        CGPoint currentRect = [btnView.layer position];
         btnView.layer.position = currentRect;
         return;
     }

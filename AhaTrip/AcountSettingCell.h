@@ -14,6 +14,7 @@
 @protocol AcountSettingCellDelegate <NSObject>
 - (void)acountSettingCell:(AcountSettingCell*)cell changeImage:(UIButton *)button;
 - (void)acountSettingCellDidBeginEdit:(AcountSettingCell*)cell;
+@optional
 - (void)acountSettingCellDidFinishedEdit:(AcountSettingCell*)cell;
 @end
 @interface AcountSettingCellDataSource : NSObject
@@ -35,5 +36,6 @@
 }
 @property(nonatomic,weak)id<AcountSettingCellDelegate> delegate;
 @property(nonatomic,strong)AcountSettingCellDataSource * dataSouce;
+@property(nonatomic,strong)PortraitView * portraitImage;
 - (void)updataAllViews;
 @end

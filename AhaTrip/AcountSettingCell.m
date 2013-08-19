@@ -25,6 +25,7 @@
 @end
 
 @implementation AcountSettingCell
+@synthesize portraitImage = _portraitImage;
 @synthesize dataSouce = _dataSouce;
 @synthesize delegate = _delegate;
 
@@ -100,6 +101,7 @@
     field.delegate = self;
     [field addTarget:self action:@selector(textFieldDidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];
 }
+
 - (void)textFieldDidEndOnExit:(UITextField *)field
 {
     if (field == _userNameLabel) {
@@ -113,6 +115,7 @@
             [_delegate acountSettingCellDidFinishedEdit:self];
     }
 }
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if ([_delegate respondsToSelector:@selector(acountSettingCellDidBeginEdit:)])
@@ -124,16 +127,20 @@
         _dataSouce = dataSouce;
         [self updataAllViews];
     }
-
 }
+
 - (void)updataAllViews
 {
-    [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:_dataSouce.poraitImage] placeholderImage:nil];
+    [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:_dataSouce.poraitImage] placeholderImage:[UIImage imageNamed:@"avatar_560.png"] options:SDWebImageRetryFailed success:^(UIImage *image) {
+    } failure:^(NSError *error) {
+        DLog(@"%@",error);
+    }];
     _userNameLabel.text = _dataSouce.userName;
     _userDes.text = _dataSouce.userDes;
-    _birthday.textFiled.text = _dataSouce.birthday;
+    _birthday.textFiled.text = [NSString stringWithFormat:@"%@",_dataSouce.birthday];
     _birthday.isBoy = _dataSouce.isBoy;
 }
+
 - (void)changePortraitImage:(UIButton *)button
 {
     if ([_delegate respondsToSelector:@selector(acountSettingCell:changeImage:)])

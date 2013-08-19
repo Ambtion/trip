@@ -187,8 +187,7 @@
     NSString * passWord = [NSString stringWithFormat:@"%@",_passwordTextField.text];
     MBProgressHUD * hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
-//    [hud show:YES];
-    [self handleLoginInfo:nil];
+    [hud show:YES];
 
     [RequestManager loingWithUserName:useName passpord:passWord success:^(NSString *response) {
         NSDictionary * dic = [[response JSONValue] objectForKey:@"result"];
@@ -220,7 +219,8 @@
 - (void)handleLoginInfo:(NSDictionary *)response
 {
     DLog(@"%@",response);
-    [LoginStateManager loginUserId:@"2" withToken:@"tRyW4rLBiJHffQ" RefreshToken:@"sdf"];
+    [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"uid"]] withToken:[response objectForKey:@"token"] RefreshToken:@"temp"];
+//    [LoginStateManager loginUserId:@"2" withToken:@"tRyW4rLBiJHffQ" RefreshToken:@"sdf"];
     [self cancelLogin:nil];
 }
 - (void)showError:(NSString *)error

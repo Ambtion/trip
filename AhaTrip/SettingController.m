@@ -10,6 +10,7 @@
 #import "FeedBackController.h"
 #import "PlazeViewController.h"
 #import "UIImageView+WebCache.h"
+#import "AboutViewController.h"
 
 static NSString * secTitle[3] = {@"账户",@"分享到",@"其他"};
 static NSString * titleSection1[2] = {@"新浪微博",@"腾讯微博"};
@@ -40,7 +41,6 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
         DLog(@"%@",userInfo);
         acountSource = [[AcountSettingCellDataSource alloc] init];
         acountSource.poraitImage = [userInfo objectForKey:@"thumb"];
-        DLog(@"%@",acountSource.poraitImage);
         acountSource.userName = [userInfo objectForKey:@"username"];
         acountSource.userDes = [userInfo objectForKey:@"signature"];
         acountSource.birthday = [userInfo objectForKey:@"birth"];
@@ -133,14 +133,14 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 {
     if (indexPath.section == 0) {
         static NSString * cellId = @"CELL_0";
-        AcountSettingCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[AcountSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.delegate = self;
+        _acountCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!_acountCell) {
+            _acountCell = [[AcountSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            _acountCell.delegate = self;
         }
         DLog(@"%@",acountSource.poraitImage);
-        cell.dataSouce = acountSource;
-        return cell;
+        _acountCell.dataSouce = acountSource;
+        return _acountCell;
     }
     if (indexPath.section == 1) {
         static NSString * cellId = @"CELL_1";
@@ -175,21 +175,53 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 {
     DLog();
 }
+
+#pragma ChnagePortrait
+
 - (void)acountSettingCell:(AcountSettingCell *)cell changeImage:(UIButton *)button
 {
     DLog();
+    [self showActionSheet];
 }
+- (void)showActionSheet
+{
+    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"相册",@"拍照", nil];
+    [sheet showInView:self.view];
+}
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    DLCImagePickerController * picker = [[DLCImagePickerController alloc] init];
+    picker.delegate = self;
+    if (buttonIndex == 0) {
+        [self presentModalViewController:picker animated:NO];
+        [picker switchToLibraryWithAnimaion:NO];
+    }else if(buttonIndex == 1){
+        [self presentModalViewController:picker animated:YES];
+    }
+}
+
+- (void)DLImagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    DLog();
+    UIImage * image = [info objectForKey:@"Image"];
+    DLog(@"%f",image.size.width);
+    [_acountCell.portraitImage.imageView setImage:image];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
 - (void)acountSettingCellDidBeginEdit:(AcountSettingCell *)cell
 {
     CGFloat offsetY = 300;
     if (_tableView.contentOffset.y < offsetY)
         [_tableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
 }
+//- (void)acountSettingCellDidFinishedEdit:(AcountSettingCell *)cell
+//{
+//    DLog();
+//}
 
-- (void)acountSettingCellDidFinishedEdit:(AcountSettingCell *)cell
-{
-    DLog();
-}
+#pragma mark Bind
 - (void)BindCell:(BindCell *)cell SwithChanged:(UISwitch *)bindSwitch
 {
     DLog();
@@ -200,9 +232,10 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     if (indexPath.section == 2) {
         switch (indexPath.row) {
             case 0: //关于
-                
+                [self.navigationController pushViewController:[[AboutViewController alloc] init] animated:YES];
                 break;
             case 1: //评分
+                
                 break;
             case 2: //反馈
                 [self.navigationController pushViewController:[[FeedBackController alloc] init] animated:YES];
