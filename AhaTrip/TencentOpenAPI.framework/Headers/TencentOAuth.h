@@ -6,12 +6,18 @@
 /// Copyright (c) 2012年 Tencent. All rights reserved.
 ///
 
-#import "sdkdef.h"
 #import <UIKit/UIKit.h>
+#import "sdkdef.h"
+#import "TencentOAuthObject.h"
+#import "WeiBoAPI.h"
+#import "WeiyunAPI.h"
 
 @protocol TencentSessionDelegate;
 @protocol TencentLoginDelegate;
+@protocol TencentApiInterfaceDelegate;
 
+@class TencentApiReq;
+@class TencentApiResp;
 /**
  * \brief TencentOpenAPI授权登录及相关开放接口调用
  *
@@ -92,18 +98,18 @@
 - (BOOL)reauthorizeWithPermissions:(NSArray *)permissions;
 
 /**
- * 处理应用拉起协议
- * \param url 处理被其他应用呼起时的逻辑
- * \return 处理结果，YES表示成功，NO表示失败
- */
-- (BOOL)handleOpenURL:(NSURL *)url;
-
-/**
  * (静态方法)处理应用拉起协议
  * \param url 处理被其他应用呼起时的逻辑
  * \return 处理结果，YES表示成功，NO表示失败
  */
 + (BOOL)HandleOpenURL:(NSURL *)url;
+
+/**
+ * (静态方法)sdk是否可以处理应用拉起协议
+ * \param url 处理被其他应用呼起时的逻辑
+ * \return 处理结果，YES表示可以 NO表示不行
+ */
++ (BOOL)CanHandleOpenURL:(NSURL *)url;
 
 /**
  * 退出登录
@@ -246,6 +252,24 @@
  * \return 处理结果，YES表示成功 NO表示失败
  */
 - (BOOL)cancel:(id)userData;
+
+/**
+ * CGI类任务创建接口
+ * \param apiURL CGI请求的URL地址
+ * \param method CGI请求方式："GET"，"POST"
+ * \param params CGI请求参数字典
+ * \param callback CGI请求结果的回调接口对象
+ * \return CGI请求任务实例，用于取消任务，返回nil代表任务创建失败
+ */
+- (TCAPIRequest *)cgiRequestWithURL:(NSURL *)apiURL method:(NSString *)method params:(NSDictionary *)params callback:(id<TCAPIRequestDelegate>)callback;
+
+/**
+ * TencentOpenApi发送任务统一接口
+ * \param request 请求发送的任务
+ * \param callback 任务发送后的回调地址
+ */
+- (BOOL)sendAPIRequest:(TCAPIRequest *)request callback:(id<TCAPIRequestDelegate>)callback;
+
 @end
 
 /**
@@ -286,7 +310,7 @@
  *
  * 第三方应用需要实现每条需要调用的API的回调协议
  */
-@protocol TencentSessionDelegate<NSObject, TencentLoginDelegate>
+@protocol TencentSessionDelegate<NSObject, TencentLoginDelegate, TencentApiInterfaceDelegate>
 
 @optional
 
@@ -459,5 +483,6 @@
  * \param viewController 需要关闭的viewController
  */
 - (void)tencentOAuth:(TencentOAuth *)tencentOAuth doCloseViewController:(UIViewController *)viewController;
+
 
 @end

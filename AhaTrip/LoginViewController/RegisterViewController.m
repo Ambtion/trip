@@ -55,7 +55,7 @@
     _backgroundControl = [[UIControl alloc] initWithFrame:_backgroundImageView.bounds];
     [_backgroundControl addTarget:self action:@selector(allTextFieldsResignFirstResponder:) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:_backgroundControl];
-
+    
 }
 - (void)addFunctionView
 {
@@ -72,28 +72,39 @@
     [_portraitImageButton addTarget:self action:@selector(portraitImageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_funcionView addSubview:_portraitImageButton];
     
-    _usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(145 , 0, 140, 35)];
+    
+    UIView * bgmage = [[UIView alloc] initWithFrame:CGRectMake(145 , 0, 140, 35)];
+    bgmage.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    
+    _usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(145 + 10 , 0, 120, 35)];
     _usernameTextField.font = [UIFont systemFontOfSize:15];
     _usernameTextField.textColor = TEXTLOLOR;
     _usernameTextField.returnKeyType = UIReturnKeyNext;
-    _usernameTextField.placeholder = @"  昵称";
+    _usernameTextField.placeholder = @"昵称";
     _usernameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _usernameTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _usernameTextField.backgroundColor = [UIColor clearColor];
     _usernameTextField.delegate = self;
     _usernameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_usernameTextField addTarget:self action:@selector(usernameDidEndOnExit) forControlEvents:UIControlEventEditingDidEndOnExit];
     
-    _mailBindTextField = [[UITextField alloc] initWithFrame:CGRectMake(33, 115, 260, 35)];
+    UIView * mainBindBg = [[UIView alloc] initWithFrame:CGRectMake(33, 115, 260, 35)];
+    mainBindBg.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _mailBindTextField = [[UITextField alloc] initWithFrame:CGRectMake(33 + 10, 115, 240, 35)];
     _mailBindTextField.font = [UIFont systemFontOfSize:15];
     _mailBindTextField.textColor = TEXTLOLOR;
     _mailBindTextField.returnKeyType = UIReturnKeyNext;
-    _mailBindTextField.placeholder = @"  电子邮箱地址";
+    _mailBindTextField.placeholder = @"电子邮箱地址";
     _mailBindTextField.delegate = self;
     _mailBindTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    _mailBindTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];        _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _mailBindTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _mailBindTextField.backgroundColor = [UIColor clearColor];
+    _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_mailBindTextField addTarget:self action:@selector(mailBindDidEndOnExit) forControlEvents:UIControlEventEditingDidEndOnExit];
     
-    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(33,160,260, 35)];
+    UIView * passBg = [[UIView alloc] initWithFrame:CGRectMake(33,160,260, 35)];
+    passBg.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(33 + 10,160,240, 35)];
     _passwordTextField.font = [UIFont systemFontOfSize:15];
     _passwordTextField.textColor = TEXTLOLOR;
     _passwordTextField.returnKeyType = UIReturnKeyDone;
@@ -102,27 +113,35 @@
     _passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _passwordTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     _passwordTextField.secureTextEntry = YES;
-    _passwordTextField.placeholder = @"  密码";
-    _passwordTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];        _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _passwordTextField.placeholder = @"密码";
+    _passwordTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _passwordTextField.backgroundColor = [UIColor clearColor];
+    _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_passwordTextField addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventEditingDidEndOnExit];
     
-    _birthday  = [[BirthDayField alloc] initWithFrame:CGRectMake(33, 205, 260, 35)];
+    UIView * birBg = [[UIView alloc] initWithFrame:CGRectMake(33, 205, 260, 35)];
+    birBg.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _birthday  = [[BirthDayField alloc] initWithFrame:CGRectMake(33 + 10, 205, 240, 35)];
     _birthday.textFiled.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _birthday.textFiled.font = [UIFont systemFontOfSize:15];
     _birthday.textFiled.textColor = TEXTLOLOR;
-    _birthday.textFiled.placeholder = @"  生日(可选)";
-     
+    _birthday.textFiled.placeholder = @"生日(可选)";
+    _birthday.textFiled.backgroundColor = [UIColor clearColor];
     _registerButton = [UIButton  buttonWithType:UIButtonTypeRoundedRect];
     [_registerButton setImage:[UIImage imageNamed:@"register_button.png"] forState:UIControlStateNormal];
     _registerButton.frame = CGRectMake(33, 285, 260, 45);
     [_registerButton addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventTouchUpInside];
     [_funcionView addSubview:_registerButton];
+    [_funcionView addSubview:bgmage];
+    [_funcionView addSubview:mainBindBg];
+    [_funcionView addSubview:passBg];
+    [_funcionView addSubview:birBg];
     [_funcionView addSubview:_usernameTextField];
     [_funcionView addSubview:_mailBindTextField];
     [_funcionView addSubview:_passwordTextField];
     [_funcionView addSubview:_birthday];
     [_funcionView addSubview:_registerButton];
-
+    
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -145,6 +164,7 @@
     label.text = @"注册新账号";
     [self.view addSubview:label];
 }
+
 #pragma mark - TextFiledDelegate
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -166,10 +186,37 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+#pragma mark
 - (void)portraitImageButtonClick:(UIButton *)button
 {
-    
+    [self showActionSheet];
 }
+- (void)showActionSheet
+{
+    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"相册",@"拍照", nil];
+    [sheet showInView:self.view];
+}
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    DLCImagePickerController * picker = [[DLCImagePickerController alloc] init];
+    picker.delegate = self;
+    if (buttonIndex == 0) {
+        [self presentModalViewController:picker animated:NO];
+        [picker switchToLibraryWithAnimaion:NO];
+    }else if(buttonIndex == 1){
+        [self presentModalViewController:picker animated:YES];
+    }
+}
+
+- (void)DLImagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    DLog();
+    UIImage * image = [info objectForKey:@"Image"];
+    DLog(@"%f",image.size.width);
+    [_portraitImageButton setImage:image forState:UIControlStateNormal];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 
 - (void)doRegister
 {
@@ -211,23 +258,7 @@
 - (void)mailBindDidEndOnExit
 {
     [_passwordTextField becomeFirstResponder];
-    
 }
-//- (void)usernameDidEndOnExit
-//{
-//    [_mailBindTextField becomeFirstResponder];
-//}
-////- (void)buttonDateClick:(UIButton *)button
-////{
-////    ActionSheetDatePicker * actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"" datePickerMode:UIDatePickerModeDate selectedDate:[NSDate date] target:self action:@selector(dateWasSelected:element:) origin:button];
-////    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Today" value:[NSDate date]];
-////    //    [self.actionSheetPicker addCustomButtonWithTitle:@"Yesterday" value:[[NSDate date] TC_dateByAddingCalendarUnits:NSDayCalendarUnit amount:-1]];
-////    [actionSheetPicker showActionSheetPicker];
-////}
-//- (void)dateWasSelected:(NSDate *)selectedDate element:(id)element
-//{
-//    _birthday.textFiled.text = [NSString stringWithFormat:@" 生日: %@",[self stringFromdate:selectedDate]];
-//}
 #pragma mark
 - (void)backHomeWithRespose:(NSDictionary *)response
 {
@@ -258,38 +289,62 @@
 #pragma mark KeyBoardnotification
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-    _notification = notification;
     UIScrollView * view = (UIScrollView *) self.view;
+    view.scrollEnabled = YES;
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGSize size = view.bounds.size;
+    size.height += keyboardSize.height;
+    view.contentSize = size;
+    
     CGPoint point = view.contentOffset;
     point.y =  120;
-    if (CGPointEqualToPoint(point, view.contentOffset)) {
-        [self scrollViewDidEndScrollingAnimation:view];
-    }else{
-        [view setContentOffset:point animated:YES];
-    }
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+    view.contentOffset = point;
+    [UIView commitAnimations];
+    //    _notification = notification;
+    //    UIScrollView * view = (UIScrollView *) self.view;
+    //    CGPoint point = view.contentOffset;
+    //    point.y =  120;
+    //    if (CGPointEqualToPoint(point, view.contentOffset)) {
+    //        [self scrollViewDidEndScrollingAnimation:view];
+    //    }else{
+    //        [view setContentOffset:point animated:YES];
+    //    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    _notification = nil;
-    DLog();
     UIScrollView *view = (UIScrollView *) self.view;
     CGPoint point = view.contentOffset;
     point.y  =  0;
-    if (CGPointEqualToPoint(point, view.contentOffset)) {
-        [self scrollViewDidEndScrollingAnimation:view];
-    }else{
-        [view setContentOffset:point animated:YES];
-        [view setContentSize:self.view.frame.size];
-    }
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+    view.contentOffset = point;
+    [UIView commitAnimations];
+    view.scrollEnabled = NO;
+    CGSize size = view.bounds.size;
+    view.contentSize = size;
+    DLog();
+    //    _notification = nil;
+    //    UIScrollView *view = (UIScrollView *) self.view;
+    //    CGPoint point = view.contentOffset;
+    //    point.y  =  0;
+    //    if (CGPointEqualToPoint(point, view.contentOffset)) {
+    //        [self scrollViewDidEndScrollingAnimation:view];
+    //    }else{
+    //        [view setContentSize:self.view.frame.size];
+    //    }
+    //    [view setContentOffset:CGPointZero animated:YES];
 }
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    CGSize size = scrollView.bounds.size;
-    DLog(@"%@",_notification);
-    if (_notification) {
-        size.height = size.height + [[[_notification  userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-    }
-    scrollView.contentSize = size;
-}
+//- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+//{
+//    CGSize size = scrollView.bounds.size;
+//    if (_notification) {
+//        size.height = size.height + [[[_notification  userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+//    }
+//    scrollView.contentSize = size;
+//}
 @end

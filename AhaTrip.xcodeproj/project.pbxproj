@@ -1223,6 +1223,7 @@
 		C51E884F17C1CED80042C7FA /* ReadDealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadDealController.h; sourceTree = "<group>"; };
 		C51E885117C1CF0A0042C7FA /* serviceitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = serviceitem.png; sourceTree = "<group>"; };
 		C51E885317C1D61A0042C7FA /* avatar_560.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar_560.png; sourceTree = "<group>"; };
+		C51E885517C20D260042C7FA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C52F2665177C4FD800980761 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C537BCE817BCC873002A3132 /* icon_dollar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dollar@2x.png"; sourceTree = "<group>"; };
 		C537BCE917BCC873002A3132 /* icon_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_location@2x.png"; sourceTree = "<group>"; };
@@ -2976,6 +2977,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = B859F7C51775AC4C00313DE0;
 			productRefGroup = B859F7CF1775AC4C00313DE0 /* Products */;
@@ -3532,6 +3534,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B859F7DB1775AC4C00313DE0 /* en */,
+				C51E885517C20D260042C7FA /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

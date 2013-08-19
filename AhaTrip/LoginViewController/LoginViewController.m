@@ -188,7 +188,7 @@
     MBProgressHUD * hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
     [hud show:YES];
-
+    
     [RequestManager loingWithUserName:useName passpord:passWord success:^(NSString *response) {
         NSDictionary * dic = [[response JSONValue] objectForKey:@"result"];
         [hud hide:YES];
@@ -205,22 +205,22 @@
     }];
 }
 - (void)registerButtonClicked:(UIButton *)button
-    {
-        [_passwordTextField resignFirstResponder];
-        [_usernameTextField resignFirstResponder];
-        RegisterViewController * reg = [[RegisterViewController alloc] init];
-        reg.loginController = self;
-        DLog(@"%@",self.navigationController);
-        [self.navigationController pushViewController:reg animated:YES];
-    }
-     
+{
+    [_passwordTextField resignFirstResponder];
+    [_usernameTextField resignFirstResponder];
+    RegisterViewController * reg = [[RegisterViewController alloc] init];
+    reg.loginController = self;
+    DLog(@"%@",self.navigationController);
+    [self.navigationController pushViewController:reg animated:YES];
+}
+
 #pragma mark Handle Login Result
 
 - (void)handleLoginInfo:(NSDictionary *)response
 {
     DLog(@"%@",response);
     [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"uid"]] withToken:[response objectForKey:@"token"] RefreshToken:@"temp"];
-//    [LoginStateManager loginUserId:@"2" withToken:@"tRyW4rLBiJHffQ" RefreshToken:@"sdf"];
+    //    [LoginStateManager loginUserId:@"2" withToken:@"tRyW4rLBiJHffQ" RefreshToken:@"sdf"];
     [self cancelLogin:nil];
 }
 - (void)showError:(NSString *)error
@@ -231,80 +231,80 @@
 }
 
 #pragma mark OAuth
-     - (void)sinaLogin:(UIButton*)button
-    {
-        [[self AppDelegate] sinaLoginWithDelegate:self];
-    }
-     - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
-    {
-        DLog(@"%@",[[self AppDelegate] sinaweibo].accessToken);
-        [self handleLoginInfo:nil];
-    }
-     - (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
-    {
-        [self showTotasViewWithMes:@"授权失败"];
-    }
-     - (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
-    {
-        [self showTotasViewWithMes:@"授权失败"];
-    }
-     
+- (void)sinaLogin:(UIButton*)button
+{
+    [[self AppDelegate] sinaLoginWithDelegate:self];
+}
+- (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
+{
+    DLog(@"%@",[[self AppDelegate] sinaweibo].accessToken);
+    [self handleLoginInfo:nil];
+}
+- (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
+{
+    [self showTotasViewWithMes:@"授权失败"];
+}
+- (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
+{
+    [self showTotasViewWithMes:@"授权失败"];
+}
+
 #pragma mark QQ
-     - (void)qqLogin:(UIButton *)button
-    {
-        [[self AppDelegate] qqLoginWithDelegate:self];
-    }
-     - (void)tencentDidLogin
-    {
-        DLog(@"%@",[[self AppDelegate] tencentOAuth].accessToken);
-        [self handleLoginInfo:nil];
-    }
-     - (void)tencentDidNotLogin:(BOOL)cancelled
-    {
-        [self showTotasViewWithMes:@"授权失败"];
-    }
-     - (void)tencentDidNotNetWork
-    {
-        [self showTotasViewWithMes:@"授权失败"];
-    }
+- (void)qqLogin:(UIButton *)button
+{
+    [[self AppDelegate] qqLoginWithDelegate:self];
+}
+- (void)tencentDidLogin
+{
+    DLog(@"%@",[[self AppDelegate] tencentOAuth].accessToken);
+    [self handleLoginInfo:nil];
+}
+- (void)tencentDidNotLogin:(BOOL)cancelled
+{
+    [self showTotasViewWithMes:@"授权失败"];
+}
+- (void)tencentDidNotNetWork
+{
+    [self showTotasViewWithMes:@"授权失败"];
+}
 #pragma forgetPassWord
-     - (void)forgetPassWord:(id)sender
-    {
-        //忘记密码
-    }
+- (void)forgetPassWord:(id)sender
+{
+    //忘记密码
+}
 #pragma mark Keyboard lifeCircle
-     - (void)keyboardWillShow:(NSNotification *)notification
-    {
-        UIScrollView * view = (UIScrollView *) self.view;
-        view.scrollEnabled = YES;
-        CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-        CGSize size = view.bounds.size;
-        size.height += keyboardSize.height;
-        view.contentSize = size;
-        
-        CGPoint point = view.contentOffset;
-        point.y =  120;
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.3];
-        [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
-        view.contentOffset = point;
-        [UIView commitAnimations];
-    }
-     - (void)keyboardWillHide:(NSNotification *)notification
-    {
-        //视图消失时自动失去第一响应者,为了保持动画一致性
-        if ([LoginStateManager isLogin]) return;
-        DLog(@"%s",__FUNCTION__);
-        UIScrollView *view = (UIScrollView *) self.view;
-        CGPoint point = view.contentOffset;
-        point.y  =  0;
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.3];
-        [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
-        view.contentOffset = point;
-        [UIView commitAnimations];
-        view.scrollEnabled = NO;
-        CGSize size = view.bounds.size;
-        view.contentSize = size;
-    }
-     @end
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    UIScrollView * view = (UIScrollView *) self.view;
+    view.scrollEnabled = YES;
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGSize size = view.bounds.size;
+    size.height += keyboardSize.height;
+    view.contentSize = size;
+    
+    CGPoint point = view.contentOffset;
+    point.y =  120;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+    view.contentOffset = point;
+    [UIView commitAnimations];
+}
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    //视图消失时自动失去第一响应者,为了保持动画一致性
+    if ([LoginStateManager isLogin]) return;
+    DLog(@"%s",__FUNCTION__);
+    UIScrollView *view = (UIScrollView *) self.view;
+    CGPoint point = view.contentOffset;
+    point.y  =  0;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+    view.contentOffset = point;
+    [UIView commitAnimations];
+    view.scrollEnabled = NO;
+    CGSize size = view.bounds.size;
+    view.contentSize = size;
+}
+@end

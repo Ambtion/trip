@@ -18,7 +18,6 @@
 /**
  处理来至QQ的请求
  */
-@optional
 - (void)onReq:(QQBaseReq *)req;
 
 /**
@@ -64,7 +63,7 @@
 /**
  检测QQ是否支持API调用
  \return 如果当前安装QQ版本支持API调用则返回YES，否则返回NO
- */
+ */  
 + (BOOL)isQQSupportApi;
 
 /**

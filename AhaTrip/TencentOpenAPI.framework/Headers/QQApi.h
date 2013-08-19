@@ -9,10 +9,8 @@
 /** @file */
 
 #import <Foundation/Foundation.h>
-
 @class QQApiObject;
 @class QQApiMessage;
-@class QQApiObject;
 @class QQApiAdItem;
 
 typedef enum
@@ -24,6 +22,7 @@ typedef enum
     EQQAPIMESSAGECONTENTNULL = 4,
     EQQAPIMESSAGECONTENTINVALID = 5,
     EQQAPIAPPNOTREGISTED = 6,
+    EQQAPIAPPSHAREASYNC = 7,
     EQQAPISENDFAILD = -1
 } QQApiSendResultCode;
 
@@ -186,6 +185,7 @@ typedef NSUInteger QQApiMessageType;
 @interface QQApiResultObject : QQApiObject
 @property(nonatomic,retain) NSString* error; ///<错误
 @property(nonatomic,retain) NSString* errorDescription; ///<错误描述
+@property(nonatomic,retain) NSString* extendInfo; ///<扩展信息
 @end
 
 // QQApiTextObject
@@ -219,15 +219,18 @@ typedef enum QQApiURLTargetType{
 
 @property(nonatomic,retain)NSURL* url; ///<URL地址,必填，最长512个字符
 @property(nonatomic,retain)NSData* previewImageData;///<预览图像数据，最大1M字节
+@property(nonatomic, retain) NSURL *previewImageURL;    ///<预览图像URL **预览图像数据与预览图像URL可二选一
 
 /**
  初始化方法
  */
 -(id)initWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageData:(NSData*)data targetContentType:(QQApiURLTargetType)targetContentType;
+-(id)initWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageURL:(NSURL*)previewURL targetContentType:(QQApiURLTargetType)targetContentType;
 /**
  工厂方法,获取一个QQApiURLObject对象
  */
 +(id)objectWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageData:(NSData*)data targetContentType:(QQApiURLTargetType)targetContentType;
++(id)objectWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageURL:(NSURL*)previewURL targetContentType:(QQApiURLTargetType)targetContentType;
 @end
 
 // QQApiExtendObject
@@ -256,6 +259,7 @@ typedef enum QQApiURLTargetType{
      一个自动释放的<code>QQApiExtendObject</code>实例
  */
 + (id)objectWithData:(NSData*)data previewImageData:(NSData*)previewImageData title:(NSString*)title description:(NSString*)description;
+
 @end
 
 // QQApiImageObject
@@ -279,6 +283,17 @@ typedef enum QQApiURLTargetType{
  @note 如果url为空，调用<code>QQApi#sendMessage:</code>时将返回FALSE
  */
 +(id)objectWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageData:(NSData*)data;
+
+/**
+ 获取一个autorelease的<code>QQApiAudioObject</code>
+ @param url 音频内容的目标URL
+ @param title 分享内容的标题
+ @param description 分享内容的描述
+ @param previewURL 分享内容的预览图像URL
+ @note 如果url为空，调用<code>QQApi#sendMessage:</code>时将返回FALSE
+ */
++(id)objectWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageURL:(NSURL*)previewURL;
+
 @end
 
 // QQApiVideoObject
@@ -295,6 +310,17 @@ typedef enum QQApiURLTargetType{
  @note 如果url为空，调用<code>QQApi#sendMessage:</code>时将返回FALSE
  */
 +(id)objectWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageData:(NSData*)data;
+
+/**
+ 获取一个autorelease的<code>QQApiVideoObject</code>
+ @param url 视频内容的目标URL
+ @param title 分享内容的标题
+ @param description 分享内容的描述
+ @param previewURL 分享内容的预览图像URL
+ @note 如果url为空，调用<code>QQApi#sendMessage:</code>时将返回FALSE
+ */
++(id)objectWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageURL:(NSURL*)previewURL;
+
 @end
 
 // QQApiNewsObject
@@ -311,6 +337,27 @@ typedef enum QQApiURLTargetType{
  @note 如果url为空，调用<code>QQApi#sendMessage:</code>时将返回FALSE
  */
 +(id)objectWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageData:(NSData*)data;
+
+/**
+ 获取一个autorelease的<code>QQApiNewsObject</code>
+ @param url 视频内容的目标URL
+ @param title 分享内容的标题
+ @param description 分享内容的描述
+ @param previewURL 分享内容的预览图像URL
+ @note 如果url为空，调用<code>QQApi#sendMessage:</code>时将返回FALSE
+ */
++(id)objectWithURL:(NSURL*)url title:(NSString*)title description:(NSString*)description previewImageURL:(NSURL*)previewURL;
+
+@end
+
+// QQApiPayObject
+/** \brief 支付对象
+ */
+@interface QQApiPayObject : QQApiObject
+@property(nonatomic,retain)NSString* OrderNo; ///<支付订单号，必填
+
+-(id)initWithOrderNo:(NSString*)OrderNo; ///<初始化方法
++(id)objectWithOrderNo:(NSString*)OrderNo;///<工厂方法，获取一个QQApiPayObject对象.
 @end
 
 // QQApiCommonContentObject;

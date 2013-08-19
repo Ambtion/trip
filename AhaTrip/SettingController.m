@@ -49,8 +49,8 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     } failure:^(NSString *error) {
        
     }];
-  
 }
+
 - (void)addNavBar
 {
     UIImageView * bar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"setting_bar.png"]];
@@ -93,10 +93,12 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 {
     return 3;
 }
+
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return secTitle[section];
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {

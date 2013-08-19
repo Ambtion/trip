@@ -55,6 +55,9 @@ enum QQApiInterfaceRespType
 /** 应答消息类型，参见\ref QQApiInterfaceRespType */
 @property (nonatomic, assign) int type;
 
+/** 扩展信息 */
+@property (nonatomic, assign) NSString* extendInfo;
+
 @end
 
 /**
@@ -112,9 +115,10 @@ enum QQApiInterfaceRespType
  创建一个SendMessageToQQResp应答实例
  \param result 请求处理结果
  \param errDesp 具体错误描述信息
+ \param extendInfo 扩展信息
  \return 新创建的SendMessageToQQResp应答实例
  */
-+ (SendMessageToQQResp *)respWithResult:(NSString *)result errorDescription:(NSString *)errDesp;
++(SendMessageToQQResp*) respWithResult:(NSString *)result errorDescription:(NSString *)errDesp extendInfo:(NSString*)extendInfo;
 
 @end
 

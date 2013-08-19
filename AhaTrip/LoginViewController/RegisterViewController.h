@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 #import "BirthDayField.h"
+#import "DLCImagePickerController.h"
 
 #define TEXTLOLOR  [UIColor whiteColor]
 
-@interface RegisterViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>
+@interface RegisterViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate,DLCImagePickerDelegate,UIActionSheetDelegate>
 {
     MBProgressHUD * _alterView;
     UIButton * _portraitImageButton;
