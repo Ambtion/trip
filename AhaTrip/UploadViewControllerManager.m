@@ -43,6 +43,9 @@
 //    tempInfoController.delegate = self;
 //    [self pushViewController:tempInfoController animated:YES];
 //    return;
+    MapViewController * mv = [[MapViewController alloc] init];
+    [self pushViewController:mv animated:YES];
+    return;
     _subCateroyInfo = info;
     CountryListController * souSuoCTL = [[CountryListController alloc] init];
     souSuoCTL.delegate = self;

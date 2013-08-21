@@ -56,28 +56,30 @@
         [self.searchBar resignFirstResponder];
     }
 }
+
 - (void)cusCancelButton
 {
-    return;
     for (UIView * subView in self.searchBar.subviews) {
         //Find the button
         if([subView isKindOfClass:[UIButton class]])
         {
             //Change its properties
-            DLog(@"%@",self.searchBar);
             UIButton * cancelButton = (UIButton *)subView;
             [cancelButton setTitle:nil forState:UIControlStateNormal];
             [cancelButton setTitle:nil forState:UIControlStateHighlighted];
             [cancelButton setContentMode:UIViewContentModeScaleAspectFit];
             cancelButton.tintColor = [UIColor clearColor];
-            UIImageView * maskView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"button_cancel_search"]];
-            maskView.frame = cancelButton.bounds;
+            UIImageView * maskView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapSearchcancel.png"]];
+            maskView.frame = CGRectMake(-1, -1, cancelButton.bounds.size.width + 2, cancelButton.frame.size.height + 2);
             [maskView setContentMode:UIViewContentModeScaleAspectFit];
             maskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             [cancelButton addSubview:maskView];
+            DLog(@"LLLLL::%@",[cancelButton allTargets]);
+            DLog(@"MMM::%@",[[[cancelButton actionsForTarget:self.searchBar forControlEvent:UIControlEventTouchUpInside] lastObject] class]);
         }
     }
 }
+
 @end
 
 
@@ -136,8 +138,9 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:SEARCHRECT];
     _searchBar.barStyle = UIBarStyleBlack;
     _searchBar.placeholder = @" ";
-    //    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 30)]forState:UIControlStateNormal];
-    [_searchBar setBackgroundColor:[UIColor whiteColor]];
+    _searchBar.backgroundImage = [UIImage imageNamed:@"clearbgView.png"];
+//    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"mapSearchbg2.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 30)]forState:UIControlStateApplication];
+//    [_searchBar setBackgroundColor:[UIColor clearColor]];
     [_searchBar setImage:[UIImage imageNamed:@"search_Icon.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     
     _searchDisPlay = [[MapSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];

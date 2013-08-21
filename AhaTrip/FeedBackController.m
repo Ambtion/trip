@@ -12,8 +12,12 @@
 
 #define DESC_COUNT_LIMIT 200
 
-#define PLACEHOLDER  @"您的问题或建议"
-#define TITLE_DES @"您的反馈有助于我们的改进"
+#define PLACEHOLDER  @"在使用过程中有什么意见或建议，请尽情地..."
+#define TITLE_DES @"意见反馈"
+
+#define mRGB(a,b,c)  [UIColor colorWithRed:a/255.f green:b/255.f blue:c/255.f alpha:1]
+
+
 
 @implementation FeedBackController
 - (void)dealloc
@@ -50,7 +54,7 @@
         [umFeedBack setAppkey:UM_APP_KEY delegate:self];
         NSMutableDictionary * dic = [NSMutableDictionary dictionary];
         [dic setObject:idea forKey:@"content"];
-//        [dic setObject:[NSDictionary dictionaryWithObject:[LoginStateManager currentUserId] forKey:@"user_id"] forKey:@"contact"];
+        //        [dic setObject:[NSDictionary dictionaryWithObject:[LoginStateManager currentUserId] forKey:@"user_id"] forKey:@"contact"];
         [umFeedBack post:dic];
     }
     @catch (NSException *exception) {
@@ -75,38 +79,52 @@
 - (void)addSubviews
 {
     self.view.backgroundColor = [UIColor colorWithRed:244.f/255 green:244.f/255 blue:244.f/255 alpha:1.f];
-    UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
-    imageView.image = [UIImage imageNamed:@"title_feedback.png"];
-    imageView.image = nil;
-    [self.view addSubview:imageView];
+    //    UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
+    //    imageView.image = [UIImage imageNamed:@"title_feedback.png"];
+    //    imageView.image = nil;
+    //    [self.view addSubview:imageView];
+    //加载topBar
+    self.view.backgroundColor=mRGB(236, 235, 235);
+    UIImageView* topBarImag =[[UIImageView alloc] initWithFrame:CGRectMake(0,0, self.view.bounds.size.width, 44)];
+    topBarImag.backgroundColor=mRGB(50, 200, 160);
+    [self.view addSubview:topBarImag];
+    [topBarImag setUserInteractionEnabled:YES];
+    
     UILabel * titleLabel = [[UILabel alloc] init];
-    titleLabel.frame = CGRectMake(5, 50, 160, 18);
-    titleLabel.font = [UIFont systemFontOfSize:12];
-    titleLabel.textAlignment = UITextAlignmentLeft;
+    titleLabel.frame = CGRectMake(5, 0, 160, 44);
+    titleLabel.font = [UIFont boldSystemFontOfSize:20.f];
+    titleLabel.textAlignment = UITextAlignmentCenter;
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = [UIColor grayColor];
+    titleLabel.textColor = [UIColor whiteColor];
     titleLabel.text = TITLE_DES;
-    [imageView addSubview:titleLabel];
+    [self.view addSubview:titleLabel];
+    titleLabel.center = CGPointMake(160, 22);
+    
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGuesture:)] ;
     tap.delegate = self;
     [self.view addGestureRecognizer:tap];
     
-    UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    
+    //    返回menu页的按钮
+    UIButton *backButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(10,0, 44, 44)];
+    backButton.contentMode=UIViewContentModeCenter;
+    [backButton setImage:[UIImage imageNamed:@"feedBackback"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(settingnavigationBack:) forControlEvents:UIControlEventTouchUpInside];
-    backButton.frame = CGRectMake(0, 0, 44, 44);
     [self.view addSubview:backButton];
     
-    _saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_saveButton setBackgroundImage:[UIImage imageNamed:@"ensure.png"] forState:UIControlStateNormal];
+    //send的按钮
+    _saveButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    [_saveButton setFrame:CGRectMake(250, 0 , 60, 44)];
+    _saveButton.contentMode=UIViewContentModeCenter;
+    [_saveButton setImage:[UIImage imageNamed:@"feedBacksent"] forState:UIControlStateNormal];
     [_saveButton addTarget:self action:@selector(saveButton:) forControlEvents:UIControlEventTouchUpInside];
-    _saveButton.frame = CGRectMake(320 - 44, 0, 44, 44);
     [_saveButton setAlpha:0.3];
     [_saveButton setUserInteractionEnabled:NO];
     [self.view addSubview:_saveButton];
     
     _textView_bg = [[UIView alloc] initWithFrame:CGRectMake(8, 122 - 50, 304, 134 + 50)];
-    _textView_bg.backgroundColor = [UIColor whiteColor];
+    _textView_bg.backgroundColor = [UIColor clearColor];
     _textView_bg.layer.cornerRadius = 5.f;
     _textView_bg.layer.borderColor = [UIColor colorWithRed:222.f/255.f green:222.f/255.f blue:222.f/255.f alpha:1].CGColor;
     _textView_bg.layer.borderWidth = 1.f;
@@ -119,12 +137,12 @@
     _textView.font =  [UIFont fontWithName:@"STHeitiTC-Medium" size:16];
     _textView.returnKeyType = UIReturnKeyDefault;
     _textView.delegate = self;
-
+    
     [_textView becomeFirstResponder];
     _textView.textColor = [UIColor colorWithRed:102.f/255 green:102.f/255 blue:102.f/255 alpha:1];
     
     [_textView_bg addSubview:_textView];
-    _placeHolder = [[UITextField alloc] initWithFrame:CGRectMake(10, 6, 250, 20)];
+    _placeHolder = [[UITextField alloc] initWithFrame:CGRectMake(10, 6, 250, 50)];
     _placeHolder.placeholder = PLACEHOLDER;
     [_placeHolder setUserInteractionEnabled:NO];
     [_textView addSubview:_placeHolder];
@@ -162,7 +180,7 @@
 }
 - (void)handleGuesture:(UITapGestureRecognizer *)gesture
 {
-//    [_textView resignFirstResponder];
+    //    [_textView resignFirstResponder];
 }
 
 -(void)textViewDidChange:(UITextView *)textView
