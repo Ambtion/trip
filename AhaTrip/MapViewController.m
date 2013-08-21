@@ -596,6 +596,7 @@
         MAPOI * poi = [sourceArray objectAtIndex:index];
         cityLabel.text = poi.name;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        cell.frame = CGRectMake(-10, 0, 320, 44);
     }else{
         cityLabel.text = @"添加新的地址";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
