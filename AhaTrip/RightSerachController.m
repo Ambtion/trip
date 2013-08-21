@@ -226,6 +226,8 @@
 }
 - (void)tapGesture:(UIGestureRecognizer *)gesture
 {
-    DLog(@"Others");
+    [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] initWithCountryId:31 cityId:-1 country:@"其他" city:@"其他国家/地区"];
+    [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 @end
