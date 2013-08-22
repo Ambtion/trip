@@ -3626,8 +3626,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
-				CODE_SIGN_IDENTITY = "iPhone Developer: luo ziyang (J8PX8W78GE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: luo ziyang (J8PX8W78GE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: shenping cao (3284Y4MJN9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shenping cao (3284Y4MJN9)";
 				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3650,8 +3650,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
+				PROVISIONING_PROFILE = "F71FF4CD-9B84-4A8C-963B-BA108214E42E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F71FF4CD-9B84-4A8C-963B-BA108214E42E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3662,8 +3662,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
-				CODE_SIGN_IDENTITY = "iPhone Developer: luo ziyang (J8PX8W78GE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: luo ziyang (J8PX8W78GE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: shenping cao (3284Y4MJN9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shenping cao (3284Y4MJN9)";
 				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3686,8 +3686,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "941C49A6-79D6-4FE7-A2E5-EF3F5AFC309B";
+				PROVISIONING_PROFILE = "F71FF4CD-9B84-4A8C-963B-BA108214E42E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F71FF4CD-9B84-4A8C-963B-BA108214E42E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

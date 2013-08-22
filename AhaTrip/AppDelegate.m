@@ -25,11 +25,8 @@
     [MobClick startWithAppkey:UM_APP_KEY];
     [FunctionGuideView showViewWithDelegate:nil];
     //this register notification
-    //    [[UIApplication sharedApplication]  registerForRemoteNotificationTypes:
-    //     (UIRemoteNotificationTypeAlert |
-    //      UIRemoteNotificationTypeBadge |
-    //      UIRemoteNotificationTypeSound)];
-
+    [[UIApplication sharedApplication]  registerForRemoteNotificationTypes: (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge |
+                                                                             UIRemoteNotificationTypeSound)];
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -54,25 +51,32 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSString * token = [NSString stringWithFormat:@"%@",deviceToken];
+    DLog(@"%@",token);
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+//    DLog(@"token::%@",token);
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    //    NSString *str = [NSString stringWithFormat: @"Error: %@", error];
-    //    DLog(@"%@",str);
+    NSString *str = [NSString stringWithFormat: @"Error: %@", error];
+    DLog(@"%@",str);
 }
 
-- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary  *)userInfo {
-    //    NSLog(@"%@",[userInfo allKeys]);
-    //    NSLog(@"%@",userInfo);
-    //    UIAlertView * alterview = [[UIAlertView alloc] initWithTitle:@"通知" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"详细", nil];
-    //    [alterview show];
-    //    application.applicationIconBadgeNumber -= 1;
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary  *)userInfo
+{
+    NSLog(@"%@",[userInfo allKeys]);
+    NSLog(@"%@",userInfo);
+    UIAlertView * alterview = [[UIAlertView alloc] initWithTitle:@"通知" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"详细", nil];
+    [alterview show];
+    application.applicationIconBadgeNumber += [[[userInfo objectForKey:@"aps"] objectForKey:@"badge"] integerValue];
+    [self postNotification];
 }
-
+- (void)postNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceiveRemoteNotification" object:nil];
+}
 - (ALAssetsLibrary *)appDefaultAssetLib
 {
     if (!self.lib) {
