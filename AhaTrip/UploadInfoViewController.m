@@ -22,7 +22,7 @@
 #define kIntevalY  15
 
 #define PLUSICON [UIImage imageNamed:@"plus_icon.png"]
-#define DESC_COUNT_LIMIT 100
+#define DESC_COUNT_LIMIT 140
 
 #define TIMEBGVIEWTAG  20000
 #define AVERCOAST      20001

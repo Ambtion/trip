@@ -43,8 +43,8 @@
             return @"美食";
         case KCateroyHotel:
             return @"住宿";
-        case KCateroyDrink:
-            return @"饮品";
+//        case KCateroyDrink:
+//            return @"饮品";
         case KCateroyEntertainment:
             return @"娱乐";
         default:
@@ -60,11 +60,11 @@
         case KCateroyShopping:
             return @"Shopping";
         case KCateroyDinner:
-            return @"Food";
+            return @"Dinner";
         case KCateroyHotel:
             return @"Accommodation";
-        case KCateroyDrink:
-            return @"Drink";
+//        case KCateroyDrink:
+//            return @"Drink";
         case KCateroyEntertainment:
             return @"Entertainment";
         default:

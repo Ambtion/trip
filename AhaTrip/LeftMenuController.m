@@ -14,10 +14,8 @@ static  NSString *   menuText[4] =   {@"广场",@"个人昵称",@"消息",@"设�
 static  NSString *   image[4]    =   {@"left_Icon_home.png",@"avatar.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
 
 @implementation LeftMenuController
-
 @synthesize plazeController = _plazeController,homeController = _homeController,
 ntfController = _ntfController,setController = _setController;
-
 
 - (void)viewDidLoad
 {

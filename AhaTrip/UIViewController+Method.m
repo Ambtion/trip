@@ -209,8 +209,8 @@
         case KCateroyHotel:
             return @"hotel.png";
             break;
-        case KCateroyDrink:
-            return @"drink.png";
+//        case KCateroyDrink:
+//            return @"drink.png";
             break;
         case KCateroyEntertainment:
             return @"Entertainment.png";

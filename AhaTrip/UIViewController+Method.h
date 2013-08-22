@@ -51,8 +51,8 @@ enum __picUploadCateroy {
     KCateroyShopping = 1,
     KCateroyDinner = 2,
     KCateroyHotel = 3,
-    KCateroyDrink = 4,
-    KCateroyEntertainment = 5,
+//    KCateroyDrink = 4,
+    KCateroyEntertainment = 4,
     KCateroyAll = 200,
 };
 typedef enum __picUploadCateroy PicUploadCateroy;

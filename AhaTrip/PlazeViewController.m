@@ -92,20 +92,21 @@
                                                            highlightedImage:storyMenuItemImagePressed
                                                                ContentImage:[UIImage imageNamed:@"icon_food.png"]
                                                     highlightedContentImage:nil];
+//    AwesomeMenuItem *starMenuItem4 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+//                                                           highlightedImage:storyMenuItemImagePressed
+//                                                               ContentImage:[UIImage imageNamed:@"icon_drink.png"]
+//                                                    highlightedContentImage:nil];
     AwesomeMenuItem *starMenuItem4 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
-                                                               ContentImage:[UIImage imageNamed:@"icon_drink.png"]
+                                                               ContentImage:[UIImage imageNamed:@"icon_hotel.png"]
                                                     highlightedContentImage:nil];
     AwesomeMenuItem *starMenuItem5 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
                                                            highlightedImage:storyMenuItemImagePressed
                                                                ContentImage:[UIImage imageNamed:@"icon_Entertainment.png"]
                                                     highlightedContentImage:nil];
-    AwesomeMenuItem *starMenuItem6 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
-                                                           highlightedImage:storyMenuItemImagePressed
-                                                               ContentImage:[UIImage imageNamed:@"icon_hotel.png"]
-                                                    highlightedContentImage:nil];
+ 
     
-    NSArray * menus = [NSArray arrayWithObjects:starMenuItem1, starMenuItem2, starMenuItem3, starMenuItem4, starMenuItem5,starMenuItem6,nil];
+    NSArray * menus = [NSArray arrayWithObjects:starMenuItem1, starMenuItem2, starMenuItem3, starMenuItem4, starMenuItem5,nil];
     
     AwesomeMenuItem *startItem = [[AwesomeMenuItem alloc] initWithImage:[UIImage imageNamed:@"bg-addbutton.png"]
                                                        highlightedImage:[UIImage imageNamed:@"bg-addbutton-highlighted.png"]
