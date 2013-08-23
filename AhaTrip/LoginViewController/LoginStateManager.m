@@ -11,6 +11,7 @@
 #import "ASIDownloadCache.h"
 
 #define USER_ID             [NSString stringWithFormat:@"__USER_ID__%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]
+
 #define DEVICE_TOKEN        @"__device_token__"
 #define LASTUSERNAME        @"__last_usrName__"
 #define USER_TOKEN          @"__USER_TOKEN__"

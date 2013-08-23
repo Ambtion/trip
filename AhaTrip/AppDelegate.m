@@ -45,11 +45,6 @@
     self.window.rootViewController = nav_center;
     [self.window makeKeyAndVisible];
     [self configProject];
-//    NSData * data = UIImageJPEGRepresentation([UIImage imageNamed:@"Default"], 1.f);
-//    [RequestManager registerWithEmail:@"1255ss4s25dd@sohu.com" UserName:@"s662sfsfddddd" passpord:@"w5werw" isGril:YES portrait:data birthday:nil success:^(NSString *response) {
-//    } failure:^(NSString *error) {
-//        
-//    }];
     return YES;
 }
 

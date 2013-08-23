@@ -80,7 +80,7 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
-+ (void)registerWithEmail:(NSString *)mail UserName:(NSString *)name passpord:(NSString *)passpord isGril:(NSInteger)isGirl portrait:(NSData*)imagedata birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)registerWithEmail:(NSString *)mail UserName:(NSString *)name passpord:(NSString *)passpord isGril:(NSInteger)isGirl portrait:(UIImage *)image birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/register"];
@@ -101,7 +101,7 @@
     [request setStringEncoding:NSUTF8StringEncoding];
     for (id key in [dic allKeys])
         [request setPostValue:[dic objectForKey:key] forKey:key];
-    [request setData:imagedata forKey:@"photo"];
+    [request setData:UIImageJPEGRepresentation(image, 0.5) forKey:@"photo"];
     
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
@@ -117,6 +117,41 @@
         DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
     }];
         [request startSynchronous];
+}
+
+//修改个人信息
++ (void)updateUserInfoWithName:(NSString *)name des:(NSString *)des birthday:(NSString*)brithday isGril:(NSInteger)isGirl portrait:(UIImage *)image success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/avatarUpdate"];
+    __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:str]];
+    [request setTimeOutSeconds:TIMEOUT];
+    [request setStringEncoding:NSUTF8StringEncoding];
+    [request setPostValue:name forKey:@"username"];
+    [request setPostValue:des forKey:@"signature"];
+    [request setPostValue:brithday forKey:@"birth"];
+    if (isGirl == 1) {
+        [request setPostValue:@"female" forKey:@"sex"];
+    }else if(isGirl == 0){
+        [request setPostValue:@"male" forKey:@"sex"];
+    }
+    [request setPostValue:[LoginStateManager currentToken] forKey:@"token"];
+    [request setData:UIImageJPEGRepresentation(image, 0.5) forKey:@"photo"];
+    
+    __weak ASIFormDataRequest * weakSelf = request;
+    [request setCompletionBlock:^{
+        DLog(@"%@",weakSelf.responseString);
+        if (weakSelf.responseStatusCode == 200){
+            success(weakSelf.responseString);
+        }else{
+            failure([weakSelf.error description]);
+        }
+    }];
+    [request setFailedBlock:^{
+        failure([weakSelf.error description]);
+        DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
+    }];
+    [request startSynchronous];
+
 }
 
 //上传接口
@@ -137,7 +172,7 @@
     }
     [request setPostValue:[NSNumber numberWithInteger:countryId] forKey:@"country_id"];
     [request setPostValue:[NSNumber numberWithInt:cityId] forKey:@"city_id"];
-    [request setPostValue:[NSNumber numberWithInt:category_id] forKey:@"category_id"];
+    [request setPostValue:[NSNumber numberWithInt:category_id+1] forKey:@"category_id"];
     [request setPostValue:[NSNumber numberWithInt:sub_category_id] forKey:@"sub_category_id"];
     if (description && ![description isEqualToString:@""])
         [request setPostValue: description forKey:@"description"];
@@ -155,7 +190,6 @@
     [request setPostValue: [LoginStateManager currentToken] forKey:@"token"];
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
-        DLog(@"responseString::%@  responseStatusCode:%d",weakSelf.responseString,weakSelf.responseStatusCode);
         if (weakSelf.responseStatusCode == 200){
             success(weakSelf.responseString);
         }else{
@@ -386,5 +420,14 @@
         DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
     }];
     [request startAsynchronous];
+}
+
+//通知列表
++ (void)getNotificationListSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/messageList?token=%@",[LoginStateManager currentToken]];
+    DLog(@"%@",str);
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 @end

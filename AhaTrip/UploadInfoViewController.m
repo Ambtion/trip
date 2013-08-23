@@ -33,7 +33,7 @@
     BOOL _hasWifi;
     NSString * _startTime;
     NSString * _endTime;
-    BOOL  _price;
+    NSInteger  _price;
     NSDictionary * _priceunitinfo;
     
 }
@@ -467,9 +467,10 @@
 }
 - (void)avertCoastControllerDidSeletedPrice:(NSString *)price uinit:(NSDictionary *)info
 {
-    DLog(@"");
-    _price = [price integerValue];
+ 
     _priceunitinfo = info;
+    _price = [price integerValue];
+    DLog(@"str：%@， _%d",price,_price);
     DLog(@"%@",info);
     UIImageView * view = (UIImageView *)[self.view viewWithTag:AVERCOAST];
     [self setView:view WithText:[NSString stringWithFormat:@"%@ %@",price, [info objectForKey:@"en_name"]]];

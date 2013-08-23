@@ -72,7 +72,7 @@
     [self setButtonNormalTextColor:[UIColor whiteColor] seletedColor:[UIColor whiteColor]];
     //    [self setGenderButtonsState];
 }
-- (void)setisGirl:(BOOL)isGirl
+- (void)setIsGirl:(BOOL)isGirl
 {
     _isGirl = isGirl;
     [self setGenderButtonsState];
@@ -114,7 +114,7 @@
 }
 - (void)dateWasSelected:(NSDate *)selectedDate element:(id)element
 {
-    
+    date = selectedDate;
     self.textFiled.text = [NSString stringWithFormat:@" 生日: %@",[self stringFromdate:selectedDate]];
 }
 - (NSString *)stringFromdate:(NSDate *)Adate
@@ -127,5 +127,8 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     return NO;
 }
-
+- (NSString *)timeString
+{
+    return [self stringFromdate:date];
+}
 @end

@@ -16,6 +16,7 @@
 {
     self = [super init];
     if (self) {
+        DLog(@"%@",titleId);
         _titleId = titleId;
     }
     return self;
@@ -113,6 +114,7 @@
 }
 - (DesInfoViewDataSource *)getDesSouce
 {
+    DLog(@"%@",_dataInfo);
     DesInfoViewDataSource * source = [[DesInfoViewDataSource alloc] init];
     source.userName = [NSString stringWithFormat:@"%@-%@",[_dataInfo objectForKey:@"country"],[_dataInfo objectForKey:@"city"]];
     source.desString = [_dataInfo objectForKey:@"description"];

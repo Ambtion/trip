@@ -7,6 +7,7 @@
 //
 
 #import "SysNotificationCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation SysNotificationCellDataSource
 @synthesize portrait = _portrait,name = _name,content = _content,time = _time;
@@ -64,7 +65,7 @@
 }
 - (void)updateSubViews
 {
-    _portraitView.imageView.image = _dataSource.portrait;
+    [_portraitView.imageView setImageWithURL:[NSURL URLWithString:_dataSource.portrait]];
     _sysContentView.dataSouce = [_dataSource  contentSouce];
     self.frame = CGRectMake(0, 0, 320, _sysContentView.frame.size.height + _sysContentView.frame.origin.y);
 }

@@ -12,11 +12,17 @@
 #import "BindCell.h"
 #import "TitleCell.h"
 #import "DLCImagePickerController.h"
+#import "OAuthShareRef.h"
 
-@interface SettingController : UIViewController<UITableViewDataSource,UITableViewDelegate,BindCellDelegate,AcountSettingCellDelegate,UIAlertViewDelegate,IIViewDeckControllerDelegate,UIActionSheetDelegate,DLCImagePickerDelegate>
+
+@interface SettingController : UIViewController<UITableViewDataSource,UITableViewDelegate,BindCellDelegate,AcountSettingCellDelegate,UIAlertViewDelegate,IIViewDeckControllerDelegate,UIActionSheetDelegate,DLCImagePickerDelegate,TencentSessionDelegate,SinaWeiboDelegate>
 {
     UITableView * _tableView;
     AcountSettingCellDataSource * acountSource;
     AcountSettingCell * _acountCell;
+    BindCell * _qqCell;
+    BindCell * _sinaCell;
+    BOOL shouldUpload;
 }
+- (void)getUserInfo;
 @end

@@ -37,5 +37,9 @@
 @property(nonatomic,weak)id<AcountSettingCellDelegate> delegate;
 @property(nonatomic,strong)AcountSettingCellDataSource * dataSouce;
 @property(nonatomic,strong)PortraitView * portraitImage;
+@property(nonatomic,strong)UITextField * userNameLabel;
+@property(nonatomic,strong)UITextField * userDes;
+@property(nonatomic,strong)BirthDayField * birthday;
+
 - (void)updataAllViews;
 @end

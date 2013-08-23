@@ -22,6 +22,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    shouldUpload = YES;
     self.view.backgroundColor = [UIColor colorWithRed:235.f/255 green:235.f/255 blue:235.f/255 alpha:1.f];
     [self getUserInfo];
     [self addTableView];
@@ -33,7 +34,11 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
     self.viewDeckController.delegate = nil;
     self.viewDeckController.rightController = nil;
-    [self getUserInfo];
+    if (shouldUpload){
+        [self getUserInfo];
+    }else{
+        shouldUpload = YES;
+    }
 }
 - (void)getUserInfo
 {
@@ -132,6 +137,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     }
     return 0;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -141,21 +147,31 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
             _acountCell = [[AcountSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             _acountCell.delegate = self;
         }
-        DLog(@"%@",acountSource.poraitImage);
+        DLog(@"LLLLLLL:::%d",acountSource.isBoy);
         _acountCell.dataSouce = acountSource;
         return _acountCell;
     }
     if (indexPath.section == 1) {
-        static NSString * cellId = @"CELL_1";
-        BindCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[BindCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.delegate = self;
+        if (indexPath.row == 0) {
+            if (!_sinaCell) {
+                _sinaCell = [[BindCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
+                _sinaCell.delegate = self;
+                _sinaCell.iconImageView.image = [UIImage imageNamed:iconSection1[indexPath.row]];
+                _sinaCell.nameLabel.text = titleSection1[indexPath.row];
+                [_sinaCell.bindSwitch setOn:[LoginStateManager isSinaBind]];
+            }
+            return _sinaCell;
+        }else{
+            if (!_qqCell) {
+                _qqCell = [[BindCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
+                _qqCell.delegate = self;
+                _qqCell.iconImageView.image = [UIImage imageNamed:iconSection1[indexPath.row]];
+                _qqCell.nameLabel.text = titleSection1[indexPath.row];
+                [_qqCell.bindSwitch setOn:[LoginStateManager isQQBing]];
+            }
+            return _qqCell;
         }
-        cell.iconImageView.image = [UIImage imageNamed:iconSection1[indexPath.row]];
-        [cell.bindSwitch setOn:indexPath.row % 2];
-        cell.nameLabel.text = titleSection1[indexPath.row];
-        return cell;
+        return nil;
     }
     if (indexPath.section == 2) {
         static NSString * cellId = @"CELL_2";
@@ -176,7 +192,12 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 }
 - (void)doneButtonClick:(UIButton *)button
 {
-    DLog();
+
+    [RequestManager updateUserInfoWithName:_acountCell.userNameLabel.text des:_acountCell.userDes.text birthday:[_acountCell.birthday timeString] isGril:_acountCell.birthday.isGirl portrait:_acountCell.portraitImage.imageView.image success:^(NSString *response) {
+        [self showTotasViewWithMes:@"修改成功"];
+    } failure:^(NSString *error) {
+        [self showTotasViewWithMes:@"修改失败"];
+    }];
 }
 
 #pragma ChnagePortrait
@@ -207,9 +228,11 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 {
     DLog();
     UIImage * image = [info objectForKey:@"Image"];
-    DLog(@"%f",image.size.width);
     [_acountCell.portraitImage.imageView setImage:image];
+    shouldUpload  = NO;
+    DLog(@"%f",image.size.width);
     [self dismissModalViewControllerAnimated:YES];
+
 }
 
 
@@ -223,12 +246,6 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 //{
 //    DLog();
 //}
-
-#pragma mark Bind
-- (void)BindCell:(BindCell *)cell SwithChanged:(UISwitch *)bindSwitch
-{
-    DLog();
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -309,5 +326,65 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     return nil;
 }
 
+
+#pragma bind
+#pragma mark Bind
+- (void)BindCell:(BindCell *)cell SwithChanged:(UISwitch *)bindSwitch
+{
+
+    NSIndexPath * path = [_tableView indexPathForCell:cell];
+    if (path.row == 0 && bindSwitch.isOn) {// sina
+        if (bindSwitch.isOn) {
+            if (![LoginStateManager isSinaBind]) {
+                [self sinaLogin:nil];
+            }
+        }
+    }else{ //qq
+        if (![LoginStateManager isQQBing] && bindSwitch.isOn) {
+            [self qqLogin:nil];
+        }
+    }
+}
+
+#pragma mark QQ
+- (void)qqLogin:(UIButton *)button
+{
+    [[self AppDelegate] qqLoginWithDelegate:self];
+}
+- (void)tencentDidLogin
+{
+    DLog(@"%@",[[self AppDelegate] tencentOAuth].accessToken);
+}
+- (void)tencentDidNotLogin:(BOOL)cancelled
+{
+    [_qqCell.bindSwitch setOn:NO];
+    [self showTotasViewWithMes:@"授权失败"];
+}
+- (void)tencentDidNotNetWork
+{
+    [_qqCell.bindSwitch setOn:NO];
+    [self showTotasViewWithMes:@"授权失败"];
+}
+
+#pragma mark OAuth
+- (void)sinaLogin:(UIButton*)button
+{
+    [[self AppDelegate] sinaLoginWithDelegate:self];
+}
+- (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
+{
+    DLog(@"%@",[[self AppDelegate] sinaweibo].accessToken);
+//    [self handleLoginInfo:nil];
+}
+- (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
+{
+    [_sinaCell.bindSwitch setOn:NO];
+    [self showTotasViewWithMes:@"授权失败"];
+}
+- (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
+{
+    [_sinaCell.bindSwitch setOn:NO];
+    [self showTotasViewWithMes:@"授权失败"];
+}
 
 @end

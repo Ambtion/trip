@@ -108,6 +108,7 @@ ntfController = _ntfController,setController = _setController;
         controller = self.ntfController;
         break;
     case 3:
+        [self.setController getUserInfo];
         controller = self.setController;
         break;
     default:

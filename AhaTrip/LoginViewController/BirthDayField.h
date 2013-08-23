@@ -18,10 +18,12 @@
     UIColor * _normalColor;
     UIColor * _seletedColor;
     BOOL _isGirl;
+    NSDate * date;
 }
 @property(nonatomic,assign)BOOL isGirl;
 @property(nonatomic,strong)UITextField * textFiled;
 @property(nonatomic,strong)UIButton * b_Button;
 @property(nonatomic,strong)UIButton * g_Button;
 - (void)setButtonNormalTextColor:(UIColor *)color seletedColor:(UIColor *)seletedColor;
+- (NSString *)timeString;
 @end

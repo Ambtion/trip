@@ -7,6 +7,8 @@
 //
 
 #import "NotificationController.h"
+#import "RequestManager.h"
+
 @interface NotificationController ()
 @property(nonatomic,strong)NSMutableArray * dataSource;
 @end
@@ -17,6 +19,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithRed:235/255.f green:235/255.f blue:235/255.f alpha:1.f];
+
     [self addCusNavBar];
     [self addTableView];
 }
@@ -26,6 +30,7 @@
     self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
     self.viewDeckController.delegate = nil;
     self.viewDeckController.rightController = nil;
+    [self getMoreFromeNetWork];
 }
 - (void)addCusNavBar
 {
@@ -43,10 +48,11 @@
 - (void)addTableView
 {
     _tableView = [[EGRefreshTableView alloc] initWithFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44)];
-    _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.pDelegate = self;
     _tableView.dataSource = self;
+    _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
+    _tableView.tableFooterView = nil;
     _dataSource = [[NSMutableArray alloc] initWithCapacity:0];
     [self refresFromeNetWork];
 }
@@ -62,27 +68,49 @@
 }
 - (void)refresFromeNetWork
 {
+    [RequestManager getNotificationListSuccess:^(NSString *response) {
+        [self addSourceWithArrayInfo:[[response JSONValue] objectForKey:@"messages"]];
+        [_tableView reloadData];
+        [_tableView didFinishedLoadingTableViewData];
+    } failure:^(NSString *error) {
+        [_tableView reloadData];
+        [_tableView didFinishedLoadingTableViewData];
+    }];
+}
+- (void)addSourceWithArrayInfo:(NSArray *)array
+{
     [_dataSource removeAllObjects];
-    for (int i = 0; i < 20; i++) {
-        NotificationCellDataSource * source = [[NotificationCellDataSource alloc] init];
-        source.portrait = [UIImage imageNamed:@"testPor.png"];
-        source.name = @"Erfei_Chao";
-        source.content = @"嗷嗷！包装好喜欢！多少钱啊？?";
-        source.target = @"评论我的发现";
-        source.targetName = @"奈良のIceCream";
-        source.time = @"05-19 22:50";
-        [_dataSource addObject:source];
-
-        SysNotificationCellDataSource * sysSource = [[SysNotificationCellDataSource alloc] init];
-        sysSource.portrait = [UIImage imageNamed:@"testPor.png"];
-        sysSource.name = @"AHaTrip";
-        sysSource.content = @"敢问这位朋友，AhaTrip的客户端使用 得如何？求点评求拍砖求鞭策！......在 设置-意见反馈中告诉我们,求点评求拍砖求鞭,求点评求拍砖求鞭,求点评求拍砖求鞭";
-        sysSource.time = @"05-19 22:50";
-        [_dataSource addObject:sysSource];
+    DLog(@"SSS$%@",array);
+    for (NSDictionary * info in array) {
+        id source = [self getSourceWithInfo:info];
+        if (source) {
+            [_dataSource addObject:source];
+        }
     }
-    [_tableView reloadData];
-    [_tableView didFinishedLoadingTableViewData];
-    
+    DLog(@"%d",_dataSource.count);
+}
+- (id)getSourceWithInfo:(NSDictionary *)info
+{
+    if (![[info objectForKey:@"target"] isEqualToString:@"systerm"]) {
+        DLog(@"MMMMMM");
+        NotificationCellDataSource * source = [[NotificationCellDataSource alloc] init];
+        source.portrait = [info objectForKey:@"from_user_photo"];
+        source.content = [info objectForKey:@"content"];
+        source.target = [info objectForKey:@"target"];
+        source.name = [info objectForKey:@"from_username"];
+        source.targetName = [info objectForKey:@"target_content"];
+        source.time = [info objectForKey:@"time"];
+        source.findId = [[info objectForKey:@"finding_id"] integerValue];
+        return source;
+    }else{
+        SysNotificationCellDataSource * sysSource = [[SysNotificationCellDataSource alloc] init];
+        sysSource.portrait = [info objectForKey:@"from_user_photo"];
+        sysSource.name = [info objectForKey:@"from_username"];
+        sysSource.content = [info objectForKey:@"content"];
+        sysSource.time = [info objectForKey:@"time"];
+        return sysSource;
+    }
+    return nil;
 }
 - (void)getMoreFromeNetWork
 {
@@ -145,10 +173,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[NotificationCell class]]) {
-        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:[[CommentController alloc] initWithBgImage:[UIImage imageNamed:@"test2.jpg"] findsID:0]];
-        [nav.navigationBar setHidden:YES];
-        [self presentModalViewController:nav animated:YES];
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[NotificationCell class]]) {
+//        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:[[CommentController alloc] initWithBgImage:[UIImage imageNamed:@"test2.jpg"] findsID:0]];
+//        [nav.navigationBar setHidden:YES];
+//        [self presentModalViewController:nav animated:YES];
+//    }
+        [self.navigationController pushViewController:[[PhotoDetailController alloc] initWithTitleId:[NSString stringWithFormat:@"%d",((NotificationCell *)cell).dataSource.findId]] animated:YES];
+
     }
 }
 

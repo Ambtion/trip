@@ -246,8 +246,7 @@
     [self waitForMomentsWithTitle:@"注册中" withView:self.view];
     return;
     UIImage * image = [_portraitImageButton imageForState:UIControlStateNormal];
-    NSData * data = UIImageJPEGRepresentation(image, 1.f);
-    [RequestManager registerWithEmail:_mailBindTextField.text UserName:_usernameTextField.text passpord:_passwordTextField.text isGril:[self cheackTest:_birthday.textFiled]? _birthday.isGirl:-1 portrait:data birthday:_birthday.textFiled.text success:^(NSString *response) {
+    [RequestManager registerWithEmail:_mailBindTextField.text UserName:_usernameTextField.text passpord:_passwordTextField.text isGril:[self cheackTest:_birthday.textFiled]? _birthday.isGirl:-1 portrait:image birthday:[_birthday timeString] success:^(NSString *response) {
 //        [self stopWaitProgressView:nil];
         [self handleLoginInfo:[[response JSONValue] objectForKey:@"result"]];
     } failure:^(NSString *error) {

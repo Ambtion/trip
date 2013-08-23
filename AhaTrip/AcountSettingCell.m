@@ -26,6 +26,9 @@
 
 @implementation AcountSettingCell
 @synthesize portraitImage = _portraitImage;
+@synthesize userNameLabel = _userNameLabel;
+@synthesize userDes = _userDes;
+@synthesize birthday = _birthday;
 @synthesize dataSouce = _dataSouce;
 @synthesize delegate = _delegate;
 
@@ -64,6 +67,7 @@
     _userNameLabel = [self addTextFieldWithReferenceView:_portraitImage placeHolder:@"昵称" returnKey:UIReturnKeyNext];
     _userDes  = [self addTextFieldWithReferenceView:_userNameLabel placeHolder:@"个人简介" returnKey:UIReturnKeyDone];
     _birthday = [self addBirthFieldWithReferenceView:_userDes placeHolder:@"生日" returnKey:UIReturnKeyNext];
+//    _birthday.isGirl = NO;
 }
 
 - (UITextField *)addTextFieldWithReferenceView:(UIView *)view placeHolder:(NSString *)holder returnKey:(UIReturnKeyType)type
@@ -137,7 +141,7 @@
     }];
     _userNameLabel.text = _dataSouce.userName;
     _userDes.text = _dataSouce.userDes;
-    _birthday.textFiled.text = [NSString stringWithFormat:@"%@",_dataSouce.birthday];
+    _birthday.textFiled.text = [NSString stringWithFormat:@"生日:%@",_dataSouce.birthday];
     _birthday.isGirl = !_dataSouce.isBoy;
 }
 

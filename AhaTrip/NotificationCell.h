@@ -16,12 +16,13 @@
 {
     UserNotificationContentViewDataSource * _contentSouce;
 }
-@property(strong,nonatomic)UIImage * portrait;
+@property(strong,nonatomic)NSString * portrait;
 @property(strong,nonatomic)NSString * name;
 @property(strong,nonatomic)NSString * content;
 @property(strong,nonatomic)NSString * target;
 @property(strong,nonatomic)NSString * targetName;
 @property(strong,nonatomic)NSString * time;
+@property(assign,nonatomic)NSInteger findId;
 - (CGFloat)heigth;
 - (UserNotificationContentViewDataSource *)contentSouce;
 @end

@@ -7,9 +7,10 @@
 //
 
 #import "NotificationCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation NotificationCellDataSource
-@synthesize portrait = _portrait, name = _name,content = _content,target = _target,targetName = _targetName, time= _time;
+@synthesize portrait = _portrait, name = _name,content = _content,target = _target,targetName = _targetName, time= _time,findId = _findId;
 - (CGFloat)heigth
 {
     CGFloat height = 0.f;
@@ -67,7 +68,7 @@
 }
 - (void)updateSubViews
 {
-    _portraitImageView.imageView.image = _dataSource.portrait;
+    [_portraitImageView.imageView setImageWithURL:[NSURL URLWithString:_dataSource.portrait]];
     _userContentView.dataSource = [_dataSource  contentSouce];
     self.frame = CGRectMake(0, 0, 320, _userContentView.frame.size.height + _userContentView.frame.origin.y);
 }
