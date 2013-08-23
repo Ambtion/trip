@@ -11,7 +11,18 @@
 
 #define  LOINGOUT   @"__LOGINOUNT__"
 
+typedef enum __shareModel {
+    SinaWeiboShare,
+    RenrenShare,
+    WeixinShare,
+    QQShare,
+    SohuShare,
+    NoShare,
+}KShareModel;
+
+
 @interface CacheManager : NSObject
+
 + (void)removeAllCache;
 @end
 
@@ -36,5 +47,22 @@
 
 + (BOOL)isQQBing;
 + (void)storeQQTokenInfo:(NSDictionary *)info;
+//+ (NSDictionary *)qqTokenInfo;
 
++ (BOOL)isRenrenBind;
++ (void)storeRenRenTokenInfo:(NSDictionary *)info;
+//+ (NSDictionary *)renrenTokenInfo;
+
++ (NSDictionary *)getTokenInfo:(KShareModel)model;
++ (void)unbind:(KShareModel)model;
+
++ (void)storeDeviceID:(NSNumber *)deviceId;
++ (long long)deviceId;
+
++ (void)storeDeviceToken:(NSString *)deviceToken;
++ (NSString *)deviceToken;
+
+#pragma DeviceToken For Push
++ (BOOL)upDateDeviceToken;
++ (BOOL)deleteDeviceToken;
 @end

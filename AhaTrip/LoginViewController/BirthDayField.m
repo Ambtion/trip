@@ -10,7 +10,7 @@
 #import "ActionSheetDatePicker.h"
 
 @implementation BirthDayField
-@synthesize isBoy = _isBoy;
+@synthesize isGirl = _isGirl;
 @synthesize g_Button = _g_Button;
 @synthesize b_Button = _b_Button;
 @synthesize textFiled = _textFiled;
@@ -51,7 +51,7 @@
 - (void)addGenderButtons
 {
     _b_Button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_b_Button setTitle:@"男" forState:UIControlStateNormal];
+    [_b_Button setTitle:@"女" forState:UIControlStateNormal];
     _b_Button.tag = 100;
     _b_Button.titleLabel.font = [UIFont systemFontOfSize:15.f];
     _b_Button.frame = CGRectMake(173, 0, 40, 40);
@@ -60,7 +60,7 @@
     [self addSubview:_b_Button];
     
     _g_Button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_g_Button setTitle:@"女" forState:UIControlStateNormal];
+    [_g_Button setTitle:@"男" forState:UIControlStateNormal];
     _g_Button.titleLabel.font = [UIFont systemFontOfSize:15.f];
     _g_Button.frame = CGRectMake(220, 0, 40, 40);
     [_g_Button setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
@@ -68,28 +68,28 @@
     _g_Button.tag = 200;
     [self addSubview:_g_Button];
     
-//    self.isBoy = YES;
+//    self.isGirl = YES;
     [self setButtonNormalTextColor:[UIColor whiteColor] seletedColor:[UIColor whiteColor]];
     //    [self setGenderButtonsState];
 }
-- (void)setIsBoy:(BOOL)isBoy
+- (void)setisGirl:(BOOL)isGirl
 {
-    _isBoy = isBoy;
+    _isGirl = isGirl;
     [self setGenderButtonsState];
 }
 - (void)genderButtonClick:(UIButton *)button
 {
-    if (button.tag == 100 && !self.isBoy){ //男
-        self.isBoy = YES;
+    if (button.tag == 100 && !self.isGirl){ //男
+        self.isGirl = YES;
     }
-    if (button.tag == 200 && self.isBoy) {
-        self.isBoy = NO;
+    if (button.tag == 200 && self.isGirl) {
+        self.isGirl = NO;
     }
     [self setGenderButtonsState];
 }
 - (void)setGenderButtonsState
 {
-    if (self.isBoy) {
+    if (self.isGirl) {
         [_b_Button setBackgroundImage:[UIImage imageNamed:@"gender_button_bg.png"] forState:UIControlStateNormal];
         [_b_Button setTitleColor:_seletedColor forState:UIControlStateNormal];
         [_g_Button setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];

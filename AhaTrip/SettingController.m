@@ -33,6 +33,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
     self.viewDeckController.delegate = nil;
     self.viewDeckController.rightController = nil;
+    [self getUserInfo];
 }
 - (void)getUserInfo
 {

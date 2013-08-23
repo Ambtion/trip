@@ -80,48 +80,156 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
-+ (void)registerWithEmail:(NSString *)mail UserName:(NSString *)name passpord:(NSString *)passpord gender:(NSString *)gender portrait:(NSData*)imagedata birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)registerWithEmail:(NSString *)mail UserName:(NSString *)name passpord:(NSString *)passpord isGril:(NSInteger)isGirl portrait:(NSData*)imagedata birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    //http://yyz.ahatrip.info/api/register
-//email: 'yueanzhao@gmail.com'
-//username: '老罗'
-//    password
-//sex: 'male' 'female' 'none'
-//birth: '1984-02-14'
-//signature: '我的签名'
+    
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/register"];
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
     [dic setValue:mail forKey:@"email"];
     [dic setValue:name forKey:@"username"];
     [dic setValue:passpord forKey:@"password"];
-    [dic setValue:gender forKey:@"sex"];
-    [dic setValue:brithday forKey:@"birth"];
-//    [self postWithURL:str body:dic success:success failure:failure];
+    if (isGirl == 1) {
+        [dic setValue:@"female" forKey:@"sex"];
+    }else if(isGirl == 0){
+        [dic setValue:@"male" forKey:@"sex"];
+    }
+    if (brithday)
+        [dic setValue:brithday forKey:@"birth"];
+
     __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:str]];
     [request setTimeOutSeconds:TIMEOUT];
     [request setStringEncoding:NSUTF8StringEncoding];
     for (id key in [dic allKeys])
         [request setPostValue:[dic objectForKey:key] forKey:key];
-    [request setData:imagedata forKey:@"file"];
-    [request setData:imagedata forKey:@"file1"];
-    [request setData:imagedata forKey:@"file2"];
-
-//    [request setData:imagedata withFileName:@"file" andContentType:@"image/jpeg" forKey:@"file"];
+    [request setData:imagedata forKey:@"photo"];
+    
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
         DLog(@"%@",weakSelf.responseString);
-//        if (weakSelf.responseStatusCode == 200){
-//            success(weakSelf.responseString);
-//        }else{
-//            failure([weakSelf.error description]);
-//        }
-        
+        if (weakSelf.responseStatusCode == 200){
+            success(weakSelf.responseString);
+        }else{
+            failure([weakSelf.error description]);
+        }
     }];
     [request setFailedBlock:^{
         failure([weakSelf.error description]);
         DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
     }];
         [request startSynchronous];
+}
+
+//上传接口
++ (void)uploadPics:(NSArray *)picArray withCountryId:(NSInteger)countryId city_id:(NSInteger)cityId category_id:(NSInteger)category_id sub_category_id:(NSInteger)sub_category_id  position:(NSString *)location  description:(NSString *)description business_hours_start:(NSString *)business_hours_start  business_hours_end:(NSString *)business_hours_end price:(NSInteger)price price_unit_id:(NSInteger)price_unit_id hasWifi:(BOOL)hasWifi success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/findingCreate"];
+    __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:str]];
+    [request setTimeOutSeconds:TIMEOUT];
+    [request setStringEncoding:NSUTF8StringEncoding];
+    
+    //图片
+    for (int i = 0; i < picArray.count; i++) {
+        NSDictionary * dic = [picArray objectAtIndex:i];
+        UIImage * image = [dic objectForKey:@"Image"];
+        NSData * data = UIImageJPEGRepresentation(image, 0.5f);
+        [request setData:data forKey:[@"photo" stringByAppendingFormat:@"%d",i]];
+    }
+    [request setPostValue:[NSNumber numberWithInteger:countryId] forKey:@"country_id"];
+    [request setPostValue:[NSNumber numberWithInt:cityId] forKey:@"city_id"];
+    [request setPostValue:[NSNumber numberWithInt:category_id] forKey:@"category_id"];
+    [request setPostValue:[NSNumber numberWithInt:sub_category_id] forKey:@"sub_category_id"];
+    if (description)
+        [request setPostValue: description forKey:@"description"];
+    if (location)
+        [request setPostValue: location forKey:@"location"];
+    if (business_hours_end && business_hours_start) {
+        [request setPostValue: business_hours_start forKey:@"business_hours_start"];
+        [request setPostValue: business_hours_end forKey:@"business_hours_end"];
+    }
+    if (price && price_unit_id ) {
+        [request setPostValue: [NSNumber numberWithInt:price] forKey:@"price"];
+        [request setPostValue: [NSNumber numberWithInt:price_unit_id] forKey:@"price_unit_id"];
+    }
+    [request setPostValue: [NSNumber numberWithBool:hasWifi] forKey:@"wifi"];
+    [request setPostValue: [LoginStateManager currentToken] forKey:@"token"];
+    __weak ASIFormDataRequest * weakSelf = request;
+    [request setCompletionBlock:^{
+        DLog(@"responseString::%@  responseStatusCode:%d",weakSelf.responseString,weakSelf.responseStatusCode);
+        if (weakSelf.responseStatusCode == 200){
+            success(weakSelf.responseString);
+        }else{
+            failure([weakSelf.error description]);
+        }
+    }];
+    [request setFailedBlock:^{
+        failure([weakSelf.error description]);
+        DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
+    }];
+    [request startSynchronous];
+}
+
+//分享到sina
++ (void)sharePhoto:(UIImage*)image ToQQwithDes:(NSString *)des compressionQuality:(CGFloat)compress  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    
+    __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"https://graph.qq.com/photo/upload_pic"]];
+    [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"access_token"] forKey:@"access_token"];
+    [request setPostValue:QQAPPID forKey:@"oauth_consumer_key"];
+    [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"openid"] forKey:@"openid"];
+    [request setPostValue:@1 forKey:@"mobile"];
+    [request setPostValue:des forKey:@"photodesc"];
+    NSData * data = UIImageJPEGRepresentation(image, compress);
+    [request setData:data forKey:@"picture"];
+    __weak ASIFormDataRequest * weakSelf = request;
+    
+    [request setCompletionBlock:^{
+        NSInteger ret = [[[[weakSelf responseString] JSONValue] objectForKey:@"ret"] integerValue];
+        if (!ret) {
+            success(nil);
+        }else if( (ret>= 100013 && ret >= 100016) || ret == 9016 ||
+                 ret == 9017 || ret == 9018 || ret == 9094 || ret == 41003){
+            failure(@"token失效,请重新认证");
+        }else{
+            failure(@"分享失败");
+        }
+    }];
+    [request setFailedBlock:^{
+        failure(@"连接失败,请重新分享");
+    }];
+    [request startAsynchronous];
+    
+}
+
++ (void)sharePhoto:(UIImage*)image ToSinawithDes:(NSString *)des compressionQuality:(CGFloat)compress  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"https://upload.api.weibo.com/2/statuses/upload.json"]];
+    [request setPostValue:[[LoginStateManager getTokenInfo:SinaWeiboShare] objectForKey:@"access_token"] forKey:@"access_token"];
+    if (!des || [des isEqualToString:@""])  des = @"#AhaTrip#";
+    [request setPostValue:des forKey:@"status"];
+    [request setPostValue:@0 forKey:@"visible"];
+    NSData * data  = UIImageJPEGRepresentation(image, compress);
+    [request setData:data forKey:@"pic"];
+    __weak ASIFormDataRequest * weakSelf = request;
+    [request setCompletionBlock:^{
+        NSDictionary * dic = [[weakSelf responseString] JSONValue];
+        NSNumber *errorCode = [dic objectForKey:@"error_code"];
+        if (!errorCode) {
+            success(nil);
+        }else{
+            NSInteger code = [errorCode integerValue];
+            if ((code >= 21314 && code <= 21319 )|| code == 21327 || code == 21332) {
+                failure(@"token失效,请重新认证");
+            }else{
+                failure(@"分享失败");
+            }
+        }
+    }];
+    [request setFailedBlock:^{
+        failure(@"连接失败,请重新分享");
+    }];
+    [request startAsynchronous];
+    
 }
 
 //广场接口

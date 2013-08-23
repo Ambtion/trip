@@ -22,6 +22,7 @@
     UIButton * _womenButton;
     BirthDayField  * _birthday;
     NSNotification * _notification;
+    BOOL _hasPortrait;
 }
 @property (weak, nonatomic) id loginController;
 @property (strong, nonatomic) UIImageView *backgroundImageView;

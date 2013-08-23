@@ -20,6 +20,7 @@
 - (void)stopWaitProgressView:(MBProgressHUD *)view;
 - (void)showPopAlerViewWithMes:(NSString *)message withDelegate:(id<UIAlertViewDelegate>)delegate cancelButton:(NSString *)cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...;
 - (void)showTotasViewWithMes:(NSString *)message;
+- (void)showPopAlerViewWithMes:(NSString *)message;
 @end
 
 @interface UIViewController(WriteImage)

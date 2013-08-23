@@ -28,6 +28,17 @@
 #define AVERCOAST      20001
 #define HASWIFI        20002
 
+@interface UploadInfoViewController()
+{
+    BOOL _hasWifi;
+    NSString * _startTime;
+    NSString * _endTime;
+    BOOL  _price;
+    NSDictionary * _priceunitinfo;
+    
+}
+@end
+
 @implementation UploadInfoViewController
 @synthesize delegate;
 - (void)dealloc
@@ -214,7 +225,7 @@
         _optionalView.backgroundColor=[UIColor clearColor];
         [_myScrollView addSubview:_optionalView];
         UILabel * slectLabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 28)];
-        slectLabel.text=@"等多(选填)";
+        slectLabel.text=@"更多(选填)";
         slectLabel.backgroundColor=[UIColor clearColor];
         slectLabel.textColor=[UIColor lightGrayColor];
         [_optionalView addSubview:slectLabel];
@@ -449,12 +460,17 @@
 #pragma mark OptionalDelegate
 - (void)businessTimeControllerDidSeletedTime:(NSString *)startTime endTime:(NSString *)endTime
 {
+    _startTime = startTime;
+    _endTime = endTime;
     UIImageView * view = (UIImageView *)[self.view viewWithTag:TIMEBGVIEWTAG];
     [self setView:view WithText:[NSString stringWithFormat:@"%@-%@",startTime,endTime]];
 }
 - (void)avertCoastControllerDidSeletedPrice:(NSString *)price uinit:(NSDictionary *)info
 {
     DLog(@"");
+    _price = [price integerValue];
+    _priceunitinfo = info;
+    DLog(@"%@",info);
     UIImageView * view = (UIImageView *)[self.view viewWithTag:AVERCOAST];
     [self setView:view WithText:[NSString stringWithFormat:@"%@ %@",price, [info objectForKey:@"en_name"]]];
 }
@@ -475,21 +491,30 @@
         default:
             break;
     }
+    _hasWifi = [str boolValue];
     [self setView:view WithText:str];
 }
 
 - (void)uploadImageView:(UIButton *)button
 {
+    DLog(@"");
     if ([delegate respondsToSelector:@selector(uploadInfoViewControllerDidClickSender:)])
         [delegate uploadInfoViewControllerDidClickSender:[self getOptionalAndDesInfo]];
 }
 - (NSDictionary *)getOptionalAndDesInfo
 {
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
-    [dic setObject:@YES forKey:@"WiFi"];
-    [dic setObject:@"100元" forKey:@"Avert"];
-    [dic setObject:@"10:20-11:20" forKey:@"Time"];
-    [dic setObject:@"sdf我不sd" forKey:@"Des"];
+    [dic setObject:[NSNumber numberWithBool:_hasWifi] forKey:@"WiFi"];
+    if (_priceunitinfo) {
+        [dic setObject:[NSNumber numberWithInt:_price] forKey:@"Price"];
+        [dic setObject:[_priceunitinfo objectForKey:@"id"] forKey:@"PriceUnit"];
+    }
+    if (_startTime  && _endTime) {
+        [dic setObject:_startTime forKey:@"StartTime"];
+        [dic setObject:_endTime forKey:@"EndTime"];
+    }
+    if (_desTextView.text)
+        [dic setObject:_desTextView.text forKey:@"Des"];
     return dic;
 }
 - (void)switchAction:(id)sender

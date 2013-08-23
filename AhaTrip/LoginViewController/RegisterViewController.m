@@ -69,6 +69,7 @@
     _portraitImageButton = [[UIButton alloc] initWithFrame:CGRectMake(33, 0, 100, 100)];
     _portraitImageButton.backgroundColor = [UIColor clearColor];
     [_portraitImageButton setImage:[UIImage imageNamed:@"register_image.png"] forState:UIControlStateNormal];
+    _hasPortrait = NO;
     [_portraitImageButton addTarget:self action:@selector(portraitImageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_funcionView addSubview:_portraitImageButton];
     
@@ -119,7 +120,7 @@
     _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_passwordTextField addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventEditingDidEndOnExit];
     
-    UIView * birBg = [[UIView alloc] initWithFrame:CGRectMake(33, 205, 260, 35)];
+    UIView * birBg = [[UIView alloc] initWithFrame:CGRectMake(33, 205, 150, 35)];
     birBg.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _birthday  = [[BirthDayField alloc] initWithFrame:CGRectMake(33 + 10, 205, 240, 35)];
     _birthday.textFiled.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
@@ -214,38 +215,72 @@
     UIImage * image = [info objectForKey:@"Image"];
     DLog(@"%f",image.size.width);
     [_portraitImageButton setImage:image forState:UIControlStateNormal];
+    _hasPortrait = YES;
     [self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (void)doRegister
 {
-    //    if (!_usernameTextField.text || [_usernameTextField.text isEqualToString:@""]) {
-    //        [self showPopAlerViewRatherThentasView:YES WithMes:@"您还没有填写用户名"];
-    //        return;
-    //    }
-    //    if (!_passwordTextField.text || [_passwordTextField.text isEqualToString:@""]) {
-    //        [self showPopAlerViewRatherThentasView:YES WithMes:@"您还没有填写密码"];
-    //        return;
-    //    }
-    //    [self allTextFieldsResignFirstResponder:nil];
-    //    [self waitForMomentsWithTitle:@"注册中"];
-    //    NSString * username = [NSString stringWithFormat:@"%@@sohu.com",_usernameTextField.text];
-    //    NSString * password = [NSString stringWithFormat:@"%@",_passwordTextField.text];
-    //    [AccountLoginResquest resigiterWithuseName:username password:password nickName:nil sucessBlock:^(NSDictionary *response) {
-    //        [AccountLoginResquest sohuLoginWithuseName:username password:password sucessBlock:^(NSDictionary * response) {
-    //            dispatch_async(dispatch_get_main_queue(), ^{
-    //                [self backHomeWithRespose:response];
-    //            });
-    //        } failtureSucess:^(NSString *error) {
-    //            [self stopWait];
-    //            [self showPopAlerViewRatherThentasView:YES WithMes:error];
-    //        }];
-    //
-    //    }failtureSucess:^(NSString *error) {
-    //        [self stopWait];
-    //        [self showPopAlerViewRatherThentasView:YES WithMes:error];
-    //    }];
+    if (!_hasPortrait) {
+        [self showPopAlerViewWithMes:@"请选择头像"];
+        return;
+    }
+    if (![self cheackTest:_usernameTextField]) {
+        [self showPopAlerViewWithMes:@"请填写用户名"];
+        return;
+    }
+    if (![self cheackTest:_mailBindTextField]) {
+        [self showPopAlerViewWithMes:@"请填写邮箱"];
+        return;
+    }
+    if (![self checkeMail:_mailBindTextField.text]) {
+        [self showPopAlerViewWithMes:@"邮箱不合法"];
+        return;
+    }
+    if (![self cheackTest:_passwordTextField]) {
+        [self showPopAlerViewWithMes:@"请填写密码"];
+        return;
+    }
+    [self allTextFieldsResignFirstResponder:nil];
+    [self waitForMomentsWithTitle:@"注册中" withView:self.view];
+    return;
+    UIImage * image = [_portraitImageButton imageForState:UIControlStateNormal];
+    NSData * data = UIImageJPEGRepresentation(image, 1.f);
+    [RequestManager registerWithEmail:_mailBindTextField.text UserName:_usernameTextField.text passpord:_passwordTextField.text isGril:[self cheackTest:_birthday.textFiled]? _birthday.isGirl:-1 portrait:data birthday:_birthday.textFiled.text success:^(NSString *response) {
+//        [self stopWaitProgressView:nil];
+        [self handleLoginInfo:[[response JSONValue] objectForKey:@"result"]];
+    } failure:^(NSString *error) {
+        [self showTotasViewWithMes:@"网络异常,请稍后重试"];
+//        [self stopWaitProgressView:nil];
+    }];
+}
+- (void)handleLoginInfo:(NSDictionary *)response
+{
+    DLog(@"%@",response);
+    [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"uid"]] withToken:[response objectForKey:@"token"] RefreshToken:@"temp"];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+-(BOOL)cheackTest:(UITextField *)filed
+{
+    return _usernameTextField.text && ![_usernameTextField.text isEqualToString:@""];
+}
+
+-(BOOL)checkeMail:(NSString *)str
+{
+    
+    NSRegularExpression *regularexpression = [[NSRegularExpression alloc]
+                                              initWithPattern:@"^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\\.][a-z]{2,3}([\\.][a-z]{2})?$"
+                                              options:NSRegularExpressionCaseInsensitive
+                                              error:nil];
+    NSUInteger numberofMatch = [regularexpression numberOfMatchesInString:str
+                                                                  options:NSMatchingReportProgress
+                                                                    range:NSMakeRange(0, str.length)];
+    
+    
+    return numberofMatch;
 }
 #pragma mark Controll Action
 - (void)allTextFieldsResignFirstResponder:(id)sender
@@ -262,28 +297,9 @@
 #pragma mark
 - (void)backHomeWithRespose:(NSDictionary *)response
 {
-    [self stopWait];
     [self.navigationController popViewControllerAnimated:NO];
     LoginViewController * vc = _loginController;
     [vc handleLoginInfo:response];
-}
-
--(void)waitForMomentsWithTitle:(NSString*)str
-{
-    //    if (_alterView.superview) return;
-    if (!_alterView) {
-        _alterView = [[MBProgressHUD alloc] initWithView:self.view];
-        _alterView.animationType = MBProgressHUDAnimationZoomOut;
-        _alterView.labelText = str;
-        [self.view addSubview:_alterView];
-    }
-    [_alterView show:YES];
-}
-
--(void)stopWait
-{
-    DLog(@"%s",__FUNCTION__);
-    [_alterView hide:YES];
 }
 
 #pragma mark KeyBoardnotification
@@ -303,15 +319,6 @@
     [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
     view.contentOffset = point;
     [UIView commitAnimations];
-    //    _notification = notification;
-    //    UIScrollView * view = (UIScrollView *) self.view;
-    //    CGPoint point = view.contentOffset;
-    //    point.y =  120;
-    //    if (CGPointEqualToPoint(point, view.contentOffset)) {
-    //        [self scrollViewDidEndScrollingAnimation:view];
-    //    }else{
-    //        [view setContentOffset:point animated:YES];
-    //    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
@@ -327,24 +334,6 @@
     view.scrollEnabled = NO;
     CGSize size = view.bounds.size;
     view.contentSize = size;
-    DLog();
-    //    _notification = nil;
-    //    UIScrollView *view = (UIScrollView *) self.view;
-    //    CGPoint point = view.contentOffset;
-    //    point.y  =  0;
-    //    if (CGPointEqualToPoint(point, view.contentOffset)) {
-    //        [self scrollViewDidEndScrollingAnimation:view];
-    //    }else{
-    //        [view setContentSize:self.view.frame.size];
-    //    }
-    //    [view setContentOffset:CGPointZero animated:YES];
 }
-//- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-//{
-//    CGSize size = scrollView.bounds.size;
-//    if (_notification) {
-//        size.height = size.height + [[[_notification  userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-//    }
-//    scrollView.contentSize = size;
-//}
+
 @end

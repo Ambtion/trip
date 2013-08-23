@@ -17,9 +17,9 @@
     UIButton * _b_Button;
     UIColor * _normalColor;
     UIColor * _seletedColor;
-    BOOL _isBoy;
+    BOOL _isGirl;
 }
-@property(nonatomic,assign)BOOL isBoy;
+@property(nonatomic,assign)BOOL isGirl;
 @property(nonatomic,strong)UITextField * textFiled;
 @property(nonatomic,strong)UIButton * b_Button;
 @property(nonatomic,strong)UIButton * g_Button;

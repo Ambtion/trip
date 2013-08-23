@@ -14,7 +14,10 @@
 //账号系统
 + (void)loingWithUserName:(NSString *)name passpord:(NSString*)passpord success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
-+ (void)registerWithEmail:(NSString *)mail UserName:(NSString *)name passpord:(NSString *)passpord gender:(NSString *)gender portrait:(NSData*)imagedata birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
++ (void)registerWithEmail:(NSString *)mail UserName:(NSString *)name passpord:(NSString *)passpord isGril:(NSInteger)isGirl portrait:(NSData*)imagedata birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
+
+//上传接口
++ (void)uploadPics:(NSArray *)picArray withCountryId:(NSInteger)countryId city_id:(NSInteger)cityId category_id:(NSInteger)category_id sub_category_id:(NSInteger)sub_category_id  position:(NSString *)location  description:(NSString *)description business_hours_start:(NSString *)business_hours_start  business_hours_end:(NSString *)business_hours_end price:(NSInteger)price price_unit_id:(NSInteger)price_unit_id hasWifi:(BOOL)hasWifi success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
 //广场接口
 + (void)getPlazaWithstart:(NSInteger)start count:(NSInteger)count success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;

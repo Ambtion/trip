@@ -31,7 +31,7 @@
 }
 - (void)singleClickTabBarRightButton:(id)object
 {
-    
+ 
     AllMenuViewController * allMenu=[[AllMenuViewController alloc] init];
     allMenu.delegate = self;
     [self presentModalViewController:allMenu animated:YES];
@@ -39,13 +39,14 @@
 
 - (void)singleSelectedSubCateroyWihtInfo:(NSDictionary *)info
 {
+    
 //    tempInfoController = [[UploadInfoViewController alloc] initWithImageUrls:[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],nil]];
 //    tempInfoController.delegate = self;
 //    [self pushViewController:tempInfoController animated:YES];
 //    return;
-    MapViewController * mv = [[MapViewController alloc] init];
-    [self pushViewController:mv animated:YES];
-    return;
+//    MapViewController * mv = [[MapViewController alloc] init];
+//    [self pushViewController:mv animated:YES];
+//    return;
     _subCateroyInfo = info;
     CountryListController * souSuoCTL = [[CountryListController alloc] init];
     souSuoCTL.delegate = self;
@@ -96,12 +97,12 @@
         _imageUrlArray = [NSMutableArray arrayWithCapacity:0];
     if (info) {
         UIImage * image = [info objectForKey:@"Image"];
-        [[self defaultLib] writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)image.imageOrientation completionBlock:^(NSURL *assetURL, NSError *error){            
-             if (error) {
-                 DLog(@"%@",error);
-             }else {
-                 if (![self array:_imageUrlArray containURL:assetURL]){
-                     DLog(@"%d %@",[self array:_imageUrlArray containURL:assetURL],assetURL);
+        [[self defaultLib] writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)image.imageOrientation completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
+                DLog(@"%@",error);
+            }else {
+                if (![self array:_imageUrlArray containURL:assetURL]){
+                    DLog(@"%d %@",[self array:_imageUrlArray containURL:assetURL],assetURL);
                     [[self defaultLib] assetForURL:assetURL resultBlock:^(ALAsset *asset) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             NSMutableDictionary *  dic = [NSMutableDictionary dictionaryWithDictionary:info];
@@ -122,11 +123,11 @@
                     } failureBlock:^(NSError *error) {
                         
                     }];
-                 }else{
-                     //相同的图片
-                 }
-             }
-         }];
+                }else{
+                    //相同的图片
+                }
+            }
+        }];
     }
 }
 
@@ -156,13 +157,22 @@
 #pragma mark UploadInfo
 - (void)uploadInfoViewControllerDidClickAddPic:(UIButton *)button
 {
+    if (_imageUrlArray.count >= 6) {
+        [self showPopAlerViewWithMes:@"上传图片数量已尽最大"];
+        return;
+    }
     SeletedPhotoMethodController * photoCTL=[[SeletedPhotoMethodController alloc] init];
     photoCTL.delegate = self;
     [self pushViewController:photoCTL animated:YES];
 }
 - (void)uploadInfoViewControllerDidClickSender:(NSDictionary *)info
 {
-    
+    [RequestManager uploadPics:_imageUrlArray withCountryId:[[_countryInfo objectForKey:@"id"] integerValue] city_id:[[_cityInfo objectForKey:@"id"] integerValue] category_id:_cateroyId sub_category_id:[[_subCateroyInfo objectForKey:@"id"] integerValue] position:_locationName description:[info objectForKey:@"Des"] business_hours_start:[info objectForKey:@"StartTime"] business_hours_end:[info objectForKey:@"EndTime"] price:[[info objectForKey:@"Price"] intValue] price_unit_id:[[info objectForKey:@"PriceUnit"] intValue] hasWifi:[[info objectForKey:@"WiFi"] boolValue] success:^(NSString *response) {
+        [self showTotasViewWithMes:@"上传成功"];
+        [self dismissModalViewControllerAnimated:YES];
+    } failure:^(NSString *error) {
+        [self showTotasViewWithMes:@"上传失败,稍后重试"];
+    }];
 }
 - (void)uploadInfoViewControllerDidClickAddLocation:(UIButton *)button
 {

@@ -58,6 +58,10 @@
     ToastAlertView * alertView = [[ToastAlertView alloc] initWithTitle:message];
     [alertView show];
 }
+- (void)showPopAlerViewWithMes:(NSString *)message
+{
+    [self showPopAlerViewWithMes:message withDelegate:nil cancelButton:@"确定" otherButtonTitles:nil];
+}
 @end
 
 @implementation UIViewController(WriteImage)

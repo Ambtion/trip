@@ -138,7 +138,7 @@
     _userNameLabel.text = _dataSouce.userName;
     _userDes.text = _dataSouce.userDes;
     _birthday.textFiled.text = [NSString stringWithFormat:@"%@",_dataSouce.birthday];
-    _birthday.isBoy = _dataSouce.isBoy;
+    _birthday.isGirl = !_dataSouce.isBoy;
 }
 
 - (void)changePortraitImage:(UIButton *)button
