@@ -80,9 +80,48 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
-+ (void)registerWithUserName:(NSString *)name passpord:(NSString *)passpord gender:(NSString *)gender portrait:(NSData*)imagedata birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)registerWithEmail:(NSString *)mail UserName:(NSString *)name passpord:(NSString *)passpord gender:(NSString *)gender portrait:(NSData*)imagedata birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    
+    //http://yyz.ahatrip.info/api/register
+//email: 'yueanzhao@gmail.com'
+//username: '老罗'
+//    password
+//sex: 'male' 'female' 'none'
+//birth: '1984-02-14'
+//signature: '我的签名'
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/register"];
+    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
+    [dic setValue:mail forKey:@"email"];
+    [dic setValue:name forKey:@"username"];
+    [dic setValue:passpord forKey:@"password"];
+    [dic setValue:gender forKey:@"sex"];
+    [dic setValue:brithday forKey:@"birth"];
+//    [self postWithURL:str body:dic success:success failure:failure];
+    __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:str]];
+    [request setTimeOutSeconds:TIMEOUT];
+    [request setStringEncoding:NSUTF8StringEncoding];
+    for (id key in [dic allKeys])
+        [request setPostValue:[dic objectForKey:key] forKey:key];
+    [request setData:imagedata forKey:@"file"];
+    [request setData:imagedata forKey:@"file1"];
+    [request setData:imagedata forKey:@"file2"];
+
+//    [request setData:imagedata withFileName:@"file" andContentType:@"image/jpeg" forKey:@"file"];
+    __weak ASIFormDataRequest * weakSelf = request;
+    [request setCompletionBlock:^{
+        DLog(@"%@",weakSelf.responseString);
+//        if (weakSelf.responseStatusCode == 200){
+//            success(weakSelf.responseString);
+//        }else{
+//            failure([weakSelf.error description]);
+//        }
+        
+    }];
+    [request setFailedBlock:^{
+        failure([weakSelf.error description]);
+        DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
+    }];
+        [request startSynchronous];
 }
 
 //广场接口

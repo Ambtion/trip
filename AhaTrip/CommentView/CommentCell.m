@@ -22,7 +22,9 @@
         str = [NSString stringWithFormat:@"%@回复%@ : %@",self.userName,self.toUserName,self.commentStr];
     }else{  
         str = [NSString stringWithFormat:@"%@ : %@",self.userName,self.commentStr];
+
     }
+            DLog(@"%@",str);
     CGSize size = [str sizeWithFont:TEXTFONT constrainedToSize:CGSizeMake(220, 10000) lineBreakMode:NSLineBreakByWordWrapping];
     return MAX(size.height + 6, 41) +  6.f + OFFSETY;
 }
@@ -87,13 +89,15 @@
         str = [NSString stringWithFormat:@"%@ : %@",_dataSource.userName,_dataSource.commentStr];
         array = [NSArray arrayWithObjects:_dataSource.userName,@":",nil];
     }
+    DLog(@"LLL::%@",str);
     CGSize size = [str sizeWithFont:TEXTFONT constrainedToSize:CGSizeMake(220, 10000) lineBreakMode:NSLineBreakByWordWrapping];
     CGRect rect = _myDetailTextView.frame;
     rect.size.width = size.width;
     rect.size.height = size.height;
     _myDetailTextView.frame = rect;
     [_myDetailTextView setText:str WithFont:TEXTFONT AndColor:TEXTCOLOR];
-    [_myDetailTextView setKeyWordTextArray:array WithFont:[UIFont boldSystemFontOfSize:16.f] AndColor:[UIColor colorWithRed:2/255.f green:94.f/255 blue:154.f/255 alpha:1]];
+    [_myDetailTextView setKeyWordTextArray:array WithFont:TEXTFONT AndColor:[UIColor colorWithRed:2/255.f green:94.f/255 blue:154.f/255 alpha:1]];
+//    [_myDetailTextView setKeyWordTextArray:array WithFont: AndColor:[UIColor redColor]];
     CGRect bgRect= commentbgView.frame;
     bgRect.size.height = MAX(size.height + 6 , porViews.frame.size.height);
     commentbgView.frame = bgRect;
