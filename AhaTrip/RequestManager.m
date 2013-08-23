@@ -139,7 +139,7 @@
     [request setPostValue:[NSNumber numberWithInt:cityId] forKey:@"city_id"];
     [request setPostValue:[NSNumber numberWithInt:category_id] forKey:@"category_id"];
     [request setPostValue:[NSNumber numberWithInt:sub_category_id] forKey:@"sub_category_id"];
-    if (description)
+    if (description && ![description isEqualToString:@""])
         [request setPostValue: description forKey:@"description"];
     if (location)
         [request setPostValue: location forKey:@"location"];
