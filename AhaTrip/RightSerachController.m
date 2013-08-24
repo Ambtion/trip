@@ -47,7 +47,8 @@
     _tableView.separatorColor = [UIColor clearColor];
     _tableView.pDelegate = self;
     _tableView.dataSource = self;
-    _tableView.tableFooterView = [self getViewWithstr:OTHERCOUNTRY];
+//    _tableView.tableFooterView = [self getViewWithstr:OTHERCOUNTRY];
+    _tableView.tableFooterView = nil;
     [self.view addSubview:_tableView];
     [self addSearchView];
     [self initDataContainer];
@@ -226,7 +227,7 @@
 }
 - (void)tapGesture:(UIGestureRecognizer *)gesture
 {
-    [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] initWithCountryId:31 cityId:-1 country:@"其他" city:@"其他国家/地区"];
+    [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] initWithCountryId:-100 cityId:-1 country:@"其他" city:@"其他国家/地区"];
     [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
     [self.navigationController popViewControllerAnimated:NO];
 }

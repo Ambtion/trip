@@ -278,10 +278,10 @@
 + (void)getPlazaWithCountryId:(int)countryId cityId:(int)cityId cateroy:(PicUploadCateroy)cateroy start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     NSString * str = nil;
-    if (cityId < 0) {
+    if (cityId == -100) {
         str =  [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/totalIndex?category_id=%d$start=%d&count=%d&token=tRyW4rLBiJHffQ",cateroy == KCateroyAll ? -1 : cateroy + 1,start,count];
     }else{
-        str  = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityIndex?city_id=%d&category_id=%d&start=%d&count=%d&token=tRyW4rLBiJHffQ",cityId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count];
+        str  = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityIndex?city_id=%d&category_id=%d&type=search&start=%d&count=%d&token=tRyW4rLBiJHffQ",cityId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count];
     }
     DLog(@"%@",str);
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PlazeViewController.h"
+#define ALLCITYID -100
 
 @interface SearchPlazaViewController : PlazeViewController
 {
@@ -19,6 +20,7 @@
     NSString * _cityName;
 }
 
+@property(nonatomic,assign)BOOL isOthersSource;
 - (id)initWithCountryId:(int)AcountyId cityId:(int)AcityId  country:(NSString *)country city:(NSString *)city;
 
 @end

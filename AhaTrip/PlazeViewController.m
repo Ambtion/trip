@@ -67,6 +67,7 @@
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.pDelegate = self;
     _tableView.dataSource = self;
+    _tableView.tableFooterView = nil;
     [self.view addSubview:_tableView];
     _assetsArray = [[NSMutableArray alloc] initWithCapacity:0];
     _dataSouceArray  = [[NSMutableArray alloc] initWithCapacity:0];
@@ -162,7 +163,7 @@
 - (void)convertAssetsToDataSouce
 {
     [_dataSouceArray removeAllObjects];
-    DLog(@"%@",[_assetsArray lastObject]);
+//    DLog(@"%@",[_assetsArray lastObject]);
     for (int i = 0;i < _assetsArray.count ; i+=2) {
         PlazeCellDataSource * source = [[PlazeCellDataSource alloc] init];
         source.leftInfo = [_assetsArray objectAtIndex:i];

@@ -36,8 +36,8 @@
     _tableView.separatorColor = [UIColor clearColor];
     _tableView.pDelegate = self;
     _tableView.dataSource = self;
-    _tableView.tableFooterView = [self getViewWithstr:ALLCOUNTRY];
-    _tableView.tableFooterView = [self getViewWithstr:OTHERCOUNTRY];
+//    _tableView.tableFooterView = [self getViewWithstr:OTHERCOUNTRY];
+    _tableView.tableFooterView = nil;
     [self.view addSubview:_tableView];
     [self addBackButton];
     [self initDataContainer];
@@ -134,7 +134,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CountryListCellDataSource * source = [_sourceArray objectAtIndex:indexPath.row];
-    [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] initWithCountryId:_countryId cityId:source.identify country:@"" city:source.cName];
+    SearchPlazaViewController * search = [[SearchPlazaViewController alloc] initWithCountryId:_countryId cityId:source.identify country:@"" city:source.cName];
+    search.isOthersSource = [source.cName isEqualToString:@"其他"];
+    [self leftMenuController].viewDeckController.centerController = search;
     [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
     [self.navigationController popViewControllerAnimated:NO];
 }

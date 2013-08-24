@@ -9,12 +9,11 @@
 #import "SearchPlazaViewController.h"
 #import "CQSegmentControl.h"
 
-#define ALLCITY -100
 
 @class SearchPlazaViewController;
 
 @implementation SearchPlazaViewController
-
+@synthesize isOthersSource;
 - (id)initWithCountryId:(int)AcountyId cityId:(int)AcityId  country:(NSString *)country city:(NSString *)city
 {
     self = [super init];
@@ -24,6 +23,7 @@
         _cityName = city;
         _countryId = AcountyId;
         _countryName = country;
+        self.isOthersSource = NO;
     }
     return self;
 }
@@ -31,19 +31,19 @@
 {
     self = [super init];
     if (self) {
-        _cityId = ALLCITY;
+        _cityId = ALLCITYID;
+        _countryId = ALLCITYID;
+        _cityName = @"全部";
+        _countryName = nil;
         _cateroy = KCateroyAll;
+        self.isOthersSource = NO;
     }
     return self;
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (_cityName) {
-        [_menuView setStringTitleArray:[NSArray arrayWithObjects:_cityName,nil] curString:_cityName];
-    }else{
-        [_menuView setStringTitleArray:[NSArray arrayWithObjects:@"全部",nil] curString:@"全部"];
-    }
+    [_menuView setStringTitleArray:[NSArray arrayWithObjects:_cityName,nil] curString:_cityName];
 }
 
 #pragma mark - ReloadData
@@ -52,8 +52,7 @@
     [self waitForMomentsWithTitle:@"加载中" withView:self.view];
     [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
         [self.assetsArray removeAllObjects];
-        DLog(@"%@",[response JSONValue]);
-        NSString * key = _cityId < 0 ? @"total" : @"city";
+        NSString * key = _cityId == ALLCITYID ? @"total" : @"city";
         [self.assetsArray  addObjectsFromArray:[[[response JSONValue] objectForKey:key] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
         [self stopWaitProgressView:nil];
@@ -71,7 +70,7 @@
         return;
     }
     [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
-        NSString * key = _cityId < 0 ? @"total" : @"city";
+        NSString * key = _cityId == ALLCITYID  ? @"total" : @"city";
         [self.assetsArray  addObjectsFromArray:[[[response JSONValue] objectForKey:key] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
         
@@ -110,8 +109,8 @@
         cell = [[PlazeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:string];
         cell.delegate = self;
     }
-    [cell setCellShowIconEnable:_cateroy == KCateroyAll || _cityId == ALLCITY];
-    [cell setCellShowCityEnable:_cityId == ALLCITY];
+    [cell setCellShowIconEnable:_cateroy == KCateroyAll || _cityId == ALLCITYID];
+    [cell setCellShowCityEnable:_cityId == ALLCITYID || self.isOthersSource];
     cell.dataSource = [self.dataSouceArray objectAtIndex:indexPath.row];
     return cell;
 }
