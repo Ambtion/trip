@@ -222,10 +222,10 @@
 
 - (void)doRegister
 {
-    if (!_hasPortrait) {
-        [self showPopAlerViewWithMes:@"请选择头像"];
-        return;
-    }
+//    if (!_hasPortrait) {
+//        [self showPopAlerViewWithMes:@"请选择头像"];
+//        return;
+//    }
     if (![self cheackTest:_usernameTextField]) {
         [self showPopAlerViewWithMes:@"请填写用户名"];
         return;
@@ -243,15 +243,14 @@
         return;
     }
     [self allTextFieldsResignFirstResponder:nil];
-    [self waitForMomentsWithTitle:@"注册中" withView:self.view];
-    return;
+    [self waitForMomentsWithTitle:@"注册中" withView:self.view];        
     UIImage * image = [_portraitImageButton imageForState:UIControlStateNormal];
     [RequestManager registerWithEmail:_mailBindTextField.text UserName:_usernameTextField.text passpord:_passwordTextField.text isGril:[self cheackTest:_birthday.textFiled]? _birthday.isGirl:-1 portrait:image birthday:[_birthday timeString] success:^(NSString *response) {
-//        [self stopWaitProgressView:nil];
+        [self stopWaitProgressView:nil];
         [self handleLoginInfo:[[response JSONValue] objectForKey:@"result"]];
     } failure:^(NSString *error) {
         [self showTotasViewWithMes:@"网络异常,请稍后重试"];
-//        [self stopWaitProgressView:nil];
+        [self stopWaitProgressView:nil];
     }];
 }
 - (void)handleLoginInfo:(NSDictionary *)response
