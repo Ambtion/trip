@@ -8,6 +8,7 @@
 
 #import "HomePageController.h"
 #import "RequestManager.h"
+#import "UploadViewControllerManager.h"
 
 @interface HomePageController ()
 @property(nonatomic,strong)NSMutableArray * assetsArray;
@@ -31,6 +32,7 @@
     [super viewDidLoad];
     [self addTableView];
     [self addBackButton];
+    [self addPathButton];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -61,7 +63,55 @@
     else
         [self.navigationController popViewControllerAnimated:YES];
 }
-
+- (void)addPathButton
+{
+    
+    UIImage *storyMenuItemImage = [UIImage imageNamed:@"bg-menuitem.png"];
+    UIImage *storyMenuItemImagePressed = [UIImage imageNamed:@"bg-menuitem-highlighted.png"];
+    AwesomeMenuItem *starMenuItem1 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                           highlightedImage:storyMenuItemImagePressed
+                                                               ContentImage:[UIImage imageNamed:@"icon_sight.png"]
+                                                    highlightedContentImage:nil];
+    AwesomeMenuItem *starMenuItem2 = [[AwesomeMenuItem alloc]
+                                      initWithImage:storyMenuItemImage
+                                      highlightedImage:storyMenuItemImagePressed
+                                      ContentImage:[UIImage imageNamed:@"icon_shopping.png"]
+                                      highlightedContentImage:nil];
+    
+    AwesomeMenuItem *starMenuItem3 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                           highlightedImage:storyMenuItemImagePressed
+                                                               ContentImage:[UIImage imageNamed:@"icon_food.png"]
+                                                    highlightedContentImage:nil];
+    //    AwesomeMenuItem *starMenuItem4 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+    //                                                           highlightedImage:storyMenuItemImagePressed
+    //                                                               ContentImage:[UIImage imageNamed:@"icon_drink.png"]
+    //                                                    highlightedContentImage:nil];
+    AwesomeMenuItem *starMenuItem4 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                           highlightedImage:storyMenuItemImagePressed
+                                                               ContentImage:[UIImage imageNamed:@"icon_hotel.png"]
+                                                    highlightedContentImage:nil];
+    AwesomeMenuItem *starMenuItem5 = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                           highlightedImage:storyMenuItemImagePressed
+                                                               ContentImage:[UIImage imageNamed:@"icon_Entertainment.png"]
+                                                    highlightedContentImage:nil];
+    
+    
+    NSArray * menus = [NSArray arrayWithObjects:starMenuItem1, starMenuItem2, starMenuItem3, starMenuItem4, starMenuItem5,nil];
+    
+    AwesomeMenuItem *startItem = [[AwesomeMenuItem alloc] initWithImage:[UIImage imageNamed:@"bg-addbutton.png"]
+                                                       highlightedImage:[UIImage imageNamed:@"bg-addbutton-highlighted.png"]
+                                                           ContentImage:[UIImage imageNamed:@"icon-plus.png"]
+                                                highlightedContentImage:nil];
+    AwesomeMenu *menu = [[AwesomeMenu alloc] initWithFrame:self.view.bounds startItem:startItem optionMenus:menus];
+    menu.startPoint = CGPointMake(40, self.view.bounds.size.height - 40);
+    menu.delegate = self;
+    [self.view addSubview:menu];
+}
+#pragma mark - AweSomeMenuDelegate
+- (void)awesomeMenu:(AwesomeMenu *)menu didSelectIndex:(NSInteger)idx
+{
+    [self presentModalViewController:[[UploadViewControllerManager alloc] initWithCateroyId:idx] animated:YES];
+}
 #pragma mark TableView
 - (void)addTableView
 {

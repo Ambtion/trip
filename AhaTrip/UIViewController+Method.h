@@ -45,6 +45,7 @@
 @interface UIViewController(AppDelegate)
 - (AppDelegate*)AppDelegate;
 - (LeftMenuController *)leftMenuController;
+- (void)changeToHome;
 @end
 
 enum __picUploadCateroy {

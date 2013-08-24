@@ -11,8 +11,9 @@
 #import "PhotoDetailController.h"
 #import "PlazeCell.h"
 #import "HomeAccountPage.h"
+#import "AHMenuNavBarView.h"
 
-@interface HomePageController : UIViewController<EGRefreshTableViewDelegate,UITableViewDataSource,PlazeCellDelegate,IIViewDeckControllerDelegate>
+@interface HomePageController : UIViewController<EGRefreshTableViewDelegate,UITableViewDataSource,PlazeCellDelegate,IIViewDeckControllerDelegate,AwesomeMenuDelegate>
 {
     
     EGRefreshTableView * _tableView;

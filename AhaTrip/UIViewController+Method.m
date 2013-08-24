@@ -189,6 +189,11 @@
 {
     return (LeftMenuController *)[[self viewDeckController] leftController];
 }
+- (void)changeToHome
+{
+    IIViewDeckController * controll = [[[[self AppDelegate] window] rootViewController].childViewControllers objectAtIndex:0];
+    controll.centerController = ((LeftMenuController *)controll.leftController).homeController;
+}
 @end
 //KCateroySight = 0,
 //KCateroyShopping = 1,
