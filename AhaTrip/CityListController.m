@@ -77,7 +77,7 @@
 #pragma request
 -(void)addRequestSingleCity
 {
-    [RequestManager getCityListFromCounty:[[self.countryInfo objectForKey:@"id"] integerValue] start:0 count:10000 token:nil success:^(NSString *response) {
+    [RequestManager getAllCityListFromCounty:[[self.countryInfo objectForKey:@"id"] integerValue] start:0 count:10000 token:nil success:^(NSString *response) {
         NSDictionary *data =[response JSONValue];
         singleCityArr=[data objectForKey:@"cities"];
         [singlecityTable reloadData];
@@ -91,7 +91,6 @@
 {
     return 44;
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

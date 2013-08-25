@@ -322,6 +322,7 @@
 {
     //有内容的地区
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/countryList?type=search&token=%@&start=%d&count=%d",[LoginStateManager currentToken],start,count];
+    DLog(@"%@",str);
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 + (void)getCountryAllListForSeletedWithstart:(NSInteger)start count:(NSInteger)count  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
@@ -330,11 +331,19 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 //城市列表
-+ (void)getCityListFromCounty:(NSInteger)country start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
++ (void)getAllCityListFromCounty:(NSInteger)country start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityList?country_id=%d&token=tRyW4rLBiJHffQ&start=%d&count=%d",country,start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
+
++ (void)getCityListFromCounty:(NSInteger)country start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityList?country_id=%d&type=search&token=tRyW4rLBiJHffQ&start=%d&count=%d",country,start,count];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
+
+
 
 //获取所有的cateroy类别
 + (void)getAllCateroyWithToke:(NSString *)token  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure

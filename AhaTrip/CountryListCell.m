@@ -95,8 +95,8 @@
     [_cNameLabel sizeToFit];
     _eNameLabel.text = _dataSource.eName;
     [_eNameLabel sizeToFit];
-    
     [_eNameLabel setHidden:![_dataSource eName]];
+    
     CGRect cRect = _cNameLabel.frame;
     cRect.origin.x =  _offset;
     cRect.origin.y = (self.frame.size.height - cRect.size.height) /2.f;
@@ -105,6 +105,8 @@
     CGRect rect = _eNameLabel.frame;
     rect.origin.x = cRect.origin.x + cRect.size.width + 5;
     rect.origin.y = cRect.origin.y + cRect.size.height - rect.size.height;
+//    _eNameLabel.backgroundColor = [UIColor redColor];
+    rect.size.width = self.frame.size.width - _offset - rect.origin.x - 5;
     _eNameLabel.frame = rect;
 
 }
