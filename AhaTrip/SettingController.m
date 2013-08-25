@@ -50,7 +50,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
         acountSource.userName = [userInfo objectForKey:@"username"];
         acountSource.userDes = [userInfo objectForKey:@"signature"];
         acountSource.birthday = [userInfo objectForKey:@"birth"];
-        acountSource.isBoy = [@"male" isEqualToString:[userInfo objectForKey:@"sex"]];
+        acountSource.sex = [userInfo objectForKey:@"sex"];
         [_tableView reloadData];
     } failure:^(NSString *error) {
        
@@ -147,7 +147,6 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
             _acountCell = [[AcountSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             _acountCell.delegate = self;
         }
-        DLog(@"LLLLLLL:::%d",acountSource.isBoy);
         _acountCell.dataSouce = acountSource;
         return _acountCell;
     }

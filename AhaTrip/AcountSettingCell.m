@@ -12,7 +12,7 @@
 
 @class AcountSettingCell;
 @implementation AcountSettingCellDataSource
-@synthesize userName,userDes,birthday,isBoy;
+@synthesize userName,userDes,birthday,sex;
 
 + (CGFloat)heigth
 {
@@ -67,7 +67,6 @@
     _userNameLabel = [self addTextFieldWithReferenceView:_portraitImage placeHolder:@"昵称" returnKey:UIReturnKeyNext];
     _userDes  = [self addTextFieldWithReferenceView:_userNameLabel placeHolder:@"个人简介" returnKey:UIReturnKeyDone];
     _birthday = [self addBirthFieldWithReferenceView:_userDes placeHolder:@"生日" returnKey:UIReturnKeyNext];
-//    _birthday.isGirl = NO;
 }
 
 - (UITextField *)addTextFieldWithReferenceView:(UIView *)view placeHolder:(NSString *)holder returnKey:(UIReturnKeyType)type
@@ -86,11 +85,11 @@
 - (BirthDayField *)addBirthFieldWithReferenceView:(UIView *)view placeHolder:(NSString *)holder returnKey:(UIReturnKeyType)type
 {
     BirthDayField *  field = [[BirthDayField alloc] initWithFrame:CGRectMake(OFFSET * 2, view.frame.origin.y + view.frame.size.height, view.frame.size.width - OFFSET * 4, 42)];
+    [field setButtonNormalTextColor:[UIColor blackColor] seletedColor:[UIColor whiteColor]];
     [self setTextFiledPorperty:field.textFiled];
     field.textFiled.placeholder = holder;
     field.textFiled.returnKeyType = type;
     field.textFiled.center = CGPointMake(field.textFiled.center.x, field.textFiled.center.y + 5);
-    [field setButtonNormalTextColor:[UIColor blackColor] seletedColor:[UIColor whiteColor]];
     [self.contentView addSubview:field];
     return field;
 }
@@ -142,7 +141,11 @@
     _userNameLabel.text = _dataSouce.userName;
     _userDes.text = _dataSouce.userDes;
     _birthday.textFiled.text = [NSString stringWithFormat:@"生日:%@",_dataSouce.birthday];
-    _birthday.isGirl = !_dataSouce.isBoy;
+//    if ([_dataSouce.sex isEqualToString:@"female"]) {
+//        _birthday.isGirl = YES;
+//    }else if ([_dataSouce.sex isEqualToString:@"male"]){
+//        _birthday.isGirl = NO;
+//    }
 }
 
 - (void)changePortraitImage:(UIButton *)button

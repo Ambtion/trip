@@ -95,13 +95,14 @@
     }
     if (brithday)
         [dic setValue:brithday forKey:@"birth"];
-
+    DLog(@"%@",dic);
     __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:str]];
     [request setTimeOutSeconds:TIMEOUT];
     [request setStringEncoding:NSUTF8StringEncoding];
     for (id key in [dic allKeys])
         [request setPostValue:[dic objectForKey:key] forKey:key];
-    [request setData:UIImageJPEGRepresentation(image, 0.5) forKey:@"photo"];
+    if (image)
+        [request setData:UIImageJPEGRepresentation(image, 0.5) forKey:@"photo"];
     
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{

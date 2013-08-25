@@ -22,7 +22,7 @@
 @property(nonatomic,strong)NSString * userName;
 @property(nonatomic,strong)NSString * userDes;
 @property(nonatomic,strong)NSString * birthday;
-@property(nonatomic,assign)BOOL isBoy;
+@property(nonatomic,strong)NSString * sex;
 + (CGFloat)heigth;
 - (NSDictionary *)userInfo;
 @end

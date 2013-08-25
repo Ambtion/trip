@@ -29,6 +29,9 @@
 {
     _normalColor = color;
     _seletedColor = seletedColor;
+    [_b_Button setTitleColor:_normalColor forState:UIControlStateNormal];
+    [_g_Button setTitleColor:_normalColor forState:UIControlStateNormal];
+
 //    [self setGenderButtonsState];
 }
 - (void)addtextFiled
@@ -119,6 +122,7 @@
 }
 - (NSString *)stringFromdate:(NSDate *)Adate
 {
+    if (!Adate) return nil;
     //转化日期格式
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyy-MM-dd"];

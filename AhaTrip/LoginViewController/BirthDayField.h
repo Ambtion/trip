@@ -24,6 +24,7 @@
 @property(nonatomic,strong)UITextField * textFiled;
 @property(nonatomic,strong)UIButton * b_Button;
 @property(nonatomic,strong)UIButton * g_Button;
+- (id)initWithFrame:(CGRect)frame;
 - (void)setButtonNormalTextColor:(UIColor *)color seletedColor:(UIColor *)seletedColor;
 - (NSString *)timeString;
 @end

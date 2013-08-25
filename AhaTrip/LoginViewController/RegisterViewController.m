@@ -243,9 +243,11 @@
         return;
     }
     [self allTextFieldsResignFirstResponder:nil];
-    [self waitForMomentsWithTitle:@"注册中" withView:self.view];        
-    UIImage * image = [_portraitImageButton imageForState:UIControlStateNormal];
-    [RequestManager registerWithEmail:_mailBindTextField.text UserName:_usernameTextField.text passpord:_passwordTextField.text isGril:[self cheackTest:_birthday.textFiled]? _birthday.isGirl:-1 portrait:image birthday:[_birthday timeString] success:^(NSString *response) {
+    [self waitForMomentsWithTitle:@"注册中" withView:self.view];
+    UIImage * image = nil;
+    if (_hasPortrait)
+        image = [_portraitImageButton imageForState:UIControlStateNormal];
+    [RequestManager registerWithEmail:_mailBindTextField.text UserName:_usernameTextField.text passpord:_passwordTextField.text isGril:[_birthday timeString] ? _birthday.isGirl:-1 portrait:image birthday:[_birthday timeString] success:^(NSString *response) {
         [self stopWaitProgressView:nil];
         [self handleLoginInfo:[[response JSONValue] objectForKey:@"result"]];
     } failure:^(NSString *error) {
