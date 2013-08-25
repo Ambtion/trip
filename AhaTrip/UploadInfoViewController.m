@@ -141,7 +141,7 @@
         _desTextView.autocorrectionType = UITextAutocorrectionTypeNo;
         _desTextView.textAlignment = UITextAlignmentLeft;
         _desTextView.keyboardType = UIKeyboardTypeDefault;
-        _desTextView.returnKeyType =UIReturnKeyDone;
+        _desTextView.returnKeyType = UIReturnKeyDone;
         _desTextView.keyboardAppearance = UIKeyboardAppearanceDefault;
         _desTextView.delegate = self;
         _placeHolder = [[UITextField alloc] initWithFrame:CGRectMake(5, 5, 250, 30)];
@@ -166,6 +166,15 @@
 }
 -(void)textViewDidChange:(UITextView *)textView
 {
+
+    NSRange range = [textView.text rangeOfString:@"\n"];
+    if (range.location != NSNotFound) {
+        NSString * str = [NSMutableString stringWithFormat:@"%@",textView.text];
+        str = [str substringToIndex:range.location];
+        textView.text  = str;
+        [textView resignFirstResponder];
+        return;
+    }
     if (textView.text && ![textView.text isEqualToString:@""]) {
         if (!_placeHolder.hidden)
             [_placeHolder setHidden:YES];
@@ -499,8 +508,13 @@
 - (void)uploadImageView:(UIButton *)button
 {
     DLog(@"");
-    if ([delegate respondsToSelector:@selector(uploadInfoViewControllerDidClickSender:)])
-        [delegate uploadInfoViewControllerDidClickSender:[self getOptionalAndDesInfo]];
+    if (_desTextView.text && ![_desTextView.text isEqualToString:@""]){
+        if ([delegate respondsToSelector:@selector(uploadInfoViewControllerDidClickSender:)])
+            [delegate uploadInfoViewControllerDidClickSender:[self getOptionalAndDesInfo]];
+    }
+    else{
+        [self showPopAlerViewWithMes:@"请添加描述"];
+    }
 }
 - (NSDictionary *)getOptionalAndDesInfo
 {

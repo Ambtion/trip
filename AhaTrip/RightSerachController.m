@@ -186,7 +186,7 @@
         source = [_searchSourceArray objectAtIndex:indexPath.row];
     else
         source = [_sourceArray objectAtIndex:indexPath.row];
-    if ([source.cName isEqualToString:ALLCOUNTRY] || [source.cName isEqualToString:OTHERCOUNTRY]) {
+    if ([source.cName isEqualToString:ALLCOUNTRY]) {
         CountryListCell * cell = [tableView dequeueReusableCellWithIdentifier:allCell];
         if (!cell) {
             cell = [[CountryListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
@@ -199,6 +199,7 @@
     if (!cell) {
         cell = [[CountryListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
+    [cell.arrow setHidden:NO];
     cell.dataSource = source;
     return cell;
 }
