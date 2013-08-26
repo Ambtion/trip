@@ -99,14 +99,13 @@
 
 - (void)setLikeAndCommentDataSourceWithInfo:(NSDictionary *)info
 {
-    isLiked = NO;
+    isLiked = [[info objectForKey:@"has_xihuan"] boolValue];
     commentCount = [[info objectForKey:@"comments_count"] intValue];
     likeCount =  [[info objectForKey:@"favorite_count"] intValue];
 }
 
 - (void)serUsrInfo
 {
-    DLog(@"%@",_dataInfo);
     NSDictionary * userInfo = [_dataInfo objectForKey:@"user"];
     [_portraitImage.imageView setImageWithURL:[NSURL URLWithString:[userInfo objectForKey:@"photo_thumb"]]placeholderImage:[UIImage imageNamed:@"avatar.png"]];
     _nameLabel.text = [userInfo objectForKey:@"username"];
@@ -114,7 +113,6 @@
 }
 - (DesInfoViewDataSource *)getDesSouce
 {
-    DLog(@"%@",_dataInfo);
     DesInfoViewDataSource * source = [[DesInfoViewDataSource alloc] init];
     source.userName = [NSString stringWithFormat:@"%@-%@",[_dataInfo objectForKey:@"country"],[_dataInfo objectForKey:@"city"]];
     source.desString = [_dataInfo objectForKey:@"description"];

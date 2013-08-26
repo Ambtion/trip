@@ -177,6 +177,7 @@
         }];
     }else{
         [RequestManager getFavUserId:_userId Withstart:0 count:20  success:^(NSString *response) {
+            DLog(@"%@",[response JSONValue]);
             [_assetsArray removeAllObjects];
             [_assetsArray addObjectsFromArray:[[response JSONValue] objectForKey:@"findings"]];
             [self convertAssetsToDataSouce];

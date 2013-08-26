@@ -57,7 +57,7 @@
 {
     _menuView = [[AHMenuNavBarView alloc] initWithView:self.view];
     _menuView.delegate = self;
-    [_menuView setStringTitleArray:[NSArray arrayWithObjects:@"广场",@"最热", nil] curString:@"广场"];
+    [_menuView setStringTitleArray:[NSArray arrayWithObjects:@"精选",@"最热", nil] curString:@"精选"];
 }
 
 - (void)addTableView

@@ -10,7 +10,7 @@
 #import "LeftMenuCell.h"
 #import "UIImageView+WebCache.h"
 
-static  NSString *   menuText[4] =   {@"广场",@"个人昵称",@"消息",@"设置"};
+static  NSString *   menuText[4] =   {@"精选",@"个人昵称",@"消息",@"设置"};
 static  NSString *   image[4]    =   {@"left_Icon_home.png",@"avatar.png",@"left_Icon_mes.png",@"left_Icon_setting.png"};
 
 @implementation LeftMenuController

@@ -34,6 +34,8 @@
         [request setPostValue:[body objectForKey:key] forKey:key];
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
+//        NSDictionary * dic = [weakSelf.responseString JSONValue];
+//        DLog(@"%@",dic);
         if (weakSelf.responseStatusCode == 200){
             success(weakSelf.responseString);
         }else{
@@ -74,7 +76,6 @@
 @implementation RequestManager
 + (void)loingWithUserName:(NSString *)name passpord:(NSString*)passpord success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-//http://yyz.ahatrip.info/api/login/?username=test&password=123456
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/login/?username=%@&password=%@",name,passpord];
     DLog(@"%@",str);
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
@@ -103,8 +104,7 @@
         [request setPostValue:[dic objectForKey:key] forKey:key];
     if (image)
         [request setData:UIImageJPEGRepresentation(image, 0.5) forKey:@"photo"];
-    
-    __weak ASIFormDataRequest * weakSelf = request;
+        __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
         DLog(@"%@",weakSelf.responseString);
         if (weakSelf.responseStatusCode == 200){
@@ -140,7 +140,7 @@
     
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
-        DLog(@"%@",weakSelf.responseString);
+        DLog(@"%@",[weakSelf.responseString JSONValue]);
         if (weakSelf.responseStatusCode == 200){
             success(weakSelf.responseString);
         }else{

@@ -123,6 +123,7 @@
     if (*_dataSource.islikedAddress) {
         [RequestManager likeWithFindingId:[_dataSource findingId] success:^(NSString *response) {
             //不喜欢
+            DLog(@"%@",[response JSONValue]);
             *_dataSource.islikedAddress = NO;
             (*_dataSource.likeCountAddress)--;
             [self setLikeAndCountState];
@@ -135,6 +136,7 @@
         DLog(@"");
         //喜欢
         [RequestManager likeWithFindingId:[_dataSource findingId] success:^(NSString *response) {
+            DLog(@"%@",[response JSONValue]);
             *_dataSource.islikedAddress = YES;
             (*_dataSource.likeCountAddress)++;
             [self setLikeAndCountState];
