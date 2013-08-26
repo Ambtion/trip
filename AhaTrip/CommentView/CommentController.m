@@ -161,10 +161,10 @@
 {
     //临时
     CommentCellDeteSource * dataSource = [[CommentCellDeteSource alloc] init];
-    dataSource.portraitUrl = [_userInfo objectForKey:@"photo_thumb"];
+    dataSource.portraitUrl = [_userInfo objectForKey:@"thumb"];
     dataSource.userName =[_userInfo objectForKey:@"username"];
     dataSource.commentID = _commentId;
-    DLog(@"LLL:%d",_commentId);
+    DLog(@"LLL:%@",_userInfo);
     if (_commentId)
         dataSource.toUserName = _toUserName;
     dataSource.userId = [NSString stringWithFormat:@"%d",[[_userInfo objectForKey:@"id"] intValue]];
@@ -197,7 +197,7 @@
         [_refrehsTableView didFinishedLoadingTableViewData];
         return;
     }
-    [RequestManager getCommentWithFindingId:_findsID start:0 count:20  success:^(NSString *response) {
+    [RequestManager getCommentWithFindingId:_findsID start:_dataSourceArray.count count:20  success:^(NSString *response) {
         [self addDataSourceWithArray:[[response JSONValue] objectForKey:@"comments"]];
         
     } failure:^(NSString *error) {
@@ -207,7 +207,7 @@
 }
 - (void)addDataSourceWithArray:(NSArray *)array
 {
-    for (int i = 0; i < array.count; i++)
+    for (int i = array.count - 1; i >= 0; i--)
         [_dataSourceArray addObject:[self getCellDataSourceFromInfo:[array objectAtIndex:i]]];
     [_refrehsTableView reloadData];
     [_refrehsTableView didFinishedLoadingTableViewData];

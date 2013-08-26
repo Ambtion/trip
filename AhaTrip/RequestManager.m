@@ -378,7 +378,7 @@
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/commentCreate"];
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
     [dic setObject:[NSNumber numberWithInteger:findingId] forKey:@"finding_id"];
-    [dic setObject:@"tRyW4rLBiJHffQ" forKey:@"token"];
+    [dic setObject:[LoginStateManager currentToken] forKey:@"token"];
     [dic setObject:[NSNumber numberWithInt:fatherid] forKey:@"parent_id"];
     [dic setObject:comment forKey:@"content"];
     DLog(@"%@",str);
