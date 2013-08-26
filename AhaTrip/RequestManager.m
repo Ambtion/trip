@@ -270,7 +270,7 @@
 //广场接口
 + (void)getPlazaWithstart:(NSInteger)start count:(NSInteger)count  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-
+    //反正未登录状况
     NSString * url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/index?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
 }
@@ -280,9 +280,9 @@
 {
     NSString * str = nil;
     if (cityId == -100) {
-        str =  [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/totalIndex?category_id=%d$start=%d&count=%d&token=tRyW4rLBiJHffQ",cateroy == KCateroyAll ? -1 : cateroy + 1,start,count];
+        str =  [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/totalIndex?category_id=%d$start=%d&count=%d&token=%@",cateroy == KCateroyAll ? -1 : cateroy + 1,start,count,[LoginStateManager currentToken]];
     }else{
-        str  = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityIndex?city_id=%d&category_id=%d&type=search&start=%d&count=%d&token=tRyW4rLBiJHffQ",cityId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count];
+        str  = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityIndex?city_id=%d&category_id=%d&type=search&start=%d&count=%d&token=%@",cityId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count,[LoginStateManager currentToken]];
     }
     DLog(@"%@",str);
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
@@ -290,7 +290,7 @@
 
 + (void)getTitleImagesWithId:(NSString *)titleId success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString* url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/finding?id=%@&token=tRyW4rLBiJHffQ",titleId];
+    NSString* url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/finding?id=%@&token=%@",titleId,[LoginStateManager currentToken]];
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
 }
 
@@ -333,13 +333,13 @@
 //城市列表
 + (void)getAllCityListFromCounty:(NSInteger)country start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityList?country_id=%d&token=tRyW4rLBiJHffQ&start=%d&count=%d",country,start,count];
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityList?country_id=%d&token=%@&start=%d&count=%d",country,[LoginStateManager currentToken],start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
 + (void)getCityListFromCounty:(NSInteger)country start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityList?country_id=%d&type=search&token=tRyW4rLBiJHffQ&start=%d&count=%d",country,start,count];
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityList?country_id=%d&type=search&token=%@&start=%d&count=%d",country,[LoginStateManager currentToken],start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
@@ -348,29 +348,28 @@
 //获取所有的cateroy类别
 + (void)getAllCateroyWithToke:(NSString *)token  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString * str = @"http://yyz.ahatrip.info/api/categoryList?token=tRyW4rLBiJHffQ";
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/categoryList?token=%@",[LoginStateManager currentToken]];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
 //获取2级的cateroy列表
 + (void)getSubCateroyWithToken:(NSString *)token WithCateroy_Id:(NSInteger)cateroyId  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString* str =[NSString stringWithFormat:@"http://yyz.ahatrip.info/api/subCategoryList?category_id=%d&token=tRyW4rLBiJHffQ",cateroyId];
+    NSString* str =[NSString stringWithFormat:@"http://yyz.ahatrip.info/api/subCategoryList?category_id=%d&token=%@",cateroyId,[LoginStateManager currentToken]];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
 //获取价格单位
 + (void)getUintWithSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-//http://yyz.ahatrip.info/api/priceUnitList?token=tRyW4rLBiJHffQ
-    NSString * str = @"http://yyz.ahatrip.info/api/priceUnitList?token=tRyW4rLBiJHffQ";
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/priceUnitList?token=%@",[LoginStateManager currentToken]];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
 //评论列表
 + (void)getCommentWithFindingId:(NSInteger)findingId start:(NSInteger)start count:(NSInteger)count success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/commentList?finding_id=%d&token=%@&start=%d&count=%d",findingId,@"tRyW4rLBiJHffQ",start,count];
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/commentList?finding_id=%d&token=%@&start=%d&count=%d",findingId,[LoginStateManager currentToken],start,count];
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 + (void)postComment:(NSString *)comment WithFindingId:(NSInteger)findingId withCommentFatherId:(NSInteger )fatherid success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure

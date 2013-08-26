@@ -26,6 +26,7 @@
 {
     [self waitForMomentsWithTitle:@"加载中" withView:self.view];
     [RequestManager getTitleImagesWithId:_titleId success:^(NSString *response) {
+        DLog(@"%@",[response JSONValue]);
         _dataInfo = [[response JSONValue] objectForKey:@"finding"];
         [self addScrollviewConten];
         [self stopWaitProgressView:nil];
@@ -65,11 +66,9 @@
     [_pageControll setCurrentPageIndicatorImage:[UIImage imageNamed:@"currentPageDot.png"]];
     [_pageControll setUserInteractionEnabled:NO];
     [self.view addSubview:_pageControll];
-//    [self  playViewAnimation];
 }
 - (void)addScrollviewConten
 {
-    DLog(@"%@",_dataInfo);
     CGRect rect = self.view.bounds;
     [self serUsrInfo];
     _findsId  = [[_dataInfo objectForKey:@"id"] intValue];
