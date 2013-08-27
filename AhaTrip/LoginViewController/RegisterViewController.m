@@ -258,8 +258,13 @@
 - (void)handleLoginInfo:(NSDictionary *)response
 {
     DLog(@"%@",response);
-    [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"uid"]] withToken:[response objectForKey:@"token"] RefreshToken:@"temp"];
-    [self dismissModalViewControllerAnimated:YES];
+    if ([[response objectForKey:@"code"] intValue] == 200) {
+        [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"uid"]] withToken:[response objectForKey:@"token"] RefreshToken:@"temp"];
+        [self dismissModalViewControllerAnimated:YES];
+    }else{
+        [self showPopAlerViewWithMes:[response objectForKey:@"message"]];
+    }
+  
 }
 
 

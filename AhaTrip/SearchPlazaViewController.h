@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "PlazeViewController.h"
-#define ALLCITYID -100
 
 @interface SearchPlazaViewController : PlazeViewController
 {

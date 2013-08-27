@@ -218,7 +218,6 @@
 
 - (void)handleLoginInfo:(NSDictionary *)response
 {
-    DLog(@"%@",response);
     [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"uid"]] withToken:[response objectForKey:@"token"] RefreshToken:@"temp"];
     //    [LoginStateManager loginUserId:@"2" withToken:@"tRyW4rLBiJHffQ" RefreshToken:@"sdf"];
     [self cancelLogin:nil];

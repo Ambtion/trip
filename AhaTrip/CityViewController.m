@@ -169,7 +169,7 @@
     }else{
 //        _isAllState = YES;
 //        [self refrehsFromNetWork];
-        [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] initWithCountryId:_countryId cityId:-1 country:_countryName city:_countryName];
+        [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] initWithCountryId:_countryId cityId:ALLID country:_countryName city:_countryName];
         [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
         [self.navigationController popViewControllerAnimated:NO];
     }

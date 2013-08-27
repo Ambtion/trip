@@ -275,13 +275,17 @@
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
 }
 
+
+
 //分类的广场接口
 + (void)getPlazaWithCountryId:(int)countryId cityId:(int)cityId cateroy:(PicUploadCateroy)cateroy start:(NSInteger)start count:(NSInteger)count token:(NSString *)token success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     NSString * str = nil;
-    if (cityId == -100) {
+    if (cityId == ALLID && countryId == ALLID) {
         str =  [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/totalIndex?category_id=%d$start=%d&count=%d&token=%@",cateroy == KCateroyAll ? -1 : cateroy + 1,start,count,[LoginStateManager currentToken]];
-    }else{
+    }else if (cityId == ALLID){
+          str =  [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/totalIndex?country_id=%d&category_id=%d$start=%d&count=%d&token=%@",countryId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count,[LoginStateManager currentToken]];
+    } else{
         str  = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityIndex?city_id=%d&category_id=%d&type=search&start=%d&count=%d&token=%@",cityId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count,[LoginStateManager currentToken]];
     }
     DLog(@"%@",str);

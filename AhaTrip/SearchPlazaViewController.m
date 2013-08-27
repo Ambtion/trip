@@ -31,8 +31,8 @@
 {
     self = [super init];
     if (self) {
-        _cityId = ALLCITYID;
-        _countryId = ALLCITYID;
+        _cityId = ALLID;
+        _countryId = ALLID;
         _cityName = @"全部";
         _countryName = nil;
         _cateroy = KCateroyAll;
@@ -52,7 +52,7 @@
     [self waitForMomentsWithTitle:@"加载中" withView:self.view];
     [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
         [self.assetsArray removeAllObjects];
-        NSString * key = _cityId == ALLCITYID ? @"total" : @"city";
+        NSString * key = _cityId == ALLID ? @"total" : @"city";
         [self.assetsArray  addObjectsFromArray:[[[response JSONValue] objectForKey:key] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
         [self stopWaitProgressView:nil];
@@ -70,7 +70,7 @@
         return;
     }
     [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
-        NSString * key = _cityId == ALLCITYID  ? @"total" : @"city";
+        NSString * key = _cityId == ALLID  ? @"total" : @"city";
         [self.assetsArray  addObjectsFromArray:[[[response JSONValue] objectForKey:key] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];
         
@@ -109,8 +109,8 @@
         cell = [[PlazeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:string];
         cell.delegate = self;
     }
-    [cell setCellShowIconEnable:_cateroy == KCateroyAll || _cityId == ALLCITYID];
-    [cell setCellShowCityEnable:_cityId == ALLCITYID || self.isOthersSource];
+    [cell setCellShowIconEnable:_cateroy == KCateroyAll || _cityId == ALLID];
+    [cell setCellShowCityEnable:_cityId == ALLID || self.isOthersSource];
     cell.dataSource = [self.dataSouceArray objectAtIndex:indexPath.row];
     return cell;
 }
