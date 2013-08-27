@@ -146,6 +146,8 @@
     [RequestManager postComment:commentView.textView.internalTextView.text WithFindingId:_findsID withCommentFatherId:_commentId success:^(NSString *response) {
         [_dataSourceArray insertObject:[self getCommentSoureWithComment:commentView.textView.internalTextView.text] atIndex:0];
         commentView.textView.internalTextView.text = nil;
+        [commentView.textView setPlaceHolder:nil];
+        _toUserName = nil;
         [commentView.textView resignFirstResponder];
         [_refrehsTableView reloadData];
         _isSending  = NO;
@@ -163,9 +165,10 @@
     CommentCellDeteSource * dataSource = [[CommentCellDeteSource alloc] init];
     dataSource.portraitUrl = [_userInfo objectForKey:@"thumb"];
     dataSource.userName =[_userInfo objectForKey:@"username"];
+    dataSource.toUserName = _toUserName;
     dataSource.commentID = _commentId;
-    DLog(@"LLL:%@",_userInfo);
-    if (_commentId)
+    DLog(@"LLL:%@",_toUserName);
+    if (_toUserName)
         dataSource.toUserName = _toUserName;
     dataSource.userId = [NSString stringWithFormat:@"%d",[[_userInfo objectForKey:@"id"] intValue]];
     dataSource.commentStr = comment;
@@ -265,17 +268,18 @@
 
 - (void)commentCell:(CommentCell *)cell clickPortrait:(id)sender
 {
-    DLog(@"%@",self.navigationController);
     [self.navigationController pushViewController:[[HomePageController alloc] initAsRootViewController:NO withUserId:cell.dataSource.userId] animated:YES];
 }
 - (void)commentCell:(CommentCell *)cell clickComment:(id)sender
 {
     _commentId = [cell.dataSource commentID];
-    _toUserName = [cell.dataSource toUserName];
+    _toUserName = [cell.dataSource userName];
+    [commentView.textView setPlaceHolder:[NSString stringWithFormat:@"  回复 %@ :",_toUserName]];
     [commentView.textView becomeFirstResponder];
 }
 - (void)makeCommentView:(MakeCommentView *)view commentClick:(UIButton *)button
 {
+    
     [self commetButtonClick:button];
 }
 @end

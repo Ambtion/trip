@@ -70,7 +70,11 @@
     }
     return self;
 }
-
+- (void)setPlaceHolder:(NSString *)place
+{
+    _placeHolder = place;
+    placeLabel.text = place ? place : PLACETEXT;
+}
 -(void)commonInitialiser
 {
     // Initialization code
@@ -216,7 +220,7 @@
     if (textView.text && ![textView.text isEqualToString:@""]) {
         placeLabel.text  = nil;
     }else{
-        placeLabel.text = PLACETEXT;
+        placeLabel.text = _placeHolder ? _placeHolder : PLACETEXT;
     }
     
 	NSInteger newSizeH = internalTextView.contentSize.height;

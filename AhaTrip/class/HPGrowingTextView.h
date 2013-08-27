@@ -77,8 +77,10 @@
     UIEdgeInsets contentInset;
     
     UILabel * placeLabel;
+    
+    NSString * _placeHolder;
 }
-
+- (void)setPlaceHolder:(NSString *)place;
 //real class properties
 @property int maxNumberOfLines;
 @property int minNumberOfLines;
