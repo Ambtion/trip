@@ -13,7 +13,7 @@
 #import "UIImageView+WebCache.h"
 
 #define TIMEOFFSET 0.01f
-#define MOVEOFFSET 0.1f
+#define MOVEOFFSET 0.4f
 
 @implementation PhotoDetailViewDataSource
 @synthesize dataSource = _dataSource;
@@ -88,8 +88,10 @@
                     UIViewAnimationOptionTransitionCrossDissolve animations:^{
                         _bgImageView.image = toImage;
                     } completion:^(BOOL finished) {
-                        _timer = [NSTimer timerWithTimeInterval:TIMEOFFSET target:self selector:@selector(movePicAnimation) userInfo:nil repeats:YES];
-                        [[NSRunLoop currentRunLoop]addTimer:_timer forMode:NSDefaultRunLoopMode];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            _timer = [NSTimer timerWithTimeInterval:TIMEOFFSET target:self selector:@selector(movePicAnimation) userInfo:nil repeats:YES];
+                            [[NSRunLoop currentRunLoop]addTimer:_timer forMode:NSDefaultRunLoopMode];
+                        });
     }];
 }
 
@@ -193,9 +195,9 @@
     [self movePicAnimation];
     [self setLikeAndCountState];
     _timer = [NSTimer timerWithTimeInterval:TIMEOFFSET target:self selector:@selector(movePicAnimation) userInfo:nil repeats:YES];
-//    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
-    
+    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
 }
+
 - (void)stopAnimation
 {
     [_timer invalidate];
