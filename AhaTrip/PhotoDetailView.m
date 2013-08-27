@@ -13,7 +13,7 @@
 #import "UIImageView+WebCache.h"
 
 #define TIMEOFFSET 0.01f
-#define MOVEOFFSET 0.2f
+#define MOVEOFFSET 0.1f
 
 @implementation PhotoDetailViewDataSource
 @synthesize dataSource = _dataSource;
@@ -116,6 +116,7 @@
     _commentLabel.text = [NSString stringWithFormat:@"%d",*_dataSource.commentCountAddress];
     _isLoading = NO;
 }
+
 - (void)likeButtonClick:(UIButton *)button
 {
     if (_isLoading) return;
@@ -192,7 +193,8 @@
     [self movePicAnimation];
     [self setLikeAndCountState];
     _timer = [NSTimer timerWithTimeInterval:TIMEOFFSET target:self selector:@selector(movePicAnimation) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop]addTimer:_timer forMode:NSDefaultRunLoopMode];
+//    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+    
 }
 - (void)stopAnimation
 {

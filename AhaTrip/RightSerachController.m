@@ -226,6 +226,7 @@
         [self.navigationController pushViewController:[[CityViewController alloc] initWithCountryId:source.identify CountryName:source.cName eName:source.eName] animated:YES];
     }
 }
+
 - (void)tapGesture:(UIGestureRecognizer *)gesture
 {
     [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] initWithCountryId:-100 cityId:-1 country:@"其他" city:@"其他国家/地区"];
