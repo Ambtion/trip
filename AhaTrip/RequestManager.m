@@ -270,7 +270,7 @@
 //广场接口
 + (void)getPlazaWithstart:(NSInteger)start count:(NSInteger)count  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    //反正未登录状况
+    //防止未登录状况
     NSString * url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/index?token=tRyW4rLBiJHffQ&start=%d&count=%d",start,count];
     [self getSourceWithStringUrl:url asynchronou:YES success:success failure:failure];
 }

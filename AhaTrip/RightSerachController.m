@@ -219,11 +219,11 @@
 
         }else{
             CountryListCellDataSource * source = [_sourceArray objectAtIndex:indexPath.row];
-            [self.navigationController pushViewController:[[CityViewController alloc] initWithCountryId:source.identify CountryName:source.cName] animated:YES];
+            [self.navigationController pushViewController:[[CityViewController alloc] initWithCountryId:source.identify CountryName:source.cName eName:source.eName] animated:YES];
         }
     }else{
         CountryListCellDataSource * source = [_searchSourceArray objectAtIndex:indexPath.row];
-        [self.navigationController pushViewController:[[CityViewController alloc] initWithCountryId:source.identify CountryName:source.cName] animated:YES];
+        [self.navigationController pushViewController:[[CityViewController alloc] initWithCountryId:source.identify CountryName:source.cName eName:source.eName] animated:YES];
     }
 }
 - (void)tapGesture:(UIGestureRecognizer *)gesture

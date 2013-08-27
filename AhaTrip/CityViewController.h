@@ -14,6 +14,7 @@
     EGRefreshTableView * _tableView;
     int _countryId;
     NSString * _countryName;
+    NSString * _eName;
 }
-- (id)initWithCountryId:(int)countryId CountryName:(NSString *)countryName;
+- (id)initWithCountryId:(int)countryId CountryName:(NSString *)countryName eName:(NSString *)ename;
 @end
