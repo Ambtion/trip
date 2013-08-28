@@ -82,7 +82,7 @@ static char Key_showCity;
         [_rightImageView addGestureRecognizer:gesture2];
         
         UILongPressGestureRecognizer * longGes2 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longGesture:)];
-        [_leftImageView addGestureRecognizer:longGes2];
+        [_rightImageView addGestureRecognizer:longGes2];
         
     }
     return self;

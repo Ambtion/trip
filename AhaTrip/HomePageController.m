@@ -257,7 +257,7 @@
 }
 - (void)PlazeCell:(PlazeCell *)photoCell longPressGroup:(NSDictionary *)info
 {
-    if (tempToDeleteInfo) return;
+    if (tempToDeleteInfo || !_isFinds) return;
     if ([self isMineWithOwnerId:_userId]) {
         tempToDeleteInfo = info;
         UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"确认删除图片", nil];
@@ -267,6 +267,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     DLog(@"%@",tempToDeleteInfo);
+   
     if (buttonIndex == 0) { //删除
         [RequestManager deleteFindsWithId:[[tempToDeleteInfo objectForKey:@"id"] intValue] success:^(NSString *response) {
             if ([[[[response JSONValue] objectForKey:@"result"] objectForKey:@"code"] intValue] == 200) {
@@ -280,6 +281,8 @@
             tempToDeleteInfo = nil;
             [self showTotasViewWithMes:@"删除失败"];
         }];
+    }else{
+        tempToDeleteInfo = nil;
     }
 }
 @end
