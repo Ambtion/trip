@@ -230,7 +230,8 @@
 }
 - (void)searchButtonClick:(UIButton *)button
 {
-    [self setRightSearchBarTonil:NO];
+//    [self setRightSearchBarTonil:NO];
+    DLog();
     [self.viewDeckController toggleRightViewAnimated:YES];
 }
 - (void)titleMenuClickWithInfo:(id)info
