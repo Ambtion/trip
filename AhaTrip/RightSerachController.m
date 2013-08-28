@@ -37,6 +37,11 @@
 @synthesize sourceArray = _sourceArray;
 @synthesize searchSourceArray = _searchSourceArray;
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self refrehsFromNetWork];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

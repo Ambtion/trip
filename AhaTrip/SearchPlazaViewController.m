@@ -69,7 +69,7 @@
         [_tableView didFinishedLoadingTableViewData];
         return;
     }
-    [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:0 count:20 token:nil success:^(NSString *response) {
+    [RequestManager getPlazaWithCountryId:_countryId cityId:_cityId cateroy:_cateroy start:self.assetsArray.count count:20 token:nil success:^(NSString *response) {
         NSString * key = _cityId == ALLID  ? @"total" : @"city";
         [self.assetsArray  addObjectsFromArray:[[[response JSONValue] objectForKey:key] objectForKey:@"findings"]];
         [self convertAssetsToDataSouce];

@@ -311,7 +311,6 @@ outputJPEGQuality;
     } else {
         [filter addTarget:self.imageView];
     }
-    
     GPUImageRotationMode imageViewRotationMode = kGPUImageNoRotation;
     switch (staticPictureOriginalOrientation) {
         case UIImageOrientationLeft:
@@ -460,6 +459,7 @@ outputJPEGQuality;
 
 -(IBAction)retakePhoto:(UIButton *)button
 {
+    
     staticPicture = nil;
     staticPictureOriginalOrientation = UIImageOrientationUp;
     isStatic = NO;
@@ -475,12 +475,13 @@ outputJPEGQuality;
     [self setTabBarButtonToFinal:NO];
     [self setFilter:selectedFilter];
     [self prepareFilter];
-    
+    if (isLibModel) {
+        [self switchToLibraryWithAnimaion:NO];
+    }
 }
 
 - (IBAction) cancel:(id)sender
 {
-    
     [self dismissViewControllerAnimated:!isLibModel completion:NULL];
 }
 

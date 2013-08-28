@@ -165,14 +165,11 @@
         search.isOthersSource = [source.cName isEqualToString:@"其他"];
         [self leftMenuController].viewDeckController.centerController = search;
         [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
-        [self.navigationController popViewControllerAnimated:NO];
+//        [self.navigationController popViewControllerAnimated:NO];
     }else{
-//        _isAllState = YES;
-//        [self refrehsFromNetWork];
         [self leftMenuController].viewDeckController.centerController = [[SearchPlazaViewController alloc] initWithCountryId:_countryId cityId:ALLID country:_countryName city:_countryName];
         [[self leftMenuController].viewDeckController closeRightViewAnimated:YES];
-        [self.navigationController popViewControllerAnimated:NO];
+//        [self.navigationController popViewControllerAnimated:NO];
     }
-    
 }
 @end

@@ -39,7 +39,13 @@
     LeftMenuController * leftVC = [[LeftMenuController alloc] init];
     leftVC.plazeController = lp;
     
-    IIViewDeckController * deckViewController = [[IIViewDeckController alloc] initWithCenterViewController:lp leftViewController:leftVC];
+    //右边菜单
+    
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController: [[RightSerachController alloc] init]];
+    nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    [nav.navigationBar setHidden:YES];
+    
+    IIViewDeckController * deckViewController = [[IIViewDeckController alloc] initWithCenterViewController:lp leftViewController:leftVC rightViewController:nav];
     UINavigationController * nav_center = [[UINavigationController alloc] initWithRootViewController:deckViewController];
     [nav_center.navigationBar setHidden:YES];
     self.window.rootViewController = nav_center;

@@ -41,17 +41,17 @@
 }
 - (void)setRightSearchBarTonil:(BOOL)isNil
 {
-    if (!_rightSearch) {
-        _rightSearch = [[RightSerachController alloc] init];
-    }
-    if (isNil)
-        self.viewDeckController.rightController = nil;
-    else{
-        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:_rightSearch];
-        nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-        [nav.navigationBar setHidden:YES];
-        self.viewDeckController.rightController = nav;
-    }
+    return;
+//    if (!_rightSearch) {
+//        _rightSearch = [[UINavigationController alloc] initWithRootViewController: [[RightSerachController alloc] init]];
+//        _rightSearch.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+//        [_rightSearch.navigationBar setHidden:YES];
+//    }
+//    if (isNil)
+//        self.viewDeckController.rightController = nil;
+//    else{
+//        self.viewDeckController.rightController = _rightSearch;
+//    }
 }
 - (void)addCusNavBar
 {
