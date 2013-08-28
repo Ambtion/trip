@@ -259,7 +259,7 @@
 {
     if ([self isMineWithOwnerId:_userId]) {
         tempToDeleteInfo = info;
-        UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"确认", nil];
+        UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"确认删除图片", nil];
         [sheet showInView:self.view];
     }
 }
