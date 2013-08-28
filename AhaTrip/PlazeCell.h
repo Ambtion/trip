@@ -17,6 +17,8 @@
 
 @protocol PlazeCellDelegate <NSObject>
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info;
+@optional
+- (void)PlazeCell:(PlazeCell *)photoCell longPressGroup:(NSDictionary *)info;
 @end
 
 @interface PlazeCell : UITableViewCell

@@ -43,9 +43,7 @@ static char Key_showCity;
         _leftIcon.layer.shadowOffset = CGSizeMake(0, 1);
         _leftIcon.layer.shadowColor = [[UIColor blackColor] CGColor];
         _leftIcon.layer.shadowOpacity = 0.4;
-
         [_leftImageView addSubview:_leftIcon];
-        
         _leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 5, 100, 20)];
         _leftLabel.backgroundColor = [UIColor clearColor];
         _leftLabel.font = [UIFont boldSystemFontOfSize:12.f];
@@ -57,6 +55,8 @@ static char Key_showCity;
         UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGusture:)];
         gesture.numberOfTapsRequired = 1;
         [_leftImageView addGestureRecognizer:gesture];
+        UILongPressGestureRecognizer * longGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longGesture:)];
+        [_leftImageView addGestureRecognizer:longGes];
         
         _rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_leftImageView.frame.size.width + IMAGETAP, 0, width, width)];
         [_rightImageView setUserInteractionEnabled:YES];
@@ -80,6 +80,9 @@ static char Key_showCity;
         UITapGestureRecognizer * gesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGusture:)];
         gesture2.numberOfTapsRequired = 1;
         [_rightImageView addGestureRecognizer:gesture2];
+        
+        UILongPressGestureRecognizer * longGes2 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longGesture:)];
+        [_leftImageView addGestureRecognizer:longGes2];
     }
     return self;
 }
@@ -96,7 +99,20 @@ static char Key_showCity;
     if ([_delegate respondsToSelector:@selector(PlazeCell:clickCoverGroup:)])
         [_delegate PlazeCell:self clickCoverGroup:infoDic];
 }
-
+- (void)longGesture:(UIGestureRecognizer *)gesture
+{
+    if (gesture.state != UIGestureRecognizerStateBegan) {
+        UIImageView *  view = (UIImageView *)[gesture view];
+        NSDictionary * infoDic = nil;
+        if ([view isEqual:_leftImageView]) {
+            infoDic = _dataSource.leftInfo;
+        }else{
+            infoDic = _dataSource.rightInfo;
+        }
+        if ([_delegate respondsToSelector:@selector(PlazeCell:longPressGroup:)])
+            [_delegate PlazeCell:self longPressGroup:infoDic];
+    }
+}
 #pragma mark -DataSource
 - (PlazeCellDataSource *)dataSource
 {

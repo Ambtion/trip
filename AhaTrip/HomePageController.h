@@ -13,7 +13,7 @@
 #import "HomeAccountPage.h"
 #import "AHMenuNavBarView.h"
 
-@interface HomePageController : UIViewController<EGRefreshTableViewDelegate,UITableViewDataSource,PlazeCellDelegate,IIViewDeckControllerDelegate,AwesomeMenuDelegate>
+@interface HomePageController : UIViewController<EGRefreshTableViewDelegate,UITableViewDataSource,PlazeCellDelegate,IIViewDeckControllerDelegate,AwesomeMenuDelegate,UIActionSheetDelegate>
 {
     
     EGRefreshTableView * _tableView;

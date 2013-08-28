@@ -11,6 +11,9 @@
 #import "UploadViewControllerManager.h"
 
 @interface HomePageController ()
+{
+    NSDictionary * tempToDeleteInfo;
+}
 @property(nonatomic,strong)NSMutableArray * assetsArray;
 @property(nonatomic,strong)NSMutableArray * dataSourceArray;
 @end
@@ -251,5 +254,21 @@
 - (void)PlazeCell:(PlazeCell *)photoCell clickCoverGroup:(NSDictionary *)info
 {
     [self.navigationController pushViewController:[[PhotoDetailController alloc] initWithTitleId:[NSString stringWithFormat:@"%@",[info objectForKey:@"id"]]] animated:YES];
+}
+- (void)PlazeCell:(PlazeCell *)photoCell longPressGroup:(NSDictionary *)info
+{
+    if ([self isMineWithOwnerId:_userId]) {
+        tempToDeleteInfo = info;
+        UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"确认", nil];
+        [sheet showInView:self.view];
+    }
+}
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) { //删除
+        [_assetsArray removeObject:tempToDeleteInfo];
+        tempToDeleteInfo = nil;
+        [self convertAssetsToDataSouce];
+    }
 }
 @end
