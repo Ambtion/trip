@@ -265,10 +265,19 @@
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    DLog(@"%@",tempToDeleteInfo);
     if (buttonIndex == 0) { //删除
-        [_assetsArray removeObject:tempToDeleteInfo];
-        tempToDeleteInfo = nil;
-        [self convertAssetsToDataSouce];
+        [RequestManager deleteFindsWithId:[[tempToDeleteInfo objectForKey:@"id"] intValue] success:^(NSString *response) {
+            if ([[[[response JSONValue] objectForKey:@"result"] objectForKey:@"code"] intValue] == 200) {
+                [_assetsArray removeObject:tempToDeleteInfo];
+                tempToDeleteInfo = nil;
+                [self convertAssetsToDataSouce];
+            }else{
+                [self showTotasViewWithMes:@"删除失败"]; 
+            }
+        } failure:^(NSString *error) {
+            [self showTotasViewWithMes:@"删除失败"];
+        }];
     }
 }
 @end

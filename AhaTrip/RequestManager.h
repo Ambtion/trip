@@ -25,6 +25,9 @@
 //广场接口
 + (void)getPlazaWithstart:(NSInteger)start count:(NSInteger)count success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
+//删除finds
++ (void)deleteFindsWithId:(NSInteger)find_Id success:(void (^) (NSString * response))success failure:(void (^) (NSString * error))failure;
+
 #define ALLID -100
 
 //分类的广场接口

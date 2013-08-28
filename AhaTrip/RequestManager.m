@@ -34,8 +34,8 @@
         [request setPostValue:[body objectForKey:key] forKey:key];
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
-//        NSDictionary * dic = [weakSelf.responseString JSONValue];
-//        DLog(@"%@",dic);
+        NSDictionary * dic = [weakSelf.responseString JSONValue];
+        DLog(@"%@",dic);
         if (weakSelf.responseStatusCode == 200){
             success(weakSelf.responseString);
         }else{
@@ -292,6 +292,15 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
+
+//删除finds
++ (void)deleteFindsWithId:(NSInteger)find_Id success:(void (^) (NSString * response))success failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/findingDelete?finding_id=%d&token=%@",find_Id,[LoginStateManager currentToken]];
+    [self postWithURL:str body:nil success:success failure:failure];
+//    http://www.myahatrip.com/api/findingDelete?finding_id=42&token=tRyW4rLBiJHffQ
+    
+}
 + (void)getTitleImagesWithId:(NSString *)titleId success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     NSString* url = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/finding?id=%@&token=%@",titleId,[LoginStateManager currentToken]];
