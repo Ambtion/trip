@@ -112,8 +112,15 @@
 }
 - (void)addButtonClick:(UIButton *)button
 {
-    if([delegate respondsToSelector:@selector(newPlaceViewControllerButtonClick:address:Location:)])
-        [delegate newPlaceViewControllerButtonClick:self.LocationNameFiled.text address:self.LocationAddressFiled.text Location:touchCoordinate];
+    DLog(@"%@ ::%@",self.LocationNameFiled.text,self.LocationAddressFiled.text);
+    if (self.LocationNameFiled.text && ![self.LocationNameFiled.text isEqualToString:@""]) {
+        DLog(@"HHHH::%@",self.LocationNameFiled.text);
+        if([delegate respondsToSelector:@selector(newPlaceViewControllerButtonClick:address:Location:)])
+            [delegate newPlaceViewControllerButtonClick:self.LocationNameFiled.text address:self.LocationAddressFiled.text Location:touchCoordinate];
+    }else{
+        [self showPopAlerViewWithMes:@"请输入名字"];
+    }
+    
 }
 - (void)closeBtnBackMenu:(id)sender
 {
@@ -174,6 +181,7 @@
     annotation.address = [self.LocationAddressFiled text];
     [self.mapView addAnnotation:annotation];
 }
+
 -(void)removeAllAnnotations
 {
     id userAnnotation = self.mapView.userLocation;

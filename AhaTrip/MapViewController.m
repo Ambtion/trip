@@ -241,7 +241,7 @@
         [delegate mapViewControllerDidCancel:self];
 }
 
-#pragma mark GetPlaceFromAutoNav
+#pragma mark  - GetPlaceFromAutoNav
 - (void)getPoiByAddressWithAutoNav
 {
     if(!maSearch)
@@ -273,45 +273,6 @@
         }
     }
 }
-
-#pragma mark GetPlaceFromGoogle
--(void)googlePlace
-{
-    [RequestManager getGooglePlaceWithRadius:2000 latitude:newLocCoordinate.latitude longitude:newLocCoordinate.latitude placeType:@"" placeContainName:@"" success:^(NSData *data) {
-        NSMutableArray *placeMuAry = [XMLHelper useNSXMLParserDelegateToGetResult:data];
-        if (placeMuAry.count>0)
-            [self placeThePinsByAnnotationAry:placeMuAry annoType:@""];
-        else
-            [self.bg_errorView setHidden:NO];
-        
-    } failure:^(NSString *error) {
-        [self.bg_errorView setHidden:NO];
-    }];
-}
-
-//放置位置指示针【方法2】
--(void)placeThePinsByAnnotationAry:(NSMutableArray *)aPlaceAry  annoType:(NSString *)aType
-{
-    [_dataSource removeAllObjects];
-    NSLog(@"Place pins by using  [mMapView addAnnotations:annoAry]");
-    
-    [self removeAllAnnotations];
-    [_annotationList removeAllObjects];
-    [_annotationList addObjectsFromArray:aPlaceAry];
-    [_dataSource addObjectsFromArray:aPlaceAry];
-    [mytable reloadData];
-    for (int i=0; i<[aPlaceAry count]; i++) {
-        PlaceDetailVO *place = [aPlaceAry objectAtIndex:i];
-        CLLocationCoordinate2D coor;
-        coor.latitude = [place.pLatStr floatValue];
-        coor.longitude = [place.pLngStr floatValue];
-        PinAnnotation *pinAnno = [[PinAnnotation alloc]initWithLatitude: coor.latitude andLongitude:coor.longitude];
-        pinAnno.type = aType;
-        pinAnno.tag = i+100;
-        [self.mapView addAnnotation:pinAnno];
-    }
-}
-
 - (void)placeThePinsByPiosArray:(NSArray *)array
 {
     DLog(@"%@",_dataSource);
@@ -332,6 +293,47 @@
         [self.mapView addAnnotation:pinAnno];
     }
 }
+
+
+//#pragma mark GetPlaceFromGoogle
+//-(void)googlePlace
+//{
+//    [RequestManager getGooglePlaceWithRadius:2000 latitude:newLocCoordinate.latitude longitude:newLocCoordinate.latitude placeType:@"" placeContainName:@"" success:^(NSData *data) {
+//        NSMutableArray *placeMuAry = [XMLHelper useNSXMLParserDelegateToGetResult:data];
+//        if (placeMuAry.count>0)
+//            [self placeThePinsByAnnotationAry:placeMuAry annoType:@""];
+//        else
+//            [self.bg_errorView setHidden:NO];
+//        
+//    } failure:^(NSString *error) {
+//        [self.bg_errorView setHidden:NO];
+//    }];
+//}
+//
+////放置位置指示针【方法2】
+//-(void)placeThePinsByAnnotationAry:(NSMutableArray *)aPlaceAry  annoType:(NSString *)aType
+//{
+//    [_dataSource removeAllObjects];
+//    NSLog(@"Place pins by using  [mMapView addAnnotations:annoAry]");
+//    
+//    [self removeAllAnnotations];
+//    [_annotationList removeAllObjects];
+//    [_annotationList addObjectsFromArray:aPlaceAry];
+//    [_dataSource addObjectsFromArray:aPlaceAry];
+//    [mytable reloadData];
+//    for (int i=0; i<[aPlaceAry count]; i++) {
+//        PlaceDetailVO *place = [aPlaceAry objectAtIndex:i];
+//        CLLocationCoordinate2D coor;
+//        coor.latitude = [place.pLatStr floatValue];
+//        coor.longitude = [place.pLngStr floatValue];
+//        PinAnnotation *pinAnno = [[PinAnnotation alloc]initWithLatitude: coor.latitude andLongitude:coor.longitude];
+//        pinAnno.type = aType;
+//        pinAnno.tag = i+100;
+//        [self.mapView addAnnotation:pinAnno];
+//    }
+//}
+//
+
 
 #pragma mark - AnnotationsMethod
 -(void)removeAllAnnotations
@@ -431,9 +433,7 @@
     [self setAnnotionsWithList:_annotationList];
 }
 
-
-
-#pragma mark CLLocationManagerDelegate
+#pragma mark - CLLocationManagerDelegate
 // 用户位置更新后，会调用此函数
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
@@ -469,7 +469,7 @@
     [self.bg_errorView setHidden:NO];
 }
 
-#pragma mark SerachDelegate
+#pragma mark  - SerachDelegate
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
 {
     addPlaceLable.text = nil;
@@ -526,13 +526,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    [mytable setHidden:tableView != mytable];
     if (tableView != mytable) {
         tableView.backgroundColor = mytable.backgroundColor;
         tableView.separatorColor = mytable.separatorColor;
         [self searchDataWithString:_searchBar.text];
         [self fixTableViewFrame:tableView];
+        [self.bg_errorView setHidden:YES];
         return _isSearchNO ? 1 : _searchArray.count;
     }
+    [self.bg_errorView setHidden:( _dataSource.count ? _dataSource.count + 1 : 0)];
     return _dataSource.count ? _dataSource.count + 1 : 0;
 }
 
@@ -548,6 +551,7 @@
     static NSString *mapCell = @"MapCell";
     NSInteger index = indexPath.row;
     NSMutableArray * sourceArray = nil;
+  
     if (tableView == mytable) {
         sourceArray = _dataSource;
         if (!indexPath.row) {
@@ -572,7 +576,6 @@
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = mRGBColor(50, 200, 160);
-        
         UILabel*citylabel=[[UILabel alloc] initWithFrame:CGRectMake(15, 2, 240, 40)];
         citylabel.tag = 1000;
         citylabel.font=[UIFont systemFontOfSize:18.f];
@@ -589,12 +592,14 @@
         img.tag = 10000;
         [cell.contentView addSubview:img];
     }
+    
     UIView * view = [cell viewWithTag:10000];
     view.hidden = _dataSource.count - 1 != indexPath.row;
     UILabel*cityLabel=(UILabel*)[cell viewWithTag:1000];
     if (!_isSearchNO) {
         MAPOI * poi = [sourceArray objectAtIndex:index];
         cityLabel.text = poi.name;
+        DLog(@"PPPPP:%d:%@ %@",index,poi,poi.name);
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         cell.frame = CGRectMake(-10, 0, 320, 44);
     }else{
@@ -630,6 +635,15 @@
 #pragma mark
 - (void)newPlaceViewControllerButtonClick:(NSString *)name address:(NSString *)address Location:(CLLocationCoordinate2D)coordinate
 {
+    _isSearchNO = NO;
+    MAPOI * mapoi = [[MAPOI alloc] init];
+    mapoi.x = [NSString stringWithFormat:@"%.5f",coordinate.latitude];
+    mapoi.y = [NSString stringWithFormat:@"%.5f",coordinate.longitude];
+    mapoi.name = name;
+    mapoi.address = address;
+    [_dataSource insertObject:mapoi atIndex:0];
+    [self placeThePinsByPiosArray:[NSArray arrayWithArray:_dataSource]];
+    DLog(@"newPlaceViewControllerButtonClick:%@:NAMEL : %@ %@ %f",name,address,mapoi,coordinate.longitude);
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end
