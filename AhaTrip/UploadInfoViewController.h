@@ -11,6 +11,8 @@
 #import "BusinessTimeController.h"
 #import "AvertCoastController.h"
 #import "HasWiFiController.h"
+#import "OAuthShareRef.h"
+
 
 @protocol UploadInfoViewControllerDelegate <NSObject>
 - (void)uploadInfoViewControllerDidClickAddPic:(UIButton *)button;
@@ -18,7 +20,7 @@
 - (void)uploadInfoViewControllerDidClickSender:(NSDictionary *)info;
 @end
 
-@interface UploadInfoViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,BusinessTimeControllerDeleagte,AvertCoastControllerDelegate,HasWiFiControllerDelegate>
+@interface UploadInfoViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,BusinessTimeControllerDeleagte,AvertCoastControllerDelegate,HasWiFiControllerDelegate,TencentSessionDelegate,SinaWeiboDelegate>
 {
     
     NSMutableArray* _imagesArray;

@@ -6,11 +6,6 @@
 //  Copyright (c) 2013年 Qu. All rights reserved.
 //
 
-//#define kURLSCHEMES @"wxb10af14588447520"
-//#define KQQURLSCHEMS @"tencent222222"
-
-//QQFrame
-
 #import <TencentOpenAPI/sdkdef.h>
 #import <TencentOpenAPI/QQApi.h>
 #import <TencentOpenAPI/TencentOAuth.h>
@@ -27,4 +22,4 @@
 
 #define kAppKey             @"2247019797"
 #define kAppSecret          @"ce968d8f736a5ec3d28b064005ca1d3b"
-#define kAppRedirectURI     @"http://www.ahatrip.info"
+#define kAppRedirectURI     @"http://yyz.ahatrip.info"

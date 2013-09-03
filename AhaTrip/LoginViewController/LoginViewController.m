@@ -252,7 +252,7 @@
 }
 - (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
 {
-    [self showTotasViewWithMes:@"授权失败"];
+//    [self showTotasViewWithMes:@"授权失败"];
 }
 - (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
 {
@@ -266,16 +266,28 @@
 }
 - (void)tencentDidLogin
 {
-    DLog(@"%@",[[self AppDelegate] tencentOAuth].accessToken);
-    [self handleLoginInfo:nil];
+    [RequestManager loginWithOAuthoToken:[[self AppDelegate] tencentOAuth].accessToken comeFrom:KFromQQ success:^(NSString *response) {
+        NSDictionary * dic  = [[response JSONValue] objectForKey:@"result"];
+        DLog(@"%@",dic);
+        if ([[dic objectForKey:@"code"] intValue] == 200) {
+            [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[dic objectForKey:@"uid"]] withToken:[dic objectForKey:@"token"] RefreshToken:@"temp"];
+            [LoginStateManager storeQQTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:[[self AppDelegate] tencentOAuth].openId,@"openid",[[self AppDelegate] tencentOAuth].accessToken,@"access_token", nil]];
+            [self cancelLogin:nil];
+        }else{
+            [self showPopAlerViewWithMes:@"登陆失败"];
+        }
+    } failure:^(NSString *error) {
+        [self showPopAlerViewWithMes:@"登陆失败"];
+    }];
 }
 - (void)tencentDidNotLogin:(BOOL)cancelled
 {
     [self showTotasViewWithMes:@"授权失败"];
 }
+
 - (void)tencentDidNotNetWork
 {
-    [self showTotasViewWithMes:@"授权失败"];
+    [self showTotasViewWithMes:@"网络连接失败"];
 }
 #pragma forgetPassWord
 - (void)forgetPassWord:(id)sender

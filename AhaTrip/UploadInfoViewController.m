@@ -312,9 +312,9 @@
 -(void)addBindViews
 {
     if (!_bindView) {
-        _bindView=[[UIView alloc] initWithFrame:CGRectMake(10, _optionalView.frame.origin.y + _optionalView.frame.size.height + 10, 300, 140)];
+        _bindView =[[UIView alloc] initWithFrame:CGRectMake(10, _optionalView.frame.origin.y + _optionalView.frame.size.height + 10, 300, 140)];
         _bindView.backgroundColor=[UIColor clearColor];
-        [_myScrollView addSubview:_bindView];
+        [_myScrollView addSubview: _bindView];
         UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5,80,30)];
         label.text= @"分享到";
         label.textColor=[UIColor lightGrayColor];
@@ -365,7 +365,7 @@
     {
         
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:topicCell];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;\
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UIImageView * imgV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 30, 25)];
         imgV.tag = 100;
         imgV.backgroundColor=[UIColor clearColor];
@@ -390,7 +390,13 @@
     UILabel * label = (UILabel *)[cell viewWithTag:200];
     label.text = [dict objectForKey:@"sso"];
     UISwitch * sw = (UISwitch *)[cell viewWithTag:300];
-    [sw setOn:YES];
+    if (indexPath.row) { //sina
+        cell.tag = 100;
+        [sw setOn:[LoginStateManager isSinaBind]];
+    }else{
+        cell.tag = 200;
+        [sw setOn:[LoginStateManager isQQBing]];
+    }
     return cell;
 }
 
@@ -535,12 +541,63 @@
 - (void)switchAction:(id)sender
 {
     UISwitch * switchButton = (UISwitch*)sender;
-    BOOL isButtonOn = [switchButton isOn];
-    if (isButtonOn) {
-        [switchButton setOn:YES animated:YES];
-    }else {
-        [switchButton setOn:NO animated:NO];
+    UITableViewCell * cell  = (UITableViewCell *)switchButton.superview;
+    if (cell.tag == 100) {
+        BOOL isButtonOn = [switchButton isOn];
+        if (isButtonOn) {
+            [self bindQQ];
+        }else {
+            [LoginStateManager unbind:QQShare];
+            [switchButton setOn:NO animated:NO];
+        }
+    }else{
+        BOOL isButtonOn = [switchButton isOn];
+        if (isButtonOn) {
+            [self bindSina];
+        }else {
+            [LoginStateManager unbind:SinaWeiboShare];
+        }
     }
+   
+}
+
+#pragma mark Bind
+
+#pragma mark OAuth
+- (void)bindSina
+{
+    [[self AppDelegate] sinaLoginWithDelegate:self];
+}
+- (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
+{
+    
+}
+- (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
+{
+//    [self showTotasViewWithMes:@"授权失败"];
+}
+- (void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
+{
+    [self showTotasViewWithMes:@"授权失败"];
+}
+
+#pragma mark QQ
+- (void)bindQQ
+{
+    [[self AppDelegate] qqLoginWithDelegate:self];
+}
+- (void)tencentDidLogin
+{
+    
+}
+- (void)tencentDidNotLogin:(BOOL)cancelled
+{
+//    [self showTotasViewWithMes:@"授权失败"];
+}
+
+- (void)tencentDidNotNetWork
+{
+    [self showTotasViewWithMes:@"网络连接失败"];
 }
 @end
 
