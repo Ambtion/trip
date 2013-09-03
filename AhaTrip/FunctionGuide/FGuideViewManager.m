@@ -49,7 +49,7 @@ static   NSString * _identify;
 + (void)showFGuideViewWithImageaArray:(NSArray *)array superController:(UIViewController *)controller
 {
     _identify = [NSString stringWithFormat:@"__%@__%@",[controller class],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:_identify] boolValue] != YES || 1) {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:_identify] boolValue] != YES) {
         FGuideViewManager * fgm =  [[FGuideViewManager alloc] initWitImageaArray:array superView:controller.view];
         [fgm addfguideView];
     }

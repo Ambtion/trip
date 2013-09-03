@@ -216,7 +216,7 @@
 
 #pragma mark Handle Login Result
 
-- (void)handleLoginInfo:(NSDictionary *)response
+- (void)handleLoginInfo:(NSDictionary *)response 
 {
     [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"uid"]] withToken:[response objectForKey:@"token"] RefreshToken:@"temp"];
     //    [LoginStateManager loginUserId:@"2" withToken:@"tRyW4rLBiJHffQ" RefreshToken:@"sdf"];
@@ -236,8 +236,19 @@
 }
 - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
 {
-    DLog(@"%@",[[self AppDelegate] sinaweibo].accessToken);
-    [self handleLoginInfo:nil];
+    [RequestManager loginWithOAuthoToken:sinaweibo.accessToken comeFrom:KFromSINA success:^(NSString *response) {
+        NSDictionary * dic  = [[response JSONValue] objectForKey:@"result"];
+        DLog(@"%@",dic);
+        if ([[dic objectForKey:@"code"] intValue] == 200) {
+            [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[dic objectForKey:@"uid"]] withToken:[dic objectForKey:@"token"] RefreshToken:@"temp"];
+            [LoginStateManager storeSinaTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:sinaweibo.userID,@"userID",sinaweibo.accessToken,@"access_token", nil]];
+            [self cancelLogin:nil];
+        }else{
+            [self showPopAlerViewWithMes:@"登陆失败"];
+        }
+    } failure:^(NSString *error) {
+        [self showPopAlerViewWithMes:@"登陆失败"];
+    }];
 }
 - (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
 {

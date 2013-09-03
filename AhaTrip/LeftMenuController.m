@@ -115,6 +115,8 @@ ntfController = _ntfController,setController = _setController;
         break;
     }
     self.viewDeckController.centerController = controller;
+    if (controller == [self plazeController])
+        self.viewDeckController.rightController = [[self plazeController] plazeRightSliderController];
 }
 
 #pragma mark

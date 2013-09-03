@@ -25,4 +25,5 @@
 - (void)refresFromeNetWork;
 - (void)getMoreFromeNetWork;
 - (void)convertAssetsToDataSouce;
+- (id)plazeRightSliderController;
 @end

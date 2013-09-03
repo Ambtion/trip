@@ -11,8 +11,16 @@
 #import "JSON.h"
 @interface RequestManager : NSObject
 
+enum __Token_From {
+    KFromQQ = 0,
+    KFromSINA = 1
+};
+typedef enum  __Token_From Token_From;
+
 //账号系统
 + (void)loingWithUserName:(NSString *)name passpord:(NSString*)passpord success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
+//三方登陆
++ (void)loginWithOAuthoToken:(NSString *)token comeFrom:(Token_From)from success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 
 + (void)registerWithEmail:(NSString *)mail UserName:(NSString *)name passpord:(NSString *)passpord isGril:(NSInteger)isGirl portrait:(UIImage *)image birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 

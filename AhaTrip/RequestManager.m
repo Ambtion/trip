@@ -81,6 +81,12 @@
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 
++ (void)loginWithOAuthoToken:(NSString *)token comeFrom:(Token_From)from success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/thirdLogin?comefrom=%@&access_token=%@",from == KFromQQ ? @"qq" : @"weibo",token];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
 + (void)registerWithEmail:(NSString *)mail UserName:(NSString *)name passpord:(NSString *)passpord isGril:(NSInteger)isGirl portrait:(UIImage *)image birthday:(NSString*)brithday success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
     
@@ -204,6 +210,7 @@
     [request startSynchronous];
 }
 
+#pragma mark share
 //分享到sina
 + (void)sharePhoto:(UIImage*)image ToQQwithDes:(NSString *)des compressionQuality:(CGFloat)compress  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {

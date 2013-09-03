@@ -13,6 +13,7 @@
 #import "RequestManager.h"
 #import "UploadViewControllerManager.h"
 #import "FGuideViewManager.h"
+#import "RightSerachController.h"
 
 @implementation PlazeViewController
 @synthesize assetsArray = _assetsArray;
@@ -44,6 +45,14 @@
     [super viewWillDisappear:animated];
     self.viewDeckController.panningMode = IIViewDeckPanningViewPanning;
     self.viewDeckController.delegate = nil;
+}
+- (id)plazeRightSliderController
+{
+    //右边菜单
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController: [[RightSerachController alloc] init]];
+    nav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    [nav.navigationBar setHidden:YES];
+    return nav;
 }
 - (void)setRightSearchBarTonil:(BOOL)isNil
 {
@@ -237,7 +246,7 @@
 - (void)searchButtonClick:(UIButton *)button
 {
 //    [self setRightSearchBarTonil:NO];
-    DLog();
+//    DLog(@"%@",self.viewDeckController);
     [self.viewDeckController toggleRightViewAnimated:YES];
 }
 - (void)titleMenuClickWithInfo:(id)info
@@ -261,8 +270,8 @@
     }
     return NO;
 }
-- (void)viewDeckController:(IIViewDeckController *)viewDeckController didCloseViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated
-{
-    [self setRightSearchBarTonil:YES];
-}
+//- (void)viewDeckController:(IIViewDeckController *)viewDeckController didCloseViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated
+//{
+////    [self setRightSearchBarTonil:YES];
+//}
 @end
