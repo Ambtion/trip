@@ -12,6 +12,7 @@
 #import "PlazeViewController.h"
 #import "RequestManager.h"
 #import "UploadViewControllerManager.h"
+#import "FGuideViewManager.h"
 
 @implementation PlazeViewController
 @synthesize assetsArray = _assetsArray;
@@ -23,6 +24,11 @@
     [self addTableView];
     [self addPathButton];
     [self addCusNavBar];
+    if ([self isIphone5]) {
+        [FGuideViewManager showFGuideViewWithImageaArray:[NSArray arrayWithObjects:@"01-1_for5.png",@"01-2_for5.png",@"01-3_for5.png", nil] superController:self];
+    }else{
+        [FGuideViewManager showFGuideViewWithImageaArray:[NSArray arrayWithObjects:@"01-1.png",@"01-2.png",@"01-3.png", nil] superController:self];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

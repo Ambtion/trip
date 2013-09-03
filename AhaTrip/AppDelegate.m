@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Umeng/UMAppKey.h"
-#import "FunctionGuideView.h"
+#import "ProjectGuideView.h"
 #import "IIViewDeckController.h"
 #import "PlazeViewController.h"
 #import "LeftMenuController.h"
@@ -23,7 +23,7 @@
 {
     //this register umeng
     [MobClick startWithAppkey:UM_APP_KEY];
-    [FunctionGuideView showViewWithDelegate:nil];
+    [ProjectGuideView showViewWithDelegate:nil];
     //this register notification
     [[UIApplication sharedApplication]  registerForRemoteNotificationTypes: (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge |
                                                                              UIRemoteNotificationTypeSound)];

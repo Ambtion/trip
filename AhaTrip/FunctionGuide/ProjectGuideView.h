@@ -12,17 +12,17 @@
 
 #define FUNCTIONSHOWED [NSString stringWithFormat:@"__FUNCTIONSHOWED__%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]
 
-@class FunctionGuideView;
-@protocol FunctionGuideViewDelegate <NSObject>
+@class ProjectGuideView;
+@protocol ProjectGuideViewDelegate <NSObject>
 @optional
-- (void)functionGuideView:(FunctionGuideView *)guideView loginButtonClick:(UIButton *)button;
+- (void)functionGuideView:(ProjectGuideView *)guideView loginButtonClick:(UIButton *)button;
 @end
-@interface FunctionGuideView : UIView <UIScrollViewDelegate>
+@interface ProjectGuideView : UIView <UIScrollViewDelegate>
 {
     UIScrollView * _scrollView;
     SMPageControl * _pageControll;
-    id<FunctionGuideViewDelegate> delegate;
+    id<ProjectGuideViewDelegate> delegate;
 }
-+ (void)showViewWithDelegate:(id<FunctionGuideViewDelegate>)delegate;
++ (void)showViewWithDelegate:(id<ProjectGuideViewDelegate>)delegate;
 + (BOOL)shouldShowGuide;
 @end

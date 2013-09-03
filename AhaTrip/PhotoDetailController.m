@@ -10,6 +10,7 @@
 #import "HomePageController.h"
 #import "RequestManager.h"
 #import "UIImageView+WebCache.h"
+#import "FGuideViewManager.h"
 
 @implementation PhotoDetailController
 - (id)initWithTitleId:(NSString *)titleId
@@ -43,6 +44,11 @@
     [self addPageController];
     [self addBackButton];
     [self getDataSource];
+    if ([self isIphone5]) {
+        [FGuideViewManager showFGuideViewWithImageaArray:[NSArray arrayWithObjects:@"02-1_for5.png",@"02-2_for5.png",@"02-3_for5.png", nil] superController:self];
+    }else{
+        [FGuideViewManager showFGuideViewWithImageaArray:[NSArray arrayWithObjects:@"02-1.png",@"02-2.png",@"02-3.png", nil] superController:self];
+    }
 }
 
 - (void)addScrollView

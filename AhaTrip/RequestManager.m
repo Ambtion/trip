@@ -30,6 +30,7 @@
     [request setRequestMethod:method];
     [request setTimeOutSeconds:TIMEOUT];
     [request setStringEncoding:NSUTF8StringEncoding];
+    DLog(@"url :%@",request.url);
     for (id key in [body allKeys])
         [request setPostValue:[body objectForKey:key] forKey:key];
     __weak ASIFormDataRequest * weakSelf = request;
@@ -41,7 +42,6 @@
         }else{
             failure([weakSelf.error description]);
         }
-        
     }];
     [request setFailedBlock:^{
         failure([weakSelf.error description]);
