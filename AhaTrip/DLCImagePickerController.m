@@ -57,6 +57,7 @@ outputJPEGQuality;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.wantsFullScreenLayout = YES;
     [self addcreateImageView];
     UITapGestureRecognizer * ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToFocus:)];
     [self.imageView addGestureRecognizer:ges];
@@ -86,12 +87,18 @@ outputJPEGQuality;
 }
 - (void)addcreateImageView
 {
-    self.imageView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 425)];
-    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView = [[GPUImageView alloc] init];
+    if ([self isIphone5]) {
+        self.imageView.frame = CGRectMake(0, [self.view bounds].size.height -  self.filterScrollView.frame.size.height - 55 - 320 - 5, 320, 320);
+    }else{
+        self.imageView.frame = CGRectMake(0, 0, 320, 320);
+    }
+//    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.imageView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.imageView];
     [self.view sendSubviewToBack:self.imageView];
+    DLog(@"%@ %@",self.view , self.imageView);
 }
 - (void)addcreteFillterView
 {
@@ -593,12 +600,12 @@ outputJPEGQuality;
 
 -(void) showFilters
 {
-    CGRect imageRect = self.imageView.frame;
+//    CGRect imageRect = self.imageView.frame;
     CGRect sliderScrollFrame = self.filterScrollView.frame;
     sliderScrollFrame.origin.y = [[UIScreen mainScreen] bounds].size.height -  self.filterScrollView.frame.size.height - 55;
     self.filterScrollView.backgroundColor =  mRGBColor(43, 43, 44);
     self.filterScrollView.frame = sliderScrollFrame;
-    self.imageView.frame = imageRect;
+//    self.imageView.frame = imageRect;
 }
 
 //-(void) hideFilters {
