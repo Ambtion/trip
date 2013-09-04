@@ -67,16 +67,30 @@ ntfController = _ntfController,setController = _setController;
         cell = [[LeftMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
     }
     if (indexPath.row == 1 && _userInfo) {
-        DLog(@"%@",_userInfo);
         cell.titleLabel.text = [_userInfo objectForKey:@"username"];
         [cell.iconImage.imageView setImageWithURL:[NSURL URLWithString:[_userInfo objectForKey:@"thumb"]] placeholderImage:[UIImage imageNamed:image[indexPath.row]]];
     }else{
         cell.iconImage.imageView.image = [UIImage imageNamed:image[indexPath.row]];
         cell.titleLabel.text = menuText[indexPath.row];
     }
-    [cell.countLabel setHidden:indexPath.row != 2 || [[UIApplication sharedApplication] applicationIconBadgeNumber] <= 0];
-    cell.countLabel.text = [NSString stringWithFormat:@"%d",[[UIApplication sharedApplication] applicationIconBadgeNumber]];
-
+    [cell.countLabel setHidden:indexPath.row != 2];
+//    cell.countLabel.text = [NSString stringWithFormat:@"%d",[[UIApplication sharedApplication] applicationIconBadgeNumber]];
+    if (indexPath.row == 2) {
+        [RequestManager getNotificationListCountSuccess:^(NSString *response) {
+            NSDictionary * dic  = [response JSONValue];
+            NSInteger count = [[dic objectForKey:@"count"] intValue];
+            if (count < 1) {
+                [cell.countLabel setHidden:YES];
+            }else{
+                [cell.countLabel setHidden:NO];
+                cell.countLabel.text = [NSString stringWithFormat:@"%d",count];
+            }
+            
+        } failure:^(NSString *error) {
+            
+        }];
+    }
+    
     return cell;
 }
 

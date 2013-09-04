@@ -452,6 +452,11 @@
 }
 
 //通知列表
++ (void)getNotificationListCountSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/unreadMessageCount?token=%@",[LoginStateManager currentToken]];
+    [self getSourceWithStringUrl:str asynchronou:NO success:success failure:failure];
+}
 + (void)getNotificationListSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 
 {

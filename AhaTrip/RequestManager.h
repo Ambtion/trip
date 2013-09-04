@@ -80,5 +80,6 @@ typedef enum  __Token_From Token_From;
 + (void)getGooglePlaceWithRadius:(CGFloat)radius latitude:(CGFloat)lat longitude:(CGFloat)lon placeType:(NSString *)type placeContainName:(NSString *)name success:(void (^) (NSData * data))success  failure:(void (^) (NSString * error))failure;
 
 //通知列表
++ (void)getNotificationListCountSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 + (void)getNotificationListSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 @end
