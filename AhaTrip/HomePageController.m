@@ -9,6 +9,7 @@
 #import "HomePageController.h"
 #import "RequestManager.h"
 #import "UploadViewControllerManager.h"
+#import "FGuideViewManager.h"
 
 @interface HomePageController ()
 {
@@ -36,6 +37,11 @@
     [self addTableView];
     [self addBackButton];
     [self addPathButton];
+    if ([self isIphone5]) {
+        [FGuideViewManager showFGuideViewWithImageaArray:[NSArray arrayWithObjects:@"03_for5.png", nil] superController:self];
+    }else{
+        [FGuideViewManager showFGuideViewWithImageaArray:[NSArray arrayWithObjects:@"03.png", nil] superController:self];
+    }
 }
 - (void)viewWillAppear:(BOOL)animated
 {

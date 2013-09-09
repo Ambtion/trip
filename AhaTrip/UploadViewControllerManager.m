@@ -16,9 +16,11 @@
 
 - (id)initWithCateroyId:(PicUploadCateroy)cateroyId
 {
-    SingleMenuViewController * sigle =  [[SingleMenuViewController alloc] initWithCateroyId:cateroyId];
-    sigle.delegate = self;
-    if (self = [super initWithRootViewController:sigle]) {
+//    SingleMenuViewController * sigle =  [[SingleMenuViewController alloc] initWithCateroyId:cateroyId];
+//    sigle.delegate = self;
+    CountryListController * contry = [[CountryListController alloc] init];
+    contry.delegate = self;
+    if (self = [super initWithRootViewController:contry]) {
         _cateroyId = cateroyId;
         [self.navigationBar setHidden:YES];
     }
@@ -40,13 +42,6 @@
 - (void)singleSelectedSubCateroyWihtInfo:(NSDictionary *)info
 {
     
-//    tempInfoController = [[UploadInfoViewController alloc] initWithImageUrls:[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],[UIImage imageNamed:@"test_portrait"],nil]];
-//    tempInfoController.delegate = self;
-//    [self pushViewController:tempInfoController animated:YES];
-//    return;
-//    MapViewController * mv = [[MapViewController alloc] init];
-//    [self pushViewController:mv animated:YES];
-//    return;
     _subCateroyInfo = info;
     CountryListController * souSuoCTL = [[CountryListController alloc] init];
     souSuoCTL.delegate = self;
@@ -167,12 +162,14 @@
 }
 - (void)uploadInfoViewControllerDidClickSender:(NSDictionary *)info
 {
+    [self waitForMomentsWithTitle:@"上传中" withView:nil];
     [RequestManager uploadPics:_imageUrlArray withCountryId:[[_countryInfo objectForKey:@"id"] integerValue] city_id:[[_cityInfo objectForKey:@"id"] integerValue] category_id:_cateroyId sub_category_id:[[_subCateroyInfo objectForKey:@"id"] integerValue] position:_locationName description:[info objectForKey:@"Des"] business_hours_start:[info objectForKey:@"StartTime"] business_hours_end:[info objectForKey:@"EndTime"] price:[[info objectForKey:@"Price"] intValue] price_unit_id:[[info objectForKey:@"PriceUnit"] intValue] hasWifi:[[info objectForKey:@"WiFi"] boolValue] success:^(NSString *response) {
         [self showTotasViewWithMes:@"上传成功"];
         DLog(@"%@",self.presentingViewController);
+        [self stopWaitProgressView:nil];
         [self.presentingViewController changeToHome];
         [self dismissModalViewControllerAnimated:YES];
-    } failure:^(NSString *error) {
+    } failure:^(NSString * error) {
         [self showTotasViewWithMes:@"上传失败,稍后重试"];
     }];
 }

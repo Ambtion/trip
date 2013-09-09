@@ -114,7 +114,7 @@
     
     NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray* sinaweiboCookies = [cookies cookiesForURL:
-                                [NSURL URLWithString:@"https://open.weibo.cn"]];
+                                 [NSURL URLWithString:@"https://open.weibo.cn"]];
     
     for (NSHTTPCookie* cookie in sinaweiboCookies)
     {
@@ -171,7 +171,7 @@
         [delegate sinaweibo:self accessTokenInvalidOrExpired:error];
     }
     
-    if ([requestDelegate respondsToSelector:@selector(request:didFailWithError:)]) 
+    if ([requestDelegate respondsToSelector:@selector(request:didFailWithError:)])
 	{
 		[requestDelegate request:nil didFailWithError:error];
 	}
@@ -203,8 +203,8 @@
             else
             {
                 self.expirationDate = [NSDate dateWithTimeIntervalSinceNow:expVal];
-            } 
-        } 
+            }
+        }
         
         self.accessToken = access_token;
         self.userID = uid;
@@ -232,7 +232,7 @@
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                       errorInfo, @"error",
                                       error_description, NSLocalizedDescriptionKey, nil];
-            NSError *error = [NSError errorWithDomain:kSinaWeiboSDKErrorDomain 
+            NSError *error = [NSError errorWithDomain:kSinaWeiboSDKErrorDomain
                                                  code:[error_code intValue]
                                              userInfo:userInfo];
             [delegate sinaweibo:self logInDidFailWithError:error];
@@ -300,7 +300,7 @@
             NSDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                     self.appKey, @"client_id",
                                     self.appRedirectURI, @"redirect_uri",
-                                    self.ssoCallbackScheme, @"callback_uri", nil];
+                                    self.ssoCallbackScheme, @"callback_uri",@"follow_app_official_microblog",@"scope",nil];
             
             // 先用iPad微博打开
             NSString *appAuthBaseURL = kSinaWeiboAppAuthURL_iPad;
@@ -310,7 +310,6 @@
                                                                params:params httpMethod:@"GET"];
                 ssoLoggingIn = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appAuthURL]];
             }
-            
             // 在用iPhone微博打开
             if (!ssoLoggingIn)
             {
@@ -328,8 +327,8 @@
             NSDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                     self.appKey, @"client_id",
                                     @"code", @"response_type",
-                                    self.appRedirectURI, @"redirect_uri", 
-                                    @"mobile", @"display", nil];
+                                    self.appRedirectURI, @"redirect_uri",
+                                    @"mobile", @"display",@"follow_app_official_microblog",@"scope", nil];
             
             SinaWeiboAuthorizeView *authorizeView = \
             [[SinaWeiboAuthorizeView alloc] initWithAuthParams:params
@@ -365,9 +364,9 @@
  */
 
 - (SinaWeiboRequest *)requestWithURL:(NSString *)url
-                             params:(NSMutableDictionary *)params
-                         httpMethod:(NSString *)httpMethod
-                           delegate:(id<SinaWeiboRequestDelegate>)_delegate
+                              params:(NSMutableDictionary *)params
+                          httpMethod:(NSString *)httpMethod
+                            delegate:(id<SinaWeiboRequestDelegate>)_delegate
 {
     if (params == nil)
     {
@@ -495,7 +494,7 @@
                     NSString *error_description = @"Invalid sso params";
                     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                               error_description, NSLocalizedDescriptionKey, nil];
-                    NSError *error = [NSError errorWithDomain:kSinaWeiboSDKErrorDomain 
+                    NSError *error = [NSError errorWithDomain:kSinaWeiboSDKErrorDomain
                                                          code:kSinaWeiboSDKErrorCodeSSOParamsError
                                                      userInfo:userInfo];
                     [delegate sinaweibo:self logInDidFailWithError:error];

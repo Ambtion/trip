@@ -22,4 +22,4 @@
 
 #define kAppKey             @"2247019797"
 #define kAppSecret          @"ce968d8f736a5ec3d28b064005ca1d3b"
-#define kAppRedirectURI     @"http://yyz.ahatrip.info"
+#define kAppRedirectURI     @"http://www.ahatrip.info"

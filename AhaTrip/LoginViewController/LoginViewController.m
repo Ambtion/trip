@@ -66,6 +66,7 @@
     _usernameTextField.font = [UIFont systemFontOfSize:15];
     _usernameTextField.textColor = TEXTLOLOR;
     _usernameTextField.returnKeyType = UIReturnKeyNext;
+    _usernameTextField.keyboardType = UIKeyboardTypeEmailAddress;
     _usernameTextField.placeholder = @"使用电子邮箱地址";
     _usernameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _usernameTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];

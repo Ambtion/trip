@@ -504,7 +504,7 @@
             [_searchArray addObject:poi];
         }
     }
-    _isSearchNO = !_searchArray.count;
+    _isSearchNO = !_searchArray.count || 1 ;
 }
 - (void)fixTableViewFrame:(UITableView *)tableView
 {

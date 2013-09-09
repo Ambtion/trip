@@ -87,8 +87,7 @@
     _usernameTextField.backgroundColor = [UIColor clearColor];
     _usernameTextField.delegate = self;
     _usernameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    [_usernameTextField addTarget:self action:@selector(usernameDidEndOnExit) forControlEvents:UIControlEventEditingDidEndOnExit];
-    
+    [_usernameTextField addTarget:self action:@selector(userNameDidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];
     UIView * mainBindBg = [[UIView alloc] initWithFrame:CGRectMake(33, 115, 260, 35)];
     mainBindBg.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _mailBindTextField = [[UITextField alloc] initWithFrame:CGRectMake(33 + 10, 115, 240, 35)];
@@ -144,6 +143,8 @@
     [_funcionView addSubview:_registerButton];
     
 }
+
+
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -294,6 +295,11 @@
     [_usernameTextField resignFirstResponder];
     [_passwordTextField resignFirstResponder];
     [_mailBindTextField resignFirstResponder];
+}
+- (void)userNameDidEndOnExit:(id)sender
+{
+//    [_usernameTextField resignFirstResponder];
+    [_mailBindTextField becomeFirstResponder];
 }
 - (void)mailBindDidEndOnExit
 {
