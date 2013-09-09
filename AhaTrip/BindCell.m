@@ -10,16 +10,18 @@
 
 @implementation BindCell
 @synthesize delegate = _delegate;
-
+@synthesize lineView;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         UIImageView * view = [[UIImageView alloc] initWithFrame:self.bounds];
-        view.backgroundColor = [UIColor whiteColor];
+        view.backgroundColor = [UIColor clearColor];
+        view.image = [[UIImage imageNamed:@"rect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 160, 22, 160)];
         self.backgroundView = view;
-        UIImageView * lineView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settting_line.png"]];
+        
+        lineView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settting_line.png"]];
         lineView.frame = CGRectMake(0, self.bounds.size.height - 1 + self.bounds.origin.y, self.bounds.size.width, 1);
         lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:lineView];
@@ -36,7 +38,7 @@
     
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(68, 0, 120, self.frame.size.height)];
     self.nameLabel.textColor = [UIColor blackColor];
-    self.nameLabel.font = [UIFont systemFontOfSize:13.f];
+    self.nameLabel.font = [UIFont systemFontOfSize:14.f];
     self.nameLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.nameLabel];
     self.bindSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(210, 0, 0, 0)];

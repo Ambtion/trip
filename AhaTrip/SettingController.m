@@ -86,7 +86,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     _tableView.dataSource = self;
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 45)];
     view.backgroundColor = [UIColor clearColor];
-    UIButton * logoutButton = [[UIButton  alloc] initWithFrame:CGRectMake(10, 0, 300, 40)];
+    UIButton * logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 300, 40)];
     [logoutButton setImage:[UIImage imageNamed:@"setting_logout.png"] forState:UIControlStateNormal];
     [logoutButton addTarget:self action:@selector(logoutButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:logoutButton];
@@ -159,6 +159,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
                 _sinaCell.nameLabel.text = titleSection1[indexPath.row];
                 [_sinaCell.bindSwitch setOn:[LoginStateManager isSinaBind]];
             }
+            [_sinaCell.lineView setHidden:YES];
             return _sinaCell;
         }else{
             if (!_qqCell) {
@@ -168,6 +169,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
                 _qqCell.nameLabel.text = titleSection1[indexPath.row];
                 [_qqCell.bindSwitch setOn:[LoginStateManager isQQBing]];
             }
+            [_sinaCell.lineView setHidden:NO];
             return _qqCell;
         }
         return nil;
@@ -179,6 +181,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
             cell = [[TitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         cell.textLabel.text = titleSection2[indexPath.row];
+        [cell.lineView setHidden:indexPath.row != 4];
         return cell;
     }
     return nil;

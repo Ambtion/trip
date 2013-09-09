@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TitleCell : UITableViewCell
-
+@property(nonatomic,strong)UIImageView * lineView;
 @end

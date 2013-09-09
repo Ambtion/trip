@@ -37,10 +37,15 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         UIImageView * view = [[UIImageView alloc] initWithFrame:self.bounds];
-        view.backgroundColor = [UIColor whiteColor];
+        view.backgroundColor = [UIColor clearColor];
+        view.image = [[UIImage imageNamed:@"rect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 160, 22, 160)];
         self.backgroundView = view;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self addAllSubViews];
+        UIImageView * lineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height+2, 300, 1)];
+        lineView.image = [[UIImage imageNamed:@"settting_line"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 160, 0, 160)];
+        [self.contentView addSubview:lineView];
+        lineView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
     return self;
 }
