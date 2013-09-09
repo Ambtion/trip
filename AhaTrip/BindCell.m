@@ -22,7 +22,7 @@
         self.backgroundView = view;
         
         lineView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settting_line.png"]];
-        lineView.frame = CGRectMake(0, self.bounds.size.height - 1 + self.bounds.origin.y, self.bounds.size.width, 1);
+        lineView.frame = CGRectMake(0, self.bounds.size.height -1, self.bounds.size.width, 1);
         lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:lineView];
         [self addAllSubViews];

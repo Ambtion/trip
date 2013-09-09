@@ -109,16 +109,12 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 {
     switch (indexPath.section) {
         case 0:
-            return 426.f;
+            return 426.f - 2;
             break;
         case 1:
-            return 42.f;
-            break;
         case 2:
             return 42.f;
-            break;
-        default:
-            break;
+
     }
     return 0.f;
 }
@@ -137,7 +133,10 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     }
     return 0;
 }
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor clearColor];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -169,7 +168,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
                 _qqCell.nameLabel.text = titleSection1[indexPath.row];
                 [_qqCell.bindSwitch setOn:[LoginStateManager isQQBing]];
             }
-            [_sinaCell.lineView setHidden:NO];
+            [_qqCell.lineView setHidden:NO];
             return _qqCell;
         }
         return nil;

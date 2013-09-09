@@ -36,13 +36,14 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
         UIImageView * view = [[UIImageView alloc] initWithFrame:self.bounds];
         view.backgroundColor = [UIColor clearColor];
         view.image = [[UIImage imageNamed:@"rect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 160, 22, 160)];
         self.backgroundView = view;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self addAllSubViews];
-        UIImageView * lineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height+2, 300, 1)];
+        UIImageView * lineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height + 1, 300, 1)];
         lineView.image = [[UIImage imageNamed:@"settting_line"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 160, 0, 160)];
         [self.contentView addSubview:lineView];
         lineView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -89,7 +90,7 @@
 }
 - (BirthDayField *)addBirthFieldWithReferenceView:(UIView *)view placeHolder:(NSString *)holder returnKey:(UIReturnKeyType)type
 {
-    BirthDayField *  field = [[BirthDayField alloc] initWithFrame:CGRectMake(OFFSET * 2, view.frame.origin.y + view.frame.size.height, view.frame.size.width - OFFSET * 4, 42)];
+    BirthDayField *  field = [[BirthDayField alloc] initWithFrame:CGRectMake(OFFSET * 2, view.frame.origin.y + view.frame.size.height, view.frame.size.width - OFFSET * 4, 41)];
     [field setButtonNormalTextColor:[UIColor blackColor] seletedColor:[UIColor whiteColor]];
     [self setTextFiledPorperty:field.textFiled];
     field.textFiled.placeholder = holder;

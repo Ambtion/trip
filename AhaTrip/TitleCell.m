@@ -26,7 +26,7 @@
         lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:lineView];
 
-        self.textLabel.font = [UIFont systemFontOfSize:18.f];
+        self.textLabel.font = [UIFont systemFontOfSize:14.f];
         self.textLabel.shadowColor = [UIColor clearColor];
         self.textLabel.backgroundColor = [UIColor clearColor];
     }
