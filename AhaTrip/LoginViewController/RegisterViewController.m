@@ -117,6 +117,7 @@
     _passwordTextField.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     _passwordTextField.backgroundColor = [UIColor clearColor];
     _mailBindTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _mailBindTextField.keyboardType = UIKeyboardTypeEmailAddress;
     [_passwordTextField addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventEditingDidEndOnExit];
     
     UIView * birBg = [[UIView alloc] initWithFrame:CGRectMake(33, 205, 150, 35)];
