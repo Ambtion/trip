@@ -9,10 +9,10 @@
 #import "ProjectGuideView.h"
 #import "AppDelegate.h"
 
-#define PAGENUM 5
+#define PAGENUM 4
 
-static NSString * staticImage[5] = {@"guide_1_1.png",@"guide_1_2.png",@"guide_1_3.png",@"guide_1_4.png",@"guide_1_5.png"};
-static NSString * staticImage6[5] = {@"guide_1_5_1.png",@"guide_1_5_2.png",@"guide_1_5_3.png",@"guide_1_5_4.png",@"guide_1_5_5.png"};
+static NSString * staticImage[4] = {@"guide_1_1.png",@"guide_1_3.png",@"guide_1_4.png",@"guide_1_5.png"};
+static NSString * staticImage6[4] = {@"guide_1_5_1.png",@"guide_1_5_3.png",@"guide_1_5_4.png",@"guide_1_5_5.png"};
 
 @implementation ProjectGuideView
 
