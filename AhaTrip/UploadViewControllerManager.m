@@ -68,6 +68,10 @@
 - (void)cityListControllerDidSeletedCityInfo:(NSDictionary *)info
 {
     _cityInfo = info;
+    DLCImagePickerController * picker = [[DLCImagePickerController alloc] init];
+    picker.delegate = self;
+    [self pushViewController:picker animated:YES];
+    return;
     SeletedPhotoMethodController *photoCTL=[[SeletedPhotoMethodController alloc] init];
     photoCTL.delegate = self;
     [self pushViewController:photoCTL animated:YES];
