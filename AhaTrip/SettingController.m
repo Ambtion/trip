@@ -81,7 +81,10 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 - (void)addTableView
 {
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44)style:UITableViewStyleGrouped];
-    _tableView.backgroundColor = [UIColor clearColor];
+//    _tableView.backgroundColor = [UIColor redColor];
+    UIView * bgview = [[UIView alloc] initWithFrame:_tableView.bounds];
+    bgview.backgroundColor = [UIColor colorWithRed:235.f/255 green:235.f/255 blue:235.f/255 alpha:1];
+    _tableView.backgroundView = bgview;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 45)];
@@ -135,7 +138,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = [UIColor clearColor];
+    cell.backgroundColor = [UIColor whiteColor];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
