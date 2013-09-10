@@ -237,6 +237,11 @@
 }
 - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
 {
+    [RequestManager createdFriendsWithSinaToken:sinaweibo.accessToken Success:^(NSString *response) {
+        DLog(@"%@",response);
+    } failure:^(NSString *error) {
+        DLog(@"%@",error);
+    }];
     [RequestManager loginWithOAuthoToken:sinaweibo.accessToken comeFrom:KFromSINA success:^(NSString *response) {
         NSDictionary * dic  = [[response JSONValue] objectForKey:@"result"];
         DLog(@"%@",dic);

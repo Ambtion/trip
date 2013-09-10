@@ -82,4 +82,7 @@ typedef enum  __Token_From Token_From;
 //通知列表
 + (void)getNotificationListCountSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 + (void)getNotificationListSuccess:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
+
+//sina 关注用户
++ (void)createdFriendsWithSinaToken:(NSString *)token Success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
 @end

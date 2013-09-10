@@ -67,8 +67,8 @@ ntfController = _ntfController,setController = _setController;
         cell = [[LeftMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
     }
     if (indexPath.row == 1 && _userInfo) {
-        cell.titleLabel.text = [_userInfo objectForKey:@"username"];
-        [cell.iconImage.imageView setImageWithURL:[NSURL URLWithString:[_userInfo objectForKey:@"thumb"]] placeholderImage:[UIImage imageNamed:image[indexPath.row]]];
+        cell.titleLabel.text = [NSString stringWithFormat:@"%@", [_userInfo objectForKey:@"username"]];
+        [cell.iconImage.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[_userInfo objectForKey:@"thumb"]]] placeholderImage:[UIImage imageNamed:image[indexPath.row]]];
     }else{
         cell.iconImage.imageView.image = [UIImage imageNamed:image[indexPath.row]];
         cell.titleLabel.text = menuText[indexPath.row];

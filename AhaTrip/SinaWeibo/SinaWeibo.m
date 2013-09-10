@@ -300,7 +300,7 @@
             NSDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                     self.appKey, @"client_id",
                                     self.appRedirectURI, @"redirect_uri",
-                                    self.ssoCallbackScheme, @"callback_uri",@"follow_app_official_microblog",@"scope",nil];
+                                    self.ssoCallbackScheme, @"callback_uri",@"follow_app_official_microblog,statuses_to_me_read",@"scope",nil];
             
             // 先用iPad微博打开
             NSString *appAuthBaseURL = kSinaWeiboAppAuthURL_iPad;
@@ -328,7 +328,7 @@
                                     self.appKey, @"client_id",
                                     @"code", @"response_type",
                                     self.appRedirectURI, @"redirect_uri",
-                                    @"mobile", @"display",@"follow_app_official_microblog",@"scope", nil];
+                                    @"mobile", @"display",@"follow_app_official_microblog,statuses_to_me_read",@"scope", nil];
             
             SinaWeiboAuthorizeView *authorizeView = \
             [[SinaWeiboAuthorizeView alloc] initWithAuthParams:params

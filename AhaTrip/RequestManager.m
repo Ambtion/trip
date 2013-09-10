@@ -10,6 +10,7 @@
 #import "RequestManager.h"
 #import "ASIFormDataRequest.h"
 #import "ASIDownloadCache.h"
+#import "OAuthShareRef.h"
 
 #define TIMEOUT 10.f
 
@@ -35,8 +36,8 @@
         [request setPostValue:[body objectForKey:key] forKey:key];
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
-//        NSDictionary * dic = [weakSelf.responseString JSONValue];
-//        DLog(@"%@",dic);
+        NSDictionary * dic = [weakSelf.responseString JSONValue];
+        DLog(@"%@",dic);
         if (weakSelf.responseStatusCode == 200){
             success(weakSelf.responseString);
         }else{
@@ -463,5 +464,17 @@
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/messageList?token=%@",[LoginStateManager currentToken]];
     DLog(@"%@",str);
     [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
+}
+
+//sina 关注用户
++ (void)createdFriendsWithSinaToken:(NSString *)token Success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = @"https://api.weibo.com/2/friendships/create.json";
+    NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:kAppKey,@"source",token,@"access_token",[NSNumber numberWithLongLong:3650084901], @"uid",nil];
+    [self postWithURL:str body:dic success:success failure:failure];
+//    source	false	string	采用OAuth授权方式不需要此参数，其他授权方式为必填参数，数值为应用的AppKey。
+//    access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
+//    uid	false	int64	需要关注的用户ID。
+//    screen_name	false	string	需要关注的用户昵称。
 }
 @end

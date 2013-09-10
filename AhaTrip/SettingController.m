@@ -46,11 +46,11 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
         NSDictionary  * userInfo = [[response JSONValue] objectForKey:@"user"];
         DLog(@"%@",userInfo);
         acountSource = [[AcountSettingCellDataSource alloc] init];
-        acountSource.poraitImage = [userInfo objectForKey:@"thumb"];
-        acountSource.userName = [userInfo objectForKey:@"username"];
-        acountSource.userDes = [userInfo objectForKey:@"signature"];
-        acountSource.birthday = [userInfo objectForKey:@"birth"];
-        acountSource.sex = [userInfo objectForKey:@"sex"];
+        acountSource.poraitImage =[NSString stringWithFormat:@"%@", [userInfo objectForKey:@"thumb"]];
+        acountSource.userName = [NSString stringWithFormat:@"%@",[userInfo objectForKey:@"username"]];
+        acountSource.userDes = [NSString stringWithFormat:@"%@",[userInfo objectForKey:@"signature"]];
+        acountSource.birthday = [NSString stringWithFormat:@"%@",[userInfo objectForKey:@"birth"]];
+        acountSource.sex = [NSString stringWithFormat:@"%@",[userInfo objectForKey:@"sex"]];
         [_tableView reloadData];
     } failure:^(NSString *error) {
        
