@@ -728,10 +728,14 @@ outputJPEGQuality;
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:!isLibModel completion:nil];
-    if (isLibModel)
-        [self cancel:nil];
-    else
+    if (isLibModel){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+//        [self cancel:nil];
+    else{
         [self retakePhoto:nil];
+    }
+    
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
