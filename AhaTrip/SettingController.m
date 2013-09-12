@@ -259,7 +259,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
                 [self.navigationController pushViewController:[[AboutViewController alloc] init] animated:YES];
                 break;
             case 1: //评分
-                
+                [self rating];
                 break;
             case 2: //反馈
                 [self.navigationController pushViewController:[[FeedBackController alloc] init] animated:YES];
@@ -297,17 +297,24 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 }
 
 #pragma checkou Version
+- (void)rating
+{
+    NSDictionary * dic = [self getAppInfoFromNet];
+    UIApplication *application = [UIApplication sharedApplication];
+    [application openURL:[NSURL URLWithString:[dic objectForKey:@"url"]]];    
+}
 -(void)onCheckVersion
 {
-//    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-//    NSNumber * currentVersion = [infoDic objectForKey:@"VersionCode"];
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSNumber * currentVersion = [infoDic objectForKey:@"VersionCode"];
     NSDictionary * dic = [self getAppInfoFromNet];
-//    NSNumber * newVersion = [dic objectForKey:@"versionCode"];
-//    BOOL isUpata = [self CompareVersionFromOldVersion:currentVersion newVersion:newVersion];
+    DLog(@"%@",dic);
+    NSNumber * newVersion = [dic objectForKey:@"version"];
+    BOOL isUpata = [self CompareVersionFromOldVersion:currentVersion newVersion:newVersion];
 
-    if (0) {
+    if (isUpata) {
         UIApplication *application = [UIApplication sharedApplication];
-        [application openURL:[NSURL URLWithString:[dic objectForKey:@"updateURL"]]];
+        [application openURL:[NSURL URLWithString:[dic objectForKey:@"url"]]];
     }else{
         [self showPopAlerViewWithMes:@"当前已是最新版本" withDelegate:self cancelButton:@"确定" otherButtonTitles:nil];
     }
@@ -318,18 +325,17 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 }
 - (NSDictionary *)getAppInfoFromNet
 {
-//    NSString *URL =[NSString stringWithFormat:@"%@/version?app=ios",BASICURL_V1];
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-//    [request setURL:[NSURL URLWithString:URL]];
-//    [request setHTTPMethod:@"GET"];
-//    NSHTTPURLResponse *urlResponse = nil;
-//    NSError * error = nil;
-//    NSData * recervedData = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
-//    NSString *results = [[NSString alloc] initWithBytes:[recervedData bytes] length:[recervedData length] encoding:NSUTF8StringEncoding];
-//    return [results JSONValue];
+    NSString *URL =[NSString stringWithFormat:@"http://yyz.ahatrip.info/api/version?token=%@",[LoginStateManager currentToken]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:URL]];
+    [request setHTTPMethod:@"GET"];
+    NSHTTPURLResponse *urlResponse = nil;
+    NSError * error = nil;
+    NSData * recervedData = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
+    NSString *results = [[NSString alloc] initWithBytes:[recervedData bytes] length:[recervedData length] encoding:NSUTF8StringEncoding];
+    return [[results JSONValue] objectForKey:@"result"];
     return nil;
 }
-
 
 #pragma bind
 #pragma mark Bind
