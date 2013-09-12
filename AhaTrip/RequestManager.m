@@ -202,9 +202,9 @@
             NSDictionary * dic = [picArray objectAtIndex:0];
             UIImage * image = [dic objectForKey:@"Image"];
             if ([LoginStateManager isQQBing])
-                [self sharePhoto:image ToQQwithDes:@"AhaTrip" compressionQuality:0.3 success:nil failure:nil];
+                [self sharePhoto:image ToQQwithDes:description compressionQuality:0.3 success:nil failure:nil];
             if ([LoginStateManager isSinaBind])
-                [self sharePhoto:image ToSinawithDes:@"AhaTrip" compressionQuality:0.3 success:nil failure:nil];
+                [self sharePhoto:image ToSinawithDes:description compressionQuality:0.3 success:nil failure:nil];
             success(weakSelf.responseString);
         }else{
             failure([weakSelf.error description]);
