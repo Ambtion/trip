@@ -104,12 +104,11 @@
     tap.delegate = self;
     [self.view addGestureRecognizer:tap];
     
-    
     //    返回menu页的按钮
     UIButton *backButton=[UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(10,0, 44, 44)];
     backButton.contentMode=UIViewContentModeCenter;
-    [backButton setImage:[UIImage imageNamed:@"feedBackback"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"feedBackBack.png"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(settingnavigationBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
