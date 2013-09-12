@@ -428,6 +428,7 @@
 		C5553CC6177D842900E36CF1 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C5553CC5177D842900E36CF1 /* SMPageControl.m */; };
 		C5553CCA177D875300E36CF1 /* currentPageDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5553CC8177D875300E36CF1 /* currentPageDot@2x.png */; };
 		C5553CCB177D875300E36CF1 /* pageDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5553CC9177D875300E36CF1 /* pageDot@2x.png */; };
+		C57D3E8517DF49F5009D2D41 /* rect.png in Resources */ = {isa = PBXBuildFile; fileRef = C57D3E8417DF49F5009D2D41 /* rect.png */; };
 		C57F95BF17DD611100F44F48 /* 03_for5.png in Resources */ = {isa = PBXBuildFile; fileRef = C57F95BD17DD611100F44F48 /* 03_for5.png */; };
 		C57F95C017DD611100F44F48 /* 03.png in Resources */ = {isa = PBXBuildFile; fileRef = C57F95BE17DD611100F44F48 /* 03.png */; };
 		C582182A177A9805001B0817 /* CQSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C5821829177A9805001B0817 /* CQSegmentControl.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1275,6 +1276,7 @@
 		C5553CC5177D842900E36CF1 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
 		C5553CC8177D875300E36CF1 /* currentPageDot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "currentPageDot@2x.png"; sourceTree = "<group>"; };
 		C5553CC9177D875300E36CF1 /* pageDot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pageDot@2x.png"; sourceTree = "<group>"; };
+		C57D3E8417DF49F5009D2D41 /* rect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rect.png; sourceTree = "<group>"; };
 		C57F95BD17DD611100F44F48 /* 03_for5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 03_for5.png; sourceTree = "<group>"; };
 		C57F95BE17DD611100F44F48 /* 03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 03.png; sourceTree = "<group>"; };
 		C5821828177A9805001B0817 /* CQSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQSegmentControl.h; sourceTree = "<group>"; };
@@ -1630,6 +1632,7 @@
 		0505F41817A3821D00C4B77F /* map Image */ = {
 			isa = PBXGroup;
 			children = (
+				C57D3E8417DF49F5009D2D41 /* rect.png */,
 				050EFEA517A4F4750069EC8F /* line@2x.png */,
 				050E012E17A4F4A70069EC8F /* rect@2x.png */,
 				050E013017A4FE370069EC8F /* menu@2x.png */,
@@ -3312,6 +3315,7 @@
 				C58AF39417D5D63D0000566C /* 02-3.png in Resources */,
 				C57F95BF17DD611100F44F48 /* 03_for5.png in Resources */,
 				C57F95C017DD611100F44F48 /* 03.png in Resources */,
+				C57D3E8517DF49F5009D2D41 /* rect.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

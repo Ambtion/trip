@@ -111,7 +111,7 @@
         [request setPostValue:[dic objectForKey:key] forKey:key];
     if (image)
         [request setData:UIImageJPEGRepresentation(image, 0.5) forKey:@"photo"];
-        __weak ASIFormDataRequest * weakSelf = request;
+    __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
         DLog(@"%@",weakSelf.responseString);
         if (weakSelf.responseStatusCode == 200){
@@ -124,7 +124,7 @@
         failure([weakSelf.error description]);
         DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
     }];
-        [request startSynchronous];
+    [request startSynchronous];
 }
 
 //修改个人信息
@@ -159,13 +159,13 @@
         DLog(@"failturl :%@ :%d %@",weakSelf.url,[weakSelf responseStatusCode],[weakSelf responseString]);
     }];
     [request startSynchronous];
-
+    
 }
 
 //上传接口
 + (void)uploadPics:(NSArray *)picArray withCountryId:(NSInteger)countryId city_id:(NSInteger)cityId category_id:(NSInteger)category_id sub_category_id:(NSInteger)sub_category_id  position:(NSString *)location  description:(NSString *)description business_hours_start:(NSString *)business_hours_start  business_hours_end:(NSString *)business_hours_end price:(NSInteger)price price_unit_id:(NSInteger)price_unit_id hasWifi:(BOOL)hasWifi success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-
+    
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/findingCreate"];
     __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:str]];
     [request setTimeOutSeconds:TIMEOUT];
@@ -199,6 +199,12 @@
     __weak ASIFormDataRequest * weakSelf = request;
     [request setCompletionBlock:^{
         if (weakSelf.responseStatusCode == 200){
+            NSDictionary * dic = [picArray objectAtIndex:0];
+            UIImage * image = [dic objectForKey:@"Image"];
+            if ([LoginStateManager isQQBing])
+                [self sharePhoto:image ToQQwithDes:@"AhaTrip" compressionQuality:0.3 success:nil failure:nil];
+            if ([LoginStateManager isSinaBind])
+                [self sharePhoto:image ToSinawithDes:@"AhaTrip" compressionQuality:0.3 success:nil failure:nil];
             success(weakSelf.responseString);
         }else{
             failure([weakSelf.error description]);
@@ -258,13 +264,17 @@
         NSDictionary * dic = [[weakSelf responseString] JSONValue];
         NSNumber *errorCode = [dic objectForKey:@"error_code"];
         if (!errorCode) {
-            success(nil);
+            if (success)
+                success(nil);
         }else{
             NSInteger code = [errorCode integerValue];
             if ((code >= 21314 && code <= 21319 )|| code == 21327 || code == 21332) {
-                failure(@"token失效,请重新认证");
+                if (failure)
+                    failure(@"token失效,请重新认证");
             }else{
-                failure(@"分享失败");
+                if (failure)
+                    
+                    failure(@"分享失败");
             }
         }
     }];
@@ -292,7 +302,7 @@
     if (cityId == ALLID && countryId == ALLID) {
         str =  [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/totalIndex?category_id=%d&start=%d&count=%d&token=%@",cateroy == KCateroyAll ? -1 : cateroy + 1,start,count,[LoginStateManager currentToken]];
     }else if (cityId == ALLID){
-          str =  [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/totalIndex?country_id=%d&category_id=%d&start=%d&count=%d&token=%@",countryId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count,[LoginStateManager currentToken]];
+        str =  [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/totalIndex?country_id=%d&category_id=%d&start=%d&count=%d&token=%@",countryId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count,[LoginStateManager currentToken]];
     } else{
         str  = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/cityIndex?city_id=%d&category_id=%d&type=search&start=%d&count=%d&token=%@",cityId,cateroy == KCateroyAll ? -1 : cateroy + 1,start,count,[LoginStateManager currentToken]];
     }
@@ -306,7 +316,7 @@
 {
     NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/findingDelete?finding_id=%d&token=%@",find_Id,[LoginStateManager currentToken]];
     [self postWithURL:str body:nil success:success failure:failure];
-//    http://www.myahatrip.com/api/findingDelete?finding_id=42&token=tRyW4rLBiJHffQ
+    //    http://www.myahatrip.com/api/findingDelete?finding_id=42&token=tRyW4rLBiJHffQ
     
 }
 + (void)getTitleImagesWithId:(NSString *)titleId success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
@@ -425,10 +435,10 @@
 
 + (void)getGooglePlaceWithRadius:(CGFloat)radius latitude:(CGFloat)lat longitude:(CGFloat)lon placeType:(NSString *)type placeContainName:(NSString *)name success:(void (^) (NSData * data))success  failure:(void (^) (NSString * error))failure
 {
-
+    
     NSString * strUrl = [NSString stringWithFormat:PlaceURLString,lat,lon,radius,type,name];
     NSURL * googlePlacesURL = [NSURL URLWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
+    
     __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:googlePlacesURL];
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]]; //开启缓冲
     [request setCachePolicy:ASIFallbackToCacheIfLoadFailsCachePolicy];
@@ -472,9 +482,9 @@
     NSString * str = @"https://api.weibo.com/2/friendships/create.json";
     NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:kAppKey,@"source",token,@"access_token",[NSNumber numberWithLongLong:3650084901], @"uid",nil];
     [self postWithURL:str body:dic success:success failure:failure];
-//    source	false	string	采用OAuth授权方式不需要此参数，其他授权方式为必填参数，数值为应用的AppKey。
-//    access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
-//    uid	false	int64	需要关注的用户ID。
-//    screen_name	false	string	需要关注的用户昵称。
+    //    source	false	string	采用OAuth授权方式不需要此参数，其他授权方式为必填参数，数值为应用的AppKey。
+    //    access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
+    //    uid	false	int64	需要关注的用户ID。
+    //    screen_name	false	string	需要关注的用户昵称。
 }
 @end

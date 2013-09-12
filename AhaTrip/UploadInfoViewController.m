@@ -390,7 +390,7 @@
     UILabel * label = (UILabel *)[cell viewWithTag:200];
     label.text = [dict objectForKey:@"sso"];
     UISwitch * sw = (UISwitch *)[cell viewWithTag:300];
-    if (indexPath.row) { //sina
+    if (!indexPath.row) { //sina
         cell.tag = 100;
         [sw setOn:[LoginStateManager isSinaBind]];
     }else{

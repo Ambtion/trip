@@ -30,6 +30,9 @@
 #pragma alertView
 - (MBProgressHUD *)waitForMomentsWithTitle:(NSString*)str withView:(UIView *)view
 {
+    if (!view) {
+        view = [[[UIApplication sharedApplication] delegate] window];
+    }
     MBProgressHUD * progressView = [[MBProgressHUD alloc] initWithView:view];
     progressView.animationType = MBProgressHUDAnimationZoomOut;
     progressView.labelText = str;
@@ -39,14 +42,22 @@
 }
 -(void)stopWaitProgressView:(MBProgressHUD *)view
 {
-    if (view)
+    if (view){
         [view removeFromSuperview];
-    else
+    }
+    else{
         for (UIView * view in self.view.subviews) {
             if ([view isKindOfClass:[MBProgressHUD class]]) {
                 [view removeFromSuperview];
             }
         }
+        for (UIView * view in [[[UIApplication sharedApplication] delegate] window].subviews) {
+            if ([view isKindOfClass:[MBProgressHUD class]]) {
+                [view removeFromSuperview];
+            }
+        }
+    }
+        
 }
 - (void)showPopAlerViewWithMes:(NSString *)message withDelegate:(id<UIAlertViewDelegate>)delegate cancelButton:(NSString *)cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...
 {

@@ -166,14 +166,14 @@
 }
 - (void)uploadInfoViewControllerDidClickSender:(NSDictionary *)info
 {
-    [self waitForMomentsWithTitle:@"上传中" withView:nil];
+    MBProgressHUD * view = [self waitForMomentsWithTitle:@"上传中" withView:tempInfoController.view];
     [RequestManager uploadPics:_imageUrlArray withCountryId:[[_countryInfo objectForKey:@"id"] integerValue] city_id:[[_cityInfo objectForKey:@"id"] integerValue] category_id:_cateroyId sub_category_id:[[_subCateroyInfo objectForKey:@"id"] integerValue] position:_locationName description:[info objectForKey:@"Des"] business_hours_start:[info objectForKey:@"StartTime"] business_hours_end:[info objectForKey:@"EndTime"] price:[[info objectForKey:@"Price"] intValue] price_unit_id:[[info objectForKey:@"PriceUnit"] intValue] hasWifi:[[info objectForKey:@"WiFi"] boolValue] success:^(NSString *response) {
         [self showTotasViewWithMes:@"上传成功"];
-        DLog(@"%@",self.presentingViewController);
-        [self stopWaitProgressView:nil];
+        [self stopWaitProgressView:view];
         [self.presentingViewController changeToHome];
         [self dismissModalViewControllerAnimated:YES];
     } failure:^(NSString * error) {
+        [self stopWaitProgressView:view];
         [self showTotasViewWithMes:@"上传失败,稍后重试"];
     }];
 }
