@@ -196,7 +196,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 }
 - (void)doneButtonClick:(UIButton *)button
 {
-
+    [_acountCell registerAllResopner];
     [RequestManager updateUserInfoWithName:_acountCell.userNameLabel.text des:_acountCell.userDes.text birthday:[_acountCell.birthday timeString] isGril:_acountCell.birthday.isGirl portrait:_acountCell.portraitImage.imageView.image success:^(NSString *response) {
         [self showTotasViewWithMes:@"修改成功"];
     } failure:^(NSString *error) {
@@ -246,10 +246,6 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     if (_tableView.contentOffset.y < offsetY)
         [_tableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
 }
-//- (void)acountSettingCellDidFinishedEdit:(AcountSettingCell *)cell
-//{
-//    DLog();
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

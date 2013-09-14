@@ -40,6 +40,6 @@
 @property(nonatomic,strong)UITextField * userNameLabel;
 @property(nonatomic,strong)UITextField * userDes;
 @property(nonatomic,strong)BirthDayField * birthday;
-
+- (void)registerAllResopner;
 - (void)updataAllViews;
 @end

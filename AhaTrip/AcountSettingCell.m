@@ -159,5 +159,10 @@
     if ([_delegate respondsToSelector:@selector(acountSettingCell:changeImage:)])
         [_delegate acountSettingCell:self changeImage:button];
 }
-
+- (void)registerAllResopner
+{
+    [_userNameLabel resignFirstResponder];
+    [_userDes resignFirstResponder];
+    [_birthday resignFirstResponder];
+}
 @end

@@ -227,7 +227,7 @@
     [request setPostValue:QQAPPID forKey:@"oauth_consumer_key"];
     [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"openid"] forKey:@"openid"];
     [request setPostValue:@1 forKey:@"mobile"];
-    [request setPostValue:des forKey:@"photodesc"];
+    [request setPostValue:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行APP （链接地址）" forKey:@"photodesc"];
     NSData * data = UIImageJPEGRepresentation(image, compress);
     [request setData:data forKey:@"picture"];
     __weak ASIFormDataRequest * weakSelf = request;
@@ -254,7 +254,7 @@
 {
     __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"https://upload.api.weibo.com/2/statuses/upload.json"]];
     [request setPostValue:[[LoginStateManager getTokenInfo:SinaWeiboShare] objectForKey:@"access_token"] forKey:@"access_token"];
-    if (!des || [des isEqualToString:@""])  des = @"#AhaTrip#";
+    if (!des || [des isEqualToString:@""])  des = @"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行APP （链接地址）";
     [request setPostValue:des forKey:@"status"];
     [request setPostValue:@0 forKey:@"visible"];
     NSData * data  = UIImageJPEGRepresentation(image, compress);
