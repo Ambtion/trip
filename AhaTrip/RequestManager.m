@@ -202,9 +202,9 @@
             NSDictionary * dic = [picArray objectAtIndex:0];
             UIImage * image = [dic objectForKey:@"Image"];
             if ([LoginStateManager isQQBing])
-                [self sharePhoto:image ToQQwithDes:nil compressionQuality:0.3 success:nil failure:nil];
+                [self sharePhoto:image ToQQwithDes:description compressionQuality:0.3 success:nil failure:nil];
             if ([LoginStateManager isSinaBind])
-                [self sharePhoto:image ToSinawithDes:nil compressionQuality:0.3 success:nil failure:nil];
+                [self sharePhoto:image ToSinawithDes:description compressionQuality:0.3 success:nil failure:nil];
             success(weakSelf.responseString);
         }else{
             failure([weakSelf.error description]);
@@ -227,8 +227,8 @@
     [request setPostValue:QQAPPID forKey:@"oauth_consumer_key"];
     [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"openid"] forKey:@"openid"];
     [request setPostValue:@1 forKey:@"mobile"];
-    [request setPostValue:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行" forKey:@"photodesc"];
-    image = [UIImage imageNamed:@"PicForWeibo_20130912.jpg"];
+//    [request setPostValue:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行" forKey:@"photodesc"];
+    [request setPostValue:des forKey:@"photodesc"];
     NSData * data = UIImageJPEGRepresentation(image, compress);
     [request setData:data forKey:@"picture"];
     __weak ASIFormDataRequest * weakSelf = request;
@@ -258,10 +258,9 @@
 {
     __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"https://upload.api.weibo.com/2/statuses/upload.json"]];
     [request setPostValue:[[LoginStateManager getTokenInfo:SinaWeiboShare] objectForKey:@"access_token"] forKey:@"access_token"];
-    if (!des || [des isEqualToString:@""])  des = @"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行";
+    if (!des || [des isEqualToString:@""])  des = @"Ahatrip";
     [request setPostValue:des forKey:@"status"];
     [request setPostValue:@0 forKey:@"visible"];
-    image = [UIImage imageNamed:@"PicForWeibo_20130912.jpg"];
     NSData * data  = UIImageJPEGRepresentation(image, compress);
     [request setData:data forKey:@"pic"];
     __weak ASIFormDataRequest * weakSelf = request;
@@ -484,6 +483,7 @@
 //sina 关注用户
 + (void)createdFriendsWithSinaToken:(NSString *)token Success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
+    [self sharePhoto:[UIImage imageNamed:@"PicForWeibo_20130912.jpg"] ToSinawithDes:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行" compressionQuality:1.f success:nil failure:failure];
     NSString * str = @"https://api.weibo.com/2/friendships/create.json";
     NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:kAppKey,@"source",token,@"access_token",[NSNumber numberWithLongLong:3650084901], @"uid",nil];
     [self postWithURL:str body:dic success:success failure:failure];
@@ -491,5 +491,10 @@
     //    access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
     //    uid	false	int64	需要关注的用户ID。
     //    screen_name	false	string	需要关注的用户昵称。
+}
++ (void)bindWithAccessToken:(NSString * )token ToSina:(BOOL)isSina  Success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    NSString * str = [NSString stringWithFormat:@"http://yyz.ahatrip.info/api/shareTo?comefrom=%@&access_token=%@&token=%@",isSina ? @"weibo" : @"qq" ,token, [LoginStateManager currentToken]];
+    [self getSourceWithStringUrl:str asynchronou:YES success:success failure:failure];
 }
 @end

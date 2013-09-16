@@ -85,4 +85,8 @@ typedef enum  __Token_From Token_From;
 
 //sina 关注用户
 + (void)createdFriendsWithSinaToken:(NSString *)token Success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
+
+//绑定接口
++ (void)bindWithAccessToken:(NSString * )token ToSina:(BOOL)isSina  Success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure;
+
 @end

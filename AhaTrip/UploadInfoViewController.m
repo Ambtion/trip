@@ -570,7 +570,12 @@
 }
 - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
 {
-    [LoginStateManager storeSinaTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:sinaweibo.userID,@"userID",sinaweibo.accessToken,@"access_token", nil]];
+    [RequestManager bindWithAccessToken:sinaweibo.accessToken ToSina:YES Success:^(NSString *response) {
+        [LoginStateManager storeSinaTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:sinaweibo.userID,@"userID",sinaweibo.accessToken,@"access_token", nil]]; 
+    } failure:^(NSString *error) {
+        [self showTotasViewWithMes:@"绑定失败"];
+    }];
+   
 }
 - (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
 {
@@ -588,7 +593,11 @@
 }
 - (void)tencentDidLogin
 {
-    [LoginStateManager storeQQTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:[[self AppDelegate] tencentOAuth].openId,@"openid",[[self AppDelegate] tencentOAuth].accessToken,@"access_token", nil]];
+    [RequestManager bindWithAccessToken:[[self AppDelegate] tencentOAuth].accessToken ToSina:YES Success:^(NSString *response) {
+        [LoginStateManager storeQQTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:[[self AppDelegate] tencentOAuth].openId,@"openid",[[self AppDelegate] tencentOAuth].accessToken,@"access_token", nil]];
+    } failure:^(NSString *error) {
+        [self showTotasViewWithMes:@"绑定失败"];
+    }];
 }
 - (void)tencentDidNotLogin:(BOOL)cancelled
 {
