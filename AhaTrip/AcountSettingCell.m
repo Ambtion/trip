@@ -71,6 +71,7 @@
 - (void)addtextFields
 {
     _userNameLabel = [self addTextFieldWithReferenceView:_portraitImage placeHolder:@"昵称" returnKey:UIReturnKeyNext];
+    [_userNameLabel setUserInteractionEnabled:NO];
     _userDes  = [self addTextFieldWithReferenceView:_userNameLabel placeHolder:@"个人简介" returnKey:UIReturnKeyDone];
     _birthday = [self addBirthFieldWithReferenceView:_userDes placeHolder:@"生日" returnKey:UIReturnKeyNext];
 }

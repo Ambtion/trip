@@ -542,7 +542,7 @@
 {
     UISwitch * switchButton = (UISwitch*)sender;
     UITableViewCell * cell  = (UITableViewCell *)switchButton.superview;
-    if (cell.tag == 100) {
+    if (cell.tag != 100) {
         BOOL isButtonOn = [switchButton isOn];
         if (isButtonOn) {
             [self bindQQ];
@@ -570,7 +570,7 @@
 }
 - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
 {
-    
+    [LoginStateManager storeSinaTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:sinaweibo.userID,@"userID",sinaweibo.accessToken,@"access_token", nil]];
 }
 - (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
 {
@@ -588,7 +588,7 @@
 }
 - (void)tencentDidLogin
 {
-    
+    [LoginStateManager storeQQTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:[[self AppDelegate] tencentOAuth].openId,@"openid",[[self AppDelegate] tencentOAuth].accessToken,@"access_token", nil]];
 }
 - (void)tencentDidNotLogin:(BOOL)cancelled
 {

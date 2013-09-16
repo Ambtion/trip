@@ -202,9 +202,9 @@
             NSDictionary * dic = [picArray objectAtIndex:0];
             UIImage * image = [dic objectForKey:@"Image"];
             if ([LoginStateManager isQQBing])
-                [self sharePhoto:image ToQQwithDes:description compressionQuality:0.3 success:nil failure:nil];
+                [self sharePhoto:image ToQQwithDes:nil compressionQuality:0.3 success:nil failure:nil];
             if ([LoginStateManager isSinaBind])
-                [self sharePhoto:image ToSinawithDes:description compressionQuality:0.3 success:nil failure:nil];
+                [self sharePhoto:image ToSinawithDes:nil compressionQuality:0.3 success:nil failure:nil];
             success(weakSelf.responseString);
         }else{
             failure([weakSelf.error description]);
@@ -221,26 +221,30 @@
 //分享到sina
 + (void)sharePhoto:(UIImage*)image ToQQwithDes:(NSString *)des compressionQuality:(CGFloat)compress  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    
+    DLog();
     __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"https://graph.qq.com/photo/upload_pic"]];
     [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"access_token"] forKey:@"access_token"];
     [request setPostValue:QQAPPID forKey:@"oauth_consumer_key"];
     [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"openid"] forKey:@"openid"];
     [request setPostValue:@1 forKey:@"mobile"];
     [request setPostValue:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行APP （链接地址）" forKey:@"photodesc"];
+    image = [UIImage imageNamed:@"PicForWeibo_20130912.jpg"];
     NSData * data = UIImageJPEGRepresentation(image, compress);
     [request setData:data forKey:@"picture"];
     __weak ASIFormDataRequest * weakSelf = request;
     
     [request setCompletionBlock:^{
+        DLog(@"%@",[weakSelf responseString]);
         NSInteger ret = [[[[weakSelf responseString] JSONValue] objectForKey:@"ret"] integerValue];
         if (!ret) {
             success(nil);
         }else if( (ret>= 100013 && ret >= 100016) || ret == 9016 ||
                  ret == 9017 || ret == 9018 || ret == 9094 || ret == 41003){
-            failure(@"token失效,请重新认证");
+            if (failure)
+                failure(@"token失效,请重新认证");
         }else{
-            failure(@"分享失败");
+            if (failure)
+                failure(@"分享失败");
         }
     }];
     [request setFailedBlock:^{
@@ -257,6 +261,7 @@
     if (!des || [des isEqualToString:@""])  des = @"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行APP （链接地址）";
     [request setPostValue:des forKey:@"status"];
     [request setPostValue:@0 forKey:@"visible"];
+    image = [UIImage imageNamed:@"PicForWeibo_20130912.jpg"];
     NSData * data  = UIImageJPEGRepresentation(image, compress);
     [request setData:data forKey:@"pic"];
     __weak ASIFormDataRequest * weakSelf = request;

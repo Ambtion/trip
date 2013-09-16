@@ -445,6 +445,7 @@
 		C587365E1785831900950F05 /* setting_Icon_qq@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C587365C1785831900950F05 /* setting_Icon_qq@2x.png */; };
 		C587366117858C6E00950F05 /* FeedBackController.m in Sources */ = {isa = PBXBuildFile; fileRef = C587365F17858C6E00950F05 /* FeedBackController.m */; };
 		C587366317858DA000950F05 /* setting_logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C587366217858DA000950F05 /* setting_logout@2x.png */; };
+		C589D6FB17E6A0EC00977053 /* PicForWeibo_20130912.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C589D6FA17E6A0EC00977053 /* PicForWeibo_20130912.jpg */; };
 		C589FB8917BDC69900E04BF9 /* popup_alert.png in Resources */ = {isa = PBXBuildFile; fileRef = C589FB8817BDC69900E04BF9 /* popup_alert.png */; };
 		C589FB8D17BDCD3700E04BF9 /* AVertCoastController.m in Sources */ = {isa = PBXBuildFile; fileRef = C589FB8B17BDCD3700E04BF9 /* AVertCoastController.m */; };
 		C589FB8E17BDCD3700E04BF9 /* AVertCoastController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C589FB8C17BDCD3700E04BF9 /* AVertCoastController.xib */; };
@@ -1299,6 +1300,7 @@
 		C587365F17858C6E00950F05 /* FeedBackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackController.m; sourceTree = "<group>"; };
 		C587366017858C6E00950F05 /* FeedBackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackController.h; sourceTree = "<group>"; };
 		C587366217858DA000950F05 /* setting_logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_logout@2x.png"; sourceTree = "<group>"; };
+		C589D6FA17E6A0EC00977053 /* PicForWeibo_20130912.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = PicForWeibo_20130912.jpg; sourceTree = "<group>"; };
 		C589FB8817BDC69900E04BF9 /* popup_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_alert.png; sourceTree = "<group>"; };
 		C589FB8A17BDCD3700E04BF9 /* AVertCoastController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVertCoastController.h; sourceTree = "<group>"; };
 		C589FB8B17BDCD3700E04BF9 /* AVertCoastController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVertCoastController.m; sourceTree = "<group>"; };
@@ -2177,6 +2179,7 @@
 		B859F7C51775AC4C00313DE0 = {
 			isa = PBXGroup;
 			children = (
+				C589D6FA17E6A0EC00977053 /* PicForWeibo_20130912.jpg */,
 				C58F39AF17C1B0EA00D6C880 /* Icon@2x.png */,
 				C58F39AD17C1B0E500D6C880 /* Icon.png */,
 				B8DC2ACF17A3973C002A4C92 /* Default.png */,
@@ -3316,6 +3319,7 @@
 				C57F95BF17DD611100F44F48 /* 03_for5.png in Resources */,
 				C57F95C017DD611100F44F48 /* 03.png in Resources */,
 				C57D3E8517DF49F5009D2D41 /* rect.png in Resources */,
+				C589D6FB17E6A0EC00977053 /* PicForWeibo_20130912.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

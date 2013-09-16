@@ -81,7 +81,6 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 - (void)addTableView
 {
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44)style:UITableViewStyleGrouped];
-//    _tableView.backgroundColor = [UIColor redColor];
     UIView * bgview = [[UIView alloc] initWithFrame:_tableView.bounds];
     bgview.backgroundColor = [UIColor colorWithRed:235.f/255 green:235.f/255 blue:235.f/255 alpha:1];
     _tableView.backgroundView = bgview;
