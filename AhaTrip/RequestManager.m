@@ -221,23 +221,22 @@
 //分享到sina
 + (void)sharePhoto:(UIImage*)image ToQQwithDes:(NSString *)des compressionQuality:(CGFloat)compress  success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    DLog();
-    __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"https://graph.qq.com/photo/upload_pic"]];
+    __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"https://graph.qq.com/t/add_pic_t"]];
     [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"access_token"] forKey:@"access_token"];
     [request setPostValue:QQAPPID forKey:@"oauth_consumer_key"];
     [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"openid"] forKey:@"openid"];
-    [request setPostValue:@1 forKey:@"mobile"];
-//    [request setPostValue:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行" forKey:@"photodesc"];
+    [request setPostValue:des forKey:@"content"];
     [request setPostValue:des forKey:@"photodesc"];
     NSData * data = UIImageJPEGRepresentation(image, compress);
-    [request setData:data forKey:@"picture"];
+    [request setData:data forKey:@"pic"];
     __weak ASIFormDataRequest * weakSelf = request;
     
     [request setCompletionBlock:^{
         DLog(@"%@",[weakSelf responseString]);
         NSInteger ret = [[[[weakSelf responseString] JSONValue] objectForKey:@"ret"] integerValue];
         if (!ret) {
-            success(nil);
+            if (success)
+                success(nil);
         }else if( (ret>= 100013 && ret >= 100016) || ret == 9016 ||
                  ret == 9017 || ret == 9018 || ret == 9094 || ret == 41003){
             if (failure)
@@ -251,6 +250,36 @@
         failure(@"连接失败,请重新分享");
     }];
     [request startAsynchronous];
+    
+    //    __block ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"https://graph.qq.com/photo/upload_pic"]];
+    //    [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"access_token"] forKey:@"access_token"];
+    //    [request setPostValue:QQAPPID forKey:@"oauth_consumer_key"];
+    //    [request setPostValue:[[LoginStateManager getTokenInfo:QQShare] objectForKey:@"openid"] forKey:@"openid"];
+    //    [request setPostValue:@1 forKey:@"mobile"];
+    ////    [request setPostValue:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行" forKey:@"photodesc"];
+    //    [request setPostValue:des forKey:@"photodesc"];
+    //    NSData * data = UIImageJPEGRepresentation(image, compress);
+    //    [request setData:data forKey:@"picture"];
+    //    __weak ASIFormDataRequest * weakSelf = request;
+    //
+    //    [request setCompletionBlock:^{
+    //        DLog(@"%@",[weakSelf responseString]);
+    //        NSInteger ret = [[[[weakSelf responseString] JSONValue] objectForKey:@"ret"] integerValue];
+    //        if (!ret) {
+    //            success(nil);
+    //        }else if( (ret>= 100013 && ret >= 100016) || ret == 9016 ||
+    //                 ret == 9017 || ret == 9018 || ret == 9094 || ret == 41003){
+    //            if (failure)
+    //                failure(@"token失效,请重新认证");
+    //        }else{
+    //            if (failure)
+    //                failure(@"分享失败");
+    //        }
+    //    }];
+    //    [request setFailedBlock:^{
+    //        failure(@"连接失败,请重新分享");
+    //    }];
+    //    [request startAsynchronous];
     
 }
 

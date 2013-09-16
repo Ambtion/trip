@@ -593,7 +593,7 @@
 }
 - (void)tencentDidLogin
 {
-    [RequestManager bindWithAccessToken:[[self AppDelegate] tencentOAuth].accessToken ToSina:YES Success:^(NSString *response) {
+    [RequestManager bindWithAccessToken:[[self AppDelegate] tencentOAuth].accessToken ToSina:NO Success:^(NSString *response) {
         [LoginStateManager storeQQTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:[[self AppDelegate] tencentOAuth].openId,@"openid",[[self AppDelegate] tencentOAuth].accessToken,@"access_token", nil]];
     } failure:^(NSString *error) {
         [self showTotasViewWithMes:@"绑定失败"];
