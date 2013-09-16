@@ -39,6 +39,7 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
     }else{
         shouldUpload = YES;
     }
+    [_tableView reloadData];
 }
 - (void)getUserInfo
 {

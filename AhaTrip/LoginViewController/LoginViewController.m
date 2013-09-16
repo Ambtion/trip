@@ -193,7 +193,6 @@
     [RequestManager loingWithUserName:useName passpord:passWord success:^(NSString *response) {
         NSDictionary * dic = [[response JSONValue] objectForKey:@"result"];
         [hud hide:YES];
-        DLog(@"%@",dic);
         if ([[dic objectForKey:@"code"] intValue] == 200) {
             [LoginStateManager storelastName:_usernameTextField.text];
             [self handleLoginInfo:dic];
@@ -217,15 +216,22 @@
 
 #pragma mark Handle Login Result
 
-- (void)handleLoginInfo:(NSDictionary *)response 
+- (void)handleLoginInfo:(NSDictionary *)response
 {
+    DLog(@"%@",response);
     [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[response objectForKey:@"uid"]] withToken:[response objectForKey:@"token"] RefreshToken:@"temp"];
-    //    [LoginStateManager loginUserId:@"2" withToken:@"tRyW4rLBiJHffQ" RefreshToken:@"sdf"];
+    if ([response objectForKey:@"share_qq_open_id"] ) {
+        [LoginStateManager storeQQTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:[response objectForKey:@"share_qq_open_id"],@"openid",[response objectForKey:@"share_qq_token"],@"access_token", nil]];
+
+    }
+    if ([response objectForKey:@"share_weibo_token"]) {
+        [LoginStateManager storeSinaTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:[response objectForKey:@"share_weibo_uid"],@"userID",[response objectForKey:@"share_weibo_token"],@"access_token", nil]];
+    }
+    DLog(@"%d",[LoginStateManager isQQBing]);
     [self cancelLogin:nil];
 }
 - (void)showError:(NSString *)error
 {
-    //    [self showPopAlerViewRatherThentasView:YES WithMes:error];
     if ([_delegate respondsToSelector:@selector(loginViewController:loginFailtureWithinfo:)])
         [_delegate loginViewController:self loginFailtureWithinfo:error];
 }
