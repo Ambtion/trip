@@ -30,7 +30,7 @@
     self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
     self.viewDeckController.delegate = nil;
     self.viewDeckController.rightController = nil;
-    [self getMoreFromeNetWork];
+    [self refresFromeNetWork];
 }
 - (void)addCusNavBar
 {

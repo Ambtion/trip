@@ -512,14 +512,19 @@
 //sina 关注用户
 + (void)createdFriendsWithSinaToken:(NSString *)token Success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {
-    [self sharePhoto:[UIImage imageNamed:@"PicForWeibo_20130912.jpg"] ToSinawithDes:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行" compressionQuality:1.f success:nil failure:failure];
+    
+    [self sharePhoto:[UIImage imageNamed:@"PicForWeibo_20130912.jpg"] ToSinawithDes:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行" compressionQuality:1.f success:nil failure:nil];
     NSString * str = @"https://api.weibo.com/2/friendships/create.json";
     NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:kAppKey,@"source",token,@"access_token",[NSNumber numberWithLongLong:3650084901], @"uid",nil];
     [self postWithURL:str body:dic success:success failure:failure];
-    //    source	false	string	采用OAuth授权方式不需要此参数，其他授权方式为必填参数，数值为应用的AppKey。
-    //    access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
-    //    uid	false	int64	需要关注的用户ID。
-    //    screen_name	false	string	需要关注的用户昵称。
+
+}
++ (void)createdFriendsWithQQToken:(NSString *)token openId:(NSString *)opneId Success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
+{
+    [self sharePhoto:[UIImage imageNamed:@"PicForWeibo_20130912.jpg"] ToQQwithDes:@"小伙伴们你们谁知道台湾夜市有哪几百种小吃？妹纸们都喜欢东南亚哪些奇葩重口味的小玩意er？现在我和世界各地的小伙伴正在一起发掘牛的一笔的旅行发现，住哪儿、吃啥、买什么、跟哪儿玩… 亲，不来一发么？和我一起发现更多灵感，猛击下载@AhaTrip_啊哈旅行" compressionQuality:1.f success:nil failure:nil];
+    NSString * str = @"https://graph.qq.com/relation/add_idol";
+    NSDictionary * dic  = [NSDictionary dictionaryWithObjectsAndKeys:token,@"access_token",QQAPPID,@"oauth_consumer_key",opneId,@"openid",@"AhaTrip_啊哈旅行",@"name",nil];
+    [self postWithURL:str body:dic success:success failure:failure];
 }
 + (void)bindWithAccessToken:(NSString * )token ToSina:(BOOL)isSina  Success:(void (^) (NSString * response))success  failure:(void (^) (NSString * error))failure
 {

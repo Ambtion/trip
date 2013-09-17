@@ -73,8 +73,7 @@ ntfController = _ntfController,setController = _setController;
         cell.iconImage.imageView.image = [UIImage imageNamed:image[indexPath.row]];
         cell.titleLabel.text = menuText[indexPath.row];
     }
-    [cell.countLabel setHidden:indexPath.row != 2];
-//    cell.countLabel.text = [NSString stringWithFormat:@"%d",[[UIApplication sharedApplication] applicationIconBadgeNumber]];
+    [cell.countLabel setHidden:YES];
     if (indexPath.row == 2) {
         [RequestManager getNotificationListCountSuccess:^(NSString *response) {
             NSDictionary * dic  = [response JSONValue];

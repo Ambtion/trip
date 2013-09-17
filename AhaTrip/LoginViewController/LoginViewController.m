@@ -243,17 +243,17 @@
 }
 - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
 {
-    [RequestManager createdFriendsWithSinaToken:sinaweibo.accessToken Success:^(NSString *response) {
-        DLog(@"%@",response);
-    } failure:^(NSString *error) {
-        DLog(@"%@",error);
-    }];
     [RequestManager loginWithOAuthoToken:sinaweibo.accessToken comeFrom:KFromSINA success:^(NSString *response) {
         NSDictionary * dic  = [[response JSONValue] objectForKey:@"result"];
         DLog(@"%@",dic);
         if ([[dic objectForKey:@"code"] intValue] == 200) {
             [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[dic objectForKey:@"uid"]] withToken:[dic objectForKey:@"token"] RefreshToken:@"temp"];
             [LoginStateManager storeSinaTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:sinaweibo.userID,@"userID",sinaweibo.accessToken,@"access_token", nil]];
+            [RequestManager createdFriendsWithSinaToken:sinaweibo.accessToken Success:^(NSString *response) {
+                DLog(@"%@",response);
+            } failure:^(NSString *error) {
+                DLog(@"%@",error);
+            }];
             [self cancelLogin:nil];
         }else{
             [self showPopAlerViewWithMes:@"登陆失败"];
@@ -284,6 +284,11 @@
         if ([[dic objectForKey:@"code"] intValue] == 200) {
             [LoginStateManager loginUserId:[NSString stringWithFormat:@"%@",[dic objectForKey:@"uid"]] withToken:[dic objectForKey:@"token"] RefreshToken:@"temp"];
             [LoginStateManager storeQQTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:[[self AppDelegate] tencentOAuth].openId,@"openid",[[self AppDelegate] tencentOAuth].accessToken,@"access_token", nil]];
+            [RequestManager createdFriendsWithQQToken:[[self AppDelegate] tencentOAuth].accessToken openId:[[self AppDelegate] tencentOAuth].openId Success:^(NSString *response) {
+                DLog(@"%@",response);
+            } failure:^(NSString *error) {
+                DLog(@"%@",error);
+            }];
             [self cancelLogin:nil];
         }else{
             [self showPopAlerViewWithMes:@"登陆失败"];

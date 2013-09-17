@@ -359,7 +359,17 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 }
 - (void)tencentDidLogin
 {
-    DLog(@"%@",[[self AppDelegate] tencentOAuth].accessToken);
+    [RequestManager bindWithAccessToken:[[self AppDelegate] tencentOAuth].accessToken ToSina:YES Success:^(NSString *response) {
+        DLog(@"%@",response);
+        [RequestManager createdFriendsWithQQToken:[[self AppDelegate] tencentOAuth].accessToken openId:[[self AppDelegate] tencentOAuth].openId Success:^(NSString *response) {
+            [LoginStateManager storeQQTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:[[self AppDelegate] tencentOAuth].openId,@"openid",[[self AppDelegate] tencentOAuth].accessToken,@"access_token", nil]];
+            DLog(@"%@",response);
+        } failure:^(NSString *error) {
+            
+        }];
+    } failure:^(NSString *error) {
+        
+    }];
 }
 - (void)tencentDidNotLogin:(BOOL)cancelled
 {
@@ -379,8 +389,18 @@ static NSString * titleSection2[5] = {@"关于我们",@"给AhaTrip打分",@"意�
 }
 - (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
 {
-    DLog(@"%@",[[self AppDelegate] sinaweibo].accessToken);
-//    [self handleLoginInfo:nil];
+   
+    [RequestManager bindWithAccessToken:[sinaweibo accessToken] ToSina:YES Success:^(NSString *response) {
+        DLog(@"%@",response);
+        [LoginStateManager storeSinaTokenInfo:[NSDictionary dictionaryWithObjectsAndKeys:sinaweibo.userID,@"userID",sinaweibo.accessToken,@"access_token", nil]];
+        [RequestManager createdFriendsWithSinaToken:sinaweibo.accessToken Success:^(NSString *response) {
+            DLog(@"%@",response);
+        } failure:^(NSString *error) {
+            
+        }];
+    } failure:^(NSString *error) {
+        
+    }];
 }
 - (void)sinaweiboLogInDidCancel:(SinaWeibo *)sinaweibo
 {
